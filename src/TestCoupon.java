@@ -12,6 +12,9 @@ public class TestCoupon {
 		Company p2 = new Company(2, "tadiran", "234", "bbb");
 		Company p3 = new Company(3, "eci", "333", "ccc");
 		Company p4 = new Company(4, "intel", "451", "abc");
+		Company p5 = new Company(5, "linoy", "6293", "aaa");
+		Company p6 = new Company(6, "lea", "7000", "avvv");
+		
 		
 		Connection con=DriverManager.getConnection(Database.getDBUrl());
 	
@@ -22,10 +25,15 @@ public class TestCoupon {
 //		CompanyFacade.insertCompany(p2);
 //		CompanyFacade.insertCompany(p3);
 //		CompanyFacade.insertCompany(p4);
-		Company p5 = new Company(5, "linoy", "6293", "aaa");
 		CompanyFacade.insertCompany(p5);
 		
-//		CompanyFacade.removeCompany(p3);
+     	CompanyFacade.removeCompany(p1);
+     	CompanyFacade.removeCompany(p2);
+     	CompanyFacade.removeCompany(p3);
+     	CompanyFacade.removeCompany(p4);
+     	CompanyFacade.removeCompany(p5);
+	
+		
 		
 		
 		

@@ -11,7 +11,7 @@ public class Database {
 	public static String getDBUrl() {
 		return "jdbc:derby://localhost:3301/JBDB;create=true";
 	}
-
+/*
 	public static void createTables(Connection con) throws SQLException {
 		
 		String sql;
@@ -31,7 +31,7 @@ public class Database {
 		System.out.println("success:" + sql);
 		
 	}
-
+*/
 	
 	
 }

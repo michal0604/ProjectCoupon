@@ -1,5 +1,4 @@
 
-
 	import java.sql.Connection;
 	import java.sql.DriverManager;
 	import java.sql.PreparedStatement;
@@ -9,29 +8,27 @@
 	import java.util.HashSet;
 	import java.util.Set;
 
-	public class CompanyDBDAO implements CompanyDAO {
+	public class CustomerDBDAO implements CustomerDAO {
 		Connection con;
 
 		@Override
-		public void insertCompany(Company Company) throws Exception {
+		public void insertCustomer(Customer Customer) throws Exception {
 			con = DriverManager.getConnection(Database.getDBUrl());
-			Database.createTables(con);
-			String sql = "INSERT INTO Company (COMP_NAME,PASSWORD,EMAIL) VALUES(?,?,?)";
+		//	Database.createTables(con);
+			String sql = "INSERT INTO Customer (CUST_NAME,PASSWORD) VALUES(?,?)";
 			
 			try (PreparedStatement pstmt = con.prepareStatement(sql)) {
 
 				
-				pstmt.setString(1, Company.getCOMP_NAME());
-				pstmt.setString(2, Company.getPASSWORD());
-				pstmt.setString(3, Company.getEMAIL());
+				pstmt.setString(1, Customer.getCUST_NAME());
+				pstmt.setString(2, Customer.getPASSWORD());
+				
+				
 				pstmt.executeUpdate();
-				
-				//why 1 2 3 
-				
-				System.out.println("Company created" + Company.toString());
+				System.out.println("Customer created" + Customer.toString());
 			} catch (SQLException ex) {
 				System.out.println(ex.getLocalizedMessage());
-				throw new Exception("Company creation failed");
+				throw new Exception("Customer creation failed");
 			} finally {
 				con.close();
 			}
@@ -40,26 +37,22 @@
 		
 
 		@Override
-		public void removeCompany(Company Company) throws Exception {
+		public void removeCustomer(Customer Customer) throws Exception {
 			con = DriverManager.getConnection(Database.getDBUrl());
-			String sql = "DELETE FROM Company WHERE id=?";
+			String pre1 = "DELETE FROM Company WHERE id=?";
 
-			//what is the different statement and preparedStatement
-			try (PreparedStatement pstm1 = con.prepareStatement(sql);) {
+			try (PreparedStatement pstm1 = con.prepareStatement(pre1);) {
 				con.setAutoCommit(false);
-		//autocommit??????
-				pstm1.setLong(1, Company.getID());
+				pstm1.setLong(1, Customer.getId());
 				pstm1.executeUpdate();
 				con.commit();
-			//con.commit????
 			} catch (SQLException e) {
 				try {
 					con.rollback();
-			//what is rollback??????
 				} catch (SQLException e1) {
 					throw new Exception("Database error");
 				}
-				throw new Exception("failed to remove Company");
+				throw new Exception("failed to remove customer");
 			} finally {
 				con.close();
 			}
@@ -68,71 +61,75 @@
 		
 
 		@Override
-		public void updateCompany(Company Company) throws Exception {
+		public void updateCustomer(Customer Customer) throws Exception {
 			con = DriverManager.getConnection(Database.getDBUrl());
 			try (Statement stm = con.createStatement()) {
-				String sql = "UPDATE Company " + " SET name='" + Company.getCOMP_NAME() + "', Password='" + Company.getPASSWORD()+"',email='"+Company.getEMAIL()
-						+ "' WHERE ID=" + Company.getID();
+				String sql = "UPDATE Customer " + " SET name='" + Customer.getCUST_NAME() + "', Password='" + Customer.getPASSWORD()
+						+ "' WHERE ID=" + Customer.getId();
 				stm.executeUpdate(sql);
 			} catch (SQLException e) {
-				throw new Exception("update Company failed");
+				throw new Exception("update Customer failed");
 			}con.close();
 		}
 			
 		
 
 		@Override
-		public Company getPCompany(long id) throws Exception {
+		public Customer getCustomer(long id) throws Exception {
 			con = DriverManager.getConnection(Database.getDBUrl());
-			Company Company = new Company();
+			Customer Customer = new Customer();
 			try (Statement stm = con.createStatement()) {
-				String sql = "SELECT * FROM Company WHERE ID=" + id;
+				String sql = "SELECT * FROM Customer WHERE ID=" + id;
 				ResultSet rs = stm.executeQuery(sql);
 				rs.next();
-				Company.setID(rs.getLong(1));
-				Company.setCOMP_NAME(rs.getString(2));
-				Company.setPASSWORD(rs.getString(3));
-				Company.setEMAIL(rs.getString(4));
+				Customer.setId(rs.getLong(1));
+				Customer.setCUST_NAME(rs.getString(2));
+				Customer.setPASSWORD(rs.getString(3));
+				
 
 			} catch (SQLException e) {
-				throw new Exception("unable to get Company data");
+				throw new Exception("unable to get Customer data");
 			} finally {
 				con.close();
 			}
-			return Company;
+			return Customer;
 		}
+			
+		
 
 		@Override
-		public Set<Company> getAllCompanys() throws Exception {
+		public Set<Customer> getAllCustomer() throws Exception {
 			con = DriverManager.getConnection(Database.getDBUrl());
-			Set<Company> set = new HashSet<>();
-			String sql = "SELECT id FROM Company";
+			Set<Customer> set = new HashSet<>();
+			String sql = "SELECT id FROM Customer";
 			try (Statement stm = con.createStatement(); ResultSet rs = stm.executeQuery(sql)) {
 				while (rs.next()) {
 					long id = rs.getLong(1);
-					String COMP_NAME = rs.getString(1);
+					String CUST_NAME = rs.getString(1);
 					String PASSWORD = rs.getString(1);
-					String EMAIL = rs.getString(1);
+					
 
-					set.add(new Company());
+					set.add(new Customer());
 				}
 			} catch (SQLException e) {
 				System.out.println(e);
-				throw new Exception("cannot get Company data");
+				throw new Exception("cannot get Customer data");
 			} finally {
 				con.close();
 			}
 			return set;
 		}
 		
-		public Company dropTable()throws Exception{
+
+		@Override
+		public Customer dropTable() throws Exception {
 			Connection connection=null;
 			try {
 				// Create a connection:
 				con = DriverManager.getConnection(Database.getDBUrl());
 
 				// Create sql command for delete one record:
-				String sql = "drop table ",Company;
+				String sql = "drop table %s",MyCustomer;
 
 				// Create an object for executing the above command:
 				PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -158,10 +155,6 @@
 			
 		}
 		
-
-
-
+		
 		}
-
-
-
+			
