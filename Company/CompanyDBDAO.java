@@ -15,7 +15,7 @@
 		@Override
 		public void insertCompany(Company Company) throws Exception {
 			con = DriverManager.getConnection(Database.getDBUrl());
-		//.createTables(con);
+		//Database.createTables(con);
 			String sql = "INSERT INTO Company (COMP_NAME,PASSWORD,EMAIL) VALUES(?,?,?)";
 			
 			try (PreparedStatement pstmt = con.prepareStatement(sql)) {

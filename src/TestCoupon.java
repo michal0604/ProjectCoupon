@@ -14,19 +14,17 @@ public class TestCoupon {
 		Company p4 = new Company(4, "intel", "451", "abc");
 		Company p5 = new Company(5, "linoy", "6293", "aaa");
 		Company p6 = new Company(6, "lea", "7000", "avvv");
-		
-		
+			
 		Connection con=DriverManager.getConnection(Database.getDBUrl());
 	
-	//	Database.createTables(con);
-
-		CompanyFacade CompanyFacade = new CompanyFacade();
-//		CompanyFacade.insertCompany(p1);
-//		CompanyFacade.insertCompany(p2);
-//		CompanyFacade.insertCompany(p3);
-//		CompanyFacade.insertCompany(p4);
+	Database.createTables(con);
+	/*	CompanyFacade CompanyFacade = new CompanyFacade();
+		CompanyFacade.insertCompany(p1);
+		CompanyFacade.insertCompany(p2);
+		CompanyFacade.insertCompany(p3);
+		CompanyFacade.insertCompany(p4);
 		CompanyFacade.insertCompany(p5);
-		
+	
      	CompanyFacade.removeCompany(p1);
      	CompanyFacade.removeCompany(p2);
      	CompanyFacade.removeCompany(p3);
@@ -35,20 +33,20 @@ public class TestCoupon {
 	
 		
 		
+	*/	
 		
+		Customer  c1=new Customer(99, "uri", "222");
+		Customer  c2=new Customer(6, "Oz", "272");
+		Customer  c3=new Customer(77, "Pazit", "777");
 		
-//		Customer  c1=new Customer(1, "uri", "222");
-//		Customer  c2=new Customer(2, "Oz", "272");
-//		Customer  c3=new Customer(3, "Pazit", "777");
-//		
-//		
-//		Database.createTables(con);
-//		CustomerFacade customerFacade=new CustomerFacade();
-//		customerFacade.insertCustomer(c1);
-//		customerFacade.insertCustomer(c2);
-//		customerFacade.insertCustomer(c3);
-//		 System.out.println(customerFacade.getAllCustomer());
-//		
+		System.out.println("hjj");
+	
+		CustomerFacade customerFacade=new CustomerFacade();
+		customerFacade.insertCustomer(c1);
+		customerFacade.insertCustomer(c2);
+		customerFacade.insertCustomer(c3);
+		 
+		
 		
 
 		

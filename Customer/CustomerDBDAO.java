@@ -14,7 +14,7 @@
 		@Override
 		public void insertCustomer(Customer Customer) throws Exception {
 			con = DriverManager.getConnection(Database.getDBUrl());
-		//	Database.createTables(con);
+			//Database.createTables(con);
 			String sql = "INSERT INTO Customer (CUST_NAME,PASSWORD) VALUES(?,?)";
 			
 			try (PreparedStatement pstmt = con.prepareStatement(sql)) {
@@ -39,7 +39,7 @@
 		@Override
 		public void removeCustomer(Customer Customer) throws Exception {
 			con = DriverManager.getConnection(Database.getDBUrl());
-			String pre1 = "DELETE FROM Company WHERE id=?";
+			String pre1 = "DELETE FROM Customer WHERE id=?";
 
 			try (PreparedStatement pstm1 = con.prepareStatement(pre1);) {
 				con.setAutoCommit(false);
@@ -129,7 +129,7 @@
 				con = DriverManager.getConnection(Database.getDBUrl());
 
 				// Create sql command for delete one record:
-				String sql = "drop table %s",MyCustomer;
+				String sql = "drop table ",MyCustomer;
 
 				// Create an object for executing the above command:
 				PreparedStatement preparedStatement = connection.prepareStatement(sql);
