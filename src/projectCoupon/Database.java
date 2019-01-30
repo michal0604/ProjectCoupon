@@ -1,6 +1,6 @@
 //check if this go to new michal branch
 
-//sdfsd
+
 package projectCoupon;
 
 import java.sql.Connection;
