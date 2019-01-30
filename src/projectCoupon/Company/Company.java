@@ -1,3 +1,4 @@
+package projectCoupon.Company;
 
 public class Company {
 	private long ID;

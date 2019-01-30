@@ -1,12 +1,15 @@
+package projectCoupon.Customer;
 
 	import java.sql.Connection;
-	import java.sql.DriverManager;
-	import java.sql.PreparedStatement;
-	import java.sql.ResultSet;
-	import java.sql.SQLException;
-	import java.sql.Statement;
-	import java.util.HashSet;
-	import java.util.Set;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.HashSet;
+import java.util.Set;
+
+import projectCoupon.Database;
 
 	public class CustomerDBDAO implements CustomerDAO {
 		Connection con;

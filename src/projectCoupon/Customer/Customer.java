@@ -1,3 +1,4 @@
+package projectCoupon.Customer;
 
 public class Customer {
 
