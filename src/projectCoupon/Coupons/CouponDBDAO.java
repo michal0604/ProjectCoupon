@@ -23,6 +23,10 @@ import projectCoupon.Database;
 				pstmt.setDate(2, Coupon.getStart_date());
 				pstmt.setDate(2, Coupon.getEnd_Date());
 				pstmt.setInt(4, Coupon.getAmount());
+				pstmt.setString(5, Coupon.get
+				pstmt.setInt(4, Coupon.getAmount());
+				pstmt.setInt(4, Coupon.getAmount());
+				pstmt.setInt(4, Coupon.getAmount());
 				pstmt.executeUpdate();
 
 				// why 1 2 3
