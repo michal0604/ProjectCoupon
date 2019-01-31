@@ -1,11 +1,6 @@
-//check if this go to new michal branch
-//roie
+//TODO check if this go to new michal branch
 
 package projectCoupon;
-
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 public class Database {
 

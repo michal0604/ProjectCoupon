@@ -48,6 +48,7 @@ public class CompanyDBDAO implements CompanyDAO {
 		} 
 		catch (SQLException ex) {
 			System.out.println(ex.getLocalizedMessage());
+			//TODO Crate an suited Exception
 			throw new Exception("Company creation failed");
 		} 
 		finally {
@@ -65,19 +66,19 @@ public class CompanyDBDAO implements CompanyDAO {
 		con = DriverManager.getConnection(Database.getDBUrl());
 		String sql = "DELETE FROM Company WHERE id=?";
 
-		// what is the different statement and preparedStatement
+		//TODO what is the different statement and preparedStatement
 		try (PreparedStatement pstm1 = con.prepareStatement(sql);) {
 			con.setAutoCommit(false);
-			// autocommit??????
+			//TODO  autocommit??????
 			pstm1.setLong(1, Company.getId());
 			pstm1.executeUpdate();
 			con.commit();
-			// con.commit????
+			// TODO con.commit????
 		} 
 		catch (SQLException e) {
 			try {
 				con.rollback();
-				// what is rollback??????
+				//TODO what is rollback??????
 			} 
 			catch (SQLException e1) {
 				throw new Exception("Database error");
@@ -98,8 +99,8 @@ public class CompanyDBDAO implements CompanyDAO {
 	public void updateCompany(Company Company) throws Exception {
 		con = DriverManager.getConnection(Database.getDBUrl());
 		try (Statement stm = con.createStatement()) {
-			String sql = "UPDATE Company " + " SET name='" + Company.getCOMP_NAME() + "', Password='"
-					+ Company.getPASSWORD() + "',email='" + Company.getEMAIL() + "' WHERE ID=" + Company.getID();
+			String sql = "UPDATE Company " + " SET name='" + Company.getCompName() + "', Password='"
+					+ Company.getPassword() + "',email='" + Company.getEmail() + "' WHERE ID=" + Company.getId();
 			stm.executeUpdate(sql);
 		} 
 		catch (SQLException e) {
@@ -163,7 +164,7 @@ public class CompanyDBDAO implements CompanyDAO {
 	}
 
 	/**
-	 * 
+	 * dropes the company table from Database
 	 * 
 	 * @see projectCoupon.Company.CompanyDAO#dropTable()
 	 */

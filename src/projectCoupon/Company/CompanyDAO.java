@@ -9,7 +9,7 @@ public interface CompanyDAO {
 
 	void updateCompany(Company Company) throws Exception;
 
-	Company getPCompany(long id) throws Exception;
+	Company getCompany(long id) throws Exception;
 
 	Set<Company> getAllCompanys() throws Exception;
 
