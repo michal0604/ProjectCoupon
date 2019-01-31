@@ -31,6 +31,16 @@ public class Coupon {
 		Price = price;
 		this.image = image;
 	}
+	
+	
+	public long getID() {
+		return ID;
+	}
+
+	public void setID(long iD) {
+		ID = iD;
+	}
+
 	public String getTitle() {
 		return Title;
 	}
