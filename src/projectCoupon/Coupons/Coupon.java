@@ -3,87 +3,113 @@ package projectCoupon.Coupons;
 import java.sql.Date;
 
 public class Coupon {
-	private long ID;
-	private String Title;
-	private Date Start_date;
-	private Date End_Date;
-	private Integer amount;
-	 public enum string {
-		 type(); 
-	 }
-	private String Message;
-	private Double Price;
+	private long id;
+	private String title;
+	private Date start_date;
+	private Date end_date;
+	private int amount;
+	 private couponType type;
+	private String message;
+	private Double price;
 	private String image;
 	
 	public Coupon() {
 
 	}
 	
-	public Coupon(long iD, String title, Date start_date, Date end_Date, Integer amount, String message, Double price,
+
+	public Coupon(long id, String title, Date start_date, Date end_date, int amount, String message, Double price,
 			String image) {
 		super();
-		ID = iD;
-		Title = title;
-		Start_date = start_date;
-		End_Date = end_Date;
+		this.id = id;
+		this.title = title;
+		this.start_date = start_date;
+		this.end_date = end_date;
 		this.amount = amount;
-		Message = message;
-		Price = price;
+		this.message = message;
+		this.price = price;
 		this.image = image;
 	}
-	
-	
-	public long getID() {
-		return ID;
+
+
+	public long getId() {
+		return id;
 	}
 
-	public void setID(long iD) {
-		ID = iD;
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public String getTitle() {
-		return Title;
+		return title;
 	}
+
 	public void setTitle(String title) {
-		Title = title;
+		this.title = title;
 	}
+
 	public Date getStart_date() {
-		return Start_date;
+		return start_date;
 	}
+
 	public void setStart_date(Date start_date) {
-		Start_date = start_date;
+		this.start_date = start_date;
 	}
-	public Date getEnd_Date() {
-		return End_Date;
+
+	public Date getEnd_date() {
+		return end_date;
 	}
-	public void setEnd_Date(Date end_Date) {
-		End_Date = end_Date;
+
+	public void setEnd_date(Date end_date) {
+		this.end_date = end_date;
 	}
-	public Integer getAmount() {
+
+	public int getAmount() {
 		return amount;
 	}
-	public void setAmount(Integer amount) {
+
+	public void setAmount(int amount) {
 		this.amount = amount;
 	}
+
+	public couponType getType() {
+		return type;
+	}
+
+	public void setType(couponType type) {
+		this.type = type;
+	}
+
 	public String getMessage() {
-		return Message;
+		return message;
 	}
+
 	public void setMessage(String message) {
-		Message = message;
+		this.message = message;
 	}
+
 	public Double getPrice() {
-		return Price;
+		return price;
 	}
+
 	public void setPrice(Double price) {
-		Price = price;
+		this.price = price;
 	}
+
 	public String getImage() {
 		return image;
 	}
+
 	public void setImage(String image) {
 		this.image = image;
 	}
-	
-	
 
+
+	@Override
+	public String toString() {
+		return "Coupon [id=" + id + ", title=" + title + ", start_date=" + start_date + ", end_date=" + end_date
+				+ ", amount=" + amount + ", message=" + message + ", price=" + price + ", image=" + image + "]";
+	}
+	
+	
 }
