@@ -1,3 +1,4 @@
+//delete
 package projectCoupon.Company;
 
 public class Company {
@@ -53,7 +54,5 @@ public class Company {
 	public String toString() {
 		return "Company [ID=" + ID + ", COMP_NAME=" + COMP_NAME + ", PASSWORD=" + PASSWORD + ", EMAIL=" + EMAIL + "]";
 	}
-
-	
 
 }
