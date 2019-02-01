@@ -4,5 +4,7 @@ public enum couponType {
 	FOOD,
 	ELECTRICITY,
     LEISURE,
-    HOLIDAY,
+    HOLIDAY
+    
 }
+
