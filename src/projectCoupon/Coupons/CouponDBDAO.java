@@ -16,25 +16,27 @@ import projectCoupon.Company.Company;
 		Connection con;
 
 		@Override
-		public void insertCoupon(Coupon Coupon) throws Exception {
+		public void insertCoupon(Coupon coupon) throws Exception {
 			con = DriverManager.getConnection(Database.getDBUrl());
 			
 			String sql = "INSERT INTO Coupon (title,start_date,end_date,amount,type,message,price,image) VALUES(?,?,?,?,?,?,?,?)";
 
 			try (PreparedStatement pstmt = con.prepareStatement(sql)) {
 
-				pstmt.setString(1, Coupon.getTitle());
-				pstmt.setDate(2, Coupon.getStart_date());
-				pstmt.setDate(3, Coupon.getEnd_date());
-				pstmt.setInt(4, Coupon.getAmount());
-				pstmt.setString(5, Coupon.getMessage());
-				pstmt.setDouble(6, Coupon.getPrice());
-				pstmt.setString(7, Coupon.getImage());
+				pstmt.setString(1, coupon.getTitle());
+				pstmt.setString(2, coupon.getStart_date());
+				pstmt.setString(3, coupon.getEnd_date());
+				pstmt.setInt(4, coupon.getAmount());
+				pstmt.setString(5, coupon.getType().name());
+			
+				pstmt.setString(5, coupon.getMessage());
+				pstmt.setDouble(6, coupon.getPrice());
+				pstmt.setString(7, coupon.getImage());
 				pstmt.executeUpdate();
 
 				
 
-				System.out.println("Coupon created" + Coupon.toString());
+				System.out.println("Coupon created" + coupon.toString());
 			} catch (SQLException ex) {
 				System.out.println(ex.getLocalizedMessage());
 				throw new Exception("Coupon creation failed");
@@ -94,15 +96,42 @@ import projectCoupon.Company.Company;
 				rs.next();
 				Coupon.setId(rs.getLong(1));
 				Coupon.setTitle(rs.getString(2));
-				Coupon.setStart_date(rs.getDate(3));
-				Coupon.setEnd_date(rs.getDate(4));
+				Coupon.setStart_date(rs.getString(3));
+				Coupon.setEnd_date(rs.getString(4));
 				Coupon.setAmount(rs.getInt(5));
 				Coupon.setMessage(rs.getString(6));
 				Coupon.setPrice(rs.getDouble(7));
 				Coupon.setImage(rs.getString(8));
+				couponType type = null ;
+				switch (type.getClass().getName()) {
+				case "food":
+					type=couponType.FOOD;
+					break;
+				case "Resturans":
+					type=couponType.HOLIDAY;
+					break;
+				case "Electricity":
+					type=couponType.ELECTRICITY;
+					break;
+				case "Health":
+					type=couponType.HOLIDAY;
+					break;
+				case "Sports":
+					type=couponType.LEISURE;
+					break;
+				case "Camping":
+					type=couponType.ELECTRICITY;
+					break;
+				case "Traveling":
+					type=couponType.LEISURE;
+					break;
+				default:
+					System.out.println("Coupon not existent");
+					break;
+				}
+			}
 				
-				
-			} catch (SQLException e) {
+			catch (SQLException e) {
 				throw new Exception("unable to get Coupon data");
 			} finally {
 				con.close();

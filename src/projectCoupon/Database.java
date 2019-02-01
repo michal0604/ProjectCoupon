@@ -41,7 +41,7 @@ public class Database {
 	 Statement stmt=con.createStatement();
 		sql = "create table coupon ("
 				+ "id bigint not null primary key generated always as identity(start with 1, increment by 1), "
-				+ "title varchar(50) not null, " + "start_date varchar(50) not null, "+"end_date varchar(50 not null, "+"amount bigint not null,"
+				+ "title varchar(50) not null, " + "start_date Date not null, "+"end_date Date not null, "+"amount bigint not null,"
 						+ "  "+"message varchar(50) not null, "+"price float not null, "+"image varchar(50) not null)";
 		stmt.executeUpdate(sql);
 		System.out.println("success:" + sql);
