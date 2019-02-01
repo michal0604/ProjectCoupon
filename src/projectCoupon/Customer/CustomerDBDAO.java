@@ -24,8 +24,8 @@ import projectCoupon.Database;
 			try (PreparedStatement pstmt = con.prepareStatement(sql)) {
 
 				
-				pstmt.setString(1, Customer.getCUST_NAME());
-				pstmt.setString(2, Customer.getPASSWORD());
+				pstmt.setString(1, Customer.getCustomerName());
+				pstmt.setString(2, Customer.getPassword());
 				
 				
 				pstmt.executeUpdate();
@@ -68,7 +68,7 @@ import projectCoupon.Database;
 		public void updateCustomer(Customer Customer) throws Exception {
 			con = DriverManager.getConnection(Database.getDBUrl());
 			try (Statement stm = con.createStatement()) {
-				String sql = "UPDATE Customer " + " SET name='" + Customer.getCUST_NAME() + "', Password='" + Customer.getPASSWORD()
+				String sql = "UPDATE Customer " + " SET name='" + Customer.getCustomerName() + "', Password='" + Customer.getPassword()
 						+ "' WHERE ID=" + Customer.getId();
 				stm.executeUpdate(sql);
 			} catch (SQLException e) {
@@ -87,8 +87,8 @@ import projectCoupon.Database;
 				ResultSet rs = stm.executeQuery(sql);
 				rs.next();
 				Customer.setId(rs.getLong(1));
-				Customer.setCUST_NAME(rs.getString(2));
-				Customer.setPASSWORD(rs.getString(3));
+				Customer.setCustomerName(rs.getString(2));
+				Customer.setPassword(rs.getString(3));
 				
 
 			} catch (SQLException e) {

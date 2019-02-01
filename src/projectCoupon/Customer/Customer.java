@@ -3,18 +3,18 @@ package projectCoupon.Customer;
 public class Customer {
 
 	private long id;
-	private String CUST_NAME;
-	private String PASSWORD;
+	private String customerName;
+	private String password;
 
 	public Customer() {
 
 	}
 
-	public Customer(long id, String cUST_NAME, String pASSWORD) {
+	public Customer(long id, String customerName, String password) {
 		super();
 		this.id = id;
-		CUST_NAME = cUST_NAME;
-		PASSWORD = pASSWORD;
+		this.customerName = customerName;
+		this.password = password;
 	}
 
 	public long getId() {
@@ -25,25 +25,25 @@ public class Customer {
 		this.id = id;
 	}
 
-	public String getCUST_NAME() {
-		return CUST_NAME;
+	public String getCustomerName() {
+		return customerName;
 	}
 
-	public void setCUST_NAME(String cUST_NAME) {
-		CUST_NAME = cUST_NAME;
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
 	}
 
-	public String getPASSWORD() {
-		return PASSWORD;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setPASSWORD(String pASSWORD) {
-		PASSWORD = pASSWORD;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	@Override
 	public String toString() {
-		return "Customer [id=" + id + ", CUST_NAME=" + CUST_NAME + ", PASSWORD=" + PASSWORD + "]";
+		return "Customer Name=" + customerName+", id=" + id ;
 	}
 	
 	

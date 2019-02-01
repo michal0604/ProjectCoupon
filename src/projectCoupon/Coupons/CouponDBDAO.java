@@ -12,26 +12,22 @@ import projectCoupon.Database;
 		Connection con;
 
 		@Override
-		public void insertCoupon(Coupon Coupon) throws Exception {
+		public void insertCoupon(Coupon coupon) throws Exception {
 			con = DriverManager.getConnection(Database.getDBUrl());
 			//createTables(con);
 			String sql = "INSERT INTO Coupon (Title,Start_date,End_Date,amount,type()) VALUES(?,?,?,?,?)";
 
 			try (PreparedStatement pstmt = con.prepareStatement(sql)) {
 
-				pstmt.setString(1, Coupon.getTitle());
-				pstmt.setDate(2, Coupon.getStart_date());
-				pstmt.setDate(2, Coupon.getEnd_Date());
-				pstmt.setInt(4, Coupon.getAmount());
-				pstmt.setString(5, Coupon.get
-				pstmt.setInt(4, Coupon.getAmount());
-				pstmt.setInt(4, Coupon.getAmount());
-				pstmt.setInt(4, Coupon.getAmount());
+				pstmt.setString(1, coupon.getTitle());
+				pstmt.setDate(2, coupon.getStart_date());
+				pstmt.setDate(3, coupon.getEnd_Date());
+				pstmt.setInt(4, coupon.getAmount());
+	//todo			pstmt.setString(5, coupon.getType();
 				pstmt.executeUpdate();
 
 				// why 1 2 3
 
-				System.out.println("Company created" + Company.toString());
 			} catch (SQLException ex) {
 				System.out.println(ex.getLocalizedMessage());
 				throw new Exception("Company creation failed");
@@ -40,7 +36,6 @@ import projectCoupon.Database;
 			}
 		}
 			
-		}
 
 		@Override
 		public void removeCoupon(Coupon Coupon) throws Exception {

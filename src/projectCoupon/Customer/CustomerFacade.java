@@ -4,32 +4,32 @@ import java.util.Set;
 
 public class CustomerFacade {
 	private CustomerDBDAO custDAO = new CustomerDBDAO();
-	private Customer Customer;
+	private Customer customer;
 
-	public CustomerFacade(Customer c) {
-		this.Customer = c;
+	public CustomerFacade(Customer customer) {
+		this.customer = customer;
 
 	}
 
 	public CustomerFacade() {
 	}
 
-	public void insertCustomer(Customer Customer) throws Exception {
-		custDAO.insertCustomer(Customer);
+	public void insertCustomer(Customer customer) throws Exception {
+		custDAO.insertCustomer(customer);
 	}
 
-	public void removeCustomer(Customer Customer) throws Exception {
-		custDAO.removeCustomer(Customer);
+	public void removeCustomer(Customer customer) throws Exception {
+		custDAO.removeCustomer(customer);
 	}
 
-	public void updateCustomer(Customer Customer, String newName, String newpassword) throws Exception {
-		Customer.setCUST_NAME(newName);
-		Customer.setPASSWORD(newpassword);
-		custDAO.updateCustomer(Customer);
+	public void updateCustomer(Customer customer, String newName, String newpassword) throws Exception {
+		customer.setCustomerName(newName);
+		customer.setPassword(newpassword);
+		custDAO.updateCustomer(customer);
 	}
 
 	public Customer getCustomer() {
-		return Customer;
+		return customer;
 	}
 
 	public Set<Customer> getAllCustomer() throws Exception {
