@@ -1,7 +1,5 @@
 package projectCoupon.Coupons;
 
-import java.sql.Date;
-
 public class Coupon {
 	private long id;
 	private String title;
@@ -166,17 +164,4 @@ public class Coupon {
 				+ image + "]";
 	}
 
-
-
-
-	
-	}
-	
-
-
-
-
-
-	
-}
 }

@@ -10,7 +10,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import projectCoupon.Database;
-import projectCoupon.Company.Company;
 
 	public class CouponDBDAO implements CouponDAO {
 		Connection con;
@@ -95,7 +94,7 @@ import projectCoupon.Company.Company;
 		}
 			
 		@Override
-		public Coupon getPCoupon(long id) throws Exception {
+		public Coupon getCoupon(long id) throws Exception {
 			con = DriverManager.getConnection(Database.getDBUrl());
 			Coupon Coupon = new Coupon();
 			try (Statement stm = con.createStatement()) {
