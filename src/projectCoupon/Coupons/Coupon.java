@@ -5,8 +5,8 @@ import java.sql.Date;
 public class Coupon {
 	private long id;
 	private String title;
-	private Date start_date;
-	private Date end_date;
+	private String start_date;
+	private String end_date;
 	private int amount;
 	private couponType type;
 	private String message;
@@ -18,19 +18,19 @@ public class Coupon {
 	}
 	
 
-	public Coupon(long id, String title, Date start_date, Date end_date, int amount, String message, Double price,
-			String image) {
+	public Coupon(long id, String title, String start_date, String end_date, int amount, couponType type,
+			String message, Double price, String image) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.start_date = start_date;
 		this.end_date = end_date;
 		this.amount = amount;
+		this.type = type;
 		this.message = message;
 		this.price = price;
 		this.image = image;
 	}
-
 
 	public long getId() {
 		return id;
@@ -43,31 +43,31 @@ public class Coupon {
 	public String getTitle() {
 		return title;
 	}
-
+	
 	public void setTitle(String title) {
 		this.title = title;
 	}
 
-	public Date getStart_date() {
+	public String getStart_date() {
 		return start_date;
 	}
 
-	public void setStart_date(Date start_date) {
+	public void setStart_date(String start_date) {
 		this.start_date = start_date;
 	}
 
-	public Date getEnd_date() {
+	public String getEnd_date() {
 		return end_date;
 	}
 
-	public void setEnd_date(Date end_date) {
+	public void setEnd_date(String end_date) {
 		this.end_date = end_date;
 	}
 
 	public int getAmount() {
 		return amount;
 	}
-
+	
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
@@ -104,12 +104,13 @@ public class Coupon {
 		this.image = image;
 	}
 
-
 	@Override
 	public String toString() {
 		return "Coupon [id=" + id + ", title=" + title + ", start_date=" + start_date + ", end_date=" + end_date
-				+ ", amount=" + amount + ", message=" + message + ", price=" + price + ", image=" + image + "]";
+				+ ", amount=" + amount + ", type=" + type + ", message=" + message + ", price=" + price + ", image="
+				+ image + "]";
 	}
+
 	
 	
 }

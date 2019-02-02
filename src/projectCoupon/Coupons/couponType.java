@@ -6,3 +6,4 @@ public enum couponType {
     LEISURE,
     HOLIDAY,
 }
+

@@ -1,3 +1,4 @@
+//delete
 package projectCoupon.Company;
 
 /**
@@ -111,7 +112,5 @@ public class Company {
 	public String toString() {
 		return "Compant Name=" + compName + ", Email=" + email;
 	}
-
-	
 
 }
