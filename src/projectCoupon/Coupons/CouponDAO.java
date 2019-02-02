@@ -10,7 +10,7 @@ package projectCoupon.Coupons;
 
 		void updateCoupon(Coupon Coupon) throws Exception;
 
-		Coupon getPCoupon(long id) throws Exception;
+		Coupon getCoupon(long id) throws Exception;
 
 		Set<Coupon> getAllCoupon() throws Exception;
 

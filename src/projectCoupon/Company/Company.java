@@ -1,58 +1,116 @@
 //delete
 package projectCoupon.Company;
 
+/**
+ * this calls is for an object representing Company data
+ * 
+ * @author Eivy & Michal
+ *
+ */
 public class Company {
-	private long ID;
-	private String COMP_NAME;
-	private String PASSWORD;
-	private String EMAIL;
+	
+	private long id;
+	private String compName;
+	private String password;
+	private String email;
+	//private List<Coupon> coupons;
 
-	public Company() {
+	/**
+	 *  empty cTor for Company
+	 */
+	public Company() {}
 
+	/**
+	 * full cTor for the company object
+	 * 
+	 * @param id = company id
+	 * @param compName = company name
+	 * @param password = company password 
+	 * @param email = company email
+	 */
+	public Company(long id, String compName, String password, String email) {
+		this.id = id;
+		this.compName = compName;
+		this.password = password;
+		this.email = email;
 	}
 
-	public Company(long iD, String cOMP_NAME, String pASSWORD, String eMAIL) {
-		ID = iD;
-		COMP_NAME = cOMP_NAME;
-		PASSWORD = pASSWORD;
-		EMAIL = eMAIL;
+	/**
+	 * @return the id of the company.
+	 */
+	public long getId() {
+		return id;
 	}
 
-	public long getID() {
-		return ID;
+	/**
+	 * @param id  Sets the id of company.
+	 */
+	public void setId(long id) {
+		this.id = id;
 	}
 
-	public void setID(long iD) {
-		ID = iD;
+	/**
+	 * @return the company name.
+	 */
+	public String getCompName() {
+		return compName;
 	}
 
-	public String getCOMP_NAME() {
-		return COMP_NAME;
+	/**
+	 * @param compName set the company name.
+	 */
+	public void setCompName(String compName) {
+		this.compName = compName;
 	}
 
-	public void setCOMP_NAME(String cOMP_NAME) {
-		COMP_NAME = cOMP_NAME;
+	/**
+	 * @return the company password.
+	 */
+	public String getPassword() {
+		return password;
 	}
 
-	public String getPASSWORD() {
-		return PASSWORD;
+	/**
+	 * @param password sets the password for the company.
+	 */
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	public void setPASSWORD(String pASSWORD) {
-		PASSWORD = pASSWORD;
+	/**
+	 * @return the company email.
+	 */
+	public String getEmail() {
+		return email;
 	}
 
-	public String getEMAIL() {
-		return EMAIL;
+	/**
+	 * @param email set the companey's email
+	 */
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public void setEMAIL(String eMAIL) {
-		EMAIL = eMAIL;
-	}
+	/**
+	 * @return the list of coupons endorsed by the company
+	 */
+//	public List<Coupon> getCoupons() {
+//		return coupons;
+//	}
 
+	/**
+	 * @param coupons - sets list of coupons endorsed by the company
+	 */
+//	public void setCoupons(List<Coupon> coupons) {
+//		this.coupons = coupons;
+//	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
-		return "Company [ID=" + ID + ", COMP_NAME=" + COMP_NAME + ", PASSWORD=" + PASSWORD + ", EMAIL=" + EMAIL + "]";
+		return "Compant Name=" + compName + ", Email=" + email;
 	}
 
 }

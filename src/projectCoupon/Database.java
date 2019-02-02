@@ -1,7 +1,5 @@
-//check if this go to new michal branch
 //try to work with merge
 //try again to see if merge works
-
 package projectCoupon;
 
 import java.sql.Connection;
