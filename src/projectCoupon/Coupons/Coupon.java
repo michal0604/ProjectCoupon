@@ -8,7 +8,7 @@ public class Coupon {
 	private String start_date;
 	private String end_date;
 	private int amount;
-	 private couponType type;
+	private couponType type;
 	private String message;
 	private Double price;
 	private String image;
@@ -17,8 +17,6 @@ public class Coupon {
 
 	}
 	
-
-
 
 	public Coupon(long id, String title, String start_date, String end_date, int amount, couponType type,
 			String message, Double price, String image) {
@@ -180,3 +178,5 @@ public class Coupon {
 
 
 	
+}
+}
