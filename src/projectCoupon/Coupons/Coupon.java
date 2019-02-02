@@ -32,77 +32,132 @@ public class Coupon {
 		this.image = image;
 	}
 
+
+
+
 	public long getId() {
 		return id;
 	}
+
+
+
 
 	public void setId(long id) {
 		this.id = id;
 	}
 
+
+
+
 	public String getTitle() {
 		return title;
 	}
-	
+
+
+
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
+
+
 
 	public String getStart_date() {
 		return start_date;
 	}
 
+
+
+
 	public void setStart_date(String start_date) {
 		this.start_date = start_date;
 	}
+
+
+
 
 	public String getEnd_date() {
 		return end_date;
 	}
 
+
+
+
 	public void setEnd_date(String end_date) {
 		this.end_date = end_date;
 	}
 
+
+
+
 	public int getAmount() {
 		return amount;
 	}
-	
+
+
+
+
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
+
+
+
 
 	public couponType getType() {
 		return type;
 	}
 
+   
 	public void setType(couponType type) {
 		this.type = type;
 	}
+
+
+
 
 	public String getMessage() {
 		return message;
 	}
 
+
+
+
 	public void setMessage(String message) {
 		this.message = message;
 	}
+
+
+
 
 	public Double getPrice() {
 		return price;
 	}
 
+
+
+
 	public void setPrice(Double price) {
 		this.price = price;
 	}
+
+
+
 
 	public String getImage() {
 		return image;
 	}
 
+
+
+
 	public void setImage(String image) {
 		this.image = image;
 	}
+
+
+
 
 	@Override
 	public String toString() {
@@ -111,6 +166,17 @@ public class Coupon {
 				+ image + "]";
 	}
 
+
+
+
 	
+	}
 	
+
+
+
+
+
+	
+}
 }
