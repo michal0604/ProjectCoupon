@@ -1,3 +1,4 @@
+//test
 package projectCoupon;
 
 import java.sql.Connection;
@@ -5,6 +6,8 @@ import java.sql.DriverManager;
 
 import projectCoupon.Company.Company;
 import projectCoupon.Company.CompanyFacade;
+import projectCoupon.Coupons.Coupon;
+import projectCoupon.Coupons.CouponFacade;
 
 public class TestCoupon {
 
@@ -46,7 +49,7 @@ public class TestCoupon {
 //		Customer  c2=new Customer(2, "Oz", "272");
 //		Customer  c3=new Customer(3, "Pazit", "777");
 //		
-//		
+		
 //		Database.createTables(con);
 //		CustomerFacade customerFacade=new CustomerFacade();
 //		customerFacade.insertCustomer(c1);
@@ -55,7 +58,8 @@ public class TestCoupon {
 //		 System.out.println(customerFacade.getAllCustomer());
 //		
 		
-
+     	CouponFacade couponFacade = new CouponFacade();
+     //	Coupon U1=new Coupon(1, "dd", "17/10/2011", "30/10/2011", 50, "dd", 89,"dd");
 		
 		
 		

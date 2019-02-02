@@ -1,4 +1,4 @@
-//TODO check if this go to new michal branch
+//check if this go to new michal branch
 
 package projectCoupon;
 
