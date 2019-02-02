@@ -1,10 +1,12 @@
 package projectCoupon.Coupons;
 
 public enum couponType {
-	FOOD,
-	ELECTRICITY,
-    LEISURE,
-    HOLIDAY
-    
+	food,
+	Resturans,
+	Electricity,
+	Health,
+	Sports,
+	Camping,
+	Traveling
 }
 

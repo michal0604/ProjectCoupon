@@ -8,7 +8,7 @@ public class Coupon {
 	private String start_date;
 	private String end_date;
 	private int amount;
-	 protected couponType type;
+	 private couponType type;
 	private String message;
 	private Double price;
 	private String image;
@@ -111,9 +111,7 @@ public class Coupon {
 		return type;
 	}
 
-
-
-
+   
 	public void setType(couponType type) {
 		this.type = type;
 	}
@@ -169,9 +167,15 @@ public class Coupon {
 				+ ", amount=" + amount + ", type=" + type + ", message=" + message + ", price=" + price + ", image="
 				+ image + "]";
 	}
+
+
+
+
+	
+	}
 	
 
-}
+
 
 
 
