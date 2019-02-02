@@ -16,7 +16,7 @@ public class TestCoupon {
 
 	public static void main(String[] args) throws Exception {
 
-	Class.forName("org.apache.derby.jdbc.ClientDriver");
+	Class.forName(Database.getDriverData());
 
 	
 		Company p1 = new Company(1, "hp", "123", "aaa");
@@ -29,7 +29,7 @@ public class TestCoupon {
 		
 		Connection con=DriverManager.getConnection(Database.getDBUrl());
 	
-		//Database.createTables(con);
+		Database.createTables(con);
 
 		CompanyFacade CompanyFacade = new CompanyFacade();
 //		CompanyFacade.insertCompany(p1);

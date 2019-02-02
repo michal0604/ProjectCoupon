@@ -18,7 +18,7 @@ import projectCoupon.Database;
 		public void insertCoupon(Coupon coupon) throws Exception {
 			con = DriverManager.getConnection(Database.getDBUrl());
 			
-			String sql = "INSERT INTO MYCOUPON((id,title,start_date,end_date,amount,TYPE,message,price,image) VALUES((?,?,?,?,?,?,?,?))";
+			String sql = "INSERT INTO MYcoupon(TITLE,START_DATE,END_DATE,AMOUNT,TYPE,MESSAGE,PRICE,IMAGE) VALUES(?,?,?,?,?,?,?,?)";
 			
 				/*	+ "
 					+ "'food',"
@@ -29,16 +29,15 @@ import projectCoupon.Database;
 			    */        
 
 			try (PreparedStatement pstmt = con.prepareStatement(sql)) {
-				pstmt.setLong(1, coupon.getId());
-				pstmt.setString(2, coupon.getTitle());
-				pstmt.setString(3, coupon.getStart_date());
-				pstmt.setString(4, coupon.getEnd_date());
-				pstmt.setInt(5, coupon.getAmount());
-				pstmt.setString(6, coupon.getType().name());
+				pstmt.setString(1, coupon.getTitle());
+				pstmt.setString(2, coupon.getStart_date());
+				pstmt.setString(3, coupon.getEnd_date());
+				pstmt.setInt(4, coupon.getAmount());
+				pstmt.setString(5, coupon.getType().name());
 				
-				pstmt.setString(7, coupon.getMessage());
-				pstmt.setDouble(8, coupon.getPrice());
-				pstmt.setString(9, coupon.getImage());
+				pstmt.setString(6, coupon.getMessage());
+				pstmt.setDouble(7, coupon.getPrice());
+				pstmt.setString(8, coupon.getImage());
 				pstmt.executeUpdate();
 
 				
@@ -46,7 +45,7 @@ import projectCoupon.Database;
 				System.out.println("Coupon created" + coupon.toString());
 			} catch (SQLException ex) {
 				System.out.println(ex.getLocalizedMessage());
-				throw new Exception("Coupon creation failed");
+				throw new SQLException("Coupon creation failed");
 			} finally {
 				con.close();
 			}

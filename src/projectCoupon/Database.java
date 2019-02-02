@@ -38,11 +38,19 @@ public class Database {
 */
 		
 	 Statement stmt=con.createStatement();
+	 	sql = "DROP table MYcoupon";
+		stmt.executeUpdate(sql);
 	
 		sql = "create table MYcoupon("
-				+"ID bigint not null primary key generated always as identity(start with 1, increment by 1)," 
-			+"title varchar(50) not null, "+"start_date varchar(50) not null, "+"end_date varchar(50) not null, "+"amount not null, "+"type ENUM('Food','Resturans', 'Electricity','Health','Sport','Camping', 'Traveling') not null, "+" bigint not null, "
-						 +"message varchar(50) not null, "+"price float not null, "+"image varchar(50) not null)";
+				+"ID bigint not null primary key generated always as identity(start with 1, increment by 1),"
+				+"TITLE varchar(50) not null,"
+				+"START_DATE varchar(50) not null,"
+				+"END_DATE varchar(50) not null,"
+				+"AMOUNT int not null,"
+				+"TYPE varchar(30) not null, "
+				+"MESSAGE varchar(50) not null,"
+				+"PRICE float not null,"
+				+"IMAGE varchar(50) not null)";
 		 
 		
 		
