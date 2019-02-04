@@ -44,7 +44,6 @@ public class CompanyDBDAO implements CompanyDAO {
 
 			// why 1 2 3
 
-			System.out.println("Company created" + Company.toString());
 		} 
 		catch (SQLException ex) {
 			System.out.println(ex.getLocalizedMessage());
@@ -143,13 +142,15 @@ public class CompanyDBDAO implements CompanyDAO {
 	public Set<Company> getAllCompanys() throws Exception {
 		con = DriverManager.getConnection(Database.getDBUrl());
 		Set<Company> set = new HashSet<>();
-		String sql = "SELECT id FROM Company";
-		try (Statement stm = con.createStatement(); ResultSet rs = stm.executeQuery(sql)) {
+		String sql = "SELECT * FROM Company";
+		try {
+			Statement stm = con.createStatement(); 
+			ResultSet rs = stm.executeQuery(sql); 
 			while (rs.next()) {
 				long id = rs.getLong(1);
-				String compName = rs.getString(1);
-				String password = rs.getString(1);
-				String email = rs.getString(1);
+				String compName = rs.getString(2);
+				String password = rs.getString(3);
+				String email = rs.getString(4);
 				set.add(new Company(id, compName, password, email));
 			}
 		} 

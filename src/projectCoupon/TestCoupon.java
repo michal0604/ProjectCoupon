@@ -16,12 +16,17 @@ public class TestCoupon {
 
 	public static void main(String[] args) throws Exception {
 
-	
+		Class.forName(Database.getDriverData());
+		Connection con=DriverManager.getConnection(Database.getDBUrl());
+		Database.dropTableifNeeded(con);
+		Database.createTables(con);
+		
 		SimpleDateFormat Date = new SimpleDateFormat("yyyy-MM-dd");
 		CouponFacade couponFacade = new CouponFacade();
 		Date d = new Date(0);
 		Coupon U1 = new Coupon(1, "HH", "2011-09-04", "2013-11-11", 44, couponType.Camping, "jj", 77.9, "f");
 		Coupon U2 = new Coupon(2, "gg", "2011-09-03", "2011-10-18", 77, couponType.Electricity, "hh", 89.7, "tt");
+		
 		couponFacade.insertCoupon(U1);
 		couponFacade.insertCoupon(U2);
 
@@ -32,28 +37,26 @@ public class TestCoupon {
 		Company p5 = new Company(5, "linoy", "6293", "aaa");
 		Company p6 = new Company(6, "lea", "7000", "avvv");
 		
-		Class.forName(Database.getDriverData());
-		Connection con=DriverManager.getConnection(Database.getDBUrl());
-		Database.dropTableifNeeded(con);
-		Database.createTables(con);
+
 
 		CompanyFacade CompanyFacade = new CompanyFacade();
-//		CompanyFacade.insertCompany(p1);
-//		CompanyFacade.insertCompany(p2);
-//		CompanyFacade.insertCompany(p3);
-//		CompanyFacade.insertCompany(p4);
-//		CompanyFacade.insertCompany(p5);
+		CompanyFacade.insertCompany(p1);
+		CompanyFacade.insertCompany(p2);
+		CompanyFacade.insertCompany(p3);
+		CompanyFacade.insertCompany(p4);
 		
-  /*   	CompanyFacade.removeCompany(p1);
-     	CompanyFacade.removeCompany(p2);
-   	CompanyFacade.removeCompany(p3);
+		System.out.println(CompanyFacade.getAllCompany());
+		
+		CompanyFacade.removeCompany(p2);
      	CompanyFacade.removeCompany(p4);
-     	CompanyFacade.removeCompany(p5);
      	CompanyFacade.removeCompany(p6);
      	
-     	CompanyFacade.dropTable();
+     	System.out.println(CompanyFacade.getAllCompany());
      	
-	*/
+     	CompanyFacade.insertCompany(p5);
+		CompanyFacade.insertCompany(p6);
+     	
+		System.out.println(CompanyFacade.getAllCompany());
 		
 		
 		

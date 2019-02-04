@@ -91,6 +91,11 @@ public class Company {
 		this.email = email;
 	}
 
+	@Override
+	public String toString() {
+		return "Company (id=" + id + ", compName=" + compName + ", password=" + password + ", email=" + email + ")";
+	}
+
 	/**
 	 * @return the list of coupons endorsed by the company
 	 */
@@ -105,12 +110,5 @@ public class Company {
 //		this.coupons = coupons;
 //	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "Compant Name=" + compName + ", Email=" + email;
-	}
 
 }

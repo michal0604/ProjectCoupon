@@ -22,28 +22,28 @@ public class Database {
 		Statement stmt;
 		stmt = con.createStatement();
 		try {
-			sql = "DROP table MyCompany";
+			sql = "DROP table Company";
 			stmt.executeUpdate(sql);
-			System.out.println("Droped MyCompany Table");
+			System.out.println("Droped Company Table");
 		} 
 		catch (SQLException e) {
-			System.out.println("MyCompany Table did not exist");
+			System.out.println("Company Table did not exist");
 		}
 		try {
-			sql = "DROP table MyCustomer";
+			sql = "DROP table Customer";
 			stmt.executeUpdate(sql);
-			System.out.println("Droped MyCustomer Table");
+			System.out.println("Droped Customer Table");
 		} 
 		catch (SQLException e) {
-			System.out.println("MyCustomer Table did not exist");
+			System.out.println("Customer Table did not exist");
 		}
 		try {
-			sql = "DROP table MYcoupon";
+			sql = "DROP table Coupon";
 			stmt.executeUpdate(sql);
 			System.out.println("Droped Mycoupon Table");
 		} 
 		catch (SQLException e) {
-			System.out.println("MYcoupon Table did not exist");
+			System.out.println("coupon Table did not exist");
 		}
 	}
 
@@ -53,20 +53,20 @@ public class Database {
 		Statement stmt = con.createStatement();
 
 		// create Company table
-		sql = "create table MyCompany (ID bigint not null primary key generated always as identity(start with 1, increment by 1),"
+		sql = "create table Company (ID bigint not null primary key generated always as identity(start with 1, increment by 1),"
 				+ "COMP_NAME varchar(50) not null," + "PASSWORD varchar(50) not null," + "EMAIL varchar(50) not null)";
 
 		stmt.executeUpdate(sql);
 		System.out.println("success:" + sql);
 		Statement stmt2 = con.createStatement();
-		sql = "create table MyCustomer ("
+		sql = "create table Customer ("
 				+ "ID bigint not null primary key generated always as identity(start with 1, increment by 1), "
 				+ "CUST_NAME varchar(50) not null, " 
 				+ "PASSWORD varchar(50) not null)";
 		stmt2.executeUpdate(sql);
 		System.out.println("success:" + sql);
 
-		sql = "create table MYcoupon("
+		sql = "create table Coupon("
 				+ "ID bigint not null primary key generated always as identity(start with 1, increment by 1),"
 				+ "TITLE varchar(50) not null," 
 				+ "START_DATE varchar(50) not null," 

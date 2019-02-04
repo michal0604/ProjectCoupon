@@ -6,8 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 import projectCoupon.Database;
 
@@ -18,7 +18,7 @@ import projectCoupon.Database;
 		public void insertCoupon(Coupon coupon) throws Exception {
 			con = DriverManager.getConnection(Database.getDBUrl());
 			
-			String sql = "INSERT INTO MYcoupon(TITLE,START_DATE,END_DATE,AMOUNT,TYPE,MESSAGE,PRICE,IMAGE) VALUES(?,?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO coupon(TITLE,START_DATE,END_DATE,AMOUNT,TYPE,MESSAGE,PRICE,IMAGE) VALUES(?,?,?,?,?,?,?,?)";
 			
 				/*	+ "
 					+ "'food',"
@@ -40,9 +40,6 @@ import projectCoupon.Database;
 				pstmt.setString(8, coupon.getImage());
 				pstmt.executeUpdate();
 
-				
-
-				System.out.println("Coupon created" + coupon.toString());
 			} catch (SQLException ex) {
 				System.out.println(ex.getLocalizedMessage());
 				throw new SQLException("Coupon creation failed");
@@ -149,7 +146,7 @@ import projectCoupon.Database;
 		@Override
 		public Set<Coupon> getAllCoupon() throws Exception {
 			con = DriverManager.getConnection(Database.getDBUrl());
-			Set<Coupon> set = new HashSet<>();
+			Set<Coupon> set = new TreeSet<>();
 			String sql = "SELECT id FROM Coupon";
 			try (Statement stm = con.createStatement(); ResultSet rs = stm.executeQuery(sql)) {
 				while (rs.next()) {
