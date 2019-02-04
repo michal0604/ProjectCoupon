@@ -16,9 +16,15 @@ public class TestCoupon {
 
 	public static void main(String[] args) throws Exception {
 
-	Class.forName(Database.getDriverData());
-
 	
+		SimpleDateFormat Date = new SimpleDateFormat("yyyy-MM-dd");
+		CouponFacade couponFacade = new CouponFacade();
+		Date d = new Date(0);
+		Coupon U1 = new Coupon(1, "HH", "2011-09-04", "2013-11-11", 44, couponType.Camping, "jj", 77.9, "f");
+		Coupon U2 = new Coupon(2, "gg", "2011-09-03", "2011-10-18", 77, couponType.Electricity, "hh", 89.7, "tt");
+		couponFacade.insertCoupon(U1);
+		couponFacade.insertCoupon(U2);
+
 		Company p1 = new Company(1, "hp", "123", "aaa");
 		Company p2 = new Company(2, "tadiran", "234", "bbb");
 		Company p3 = new Company(3, "eci", "333", "ccc");
@@ -26,9 +32,9 @@ public class TestCoupon {
 		Company p5 = new Company(5, "linoy", "6293", "aaa");
 		Company p6 = new Company(6, "lea", "7000", "avvv");
 		
-		
+		Class.forName(Database.getDriverData());
 		Connection con=DriverManager.getConnection(Database.getDBUrl());
-	
+		Database.dropTableifNeeded(con);
 		Database.createTables(con);
 
 		CompanyFacade CompanyFacade = new CompanyFacade();
@@ -66,15 +72,7 @@ public class TestCoupon {
 //		
 		
 
-     	SimpleDateFormat Date=new SimpleDateFormat("yyyy-MM-dd");
-     	CouponFacade couponFacade = new CouponFacade();
-     	Date d = new Date(0);
      	
-     	Coupon U1=new Coupon(1, "HH", "2011-09-04", "2013-11-11", 44, couponType.Camping, "jj", 77.9, "f");
-     	Coupon U2=new Coupon(2, "gg", "2011-09-03", "2011-10-18", 77, couponType.Electricity, "hh", 89.7, "tt");
-     	
-     	couponFacade.insertCoupon(U1);
-     	couponFacade.insertCoupon(U2);
      	
 
 
