@@ -7,6 +7,8 @@ package projectCoupon.Coupons;
 		void insertCoupon(Coupon Coupon) throws Exception;
 
 		void removeCoupon(Coupon Coupon) throws Exception;
+		
+		void removeCouponID(long id) throws Exception;
 
 		void updateCoupon(Coupon Coupon) throws Exception;
 

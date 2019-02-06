@@ -1,6 +1,7 @@
 package projectCoupon.Coupons;
 
 	import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,20 +19,13 @@ import projectCoupon.Database;
 		public void insertCoupon(Coupon coupon) throws Exception {
 			con = DriverManager.getConnection(Database.getDBUrl());
 			
-			String sql = "INSERT INTO coupon(TITLE,START_DATE,END_DATE,AMOUNT,TYPE,MESSAGE,PRICE,IMAGE) VALUES(?,?,?,?,?,?,?,?)";
-			
-				/*	+ "
-					+ "'food',"
-					+ "'Resturans',"
-					+ "'Electricity'"
-					+ ",'HealthSports'"
-					+ "'Sports','Camping','Traveling'))";
-			    */        
+			String sql = "INSERT INTO Coupon(TITLE,START_DATE,END_DATE,AMOUNT,TYPE,MESSAGE,PRICE,IMAGE) VALUES(?,?,?,?,?,?,?,?)";
+			       
 
 			try (PreparedStatement pstmt = con.prepareStatement(sql)) {
 				pstmt.setString(1, coupon.getTitle());
-				pstmt.setString(2, coupon.getStart_date());
-				pstmt.setString(3, coupon.getEnd_date());
+				pstmt.setDate(2, (Date) coupon.getStart_date());
+				pstmt.setDate(3, (Date) coupon.getEnd_date());
 				pstmt.setInt(4, coupon.getAmount());
 				pstmt.setString(5, coupon.getType().name());
 				
@@ -81,9 +75,22 @@ import projectCoupon.Database;
 		public void updateCoupon(Coupon Coupon) throws Exception {
 			con = DriverManager.getConnection(Database.getDBUrl());
 			try (Statement stm = con.createStatement()) {
-				String sql = "UPDATE Coupon " + " SET name='" + Coupon.getTitle() + "', Start Date='" + Coupon.getStart_date()+"',End Date='"+Coupon.getEnd_date()+"',Amount='"+Coupon.getAmount()+"',Message='"+Coupon.getMessage()+"',Price='"+Coupon.getPrice()+"',Image='"+Coupon.getImage()
-						+ "' WHERE ID=" + Coupon.getId();
-				stm.executeUpdate(sql);
+				String sql = "UPDATE Coupon SET TITLE=?, START_DATE=?, END_DATE=?, AMOUNT=?,"
+						+ " TYPE=?, MESSAGE=?, PRICE=?, IMAGE=? WHERE ID=?";
+				PreparedStatement stm1= con.prepareStatement (sql);
+				stm1.setString(1, Coupon.getTitle());
+				stm1.setDate(2, Coupon.getStart_date());
+				stm1.setDate(3, Coupon.getEnd_date());
+				stm1.setInt(4, Coupon.getAmount());
+				stm1.setString(5, Coupon.getType().toString());
+				stm1.setString(6, Coupon.getMessage());
+				stm1.setDouble(7, Coupon.getPrice());
+				stm1.setString(8, Coupon.getImage());
+				stm1.setLong(9, Coupon.getId());
+				stm1.executeUpdate();
+				
+				stm1.executeUpdate(sql);
+				System.out.println("update success");
 			} catch (SQLException e) {
 				throw new Exception("update Coupon failed");
 			}con.close();
@@ -99,8 +106,8 @@ import projectCoupon.Database;
 				rs.next();
 				Coupon.setId(rs.getLong(1));
 				Coupon.setTitle(rs.getString(2));
-				Coupon.setStart_date(rs.getString(3));
-				Coupon.setEnd_date(rs.getString(4));
+				Coupon.setStart_date(rs.getDate(3));
+				Coupon.setEnd_date(rs.getDate(4));
 				Coupon.setAmount(rs.getInt(5));
 				Coupon.setMessage(rs.getString(6));
 				Coupon.setPrice(rs.getDouble(7));
@@ -147,11 +154,11 @@ import projectCoupon.Database;
 		public Set<Coupon> getAllCoupon() throws Exception {
 			con = DriverManager.getConnection(Database.getDBUrl());
 			Set<Coupon> set = new TreeSet<>();
-			String sql = "SELECT id FROM Coupon";
+			String sql = "SELECT ID FROM Coupon";
 			try (Statement stm = con.createStatement(); ResultSet rs = stm.executeQuery(sql)) {
 				while (rs.next()) {
-					long id = rs.getLong(1);
-					String Title = rs.getString(1);
+					long ID = rs.getLong(1);
+					String TITLE = rs.getString(1);
 					//insert date start end..
 					
 
@@ -197,6 +204,34 @@ import projectCoupon.Database;
 		}
 			return null;
 
+			
+		}
+
+
+		@Override
+		public void removeCouponID(long id) throws Exception {
+			con = DriverManager.getConnection(Database.getDBUrl());
+			String sql = "DELETE FROM Coupon WHERE id=?";
+
+			//what is the different statement and preparedStatement
+			try (PreparedStatement pstm1 = con.prepareStatement(sql);) {
+				con.setAutoCommit(false);
+		
+				pstm1.setLong(1, id);
+				pstm1.executeUpdate();
+				con.commit();
+	
+			} catch (SQLException e) {
+				try {
+					con.rollback();
+			
+				} catch (SQLException e1) {
+					throw new Exception("Database error");
+				}
+				throw new Exception("failed to remove Coupon");
+			} finally {
+				con.close();
+			}
 			
 		}
 		}

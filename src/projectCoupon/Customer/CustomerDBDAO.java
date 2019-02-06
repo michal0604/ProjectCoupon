@@ -68,7 +68,7 @@ import projectCoupon.Database;
 		public void updateCustomer(Customer Customer) throws Exception {
 			con = DriverManager.getConnection(Database.getDBUrl());
 			try (Statement stm = con.createStatement()) {
-				String sql = "UPDATE Customer " + " SET name='" + Customer.getCustomerName() + "', Password='" + Customer.getPassword()
+				String sql = "UPDATE Customer " + " SET COMP_NAME='" + Customer.getCustomerName() + "', PASSWORD='" + Customer.getPassword()
 						+ "' WHERE ID=" + Customer.getId();
 				stm.executeUpdate(sql);
 			} catch (SQLException e) {

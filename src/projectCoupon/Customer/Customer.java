@@ -43,9 +43,10 @@ public class Customer {
 
 	@Override
 	public String toString() {
-		return "Customer Name=" + customerName+", id=" + id ;
+		return "Customer [id=" + id + ", customerName=" + customerName + ", password=" + password + "]";
 	}
-	
+
+
 	
 
 	
