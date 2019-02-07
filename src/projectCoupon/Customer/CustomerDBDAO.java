@@ -68,7 +68,7 @@ import projectCoupon.Database;
 		public void updateCustomer(Customer Customer) throws Exception {
 			con = DriverManager.getConnection(Database.getDBUrl());
 			try (Statement stm = con.createStatement()) {
-				String sql = "UPDATE Customer " + " SET COMP_NAME='" + Customer.getCustomerName() + "', PASSWORD='" + Customer.getPassword()
+				String sql = "UPDATE Customer " + " SET CUST_NAME='" + Customer.getCustomerName() + "', PASSWORD='" + Customer.getPassword()
 						+ "' WHERE ID=" + Customer.getId();
 				stm.executeUpdate(sql);
 			} catch (SQLException e) {
@@ -81,14 +81,14 @@ import projectCoupon.Database;
 		@Override
 		public Customer getCustomer(long id) throws Exception {
 			con = DriverManager.getConnection(Database.getDBUrl());
-			Customer Customer = new Customer();
+			Customer customer = new Customer();
 			try (Statement stm = con.createStatement()) {
-				String sql = "SELECT * FROM Customer WHERE ID=" + id;
+				String sql = "SELECT * FROM Customer WHERE ID=?" ;
 				ResultSet rs = stm.executeQuery(sql);
 				rs.next();
-				Customer.setId(rs.getLong(1));
-				Customer.setCustomerName(rs.getString(2));
-				Customer.setPassword(rs.getString(3));
+				customer.setId(rs.getLong(1));
+				customer.setCustomerName(rs.getString(2));
+				customer.setPassword(rs.getString(3));
 				
 
 			} catch (SQLException e) {
@@ -96,7 +96,7 @@ import projectCoupon.Database;
 			} finally {
 				con.close();
 			}
-			return Customer;
+			return customer;
 		}
 			
 		
