@@ -21,14 +21,14 @@ public class TestCoupon {
 		Database.dropTableifNeeded(con);
 		Database.createTables(con);
 		
-		SimpleDateFormat Date = new SimpleDateFormat("yyyy-MM-dd");
-		CouponFacade couponFacade = new CouponFacade();
-		Date d = new Date(0);
-		Coupon U1 = new Coupon(1, "HH", "2011-09-04", "2013-11-11", 44, couponType.Camping, "jj", 77.9, "f");
-		Coupon U2 = new Coupon(2, "gg", "2011-09-03", "2011-10-18", 77, couponType.Electricity, "hh", 89.7, "tt");
+		//SimpleDateFormat Date = new SimpleDateFormat("yyyy-MM-dd");
+		//CouponFacade couponFacade = new CouponFacade();
+		//Date d = new Date(0);
+		//Coupon U1 = new Coupon(1, "HH", "2011-09-04", "2013-11-11", 44, couponType.Camping, "jj", 77.9, "f");
+		//Coupon U2 = new Coupon(2, "gg", "2011-09-03", "2011-10-18", 77, couponType.Electricity, "hh", 89.7, "tt");
 		
-		couponFacade.insertCoupon(U1);
-		couponFacade.insertCoupon(U2);
+		//couponFacade.insertCoupon(U1);
+		//couponFacade.insertCoupon(U2);
 
 		Company p1 = new Company(1, "hp", "123", "aaa");
 		Company p2 = new Company(2, "tadiran", "234", "bbb");

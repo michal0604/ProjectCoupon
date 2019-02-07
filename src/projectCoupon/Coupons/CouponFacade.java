@@ -28,8 +28,8 @@ public class CouponFacade {
 
 	public void updateCoupon(Coupon Coupon, String newtitle, String newstart_date,String newend_date,Integer newamount,String newmessage,Double newprice,String newimage ) throws Exception {
 		Coupon.setTitle(newtitle);
-		Coupon.setStart_date(newstart_date);
-		Coupon.setEnd_date(newend_date);
+		//Coupon.setStart_date(newstart_date);
+		//Coupon.setEnd_date(newend_date);
 		Coupon.setAmount(newamount);
 		Coupon.setMessage(newmessage);
 		Coupon.setPrice(newprice);
