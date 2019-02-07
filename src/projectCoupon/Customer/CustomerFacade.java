@@ -1,5 +1,6 @@
 package projectCoupon.Customer;
 
+import java.util.List;
 import java.util.Set;
 
 public class CustomerFacade {
@@ -32,7 +33,7 @@ public class CustomerFacade {
 		return customer;
 	}
 
-	public Set<Customer> getAllCustomer() throws Exception {
+	public List<Customer> getAllCustomer() throws Exception {
 		// ProductDBDAO comDAO=new ProductDBDAO();
 		return custDAO.getAllCustomer();
 	}

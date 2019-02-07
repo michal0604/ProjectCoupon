@@ -6,7 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import projectCoupon.Database;
@@ -102,17 +104,15 @@ import projectCoupon.Database;
 		
 
 		@Override
-		public Set<Customer> getAllCustomer() throws Exception {
+		public List<Customer> getAllCustomer() throws Exception {
 			con = DriverManager.getConnection(Database.getDBUrl());
-			Set<Customer> set = new HashSet<>();
+			List<Customer> set = new ArrayList<>();
 			String sql = "SELECT id FROM Customer";
 			try (Statement stm = con.createStatement(); ResultSet rs = stm.executeQuery(sql)) {
 				while (rs.next()) {
 					long id = rs.getLong(1);
 					String CUST_NAME = rs.getString(1);
 					String PASSWORD = rs.getString(1);
-					
-
 					set.add(new Customer());
 				}
 			} catch (SQLException e) {
