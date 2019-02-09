@@ -1,5 +1,6 @@
 package projectCoupon.Coupons;
 
+import java.awt.Window.Type;
 import java.sql.Date;
 import java.util.Set;
 
@@ -8,10 +9,11 @@ import projectCoupon.Company.CompanyDBDAO;
 
 public class CouponFacade {
 	private CouponDBDAO couponDAO = new CouponDBDAO();
-	private Coupon Coupon;
+	private Coupon coupon;
+	private long couponId;
 
 	public CouponFacade(Coupon c) {
-		this.Coupon = c;
+		this.coupon = c;
 
 	}
 
@@ -26,23 +28,25 @@ public class CouponFacade {
 		couponDAO.removeCoupon(Coupon);
 	}
 
-	public void updateCoupon(Coupon Coupon, String newtitle, String newstart_date,String newend_date,Integer newamount,String newmessage,Double newprice,String newimage ) throws Exception {
-		Coupon.setTitle(newtitle);
-		Coupon.setStart_date(newstart_date);
-		Coupon.setEnd_date(newend_date);
-		Coupon.setAmount(newamount);
-		Coupon.setMessage(newmessage);
-		Coupon.setPrice(newprice);
-		Coupon.setImage(newimage);
+	public void updateCoupon(Coupon coupon, String newtitle, Date newstart_date,Date newend_date,Integer newamount,couponType type,String newmessage,Double newprice,String newimage ) throws Exception {
+		coupon.setTitle(newtitle);
+		coupon.setStart_date(newstart_date);
+		coupon.setEnd_date(newend_date);
+		coupon.setAmount(newamount);
+		coupon.setType(type);
+		coupon.setMessage(newmessage);
+		coupon.setPrice(newprice);
+		coupon.setImage(newimage);
+		couponDAO.updateCoupon(coupon);
 	}
 
-	public Coupon getCoupon() {
-		return Coupon;
+	public Coupon getCoupon(long id) throws Exception {
+		return coupon;
 	}
 
-	public Set<Coupon> getAllCoupon() throws Exception {
+	public Set<Coupon> getAllCoupons() throws Exception {
 	
-		return couponDAO.getAllCoupon();
+		return couponDAO.getAllCoupons();
 	}
 
 	public void dropTable() throws Exception {
