@@ -41,7 +41,7 @@ public class CouponFacade {
 	}
 
 	public Coupon getCoupon(long id) throws Exception {
-		return coupon;
+		return couponDAO.getCoupon(id);
 	}
 
 	public Set<Coupon> getAllCoupons() throws Exception {

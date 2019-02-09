@@ -30,7 +30,7 @@ public class TestCoupon {
 	//	couponFacade.insertCoupon(a2);
 		//System.out.println(couponFacade.getAllCoupons());
 	
-		System.out.println(couponFacade.getCoupon(1));
+		System.out.println(couponFacade.getCoupon(2));
 //couponFacade.removeCoupon(a1);
 //couponFacade.dropTable();
 		
