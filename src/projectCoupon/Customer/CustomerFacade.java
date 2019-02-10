@@ -28,8 +28,8 @@ public class CustomerFacade {
 		custDAO.updateCustomer(customer);
 	}
 
-	public Customer getCustomer() {
-		return customer;
+	public Customer getCustomer(long id) throws Exception {
+		return custDAO.getCustomer(id);
 	}
 
 	public Set<Customer> getAllCustomer() throws Exception {

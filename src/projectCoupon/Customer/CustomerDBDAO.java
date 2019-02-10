@@ -82,8 +82,10 @@ import projectCoupon.Database;
 		public Customer getCustomer(long id) throws Exception {
 			con = DriverManager.getConnection(Database.getDBUrl());
 			Customer customer = new Customer();
-			try (Statement stm = con.createStatement()) {
-				String sql = "SELECT * FROM Customer WHERE ID=?" ;
+			try {
+				Statement stm = con.createStatement(); 
+			
+				String sql = "SELECT * FROM Coupon WHERE ID=" + id;
 				ResultSet rs = stm.executeQuery(sql);
 				rs.next();
 				customer.setId(rs.getLong(1));
@@ -105,15 +107,18 @@ import projectCoupon.Database;
 		public Set<Customer> getAllCustomer() throws Exception {
 			con = DriverManager.getConnection(Database.getDBUrl());
 			Set<Customer> set = new HashSet<>();
-			String sql = "SELECT id FROM Customer";
-			try (Statement stm = con.createStatement(); ResultSet rs = stm.executeQuery(sql)) {
+			
+			try { 
+				Statement stm = con.createStatement();
+				String sql = "SELECT * FROM CUSTOMER"; 
+			    ResultSet rs = stm.executeQuery(sql);
 				while (rs.next()) {
 					long id = rs.getLong(1);
-					String CUST_NAME = rs.getString(1);
-					String PASSWORD = rs.getString(1);
+					String customerName = rs.getString(2);
+					String password = rs.getString(3);
 					
 
-					set.add(new Customer());
+					set.add(new Customer(id, customerName, password));
 				}
 			} catch (SQLException e) {
 				System.out.println(e);
