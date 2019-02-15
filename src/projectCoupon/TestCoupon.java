@@ -2,9 +2,7 @@
 package projectCoupon;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
-import java.text.SimpleDateFormat;
 
 import Company_Coupon.Company_Coupon;
 import Company_Coupon.Company_CouponFacad;
@@ -27,8 +25,8 @@ public class TestCoupon {
 		Connection con=DriverManager.getConnection(Database.getDBUrl());
 		Database.dropTableifNeeded(con);
 		Database.createTables(con);
-		
-		CouponFacade couponFacade = new CouponFacade();
+
+	    CouponFacade couponFacade = new CouponFacade();
 		Coupon a1=new Coupon(1, "pizzaHut", Utile.getCurrentDate(), Utile.getExpiredDate(), 50, couponType.food, "40 shekel for pizza", 40.7, "C:\\Users\\testlab\\Desktop\\תמונות של פרוייקט");
 		Coupon a2=new Coupon(2, "shoes", Utile.getCurrentDate(), Utile.getExpiredDate(), 50, couponType.Sports, "sale on shoes", 540.5, "shoes img");
 	
@@ -42,6 +40,7 @@ public class TestCoupon {
 		Company p1 = new Company(1, "HP", "HP-1234", "HP@co.il");
 		Company p2 = new Company(2, "ECI", "ECI1-234", "ECI@co.il");
 		Company p3 = new Company(4, "Intel", "INTEL-1234", "INTEL@co.il");
+
 		CompanyFacade CompanyFacade = new CompanyFacade();
 		CompanyFacade.insertCompany(p1);
 		CompanyFacade.insertCompany(p2);

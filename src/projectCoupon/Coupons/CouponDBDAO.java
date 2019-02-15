@@ -151,7 +151,7 @@ import projectCoupon.Database;
 		
 
 		@Override
-		public Set<Coupon> getAllCoupon() throws Exception {
+		public Set<Coupon> getAllCoupons() throws Exception {
 			con = DriverManager.getConnection(Database.getDBUrl());
 			Set<Coupon> set = new TreeSet<>();
 			String sql = "SELECT ID FROM Coupon";

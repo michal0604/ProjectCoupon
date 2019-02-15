@@ -52,19 +52,21 @@ public class CompanyFacade {
 	 * @param newpassword - new password of the company
 	 * @throws Exception - when update operation fails
 	 */
-	public void updateCompany(Company Company, String newName, String newpassword) throws Exception {
+	public void updateCompany(Company Company, String newName, String newpassword,String newEmail) throws Exception {
 		//TODO update the exception to the suited one
 		Company.setCompName(newName);
 		Company.setPassword(newpassword);
+		Company.setEmail(newEmail);
 		compDAO.updateCompany(Company);
 	}
 
 	/**
 	 * @return the company
+	 * @throws Exception 
 	 */
-	//TODO for what is this hear?
-	public Company getCompany() {
-		return Company;
+	//TODO 
+	public Company getCompany(long id) throws Exception {
+		return compDAO.getCompany(id);
 	}
 
 	/**

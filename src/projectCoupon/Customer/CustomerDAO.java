@@ -1,7 +1,7 @@
 package projectCoupon.Customer;
 
 
-	import java.util.Set;
+	import java.util.List;
 
 	public interface CustomerDAO{
 		void insertCustomer(Customer Customer) throws Exception;
@@ -12,9 +12,7 @@ package projectCoupon.Customer;
 
 		Customer getCustomer(long id) throws Exception;
 
-		Set<Customer> getAllCustomer() throws Exception;
+		List<Customer> getAllCustomer() throws Exception;
 		
-		Customer dropTable()throws Exception;
-
 	}
 

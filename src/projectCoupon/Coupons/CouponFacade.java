@@ -1,11 +1,7 @@
 package projectCoupon.Coupons;
 
-import java.awt.Window.Type;
 import java.sql.Date;
 import java.util.Set;
-
-import projectCoupon.Company.Company;
-import projectCoupon.Company.CompanyDBDAO;
 
 public class CouponFacade {
 	private CouponDBDAO couponDAO = new CouponDBDAO();
