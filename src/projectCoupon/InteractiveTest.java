@@ -56,11 +56,12 @@ public class InteractiveTest {
 	
 	private void doCustomerOperation(int operation) {
 		CustomerFacade customerFacade=new CustomerFacade();
+		Customer newCustomer,oldCustomer;
 		switch (operation) {
 		case OP_ADD:
 			try {
-				Customer customer = readCustomer(false);
-				customerFacade.insertCustomer(customer);
+				newCustomer = readCustomer(new Customer(),true);
+				customerFacade.insertCustomer(newCustomer);
 			} 
 			catch (Exception e) {
 				e.printStackTrace();
@@ -68,35 +69,54 @@ public class InteractiveTest {
 			break;
 		case OP_UPDATE:
 			try {
-				Customer oldCustomer = chooseCustomer(customerFacade.getAllCustomer(),"update");
-				Customer newCustomer = readCustomer(true);
-				customerFacade.updateCustomer(oldCustomer, newCustomer.getCustomerName(), newCustomer.getPassword());
+				oldCustomer = chooseCustomer(customerFacade.getAllCustomer(),"update",true);
+				if(oldCustomer != null) {
+					newCustomer = readCustomer(oldCustomer,false);
+					customerFacade.updateCustomer(oldCustomer, newCustomer.getCustomerName(), newCustomer.getPassword());
+				}
 			} 
 			catch (Exception e) {
 				e.printStackTrace();
 			}
 			break;
 		case OP_REMOVE:
-			
+			try {
+				oldCustomer = chooseCustomer(customerFacade.getAllCustomer(),"update",true);
+				if(oldCustomer !=null) {
+					customerFacade.removeCustomer(oldCustomer);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			break;
 		case OP_LIST:
+			try {
+				chooseCustomer(customerFacade.getAllCustomer(),"show anything",false);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			break;
 		default:
 			break;
 		}
 	}
 		
-	private Customer chooseCustomer(List<Customer> allCustomer, String operation) {
+	private Customer chooseCustomer(List<Customer> allCustomer, String operation,boolean waitReturn) {
 		if(allCustomer.isEmpty()) {
 			System.out.println("List is empty can't "+operation);
 			return null;
 		}
-		System.out.println("Choose which Customer to "+operation+" :");
+		if(waitReturn) {
+			System.out.println("Choose which Customer to "+operation+" :");
+		}
 		for(Customer iter: allCustomer) {
 			System.out.println(iter.toString());
 		}
-		long id = scanner.nextLong();
 		Customer customer = null;
+		if(!waitReturn) {
+			return customer;
+		}
+		long id = scanner.nextLong();
 		for(Customer iter: allCustomer) {
 			if(iter.getId() == id){
 				customer = iter;
@@ -105,12 +125,42 @@ public class InteractiveTest {
 		if(customer == null) {
 			System.out.println("the cousen id was illegal the "+operation+" operation will be aborted");
 		}
-		return null;
+		return customer;
 	}
 
-	private Customer readCustomer(boolean b) {
-		// TODO Auto-generated method stub
-		return null;
+	private Customer readCustomer(Customer customer, boolean isAdd) {
+		String name,password;
+		boolean runflag = true;
+		System.out.println("pleas enter a valid Name");
+		while(runflag) {
+			name = scanner.nextLine();
+			if(isAdd&name.trim().isEmpty()) {
+				System.out.println("invalid name pleas enter valid name");
+			}
+			else if(!isAdd&name.trim().isEmpty()){
+				runflag =false;
+			}
+			else {
+				customer.setCustomerName(name);
+				runflag = false;
+			}
+		}
+		runflag = true;
+		System.out.println("pleas enter a valid Password");
+		while(runflag) {
+			password = scanner.nextLine();
+			if(isAdd&password.trim().isEmpty()) {
+				System.out.println("invalid name pleas enter valid name");
+			}
+			else if(!isAdd&password.trim().isEmpty()){
+				runflag =false;
+			}
+			else {
+				customer.setPassword(password);
+				runflag = false;
+			}
+		}			
+		return customer;
 	}
 
 	private void doCompanyOperation(int operation) {
