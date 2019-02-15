@@ -1,10 +1,7 @@
 package projectCoupon;
 
-import java.security.PublicKey;
 import java.util.List;
 import java.util.Scanner;
-
-import org.apache.derby.tools.sysinfo;
 
 import projectCoupon.Customer.Customer;
 import projectCoupon.Customer.CustomerFacade;
@@ -27,14 +24,16 @@ public class InteractiveTest {
 	private void runTest() {
 		boolean flag = true;
 		System.out.println("Welcome to the interactive Coupon test");
-		int scema,operation;
+		int scema,operation = 0;
 		while(flag) {
 			System.out.println("On whom whould you like to preform the operation?");
 			System.out.println("1-Customer\n2-Company\n3-Coupon\n4-end test");
 			scema = scanner.nextInt();
-			System.out.println("what kind of operation whould you like to perform?");
-			System.out.println("1-Add new\n2-Update existing\n3-remove\n4-List all members in a table");
-			operation = scanner.nextInt();
+			if(scema != EXIT) {
+				System.out.println("what kind of operation whould you like to perform?");
+				System.out.println("1-Add new\n2-Update existing\n3-remove\n4-List all members in a table");
+				operation = scanner.nextInt();
+			}
 			switch (scema) {
 			case DO_CUSTOMER:
 				doCustomerOperation(operation);
