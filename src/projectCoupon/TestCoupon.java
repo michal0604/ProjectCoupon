@@ -35,7 +35,7 @@ public class TestCoupon {
 	    System.out.println(couponFacade.getAllCoupons());
 	    System.out.println(couponFacade.getCoupon(1));
 	    couponFacade.updateCoupon(a1, "pizzaHut", Utile.getCurrentDate(), Utile.getExpiredDate(), 89, couponType.food, "piza", 78.9, "pic");
-	    couponFacade.removeCoupon(a2);
+	  //  couponFacade.removeCoupon(a2);
 	    System.out.println("------------------------------------------------------------------"); 
 		Company p1 = new Company(1, "HP", "HP-1234", "HP@co.il");
 		Company p2 = new Company(2, "ECI", "ECI1-234", "ECI@co.il");
