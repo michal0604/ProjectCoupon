@@ -14,7 +14,7 @@ package projectCoupon.Coupons;
 
 		Coupon getCoupon(long id) throws Exception;
 
-		Set<Coupon> getAllCoupon() throws Exception;
+		Set<Coupon> getAllCoupons() throws Exception;
 
 		Coupon dropTable() throws Exception;
 
