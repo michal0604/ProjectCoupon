@@ -85,7 +85,7 @@ import projectCoupon.Database;
 			try {
 				Statement stm = con.createStatement(); 
 			
-				String sql = "SELECT * FROM Coupon WHERE ID=" + id;
+				String sql = "SELECT * FROM Customer WHERE ID=" + id;
 				ResultSet rs = stm.executeQuery(sql);
 				rs.next();
 				customer.setId(rs.getLong(1));
