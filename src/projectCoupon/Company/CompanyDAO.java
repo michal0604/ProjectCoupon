@@ -19,6 +19,8 @@ public interface CompanyDAO {
 	 * @param company - company to be updated in the Data Object
 	 * @throws Exception
 	 */
+	
+
 	void updateCompany(Company company) throws Exception;
 
 	/**

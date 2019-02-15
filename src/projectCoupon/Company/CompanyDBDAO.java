@@ -9,7 +9,11 @@ import java.sql.Statement;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.swing.plaf.TableUI;
+import javax.swing.table.TableColumn;
+
 import projectCoupon.Database;
+import projectCoupon.Customer.Customer;
 
 /**
  * this class implement the DB operations associated with the Company's data
@@ -19,10 +23,10 @@ import projectCoupon.Database;
  *
  */
 public class CompanyDBDAO implements CompanyDAO {
-	/**
-	 * 
-	 */
+
 	Connection con;
+	private Connection connection;
+	
 
 	/**
 	 * Inserts a company data set to the Database
@@ -32,7 +36,7 @@ public class CompanyDBDAO implements CompanyDAO {
 	@Override
 	public void insertCompany(Company Company) throws Exception {
 		con = DriverManager.getConnection(Database.getDBUrl());
-		// .createTables(con);
+		//.createTables(con);
 		String sql = "INSERT INTO Company (COMP_NAME,PASSWORD,EMAIL) VALUES(?,?,?)";
 
 		try (PreparedStatement pstmt = con.prepareStatement(sql)) {
@@ -69,6 +73,7 @@ public class CompanyDBDAO implements CompanyDAO {
 		try (PreparedStatement pstm1 = con.prepareStatement(sql);) {
 			con.setAutoCommit(false);
 			//TODO  autocommit??????
+			System.out.println(Company.getId());
 			pstm1.setLong(1, Company.getId());
 			pstm1.executeUpdate();
 			con.commit();
@@ -98,8 +103,8 @@ public class CompanyDBDAO implements CompanyDAO {
 	public void updateCompany(Company Company) throws Exception {
 		con = DriverManager.getConnection(Database.getDBUrl());
 		try (Statement stm = con.createStatement()) {
-			String sql = "UPDATE Company " + " SET name='" + Company.getCompName() + "', Password='"
-					+ Company.getPassword() + "',email='" + Company.getEmail() + "' WHERE ID=" + Company.getId();
+			String sql = "UPDATE Company " + " SET COMP_NAME='" + Company.getCompName() + "', PASSWORD='"
+					+ Company.getPassword() + "',EMAIL='" + Company.getEmail() + "' WHERE ID=" + Company.getId();
 			stm.executeUpdate(sql);
 		} 
 		catch (SQLException e) {
@@ -116,21 +121,25 @@ public class CompanyDBDAO implements CompanyDAO {
 	@Override
 	public Company getCompany(long id) throws Exception {
 		con = DriverManager.getConnection(Database.getDBUrl());
-		Company Company = new Company();
-		try (Statement stm = con.createStatement()) {
+		Company company = new Company();
+		try {
+			Statement stm = con.createStatement();
+		
 			String sql = "SELECT * FROM Company WHERE ID=" + id;
 			ResultSet rs = stm.executeQuery(sql);
 			rs.next();
-			Company.setId(rs.getLong(1));
-			Company.setCompName(rs.getString(2));
-			Company.setPassword(rs.getString(3));
-			Company.setEmail(rs.getString(4));
+			company.setId(rs.getLong(1));
+			company.setCompName(rs.getString(2));
+			company.setPassword(rs.getString(3));
+			company.setEmail(rs.getString(4));
+			
+
 		} catch (SQLException e) {
 			throw new Exception("unable to get Company data");
 		} finally {
 			con.close();
 		}
-		return Company;
+		return company;
 	}
 
 	/**
@@ -203,4 +212,9 @@ public class CompanyDBDAO implements CompanyDAO {
 
 	}
 
-}
+
+	
+		
+	}
+
+
