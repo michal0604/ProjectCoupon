@@ -1,7 +1,7 @@
 package projectCoupon.Coupons;
 
 
-	import java.util.Set;
+	import java.util.List;
 
 	public interface CouponDAO {
 		void insertCoupon(Coupon Coupon) throws Exception;
@@ -14,7 +14,7 @@ package projectCoupon.Coupons;
 
 		Coupon getCoupon(long id) throws Exception;
 
-		Set<Coupon> getAllCoupons() throws Exception;
+		List<Coupon> getAllCoupons() throws Exception;
 
 		Coupon dropTable() throws Exception;
 

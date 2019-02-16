@@ -1,7 +1,7 @@
 package projectCoupon.Coupons;
 
 import java.sql.Date;
-import java.util.Set;
+import java.util.List;
 
 public class CouponFacade {
 	private CouponDBDAO couponDAO = new CouponDBDAO();
@@ -40,7 +40,7 @@ public class CouponFacade {
 		return couponDAO.getCoupon(id);
 	}
 
-	public Set<Coupon> getAllCoupons() throws Exception {
+	public List<Coupon> getAllCoupons() throws Exception {
 	
 		return couponDAO.getAllCoupons();
 	}

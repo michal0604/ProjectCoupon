@@ -6,7 +6,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="C:/Users/testlab/Desktop/db-derby-10.14.2.0-bin/lib/derbyclient.jar"/>
-	<classpathentry kind="lib" path="C:/Users/testlab/Desktop/db-derby-10.14.2.0-bin/lib/derby.jar"/>
+	<classpathentry kind="lib" path="C:/Users/eivy/Desktop/db-derby-10.14.2.0-bin/lib/derby.jar"/>
+	<classpathentry kind="lib" path="C:/Users/eivy/Desktop/db-derby-10.14.2.0-bin/lib/derbyclient.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
