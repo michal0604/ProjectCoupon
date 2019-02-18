@@ -7,8 +7,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import Exception.CompanyCreationException;
+import projectCoupon.Company.Company;
+
 public class Database {
 
+	private static final String Company = null;
 	public static String getDriverData() {
 		return "org.apache.derby.jdbc.ClientDriver";
 	}
@@ -82,6 +86,7 @@ public class Database {
 		System.out.println("success:" + sql);
 		}catch (SQLException e) {
 			System.out.println(e.getMessage());
+			//throw new CompanyCreationException(Company);
 		}
 		try {
 		Statement stmt2 = con.createStatement();
@@ -154,6 +159,8 @@ public class Database {
 		
 		
 	}
+	
+
 	public static void main(String[] args) throws SQLException {
 		Connection con = DriverManager.getConnection(Database.getDBUrl());
 		Database.dropTableifNeeded(con);
