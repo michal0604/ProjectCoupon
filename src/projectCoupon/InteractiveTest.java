@@ -3,6 +3,8 @@ package projectCoupon;
 import java.util.List;
 import java.util.Scanner;
 
+import projectCoupon.Company.Company;
+import projectCoupon.Company.CompanyFacade;
 import projectCoupon.Customer.Customer;
 import projectCoupon.Customer.CustomerFacade;
 
@@ -106,7 +108,7 @@ public class InteractiveTest {
 			return null;
 		}
 		if(waitReturn) {
-			System.out.println("Choose which Customer to "+operation+" :");
+			System.out.println("Choose which Customer to "+operation+" by id:");
 		}
 		for(Customer iter: allCustomer) {
 			System.out.println(iter.toString());
@@ -163,8 +165,128 @@ public class InteractiveTest {
 	}
 
 	private void doCompanyOperation(int operation) {
-		// TODO Auto-generated method stub
+		CompanyFacade companyFacade=new CompanyFacade();
+		Company newCompany,oldCompany;
+		switch (operation) {
+		case OP_ADD:
+			try {
+				newCompany = readCompany(new Company(),true);
+				companyFacade.insertCompany(newCompany);
+			} 
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+			break;
+		case OP_UPDATE:
+			try {
+				oldCompany = chooseCompany(companyFacade.getAllCompany(),"update",true);
+				if(oldCompany != null) {
+					newCompany = readCompany(oldCompany,false);
+					companyFacade.updateCompany(oldCompany, newCompany.getCompName(), newCompany.getPassword(),newCompany.getEmail());
+				}
+			} 
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+			break;
+		case OP_REMOVE:
+			try {
+				oldCompany = chooseCompany(companyFacade.getAllCompany(),"update",true);
+				if(oldCompany !=null) {
+					companyFacade.removeCompany(oldCompany);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			break;
+		case OP_LIST:
+			try {
+				chooseCompany(companyFacade.getAllCompany(),"show anything",false);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			break;
+		default:
+			break;
+		}
 		
+	}
+
+	private Company chooseCompany(List<Company> allCompany, String operation, boolean waitReturn) {
+		if(allCompany.isEmpty()) {
+			System.out.println("List is empty can't "+operation);
+			return null;
+		}
+		if(waitReturn) {
+			System.out.println("Choose which Customer to "+operation+" by id:");
+		}
+		for(Company iter: allCompany) {
+			System.out.println(iter.toString());
+		}
+		Company company = null;
+		if(!waitReturn) {
+			return company;
+		}
+		long id = scanner.nextLong();
+		for(Company iter: allCompany) {
+			if(iter.getId() == id){
+				company = iter;
+			}
+		}
+		if(company == null) {
+			System.out.println("the cousen id was illegal the "+operation+" operation will be aborted");
+		}
+		return company;
+	}
+
+	private Company readCompany(Company company, boolean isAdd) {
+		String name,password,email;
+		boolean runflag = true;
+		System.out.println("pleas enter a valid Name");
+		while(runflag) {
+			name = scanner.nextLine();
+			if(isAdd&name.trim().isEmpty()) {
+				System.out.println("invalid name pleas enter valid name");
+			}
+			else if(!isAdd&name.trim().isEmpty()){
+				runflag =false;
+			}
+			else {
+				company.setCompName(name);
+				runflag = false;
+			}
+		}
+		runflag = true;
+		System.out.println("pleas enter a valid Password");
+		while(runflag) {
+			password = scanner.nextLine();
+			if(isAdd&password.trim().isEmpty()) {
+				System.out.println("invalid name pleas enter valid name");
+			}
+			else if(!isAdd&password.trim().isEmpty()){
+				runflag =false;
+			}
+			else {
+				company.setPassword(password);
+				runflag = false;
+			}
+		}
+		runflag = true;
+		System.out.println("pleas enter a valid Email");
+		while(runflag) {
+			email = scanner.nextLine();
+			if(isAdd&email.trim().isEmpty()) {
+				System.out.println("invalid name pleas enter valid name");
+			}
+			else if(!isAdd&email.trim().isEmpty()){
+				runflag =false;
+			}
+			else {
+				company.setEmail(email);
+				runflag = false;
+			}
+		}			
+		return company;
 	}
 
 	private void doCouponOperation(int operation) {

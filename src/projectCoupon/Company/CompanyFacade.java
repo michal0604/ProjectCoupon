@@ -1,5 +1,6 @@
 package projectCoupon.Company;
 
+import java.util.List;
 import java.util.Set;
 
 public class CompanyFacade {
@@ -73,7 +74,7 @@ public class CompanyFacade {
 	 * @return all the companies in the storage 
 	 * @throws Exception when the retrieval operation fails
 	 */
-	public Set<Company> getAllCompany() throws Exception {
+	public List<Company> getAllCompany() throws Exception {
 		//TODO update the exception to the suited one
 		// ProductDBDAO comDAO=new ProductDBDAO();
 		return compDAO.getAllCompanys();

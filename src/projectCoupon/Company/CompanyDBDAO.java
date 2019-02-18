@@ -6,14 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Set;
-
-import javax.swing.plaf.TableUI;
-import javax.swing.table.TableColumn;
+import java.util.List;
 
 import projectCoupon.Database;
-import projectCoupon.Customer.Customer;
 
 /**
  * this class implement the DB operations associated with the Company's data
@@ -148,9 +145,9 @@ public class CompanyDBDAO implements CompanyDAO {
 	 * @see projectCoupon.Company.CompanyDAO#getAllCompanys
 	 */
 	@Override
-	public Set<Company> getAllCompanys() throws Exception {
+	public List<Company> getAllCompanys() throws Exception {
 		con = DriverManager.getConnection(Database.getDBUrl());
-		Set<Company> set = new HashSet<>();
+		List<Company> set = new ArrayList<Company>();
 		String sql = "SELECT * FROM Company";
 		try {
 			Statement stm = con.createStatement(); 
