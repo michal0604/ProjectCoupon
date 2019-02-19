@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+import Exception.CompanyRemovalException;
+import Exception.CompanyUpdateException;
 import projectCoupon.Database;
 
 /**
@@ -82,7 +84,7 @@ public class CompanyDBDAO implements CompanyDAO {
 				//TODO what is rollback??????
 			} 
 			catch (SQLException e1) {
-				throw new Exception("Database error");
+				throw new CompanyRemovalException(Company);
 			}
 			throw new Exception("failed to remove Company");
 		} 
@@ -105,7 +107,7 @@ public class CompanyDBDAO implements CompanyDAO {
 			stm.executeUpdate(sql);
 		} 
 		catch (SQLException e) {
-			throw new Exception("update Company failed");
+			throw new CompanyUpdateException(Company);
 		}
 		con.close();
 	}
