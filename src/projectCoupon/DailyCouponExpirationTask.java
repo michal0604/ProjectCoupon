@@ -1,6 +1,7 @@
 package projectCoupon;
 
 import Exception.CouponException;
+import projectCoupon.Coupons.CouponDAO;
 import projectCoupon.Coupons.CouponDBDAO;
 
 public class DailyCouponExpirationTask implements Runnable {
@@ -20,13 +21,13 @@ public class DailyCouponExpirationTask implements Runnable {
 	public void run() {
 		while (!this.quit) {
 			try {
-				couponDAO.removeExpiredCoupons();
+				CouponDAO.removeExpiredCoupons();
 				
 				Thread.sleep(sleepTime);
 			} catch (InterruptedException e) {
 				System.out.println("Interrupted!");
 			} catch (CouponException e) {
-				// No need
+				System.out.println(e);
 			} 
 		}
 	}

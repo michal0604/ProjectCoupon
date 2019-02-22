@@ -1,8 +1,15 @@
 package projectCoupon;
 
+import java.sql.Connection;
+
+import javax.sql.PooledConnection;
+
+import Clients.AdminFacad;
 import Clients.CouponClientFacade;
 import Clients.clientType;
 import Exception.CouponException;
+import projectCoupon.Company.CompanyFacade;
+import projectCoupon.Customer.CustomerFacade;
 
 public class CouponSystem {
 	
@@ -10,6 +17,7 @@ public class CouponSystem {
 	private static CouponSystem instance;
 	DailyCouponExpirationTask DailyTask;
 	Thread thread;
+	Connection connection;
 	
 	/**
 	 * Thread timer - 1000*3600*24 is every 24 hours
@@ -40,7 +48,7 @@ public class CouponSystem {
 		
 		switch (clientType) {
 		case ADMIN:
-			couponClientFacade = new AdminFacade();
+			couponClientFacade = new AdminFacad();
 			break;
 		case COMPANY:
 			couponClientFacade = new CompanyFacade();

@@ -250,27 +250,27 @@ import projectCoupon.Database;
 
 		@Override
 		public void removeCouponID(long id) throws Exception {
-			con = DriverManager.getConnection(Database.getDBUrl());
+			Connection connection=pool.getConnection();
 			String sql = "DELETE FROM Coupon WHERE id=?";
 
 			//what is the different statement and preparedStatement
-			try (PreparedStatement pstm1 = con.prepareStatement(sql);) {
-				con.setAutoCommit(false);
+			try (PreparedStatement pstm1 = connection.prepareStatement(sql);) {
+				connection.setAutoCommit(false);
 		
 				pstm1.setLong(1, id);
 				pstm1.executeUpdate();
-				con.commit();
+				connection.commit();
 	
 			} catch (SQLException e) {
 				try {
-					con.rollback();
+					connection.rollback();
 			
 				} catch (SQLException e1) {
 					throw new Exception("Database error");
 				}
 				throw new Exception("failed to remove Coupon");
 			} finally {
-				con.close();
+				pool.closeAllConnections(connection);
 			}
 			
 		}
@@ -283,7 +283,7 @@ import projectCoupon.Database;
 				connection.setAutoCommit(false);
 				String sql = "DELETE FROM app.CompanyCoupon WHERE coupon_id = ?";
 				PreparedStatement pstmt = connection.prepareStatement(sql);
-				pstmt.setLong(1, coupId);
+				pstmt.setLong(1, couponId);
 				pstmt.executeUpdate();
 				
 				sql = "DELETE FROM app.CustomerCoupon WHERE coupon_id = ?";
