@@ -21,5 +21,12 @@ public class Utile {
 	    	
 	    	return date;
 	        }
+	    public static String getDriverData() {
+			return "org.apache.derby.jdbc.ClientDriver";
+		}
+	    
+	    public static String getDBUrl() {
+			return "jdbc:derby://localhost:3301/MyDB;create=true";
+		}
 
 }
