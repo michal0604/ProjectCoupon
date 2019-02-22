@@ -3,6 +3,7 @@ package Company_Coupon;
 import java.util.List;
 
 import Customer_Coupon.Customer_Coupon;
+import projectCoupon.Coupons.Coupon;
 
 public interface Company_CouponDAO {
 	
@@ -14,7 +15,9 @@ public interface Company_CouponDAO {
 	
 	List<Company_Coupon> getCouponsByCompanyId(long companyId) throws Exception;
 	
-	List<Company_Coupon> getAllCompany_Coupons() throws Exception;		
+	List<Company_Coupon> getAllCompany_Coupons() throws Exception;
+	
+	void updateCompany_Coupon(Company_Coupon company_Coupon) throws Exception;
 	
 }
 

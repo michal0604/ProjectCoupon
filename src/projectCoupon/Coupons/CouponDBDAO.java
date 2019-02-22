@@ -10,17 +10,23 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import Exception.CouponException;
+import projectCoupon.ConnectionPool;
 import projectCoupon.Database;
 
 	public class CouponDBDAO implements CouponDAO {
-		Connection con;
+		private ConnectionPool pool;
+		
+		public CouponDBDAO() throws CouponException {
+			pool = ConnectionPool.getInstance();
+		}
 
 		@Override
 		public void insertCoupon(Coupon coupon) throws Exception {
-			con = DriverManager.getConnection(Database.getDBUrl());
+			Connection connection=pool.getConnection();
 			String sql = "INSERT INTO Coupon(TITLE,START_DATE,END_DATE,AMOUNT,TYPE,MESSAGE,PRICE,IMAGE) VALUES(?,?,?,?,?,?,?,?)";
 			try {			       
-    			PreparedStatement pstmt = con.prepareStatement(sql);
+    			PreparedStatement pstmt = connection.prepareStatement(sql);
 				pstmt.setString(1, coupon.getTitle());
 				pstmt.setDate(2, (Date) coupon.getStart_date());
 				pstmt.setDate(3, (Date) coupon.getEnd_date());
@@ -35,34 +41,34 @@ import projectCoupon.Database;
 				System.out.println(ex.getLocalizedMessage());
 				throw new SQLException("Coupon creation failed");
 			} finally {
-				con.close();
+				pool.closeAllConnections(connection);
 			}
 		}
 			
 
 		@Override
 		public void removeCoupon(Coupon Coupon) throws Exception {
-			con = DriverManager.getConnection(Database.getDBUrl());
+			Connection connection=pool.getConnection();
 			String sql = "DELETE FROM Coupon WHERE id=?";
 
 			//what is the different statement and preparedStatement
-			try (PreparedStatement pstm1 = con.prepareStatement(sql);) {
-				con.setAutoCommit(false);
+			try (PreparedStatement pstm1 = connection.prepareStatement(sql);) {
+				connection.setAutoCommit(false);
 		
 				pstm1.setLong(1, Coupon.getId());
 				pstm1.executeUpdate();
-				con.commit();
+				connection.commit();
 	
 			} catch (SQLException e) {
 				try {
-					con.rollback();
+					connection.rollback();
 			
 				} catch (SQLException e1) {
 					throw new Exception("Database error");
 				}
 				throw new Exception("failed to remove Coupon");
 			} finally {
-				con.close();
+				pool.closeAllConnections(connection);
 			}
 		}
 			
@@ -70,9 +76,9 @@ import projectCoupon.Database;
 
 		@Override
 		public void updateCoupon(Coupon Coupon) throws Exception {
-			con = DriverManager.getConnection(Database.getDBUrl());
+			Connection connection=pool.getConnection();
 			try { 
-				Statement stm = con.createStatement();
+				Statement stm = connection.createStatement();
 				String sql = "UPDATE Coupon SET TITLE=?, START_DATE=?, END_DATE=?, AMOUNT=?,"
 						+ " TYPE=?, MESSAGE=?, PRICE=?, IMAGE=? WHERE ID=?";
 				PreparedStatement stm1= con.prepareStatement (sql);
@@ -266,6 +272,45 @@ import projectCoupon.Database;
 			} finally {
 				con.close();
 			}
+			
+		}
+
+
+		@Override
+		public void removeExpiredCoupons() throws CouponException {
+			Connection connection = pool.getConnection();
+			try {
+				connection.setAutoCommit(false);
+				String sql = "DELETE FROM app.CompanyCoupon WHERE coupon_id = ?";
+				PreparedStatement pstmt = connection.prepareStatement(sql);
+				pstmt.setLong(1, coupId);
+				pstmt.executeUpdate();
+				
+				sql = "DELETE FROM app.CustomerCoupon WHERE coupon_id = ?";
+				pstmt = connection.prepareStatement(sql);
+				pstmt.setLong(1, coupId);
+				pstmt.executeUpdate();
+				
+				sql = "DELETE FROM app.Coupon WHERE id = ?";
+				pstmt = connection.prepareStatement(sql);
+				pstmt.setLong(1, coupId);
+				pstmt.executeUpdate();
+				
+				connection.commit();
+				
+			} catch (SQLException e) {
+				try {
+					connection.rollback();
+				} catch (SQLException e1) {
+					throw new CouponException("DB ERROR! Remove Coupon Failed. RollBack Transaction Failed!");
+				}
+				throw new CouponException("DB ERROR! Remove Coupon Failed.");
+			} catch (Exception e) {
+				throw new CouponException("APP ERROR! Remove Coupon Failed.");
+			} finally {
+				pool.returnConnection(connection);
+			}
+		}
 			
 		}
 		}

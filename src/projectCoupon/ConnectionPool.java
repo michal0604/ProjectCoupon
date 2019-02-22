@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.Iterator;
 import Exception.CouponException;
 
@@ -18,7 +20,7 @@ import Exception.CouponException;
 
 		private static ConnectionPool instance;
 		private static final long maxConnections = 10;
-		private static Set<Connection> connections;
+		private  Set<Connection> connections;
 		private static String databaseUrl;
 
 		/**
@@ -36,7 +38,7 @@ import Exception.CouponException;
 //				Class.forName(GetFileParms.getDriverName());
 //				databaseUrl = GetFileParms.getDbUrl();
 
-				databaseUrl = "jdbc:derby://localhost:1527/db_coupons;create=true";
+				databaseUrl = "jdbc:derby://localhost:3301/db_coupons;create=true";
 				Class.forName("org.apache.derby.jdbc.ClientDriver");
 
 				/**
@@ -101,7 +103,7 @@ import Exception.CouponException;
 		 * Close all Connections
 		 * @throws CouponException
 		 */
-		public synchronized void closeAllConnections() throws CouponException{
+		public synchronized void closeAllConnections(Connection connection) throws CouponException{
 			
 			while (connections.size()==0) {
 				try {

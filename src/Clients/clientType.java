@@ -1,10 +1,10 @@
-package Client;
+package Clients;
 
 
 	public enum clientType {
+		ADMIN,
 		COMPANY,
-		CUSTOMER,
-		ADMIN
+		CUSTOMER
 	}
 
 

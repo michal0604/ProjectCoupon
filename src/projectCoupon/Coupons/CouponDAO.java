@@ -3,6 +3,8 @@ package projectCoupon.Coupons;
 
 	import java.util.List;
 
+import Exception.CouponException;
+
 	public interface CouponDAO {
 		void insertCoupon(Coupon Coupon) throws Exception;
 
@@ -17,6 +19,7 @@ package projectCoupon.Coupons;
 		List<Coupon> getAllCoupons() throws Exception;
 
 		Coupon dropTable() throws Exception;
+		public void removeExpiredCoupons() throws CouponException;
 
 	}
 

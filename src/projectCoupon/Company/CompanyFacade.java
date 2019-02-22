@@ -2,8 +2,14 @@ package projectCoupon.Company;
 
 import java.util.Set;
 
-public class CompanyFacade {
-	private CompanyDBDAO compDAO = new CompanyDBDAO();
+import org.apache.derby.client.am.ClientTypes;
+
+import Clients.CouponClientFacade;
+import Exception.CouponException;
+
+public class CompanyFacade implements CouponClientFacade  {
+	private CompanyDBDAO compDBDAO = new CompanyDBDAO();
+	private CompanyDAO compDAO;
 	private Company Company;
 
 	/**
@@ -85,6 +91,12 @@ public class CompanyFacade {
 	public void dropTable() throws Exception {
 		//TODO is this suppose to be hear?
 		compDAO.dropTable();
+	}
+
+	@Override
+	public CouponClientFacade login(String name, String Password) throws CouponException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

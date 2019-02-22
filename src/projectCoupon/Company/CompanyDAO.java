@@ -2,6 +2,8 @@ package projectCoupon.Company;
 
 import java.util.Set;
 
+import Exception.CouponException;
+
 public interface CompanyDAO {
 	/**
 	 * @param company - company to be insert to the Data Object
@@ -42,5 +44,7 @@ public interface CompanyDAO {
 	 */
 	//TODO is this supposed to be hear
 	Company dropTable() throws Exception;
+	
+	public boolean isCompanyNameExists(String compName) throws CouponException;
 
 }

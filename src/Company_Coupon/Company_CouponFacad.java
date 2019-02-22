@@ -2,9 +2,11 @@ package Company_Coupon;
 
 import java.util.List;
 
+import projectCoupon.Company.Company;
 
 
-public class Company_CouponFacad {
+
+public class Company_CouponFacad  {
 	private Company_CouponDBDAO  comp_couponDAO = new Company_CouponDBDAO();
 	private long comp_Id;
 	private long coupon_Id;
@@ -43,5 +45,12 @@ public class Company_CouponFacad {
 			 return comp_couponDAO.getCouponsByCompanyId(companyId);
 
 }
+		public void updateCompany_Coupon(Company_Coupon company_Coupon, long newcompId, long newcouponId) throws Exception {
+			//TODO update the exception to the suited one
+			company_Coupon.setComp_Id(newcompId);
+			company_Coupon.setCoupon_Id(newcouponId);
+			comp_couponDAO.updateCompany_Coupon(company_Coupon);
+			
+		}
 
 }

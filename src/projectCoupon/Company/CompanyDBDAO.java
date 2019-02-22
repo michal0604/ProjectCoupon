@@ -14,6 +14,8 @@ import javax.swing.table.TableColumn;
 
 import Exception.CompanyRemovalException;
 import Exception.CompanyUpdateException;
+import Exception.CouponException;
+import projectCoupon.ConnectionPool;
 import projectCoupon.Database;
 import projectCoupon.Customer.Customer;
 
@@ -26,10 +28,13 @@ import projectCoupon.Customer.Customer;
  */
 public class CompanyDBDAO implements CompanyDAO {
 
-	Connection con;
-	private Connection connection;
 	
-
+	private ConnectionPool pool;
+	
+	public CompanyDBDAO() throws CouponException {
+		pool = ConnectionPool.getInstance();
+	}
+	
 	/**
 	 * Inserts a company data set to the Database
 	 * 
@@ -37,11 +42,12 @@ public class CompanyDBDAO implements CompanyDAO {
 	 */
 	@Override
 	public void insertCompany(Company Company) throws Exception {
-		con = DriverManager.getConnection(Database.getDBUrl());
-		//.createTables(con);
+		Connection connection = pool.getConnection();
 		String sql = "INSERT INTO Company (COMP_NAME,PASSWORD,EMAIL) VALUES(?,?,?)";
 
-		try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+		try {
+			PreparedStatement pstmt = connection.prepareStatement(sql); {
+		}
 
 			pstmt.setString(1, Company.getCompName());
 			pstmt.setString(2, Company.getPassword());
@@ -57,7 +63,7 @@ public class CompanyDBDAO implements CompanyDAO {
 			throw new Exception("Company creation failed");
 		} 
 		finally {
-			con.close();
+			pool.closeAllConnections(connection);
 		}
 	}
 
@@ -68,23 +74,22 @@ public class CompanyDBDAO implements CompanyDAO {
 	 */
 	@Override
 	public void removeCompany(Company Company) throws Exception {
-		con = DriverManager.getConnection(Database.getDBUrl());
+		Connection connection=pool.getConnection();
 		String sql = "DELETE FROM Company WHERE id=?";
 
-		//TODO what is the different statement and preparedStatement
-		try (PreparedStatement pstm1 = con.prepareStatement(sql);) {
-			con.setAutoCommit(false);
-			//TODO  autocommit??????
+		try {
+			
+		PreparedStatement pstm1 = connection.prepareStatement(sql); {
+			connection.setAutoCommit(false);
 			System.out.println(Company.getId());
 			pstm1.setLong(1, Company.getId());
 			pstm1.executeUpdate();
-			con.commit();
-			// TODO con.commit????
-		} 
+			connection.commit();
+		}
+		}
 		catch (SQLException e) {
 			try {
-				con.rollback();
-				//TODO what is rollback??????
+				connection.rollback();
 			} 
 			catch (SQLException e1) {
 				throw new CompanyRemovalException(Company);
@@ -92,7 +97,7 @@ public class CompanyDBDAO implements CompanyDAO {
 			throw new Exception("failed to remove Company");
 		} 
 		finally {
-			con.close();
+			pool.closeAllConnections(connection);
 		}
 	}
 
@@ -103,8 +108,10 @@ public class CompanyDBDAO implements CompanyDAO {
 	 */
 	@Override
 	public void updateCompany(Company Company) throws Exception {
-		con = DriverManager.getConnection(Database.getDBUrl());
-		try (Statement stm = con.createStatement()) {
+		Connection connection=pool.getConnection();
+		try {
+			
+		Statement stm = connection.createStatement(); 
 			String sql = "UPDATE Company " + " SET COMP_NAME='" + Company.getCompName() + "', PASSWORD='"
 					+ Company.getPassword() + "',EMAIL='" + Company.getEmail() + "' WHERE ID=" + Company.getId();
 			stm.executeUpdate(sql);
@@ -112,7 +119,7 @@ public class CompanyDBDAO implements CompanyDAO {
 		catch (SQLException e) {
 			throw new CompanyUpdateException(Company);
 		}
-		con.close();
+		pool.closeAllConnections(connection);
 	}
 
 	/**
@@ -122,10 +129,10 @@ public class CompanyDBDAO implements CompanyDAO {
 	 */
 	@Override
 	public Company getCompany(long id) throws Exception {
-		con = DriverManager.getConnection(Database.getDBUrl());
+		Connection connection=pool.getConnection();
 		Company company = new Company();
 		try {
-			Statement stm = con.createStatement();
+			Statement stm = connection.createStatement();
 		
 			String sql = "SELECT * FROM Company WHERE ID=" + id;
 			ResultSet rs = stm.executeQuery(sql);
@@ -139,7 +146,7 @@ public class CompanyDBDAO implements CompanyDAO {
 		} catch (SQLException e) {
 			throw new Exception("unable to get Company data");
 		} finally {
-			con.close();
+			pool.closeAllConnections(connection);
 		}
 		return company;
 	}
@@ -151,11 +158,11 @@ public class CompanyDBDAO implements CompanyDAO {
 	 */
 	@Override
 	public Set<Company> getAllCompanys() throws Exception {
-		con = DriverManager.getConnection(Database.getDBUrl());
+		Connection connection=pool.getConnection();
 		Set<Company> set = new HashSet<>();
 		String sql = "SELECT * FROM Company";
 		try {
-			Statement stm = con.createStatement(); 
+			Statement stm = connection.createStatement(); 
 			ResultSet rs = stm.executeQuery(sql); 
 			while (rs.next()) {
 				long id = rs.getLong(1);
@@ -170,7 +177,7 @@ public class CompanyDBDAO implements CompanyDAO {
 			throw new Exception("cannot get Company data");
 		} 
 		finally {
-			con.close();
+			pool.closeAllConnections(connection);
 		}
 		return set;
 	}
@@ -182,11 +189,10 @@ public class CompanyDBDAO implements CompanyDAO {
 	 */
 	//TODO i don't know if it is a good design to allow this method from hear.
 	public Company dropTable() throws Exception {
-		Connection connection = null;
+		Connection connection = pool.getConnection();
 		try {
 			// Create a connection:
-			con = DriverManager.getConnection(Database.getDBUrl());
-
+		
 			// Create sql command for delete one record:
 			String sql = "drop table ", Company;
 
@@ -203,9 +209,9 @@ public class CompanyDBDAO implements CompanyDAO {
 		} 
 		finally {
 			try {
-				connection.close();
+				pool.closeAllConnections(connection);
 			} 
-			catch (SQLException e) {
+			catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -214,9 +220,31 @@ public class CompanyDBDAO implements CompanyDAO {
 
 	}
 
+	@Override
+	public boolean isCompanyNameExists(String compName) throws CouponException {
+		Connection connection = pool.getConnection();
+		try {
+			String sql = "SELECT id FROM Company WHERE company_name = ? "; 
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+			pstmt.setString(1, compName);
+			ResultSet rs = pstmt.executeQuery(); 
+			if (rs.next()) {
+				return true;
+			} 
+			return false;
+				
+		} catch (SQLException e) {
+			throw new CouponException("DB ERROR! Failed to checking if Company name already exists.");
+		} catch (Exception e) {
+			throw new CouponException("APP ERROR! Failed to checking if Company name already exists.");
+		} finally {
+			pool.returnConnection(connection);
+		}
+	}
+	}
+
 
 	
 		
-	}
-
+	
 
