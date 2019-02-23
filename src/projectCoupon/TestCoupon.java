@@ -4,6 +4,8 @@ package projectCoupon;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+import Clients.AdminFacad;
+import Clients.Client.Clients;
 import Company_Coupon.Company_Coupon;
 import Company_Coupon.Company_CouponDAO;
 import Company_Coupon.Company_CouponFacad;
@@ -96,7 +98,7 @@ public class TestCoupon {
      	System.out.println("BY couponId");
 		System.out.println(company_CouponFacad.getCompanysByCouponId(2));
      
-    //    company_CouponFacad.updateCompany_Coupon(b2, 1, 1);
+   
 		
 
 	}

@@ -14,38 +14,17 @@ import projectCoupon.Coupons.CouponDBDAO;
 import projectCoupon.Coupons.Utile;
 import projectCoupon.Coupons.couponType;
 
-public class CompanyFacade extends Clients implements CouponClientFacade {
+public class CompanyFacade extends Clients implements CouponClientFacade{
 
-	private CompanyDAO companyDAO;
-	private CouponDAO couponDAO ;
-	private Utile Utils;
+	private CompanyDAO companyDAO=new CompanyDBDAO();
+	private CouponDAO couponDAO=new CouponDBDAO() ;
+	private Utile Utils=new Utile();
 	private long companyId = 0;
 	private Company company;
 	
-	/**
-	 * Constructor
-	 * @throws CouponException 
-	 */
-	public CompanyFacade() throws CouponException  {
-		companyDAO = new CompanyDBDAO();
-		couponDAO = new CouponDBDAO();
-		Utils = new Utile();
-	}
 
-	@Override
-	public CouponClientFacade login(String name, String Password) throws CouponException  {
-		Company company = new Company();
-		company = companyDAO.login(name, Password);
-		if (company != null) {
-			// initiate companyId to remember facade.
-			this.companyId = company.getId();
-			this.company = company;
-			return this;
-		} else {
-			return null;
-		}
+	public CompanyFacade()  {
 	}
-	
 
 	public void createCoupon(Coupon coupon) throws Exception {
 		if (coupon != null) {
@@ -198,6 +177,20 @@ public class CompanyFacade extends Clients implements CouponClientFacade {
 	 */
 	public Company getCompanyInstance() {
 		return company;
+	}
+
+	@Override
+	public CouponClientFacade login(String name, String password, clientType clientType) {
+		Company company = new Company();
+		company = companyDAO.login(name, password,clientType);
+		if (company != null) {
+			// initiate companyId to remember facade.
+			this.companyId = company.getId();
+			this.company = company;
+			return this;
+		} else {
+			return null;
+		}
 	}
 
 }

@@ -84,13 +84,13 @@ public class CustomerDBDAO implements CustomerDAO {
 	}
 
 	@Override
-	public Customer getCustomer(long id) throws Exception {
+	public Customer getCustomer(String custName) throws Exception {
 		Connection connection = pool.getConnection();
 		Customer customer = new Customer();
 		try {
 			Statement stm = connection.createStatement();
 
-			String sql = "SELECT * FROM Customer WHERE ID=" + id;
+			String sql = "SELECT * FROM Customer WHERE ID=" + custName;
 			ResultSet rs = stm.executeQuery(sql);
 			rs.next();
 			customer.setId(rs.getLong(1));
@@ -126,6 +126,20 @@ public class CustomerDBDAO implements CustomerDAO {
 			pool.closeAllConnections(connection);
 		}
 		return set;
+	}
+
+	@Override
+	public void removeCustomer(long custId) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+
+	@Override
+	public boolean isCustomerNameExists(String custName) throws CouponException {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
