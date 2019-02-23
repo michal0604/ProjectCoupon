@@ -1,7 +1,6 @@
 package projectCoupon.Company;
 
 import java.util.List;
-import java.util.Set;
 
 public class CompanyFacade {
 	private CompanyDBDAO compDAO = new CompanyDBDAO();

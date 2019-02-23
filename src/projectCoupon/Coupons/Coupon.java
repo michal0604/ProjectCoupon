@@ -70,8 +70,8 @@ public class Coupon {
 
 
 
-	public void setStart_date(Date start_date) {
-		this.start_date = start_date;
+	public void setStart_date(java.util.Date date) {
+		this.start_date = (Date) date;
 	}
 
 
@@ -84,8 +84,8 @@ public class Coupon {
 
 
 
-	public void setEnd_date(Date end_date) {
-		this.end_date = end_date;
+	public void setEnd_date(java.util.Date date) {
+		this.end_date = (Date) date;
 	}
 
 

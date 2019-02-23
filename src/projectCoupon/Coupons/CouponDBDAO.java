@@ -115,7 +115,7 @@ import projectCoupon.Database;
 				coupon.setPrice(rs.getDouble(8));
 				coupon.setImage(rs.getString(9));
 				switch (rs.getString(6)) {
-				case "food":
+				case "Food":
 					coupon.setType(couponType.food);
 					break;
 				case "Resturans":

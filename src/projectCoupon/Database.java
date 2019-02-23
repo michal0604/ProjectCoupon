@@ -7,9 +7,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import Exception.CompanyCreationException;
-import projectCoupon.Company.Company;
-
 public class Database {
 
 	private static final String Company = null;

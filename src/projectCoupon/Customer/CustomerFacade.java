@@ -1,7 +1,6 @@
 package projectCoupon.Customer;
 
 import java.util.List;
-import java.util.Set;
 
 public class CustomerFacade {
 	private CustomerDBDAO custDAO = new CustomerDBDAO();

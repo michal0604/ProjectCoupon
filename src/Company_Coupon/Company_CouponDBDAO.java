@@ -9,7 +9,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import Customer_Coupon.Customer_Coupon;
 import projectCoupon.Database;
 
 public class Company_CouponDBDAO implements Company_CouponDAO {

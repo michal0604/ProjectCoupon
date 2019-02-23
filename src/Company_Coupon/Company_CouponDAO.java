@@ -2,8 +2,6 @@ package Company_Coupon;
 
 import java.util.List;
 
-import Customer_Coupon.Customer_Coupon;
-
 public interface Company_CouponDAO {
 	
 	void insertCompany_Coupon(Company_Coupon company_Coupon) throws Exception;
