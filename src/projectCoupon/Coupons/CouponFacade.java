@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.util.List;
 
 public class CouponFacade {
-	private CouponDBDAO couponDAO = new CouponDBDAO();
+	private CouponDBDAO couponDAO=new CouponDBDAO();
 	private Coupon coupon;
 	private long couponId;
 

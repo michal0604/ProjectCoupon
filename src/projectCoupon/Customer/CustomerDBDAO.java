@@ -1,19 +1,16 @@
 package projectCoupon.Customer;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import Exception.CouponException;
 import projectCoupon.ConnectionPool;
-import projectCoupon.Database;
+import projectCoupon.Exception.CouponException;
 
 public class CustomerDBDAO implements CustomerDAO {
 	private ConnectionPool pool;
@@ -84,13 +81,13 @@ public class CustomerDBDAO implements CustomerDAO {
 	}
 
 	@Override
-	public Customer getCustomer(String custName) throws Exception {
+	public Customer getCustomer(long id) throws Exception {
 		Connection connection = pool.getConnection();
 		Customer customer = new Customer();
 		try {
 			Statement stm = connection.createStatement();
 
-			String sql = "SELECT * FROM Customer WHERE ID=" + custName;
+			String sql = "SELECT * FROM Customer WHERE ID=" + id;
 			ResultSet rs = stm.executeQuery(sql);
 			rs.next();
 			customer.setId(rs.getLong(1));
@@ -134,10 +131,21 @@ public class CustomerDBDAO implements CustomerDAO {
 		
 	}
 
-	
+	@Override
+	public Set<Customer> getAllCustomers() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
-	public boolean isCustomerNameExists(String custName) throws CouponException {
+	public Customer login(String custName, String password) throws projectCoupon.Customer.CouponException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	//TODO function empty
+	@Override
+	public boolean isCustomerNameExists(String custName) throws projectCoupon.Customer.CouponException {
 		// TODO Auto-generated method stub
 		return false;
 	}

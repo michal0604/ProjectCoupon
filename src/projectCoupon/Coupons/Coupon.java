@@ -1,46 +1,47 @@
 package projectCoupon.Coupons;
 
+import java.security.Timestamp;
 import java.sql.Date;
+
+import org.apache.derby.impl.store.raw.log.LogAccessFile;
 
 public class Coupon {
 	private long id;
 	private String title;
-	private Date start_date;
-	private Date end_date;
+	private Date startDate;
+	private Date endDate;
 	private int amount;
 	private couponType type;
 	private String message;
 	private Double price;
 	private String image;
+	private long companyId;
+	
+
 	
 	public Coupon() {
 
 	}
 	
-
-	public Coupon(long id, String title, Date start_date, Date end_date, int amount, couponType type,
-			String message, Double price, String image) {
+	public Coupon(long id, String title, Date startDate, Date endDate, int amount, couponType type,
+			String message, Double price, String image,long companyId) {
 		super();
 		this.id = id;
 		this.title = title;
-		this.start_date = start_date;
-		this.end_date = end_date;
+		this.startDate = startDate;
+		this.endDate = endDate;
 		this.amount = amount;
 		this.type = type;
 		this.message = message;
 		this.price = price;
 		this.image = image;
+		this.companyId=companyId;
 	}
 
-
-
-
+	
 	public long getId() {
 		return id;
 	}
-
-
-
 
 	public void setId(long id) {
 		this.id = id;
@@ -63,47 +64,35 @@ public class Coupon {
 
 
 
-	public Date getStart_date() {
-		return start_date;
+	public Date getstartDate() {
+		return startDate;
 	}
 
 
 
 
-	public void setStart_date(Date start_date) {
-		this.start_date = start_date;
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getendDate() {
+		return endDate;
 	}
 
 
 
 
-	public Date getEnd_date() {
-		return end_date;
+	public void setEnd_date(Date endDate) {
+		this.endDate = endDate;
 	}
-
-
-
-
-	public void setEnd_date(Date end_date) {
-		this.end_date = end_date;
-	}
-
-
-
 
 	public int getAmount() {
 		return amount;
 	}
 
-
-
-
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
-
-
-
 
 	public couponType getType() {
 		return type;
@@ -114,54 +103,41 @@ public class Coupon {
 		this.type = type;
 	}
 
-
-
-
 	public String getMessage() {
 		return message;
 	}
-
-
-
 
 	public void setMessage(String message) {
 		this.message = message;
 	}
 
-
-
-
 	public Double getPrice() {
 		return price;
 	}
-
-
-
 
 	public void setPrice(Double price) {
 		this.price = price;
 	}
 
-
-
-
 	public String getImage() {
 		return image;
 	}
 
-
-
-
 	public void setImage(String image) {
 		this.image = image;
 	}
+	
+	public long getCompanyId() {
+		return companyId;
+	}
 
-
-
+	public void setCompanyId(long companyId) {
+		this.companyId = companyId;
+	}
 
 	@Override
 	public String toString() {
-		return "Coupon [id=" + id + ", title=" + title + ", start_date=" + start_date + ", end_date=" + end_date
+		return "Coupon [id=" + id + ", title=" + title + ", startDate=" + startDate + ", endDate=" + endDate
 				+ ", amount=" + amount + ", type=" + type + ", message=" + message + ", price=" + price + ", image="
 				+ image + "]";
 	}

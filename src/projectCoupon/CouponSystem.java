@@ -2,14 +2,12 @@ package projectCoupon;
 
 import java.sql.Connection;
 
-import javax.sql.PooledConnection;
-
-import Clients.AdminFacad;
-import Clients.CouponClientFacade;
-import Clients.clientType;
-import Exception.CouponException;
+import projectCoupon.Clients.AdminFacad;
+import projectCoupon.Clients.CouponClientFacade;
+import projectCoupon.Clients.clientType;
 import projectCoupon.Company.CompanyFacade;
 import projectCoupon.Customer.CustomerFacade;
+import projectCoupon.Exception.CouponException;
 
 public class CouponSystem {
 	

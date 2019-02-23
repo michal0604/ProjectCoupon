@@ -1,4 +1,4 @@
-package Company_Coupon;
+package projectCoupon.Company_Coupon;
 
 public class Company_Coupon {
 	private long comp_Id;

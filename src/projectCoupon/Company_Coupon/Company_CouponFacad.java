@@ -1,8 +1,6 @@
-package Company_Coupon;
+package projectCoupon.Company_Coupon;
 
 import java.util.List;
-
-import projectCoupon.Company.Company;
 
 
 

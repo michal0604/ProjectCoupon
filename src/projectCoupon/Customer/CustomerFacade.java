@@ -3,8 +3,12 @@ package projectCoupon.Customer;
 import java.util.List;
 import java.util.Set;
 
-public class CustomerFacade {
-	private CustomerDBDAO custDAO = new CustomerDBDAO();
+import Clients.CouponClientFacade;
+import Clients.clientType;
+import Exception.CouponException;
+
+public class CustomerFacade implements CouponClientFacade {
+	private CustomerDBDAO custDAO=new CustomerDBDAO() ;
 	private Customer customer;
 
 	public CustomerFacade(Customer customer) {
@@ -37,6 +41,15 @@ public class CustomerFacade {
 		// ProductDBDAO comDAO=new ProductDBDAO();
 		return custDAO.getAllCustomer();
 	}
+
+
+	@Override
+	public CouponClientFacade login(String name, String password, clientType clientType) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 
 
 }

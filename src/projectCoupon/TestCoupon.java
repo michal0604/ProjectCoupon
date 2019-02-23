@@ -4,21 +4,19 @@ package projectCoupon;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-import Clients.AdminFacad;
-import Clients.Client.Clients;
-import Company_Coupon.Company_Coupon;
-import Company_Coupon.Company_CouponDAO;
-import Company_Coupon.Company_CouponFacad;
-import Customer_Coupon.Customer_Coupon;
-import Customer_Coupon.Customer_CouponFacad;
 import projectCoupon.Company.Company;
 import projectCoupon.Company.CompanyFacade;
+import projectCoupon.Company_Coupon.Company_Coupon;
+import projectCoupon.Company_Coupon.Company_CouponDAO;
+import projectCoupon.Company_Coupon.Company_CouponFacad;
 import projectCoupon.Coupons.Coupon;
 import projectCoupon.Coupons.CouponFacade;
 import projectCoupon.Coupons.Utile;
 import projectCoupon.Coupons.couponType;
 import projectCoupon.Customer.Customer;
 import projectCoupon.Customer.CustomerFacade;
+import projectCoupon.Customer_Coupon.Customer_Coupon;
+import projectCoupon.Customer_Coupon.Customer_CouponFacad;
 
 public class TestCoupon {
 
@@ -98,7 +96,7 @@ public class TestCoupon {
      	System.out.println("BY couponId");
 		System.out.println(company_CouponFacad.getCompanysByCouponId(2));
      
-   
+    //    company_CouponFacad.updateCompany_Coupon(b2, 1, 1);
 		
 
 	}

@@ -1,4 +1,4 @@
-package Customer_Coupon;
+package projectCoupon.Customer_Coupon;
 
 public class Customer_Coupon {
 	private long cust_id;

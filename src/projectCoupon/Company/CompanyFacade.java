@@ -2,13 +2,11 @@ package projectCoupon.Company;
 
 import java.util.Set;
 
-import org.apache.derby.client.am.ClientTypes;
-
-import Clients.CouponClientFacade;
-import Exception.CouponException;
+import projectCoupon.Clients.CouponClientFacade;
+import projectCoupon.Exception.CouponException;
 
 public class CompanyFacade implements CouponClientFacade  {
-	private CompanyDBDAO compDBDAO = new CompanyDBDAO();
+	private CompanyDBDAO compDBDAO;
 	private CompanyDAO compDAO;
 	private Company Company;
 
@@ -16,16 +14,21 @@ public class CompanyFacade implements CouponClientFacade  {
 	 * cTor that receive a company object 
 	 * 
 	 * @param company 
+	 * @throws CouponException 
 	 */
-	public CompanyFacade(Company company) {
+	public CompanyFacade(Company company) throws CouponException {
 		this.Company = company;
+		this.compDBDAO = new CompanyDBDAO();
 
 	}
 
 	/**
 	 *  Empty cTOr of the class
+	 * @throws CouponException 
 	 */
-	public CompanyFacade() {}
+	public CompanyFacade() throws CouponException {
+		compDBDAO = new CompanyDBDAO();
+	}
 
 	/**
 	 * this method received a new Company object to add to the data storage 
@@ -70,7 +73,6 @@ public class CompanyFacade implements CouponClientFacade  {
 	 * @return the company
 	 * @throws Exception 
 	 */
-	//TODO 
 	public Company getCompany(long id) throws Exception {
 		return compDAO.getCompany(id);
 	}

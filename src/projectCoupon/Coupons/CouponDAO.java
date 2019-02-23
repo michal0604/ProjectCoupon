@@ -3,7 +3,7 @@ package projectCoupon.Coupons;
 
 	import java.util.List;
 
-import Exception.CouponException;
+import projectCoupon.Exception.CouponException;
 
 	public interface CouponDAO {
 		void insertCoupon(Coupon Coupon) throws Exception;
@@ -20,6 +20,9 @@ import Exception.CouponException;
 
 		Coupon dropTable() throws Exception;
 		public void removeExpiredCoupons() throws CouponException;
+
+		//TODO function empty
+		boolean isCouponExistsForCompany(long companyId, long coupId);
 
 	}
 

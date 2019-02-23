@@ -1,15 +1,13 @@
 package projectCoupon;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Iterator;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.Iterator;
-import Exception.CouponException;
+
 import projectCoupon.Coupons.Utile;
+import projectCoupon.Exception.CouponException;
 
 
 

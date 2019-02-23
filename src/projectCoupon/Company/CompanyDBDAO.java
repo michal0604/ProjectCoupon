@@ -1,7 +1,6 @@
 package projectCoupon.Company;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,15 +8,10 @@ import java.sql.Statement;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.swing.plaf.TableUI;
-import javax.swing.table.TableColumn;
-
-import Exception.CompanyRemovalException;
-import Exception.CompanyUpdateException;
-import Exception.CouponException;
 import projectCoupon.ConnectionPool;
-import projectCoupon.Database;
-import projectCoupon.Customer.Customer;
+import projectCoupon.Exception.CompanyRemovalException;
+import projectCoupon.Exception.CompanyUpdateException;
+import projectCoupon.Exception.CouponException;
 
 /**
  * this class implement the DB operations associated with the Company's data
@@ -240,6 +234,13 @@ public class CompanyDBDAO implements CompanyDAO {
 		} finally {
 			pool.returnConnection(connection);
 		}
+	}
+
+	//TODO function empty
+	@Override
+	public Company login(String name, String password) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	}
 
