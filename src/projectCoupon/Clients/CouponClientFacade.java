@@ -1,6 +1,6 @@
-package Clients;
+package projectCoupon.Clients;
 
-import Exception.CouponException;
+import projectCoupon.Exception.CouponException;
 
 public interface CouponClientFacade {
 	

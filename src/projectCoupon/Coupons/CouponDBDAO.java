@@ -10,9 +10,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import Exception.CouponException;
 import projectCoupon.ConnectionPool;
 import projectCoupon.Database;
+import projectCoupon.Exception.CouponException;
 
 	public class CouponDBDAO implements CouponDAO {
 		private ConnectionPool pool;
@@ -311,8 +311,15 @@ import projectCoupon.Database;
 				pool.returnConnection(connection);
 			}
 		}
+
+		//TODO function empty
+		@Override
+		public boolean isCouponExistsForCompany(long companyId, long coupId) {
+			// TODO Auto-generated method stub
+			return false;
+		}
 			
-		}
-		}
+	}
+
 
 	

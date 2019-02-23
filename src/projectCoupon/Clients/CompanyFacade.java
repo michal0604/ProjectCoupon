@@ -1,10 +1,9 @@
-package Clients;
+package projectCoupon.Clients;
 
 import java.sql.Date;
 import java.util.Set;
 
-import Clients.Client.Clients;
-import Exception.CouponException;
+import projectCoupon.Clients.Client.Clients;
 import projectCoupon.Company.Company;
 import projectCoupon.Company.CompanyDAO;
 import projectCoupon.Company.CompanyDBDAO;
@@ -13,6 +12,7 @@ import projectCoupon.Coupons.CouponDAO;
 import projectCoupon.Coupons.CouponDBDAO;
 import projectCoupon.Coupons.Utile;
 import projectCoupon.Coupons.couponType;
+import projectCoupon.Exception.CouponException;
 
 public class CompanyFacade extends Clients implements CouponClientFacade {
 
@@ -51,8 +51,8 @@ public class CompanyFacade extends Clients implements CouponClientFacade {
 		if (coupon != null) {
 			String CoupTitle = coupon.getTitle();
 			if (CoupTitle != null) {
-				Date startDate = coupon.getstartDate();
-				Date endDate = coupon.getendDate();
+				Date startDate = coupon.getStart_date();
+				Date endDate = coupon.getEnd_date();
 				if (startDate.getTime() <= endDate.getTime()) {
 					if (startDate.getTime() >= Utile.toDate(0).getTime()) {//ts.getTime()) { //new Timestamp(System.currentTimeMillis()).getTime()) {
 						if (!couponDAO.isCouponTitleExists(CoupTitle)) {
@@ -83,7 +83,7 @@ public class CompanyFacade extends Clients implements CouponClientFacade {
 	public void removeCoupon(long coupId) throws Exception {
 		if (coupId > 0) {
 			if (couponDAO.isCouponExistsForCompany(companyId, coupId)) {
-				couponDAO.removeCoupon(coupId);
+				couponDAO.removeCouponID(coupId);
 			} else {
 				throw new CouponException("STOP! Coupon Not Exist for Company! Remove Coupon is Canceled!");
 			}

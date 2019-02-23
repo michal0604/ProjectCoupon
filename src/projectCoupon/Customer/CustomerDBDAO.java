@@ -1,19 +1,16 @@
 package projectCoupon.Customer;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import Exception.CouponException;
 import projectCoupon.ConnectionPool;
-import projectCoupon.Database;
+import projectCoupon.Exception.CouponException;
 
 public class CustomerDBDAO implements CustomerDAO {
 	private ConnectionPool pool;
@@ -126,6 +123,31 @@ public class CustomerDBDAO implements CustomerDAO {
 			pool.closeAllConnections(connection);
 		}
 		return set;
+	}
+
+	@Override
+	public void removeCustomer(long custId) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Set<Customer> getAllCustomers() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Customer login(String custName, String password) throws projectCoupon.Customer.CouponException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	//TODO function empty
+	@Override
+	public boolean isCustomerNameExists(String custName) throws projectCoupon.Customer.CouponException {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

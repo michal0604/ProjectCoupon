@@ -1,10 +1,9 @@
 package projectCoupon.Customer;
 
 
-	import java.util.List;
-import java.util.Set;
+	import java.util.Set;
 
-import Exception.CouponException;
+import projectCoupon.Exception.CouponException;
 
 	public interface CustomerDAO{
 		void insertCustomer(Customer Customer) throws Exception;
@@ -19,6 +18,9 @@ import Exception.CouponException;
 		public Customer login(String custName,String password) throws CouponException ;
 		
 		public boolean isCustomerNameExists(String custName) throws CouponException;
+
+		//TODO function empty
+		void removeCustomer(Customer Customer) throws Exception;
 		
 	}
 

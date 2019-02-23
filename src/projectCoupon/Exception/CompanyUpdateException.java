@@ -1,4 +1,4 @@
-package Exception;
+package projectCoupon.Exception;
 
 import projectCoupon.Company.Company;
 

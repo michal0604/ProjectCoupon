@@ -1,4 +1,4 @@
-package Clients;
+package projectCoupon.Clients;
 
 public class Client {
 	public class Clients {

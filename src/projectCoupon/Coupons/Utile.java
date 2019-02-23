@@ -29,4 +29,10 @@ public class Utile {
 			return "jdbc:derby://localhost:3301/MyDB;create=true";
 		}
 
+	    //TODO function empty
+		public static java.util.Date toDate(int i) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
 }

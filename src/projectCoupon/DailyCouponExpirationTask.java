@@ -1,8 +1,8 @@
 package projectCoupon;
 
-import Exception.CouponException;
 import projectCoupon.Coupons.CouponDAO;
 import projectCoupon.Coupons.CouponDBDAO;
+import projectCoupon.Exception.CouponException;
 
 public class DailyCouponExpirationTask implements Runnable {
 	

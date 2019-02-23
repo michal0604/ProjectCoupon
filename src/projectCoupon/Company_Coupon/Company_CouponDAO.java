@@ -1,9 +1,9 @@
-package Company_Coupon;
+package projectCoupon.Company_Coupon;
 
 import java.util.List;
 
-import Customer_Coupon.Customer_Coupon;
 import projectCoupon.Coupons.Coupon;
+import projectCoupon.Customer_Coupon.Customer_Coupon;
 
 public interface Company_CouponDAO {
 	
