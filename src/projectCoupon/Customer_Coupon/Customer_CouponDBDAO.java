@@ -1,7 +1,6 @@
-package Customer_Coupon;
+package projectCoupon.Customer_Coupon;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,11 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.lang.model.type.ErrorType;
-
-import Exception.CouponException;
 import projectCoupon.ConnectionPool;
-import projectCoupon.Database;
+import projectCoupon.Exception.CouponException;
 
 public class Customer_CouponDBDAO implements Customer_CouponDAO {
 

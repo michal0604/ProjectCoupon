@@ -2,7 +2,7 @@ package projectCoupon.Company;
 
 import java.util.Set;
 
-import Exception.CouponException;
+import projectCoupon.Exception.CouponException;
 
 public interface CompanyDAO {
 	/**
@@ -46,5 +46,8 @@ public interface CompanyDAO {
 	Company dropTable() throws Exception;
 	
 	public boolean isCompanyNameExists(String compName) throws CouponException;
+	
+	//TODO function empty
+	Company login(String name, String password);
 
 }
