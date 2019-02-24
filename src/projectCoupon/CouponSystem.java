@@ -4,9 +4,8 @@ import java.sql.Connection;
 
 import projectCoupon.Clients.AdminFacad;
 import projectCoupon.Clients.CouponClientFacade;
+import projectCoupon.Clients.CustomerFacad;
 import projectCoupon.Clients.clientType;
-import projectCoupon.Company.CompanyFacade;
-import projectCoupon.Customer.CustomerFacade;
 import projectCoupon.Exception.CouponException;
 
 public class CouponSystem {
@@ -24,10 +23,6 @@ public class CouponSystem {
 	private static final int SLEEPTIME = 1*DAY; 
 	
 	
-	/**
-	 * Constructor: Start Daily Coupon Expiration Task thread.
-	 * @throws CouponException
- 	 **/
 	public CouponSystem() throws CouponException {
 		// Activate the daily Coupons Deletion Demon (Thread)
 		DailyTask = new DailyCouponExpirationTask(SLEEPTIME);
@@ -40,7 +35,7 @@ public class CouponSystem {
 		return instance;
 	}
 
-	public CouponClientFacade login(String user,String pass,clientType clientType) throws CouponException {
+	public CouponClientFacade login(String user,String pass,clientType clientType) throws Exception {
 
 		CouponClientFacade couponClientFacade = null;
 		
@@ -49,24 +44,24 @@ public class CouponSystem {
 			couponClientFacade = new AdminFacad();
 			break;
 		case COMPANY:
-			couponClientFacade = new CompanyFacade();
+			couponClientFacade = new projectCoupon.Clients.CompanyFacade();
 			break;
 		case CUSTOMER:
-			couponClientFacade = new CustomerFacade();
+			couponClientFacade = new CustomerFacad();
 			break;
 		default:
 			couponClientFacade = null;
 		} 
 		
 		if (couponClientFacade != null) {
-			couponClientFacade = couponClientFacade.login(user,pass);
+			couponClientFacade = couponClientFacade.login(user,pass,clientType);
 			if (couponClientFacade != null) {
 				return couponClientFacade;
 			} else {
-				throw new CouponException("STOP! Login Falied! Invalid User or Password!");
+		throw new CouponException("Login Falied! Invalid User or Password!");
 			}
 		} else {
-			throw new CouponException("STOP! Login Falied! Invalid User Type!");
+			throw new CouponException("Login Falied! Invalid User Type!");
 		}
 	}
 	

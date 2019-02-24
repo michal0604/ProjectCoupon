@@ -3,6 +3,8 @@ package projectCoupon.Coupons;
 import java.sql.Date;
 import java.time.LocalDate;
 
+import projectCoupon.Exception.CouponException;
+
 public class Utile {
 	
 		
@@ -34,5 +36,11 @@ public class Utile {
 			// TODO Auto-generated method stub
 			return null;
 		}
+
+		public java.util.Date today () throws CouponException {
+			return toDate(0);	 
+		}
+
+		
 
 }

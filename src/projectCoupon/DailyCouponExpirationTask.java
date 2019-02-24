@@ -16,7 +16,6 @@ public class DailyCouponExpirationTask implements Runnable {
 		this.sleepTime = sleepTime;
 	}
 
-	
 	@Override
 	public void run() {
 		while (!this.quit) {
@@ -32,7 +31,6 @@ public class DailyCouponExpirationTask implements Runnable {
 		}
 	}
 
-	
 	public void stopTask() {
 		this.quit = true;
 	}

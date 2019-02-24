@@ -2,8 +2,6 @@ package projectCoupon.Clients;
 
 import java.sql.Date;
 import java.util.Set;
-
-import projectCoupon.Clients.Client.Clients;
 import projectCoupon.Clients.CouponClientFacade;
 import projectCoupon.Company.Company;
 import projectCoupon.Company.CompanyDAO;
@@ -15,7 +13,7 @@ import projectCoupon.Coupons.Utile;
 import projectCoupon.Coupons.couponType;
 import projectCoupon.Exception.CouponException;
 
-public class CompanyFacade extends Clients implements CouponClientFacade {
+public class CompanyFacade  implements CouponClientFacade {
 
 	private CompanyDAO companyDAO;
 	private CouponDAO couponDAO ;
@@ -34,9 +32,9 @@ public class CompanyFacade extends Clients implements CouponClientFacade {
 	}
 
 	@Override
-	public CouponClientFacade login(String name, String Password) throws CouponException  {
+	public CouponClientFacade login(String name, String password, clientType clientType) throws Exception {
 		Company company = new Company();
-		company = companyDAO.login(name, Password);
+		company = companyDAO.login(name, password,clientType);
 		if (company != null) {
 			// initiate companyId to remember facade.
 			this.companyId = company.getId();
@@ -46,7 +44,7 @@ public class CompanyFacade extends Clients implements CouponClientFacade {
 			return null;
 		}
 	}
-	
+
 
 	public void createCoupon(Coupon coupon) throws Exception {
 		if (coupon != null) {
@@ -59,32 +57,26 @@ public class CompanyFacade extends Clients implements CouponClientFacade {
 						if (!couponDAO.isCouponTitleExists(CoupTitle)) {
 							couponDAO.insertCoupon(coupon);
 						} else {
-							throw new CouponException("STOP! Coupon Title is Already Exists! Create New Coupon is Canceled!"); 
+							throw new CouponException("Coupon Title is Already Exists! Create New Coupon is Canceled!"); 
 						}
 					} else {
-						throw new CouponException("STOP! Coupon Start Date Cannot Be In The Past! Create New Coupon is Canceled!"); 
+						throw new CouponException("Coupon Start Date Cannot Be In The Past! Create New Coupon is Canceled!"); 
 					}
 				} else {
-					throw new CouponException("STOP! Coupon Start Date Cannot Be Greater then End Date! Create New Coupon is Canceled!"); 
+					throw new CouponException("Coupon Start Date Cannot Be Greater then End Date! Create New Coupon is Canceled!"); 
 				}
 			} else {
-				throw new CouponException("STOP! No Coupons Information! Create New Coupon is Canceled!"); 
+				throw new CouponException(" No Coupons Information! Create New Coupon is Canceled!"); 
 			}
 		} else {
-			throw new CouponException("STOP! Coupon Information Not Exist! Create New Coupon is Failed!"); 
+			throw new CouponException("Coupon Information Not Exist! Create New Coupon is Failed!"); 
 		}
 	}
 	
-	/**
-	 * Delete all coupons from related to company id include those 
-	 * how bought by customers (customerCoupon).
-	 * @param coupId long 
-	 * @throws Exception 
-	 */
 	public void removeCoupon(long coupId) throws Exception {
 		if (coupId > 0) {
 			if (couponDAO.isCouponExistsForCompany(companyId, coupId)) {
-				couponDAO.removeCouponID(coupId);
+				couponDAO.removeCoupon(coupId);
 			} else {
 				throw new CouponException("STOP! Coupon Not Exist for Company! Remove Coupon is Canceled!");
 			}
@@ -93,11 +85,7 @@ public class CompanyFacade extends Clients implements CouponClientFacade {
 		}
 	}
 
-	/**
-	 * Update Coupon - only end date and price.
-	 * @param coupon Coupon 
-	 * @throws Exception 
-	 */
+	
 	public void updateCoupon(Coupon coupon) throws Exception {
 		if (coupon != null) {
 			long couponId = coupon.getId();
@@ -111,94 +99,62 @@ public class CompanyFacade extends Clients implements CouponClientFacade {
 							couponDAO.updateCoupon(coupon);
 						
 					} else {
-						throw new CouponException("STOP! Coupon Start Date Cannot Be Greater then End Date! Update Coupon is Canceled!"); 
+						throw new CouponException("Coupon Start Date Cannot Be Greater then End Date! Update Coupon is Canceled!"); 
 					}
 				} else {
-					throw new CouponException("STOP! Invalid Price For Coupon! Update Coupon is Canceled!"); 
+					throw new CouponException("Invalid Price For Coupon! Update Coupon is Canceled!"); 
 				}
 			} else {
-				throw new CouponException("STOP! Coupon Not Exist for Company! Update Coupon is Canceled!");
+				throw new CouponException("Coupon Not Exist for Company! Update Coupon is Canceled!");
 			}
 		} else {
-			throw new CouponException("STOP! Coupon Information Not Exist! Update Coupon is Failed!"); 
+			throw new CouponException("Coupon Information Not Exist! Update Coupon is Failed!"); 
 		}
 	}
 	
-	/**
-	 * View specific company by id
-	 * @return Company
-	 * @throws Exception 
-	 */
+	
 	public Company getCompany() throws Exception {
 		return companyDAO.getCompany(companyId);
 	}
 	
-	/**
-	 * View specific coupon
-	 * @param coupId long 
-	 * @return Coupon
-	 * @throws Exception 
-	 */
+
 	public Coupon getCoupon(long coupId) throws Exception {
 		return couponDAO.getCoupon(coupId);
 	}	
 	
-	/**
-	 * Get all company coupons.
-	 * @return Coupons collection.
-	 * @throws CouponException
-	 * false - not expired coupons.
-	 */
+	
 	public Set<Coupon> getCoupons() throws CouponException {
 		return couponDAO.getCoupons(companyId,0,0,false);
 	}
 
-	/**
-	 * View all coupons related to specific company by type.
-	 * @param coupType CouponType 
-	 * @return Coupons collection.
-	 * @throws CouponException
-	 */
+	
 	public Set<Coupon> getCouponsByType(couponType coupType) throws CouponException {
 		return couponDAO.getCouponsByType(companyId, coupType);
 	}
 
-	/**
-	 * View all coupons related to specific company By Max Coupon Price
-	 * @param price double 
-	 * @return Coupons collection.
-	 * @throws CouponException
-	 */
+	
 	public Set<Coupon> getCouponsByMaxCouponPrice(double price) throws CouponException {
 		return couponDAO.getCouponsByMaxCouponPrice(companyId,price);
 	}
 
-	/**
-	 * View all coupons related to specific company by Max Coupon Date
-	 * @param maxCouponDate Timestamp 
-	 * @return Coupons collection.
-	 * @throws CouponException
-	 */
+	
 	public Set<Coupon> getCouponsByMaxCouponDate(Date maxCouponDate)  throws CouponException{
 		return couponDAO.getCouponsByMaxCouponDate(companyId, maxCouponDate);		
 	}
 	
-	/**
-	 * @return the companyId
-	 * Set in login()
-	 */
+	
 	public long getCompanyId() {
 		return companyId;
 	}
 	
-	/**
-	 * @return company
-	 * Set in login()
-	 */
+	
 	public Company getCompanyInstance() {
 		return company;
 	}
 
-}
+
+	}
+
+
 
 

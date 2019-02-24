@@ -11,14 +11,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import Exception.CouponException;
 import projectCoupon.ConnectionPool;
 import projectCoupon.Database;
 
 public class CustomerDBDAO implements CustomerDAO {
 	private ConnectionPool pool;
 	
-	public CustomerDBDAO() throws CouponException {
+	public CustomerDBDAO() throws projectCoupon.Exception.CouponException {
 		pool=ConnectionPool.getInstance();
 	}
 
@@ -137,9 +136,21 @@ public class CustomerDBDAO implements CustomerDAO {
 	
 
 	@Override
-	public boolean isCustomerNameExists(String custName) throws CouponException {
+	public boolean isCustomerNameExists(String custName) throws projectCoupon.Exception.CouponException {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public Customer getCustomer(long custId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void createCustomer(Customer customer) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

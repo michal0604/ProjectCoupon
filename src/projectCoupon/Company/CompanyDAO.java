@@ -51,4 +51,8 @@ public interface CompanyDAO {
 	//TODO function empty
 	Company login(String name, String password, clientType clientType);
 
+	void createCompany(Company company);
+
+	void removeCompany(long compId);
+
 }

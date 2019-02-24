@@ -21,7 +21,10 @@ import projectCoupon.Exception.CouponException;
 		List<Coupon> getAllCoupons() throws Exception;
 
 		Coupon dropTable() throws Exception;
-		public void removeExpiredCoupons() throws CouponException;
+		public static void removeExpiredCoupons() throws CouponException {
+			// TODO Auto-generated method stub
+			
+		}
 
 		//TODO function empty
 		boolean isCouponExistsForCompany(long companyId, long coupId);
@@ -37,6 +40,18 @@ import projectCoupon.Exception.CouponException;
 		Set<Coupon> getCouponsByMaxCouponDate(long companyId, Date maxCouponDate);
 
 		void removeCoupon(Coupon Coupon) throws Exception;
+
+		Set<Coupon> getAllPurchasedCouponsByPrice(long customerId, long price);
+
+		Set<Coupon> getAllPurchasedCouponsByType(long customerId, couponType type);
+
+		Set<Coupon> getAllPurchasedCoupons(long customerId);
+
+		void purchaseCoupon(long customerId, long coupId);
+
+		boolean isCouponPurchasedByCustomer(long customerId, long coupId);
+
+		
 
 	}
 

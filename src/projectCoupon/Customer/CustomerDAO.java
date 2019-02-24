@@ -4,8 +4,11 @@ package projectCoupon.Customer;
 	import java.util.List;
 import java.util.Set;
 
-import Clients.clientType;
-import Exception.CouponException;
+import org.apache.derby.client.am.ClientTypes;
+
+import projectCoupon.Clients.clientType;
+
+
 
 	public interface CustomerDAO{
 		void insertCustomer(Customer Customer) throws Exception;
@@ -14,7 +17,7 @@ import Exception.CouponException;
 
 		void updateCustomer(Customer Customer) throws Exception;
 		
-		public boolean isCustomerNameExists(String custName) throws CouponException;
+		public boolean isCustomerNameExists(String custName) throws projectCoupon.Exception.CouponException;
 
 		void removeCustomer(Customer Customer) throws Exception;
 
@@ -28,6 +31,9 @@ import Exception.CouponException;
 		Customer getCustomer(String custName) throws Exception;
 
 		Customer getCustomer(long custId);
+
+		void createCustomer(Customer customer);
+		
 		
 	}
 
