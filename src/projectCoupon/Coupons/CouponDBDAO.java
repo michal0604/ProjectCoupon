@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import projectCoupon.ConnectionPool;
 import projectCoupon.Database;
@@ -81,7 +82,7 @@ import projectCoupon.Exception.CouponException;
 				Statement stm = connection.createStatement();
 				String sql = "UPDATE Coupon SET TITLE=?, START_DATE=?, END_DATE=?, AMOUNT=?,"
 						+ " TYPE=?, MESSAGE=?, PRICE=?, IMAGE=? WHERE ID=?";
-				PreparedStatement stm1= con.prepareStatement (sql);
+				PreparedStatement stm1= connection.prepareStatement (sql);
 				stm1.setString(1, Coupon.getTitle());
 				stm1.setDate(2, Coupon.getStart_date());
 				stm1.setDate(3, Coupon.getEnd_date());
@@ -99,16 +100,16 @@ import projectCoupon.Exception.CouponException;
 				throw new Exception("update Coupon failed "+ e.getMessage());
 			}
 			finally{
-				con.close();
+				pool.closeAllConnections(connection);
 			}
 		}
 			
 		@Override
 		public Coupon getCoupon(long id) throws Exception {
-			con = DriverManager.getConnection(Database.getDBUrl());
+			Connection connection=pool.getConnection();
 			Coupon coupon = new Coupon();
 			try {
-				Statement stm = con.createStatement();
+				Statement stm = connection.createStatement();
 				String sql = "SELECT * FROM Coupon WHERE ID=" + id;
 				ResultSet rs = stm.executeQuery(sql);
 				rs.next();
@@ -151,7 +152,7 @@ import projectCoupon.Exception.CouponException;
 			catch (SQLException e) {
 				throw new Exception("unable to get Coupon data " + e.getMessage());
 			} finally {
-				con.close();
+				pool.closeAllConnections(connection);
 			}
 			return coupon;
 		}
@@ -317,6 +318,42 @@ import projectCoupon.Exception.CouponException;
 		public boolean isCouponExistsForCompany(long companyId, long coupId) {
 			// TODO Auto-generated method stub
 			return false;
+		}
+
+		@Override
+		public void removeCoupon(long coupId) throws Exception {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public boolean isCouponTitleExists(String coupTitle) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public Set<Coupon> getCoupons(long companyId, int i, int j, boolean b) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public Set<Coupon> getCouponsByType(long companyId, couponType coupType) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public Set<Coupon> getCouponsByMaxCouponPrice(long companyId, double price) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public Set<Coupon> getCouponsByMaxCouponDate(long companyId, Date maxCouponDate) {
+			// TODO Auto-generated method stub
+			return null;
 		}
 			
 	}

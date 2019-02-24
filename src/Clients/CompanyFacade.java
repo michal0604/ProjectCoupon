@@ -2,9 +2,9 @@ package Clients;
 
 import java.sql.Date;
 import java.util.Set;
-
-import Clients.Client.Clients;
-import Exception.CouponException;
+import projectCoupon.Clients.Client;
+import projectCoupon.Clients.CouponClientFacade;
+import projectCoupon.Clients.clientType;
 import projectCoupon.Company.Company;
 import projectCoupon.Company.CompanyDAO;
 import projectCoupon.Company.CompanyDBDAO;
@@ -14,7 +14,7 @@ import projectCoupon.Coupons.CouponDBDAO;
 import projectCoupon.Coupons.Utile;
 import projectCoupon.Coupons.couponType;
 
-public class CompanyFacade extends Clients implements CouponClientFacade{
+public class CompanyFacade extends Client implements CouponClientFacade{
 
 	private CompanyDAO companyDAO=new CompanyDBDAO();
 	private CouponDAO couponDAO=new CouponDBDAO() ;
@@ -30,26 +30,26 @@ public class CompanyFacade extends Clients implements CouponClientFacade{
 		if (coupon != null) {
 			String CoupTitle = coupon.getTitle();
 			if (CoupTitle != null) {
-				Date startDate = coupon.getstartDate();
-				Date endDate = coupon.getendDate();
+				Date startDate = coupon.getStart_date();
+				Date endDate = coupon.getEnd_date();
 				if (startDate.getTime() <= endDate.getTime()) {
 					if (startDate.getTime() >= Utile.toDate(0).getTime()) {//ts.getTime()) { //new Timestamp(System.currentTimeMillis()).getTime()) {
 						if (!couponDAO.isCouponTitleExists(CoupTitle)) {
 							couponDAO.insertCoupon(coupon);
 						} else {
-							throw new CouponException("STOP! Coupon Title is Already Exists! Create New Coupon is Canceled!"); 
+							throw new projectCoupon.Exception.CouponException("STOP! Coupon Title is Already Exists! Create New Coupon is Canceled!"); 
 						}
 					} else {
-						throw new CouponException("STOP! Coupon Start Date Cannot Be In The Past! Create New Coupon is Canceled!"); 
+						throw new projectCoupon.Exception.CouponException("STOP! Coupon Start Date Cannot Be In The Past! Create New Coupon is Canceled!"); 
 					}
 				} else {
-					throw new CouponException("STOP! Coupon Start Date Cannot Be Greater then End Date! Create New Coupon is Canceled!"); 
+					throw new projectCoupon.Exception.CouponException("STOP! Coupon Start Date Cannot Be Greater then End Date! Create New Coupon is Canceled!"); 
 				}
 			} else {
-				throw new CouponException("STOP! No Coupons Information! Create New Coupon is Canceled!"); 
+				throw new projectCoupon.Exception.CouponException("STOP! No Coupons Information! Create New Coupon is Canceled!"); 
 			}
 		} else {
-			throw new CouponException("STOP! Coupon Information Not Exist! Create New Coupon is Failed!"); 
+			throw new projectCoupon.Exception.CouponException("STOP! Coupon Information Not Exist! Create New Coupon is Failed!"); 
 		}
 	}
 	
@@ -64,10 +64,10 @@ public class CompanyFacade extends Clients implements CouponClientFacade{
 			if (couponDAO.isCouponExistsForCompany(companyId, coupId)) {
 				couponDAO.removeCoupon(coupId);
 			} else {
-				throw new CouponException("STOP! Coupon Not Exist for Company! Remove Coupon is Canceled!");
+				throw new projectCoupon.Exception.CouponException("STOP! Coupon Not Exist for Company! Remove Coupon is Canceled!");
 			}
 		} else {
-			throw new CouponException("STOP! No Coupon Was Chosen! Remove Coupon is Canceled!");
+			throw new projectCoupon.Exception.CouponException("STOP! No Coupon Was Chosen! Remove Coupon is Canceled!");
 		}
 	}
 
@@ -82,25 +82,23 @@ public class CompanyFacade extends Clients implements CouponClientFacade{
 			if (couponDAO.isCouponExistsForCompany(companyId, couponId)) {
 				Double CoupPrice = coupon.getPrice();
 				if (CoupPrice > 0) {
-					Date startDate = couponDAO.getCoupon(couponId).getstartDate();
-					Date endDate = coupon.getendDate();
+					Date startDate = couponDAO.getCoupon(couponId).getStart_date();
+					Date endDate = coupon.getEnd_date();
 					if (startDate.getTime() <= endDate.getTime()) {
-						//if (startDate.getTime() >= new Timestamp(System.currentTimeMillis()).getTime()) {
+					
 							couponDAO.updateCoupon(coupon);
-						//} else {
-						//	throw new CouponException("STOP! Coupon Start Date Cannot Be In The Past! Update Coupon is Canceled!"); 
-						//}
+	
 					} else {
-						throw new CouponException("STOP! Coupon Start Date Cannot Be Greater then End Date! Update Coupon is Canceled!"); 
+						throw new projectCoupon.Exception.CouponException("update coupon is Canceled!"); 
 					}
 				} else {
-					throw new CouponException("STOP! Invalid Price For Coupon! Update Coupon is Canceled!"); 
+					throw new projectCoupon.Exception.CouponException("Update Coupon is Canceled!"); 
 				}
 			} else {
-				throw new CouponException("STOP! Coupon Not Exist for Company! Update Coupon is Canceled!");
+				throw new projectCoupon.Exception.CouponException("Update Coupon is Canceled!");
 			}
 		} else {
-			throw new CouponException("STOP! Coupon Information Not Exist! Update Coupon is Failed!"); 
+			throw new projectCoupon.Exception.CouponException("Update Coupon is Failed!"); 
 		}
 	}
 	
@@ -113,53 +111,26 @@ public class CompanyFacade extends Clients implements CouponClientFacade{
 		return companyDAO.getCompany(companyId);
 	}
 	
-	/**
-	 * View specific coupon
-	 * @param coupId long 
-	 * @return Coupon
-	 * @throws Exception 
-	 */
 	public Coupon getCoupon(long coupId) throws Exception {
 		return couponDAO.getCoupon(coupId);
 	}	
 	
-	/**
-	 * Get all company coupons.
-	 * @return Coupons collection.
-	 * @throws CouponException
-	 * false - not expired coupons.
-	 */
-	public Set<Coupon> getCoupons() throws CouponException {
+	
+	public Set<Coupon> getCoupons() throws projectCoupon.Exception.CouponException {
 		return couponDAO.getCoupons(companyId,0,0,false);
 	}
 
-	/**
-	 * View all coupons related to specific company by type.
-	 * @param coupType CouponType 
-	 * @return Coupons collection.
-	 * @throws CouponException
-	 */
-	public Set<Coupon> getCouponsByType(couponType coupType) throws CouponException {
+	
+	public Set<Coupon> getCouponsByType(couponType coupType) throws projectCoupon.Exception.CouponException {
 		return couponDAO.getCouponsByType(companyId, coupType);
 	}
 
-	/**
-	 * View all coupons related to specific company By Max Coupon Price
-	 * @param price double 
-	 * @return Coupons collection.
-	 * @throws CouponException
-	 */
-	public Set<Coupon> getCouponsByMaxCouponPrice(double price) throws CouponException {
+	public Set<Coupon> getCouponsByMaxCouponPrice(double price) throws projectCoupon.Exception.CouponException {
 		return couponDAO.getCouponsByMaxCouponPrice(companyId,price);
 	}
 
-	/**
-	 * View all coupons related to specific company by Max Coupon Date
-	 * @param maxCouponDate Timestamp 
-	 * @return Coupons collection.
-	 * @throws CouponException
-	 */
-	public Set<Coupon> getCouponsByMaxCouponDate(Date maxCouponDate)  throws CouponException{
+	
+	public Set<Coupon> getCouponsByMaxCouponDate(Date maxCouponDate)  throws projectCoupon.Exception.CouponException{
 		return couponDAO.getCouponsByMaxCouponDate(companyId, maxCouponDate);		
 	}
 	
@@ -191,6 +162,12 @@ public class CompanyFacade extends Clients implements CouponClientFacade{
 		} else {
 			return null;
 		}
+	}
+
+	@Override
+	public CouponClientFacade login(String name, String Password) throws projectCoupon.Exception.CouponException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

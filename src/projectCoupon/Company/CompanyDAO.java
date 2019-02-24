@@ -2,6 +2,7 @@ package projectCoupon.Company;
 
 import java.util.Set;
 
+import projectCoupon.Clients.clientType;
 import projectCoupon.Exception.CouponException;
 
 public interface CompanyDAO {
@@ -48,6 +49,6 @@ public interface CompanyDAO {
 	public boolean isCompanyNameExists(String compName) throws CouponException;
 	
 	//TODO function empty
-	Company login(String name, String password);
+	Company login(String name, String password, clientType clientType);
 
 }

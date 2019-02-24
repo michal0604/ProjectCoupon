@@ -9,4 +9,9 @@ public class Client {
 		}
 
 	}
+
+	public CouponClientFacade login(String name, String password, clientType clientType) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

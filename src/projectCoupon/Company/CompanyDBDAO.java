@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import projectCoupon.ConnectionPool;
+import projectCoupon.Clients.clientType;
 import projectCoupon.Exception.CompanyRemovalException;
 import projectCoupon.Exception.CompanyUpdateException;
 import projectCoupon.Exception.CouponException;
@@ -236,9 +237,10 @@ public class CompanyDBDAO implements CompanyDAO {
 		}
 	}
 
-	//TODO function empty
+	
+
 	@Override
-	public Company login(String name, String password) {
+	public Company login(String name, String password, clientType clientType) {
 		// TODO Auto-generated method stub
 		return null;
 	}

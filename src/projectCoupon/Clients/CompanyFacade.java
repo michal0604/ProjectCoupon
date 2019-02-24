@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.Set;
 
 import projectCoupon.Clients.Client.Clients;
+import projectCoupon.Clients.CouponClientFacade;
 import projectCoupon.Company.Company;
 import projectCoupon.Company.CompanyDAO;
 import projectCoupon.Company.CompanyDBDAO;
@@ -103,14 +104,12 @@ public class CompanyFacade extends Clients implements CouponClientFacade {
 			if (couponDAO.isCouponExistsForCompany(companyId, couponId)) {
 				Double CoupPrice = coupon.getPrice();
 				if (CoupPrice > 0) {
-					Date startDate = couponDAO.getCoupon(couponId).getstartDate();
-					Date endDate = coupon.getendDate();
+		       Date startDate = couponDAO.getCoupon(couponId).getStart_date();
+					Date endDate = coupon.getEnd_date();
 					if (startDate.getTime() <= endDate.getTime()) {
-						//if (startDate.getTime() >= new Timestamp(System.currentTimeMillis()).getTime()) {
+						
 							couponDAO.updateCoupon(coupon);
-						//} else {
-						//	throw new CouponException("STOP! Coupon Start Date Cannot Be In The Past! Update Coupon is Canceled!"); 
-						//}
+						
 					} else {
 						throw new CouponException("STOP! Coupon Start Date Cannot Be Greater then End Date! Update Coupon is Canceled!"); 
 					}
