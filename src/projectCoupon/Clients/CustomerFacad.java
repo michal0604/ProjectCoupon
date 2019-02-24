@@ -132,7 +132,7 @@ import projectCoupon.Exception.CouponException;
 			return custDAO.getCustomer(id);
 		}
 
-		public Set<Customer> getAllCustomer() throws Exception {
+		public java.util.List<Customer> getAllCustomer() throws Exception {
 			// ProductDBDAO comDAO=new ProductDBDAO();
 			return custDAO.getAllCustomer();
 		}

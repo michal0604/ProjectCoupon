@@ -134,17 +134,7 @@ public class AdminFacad implements CouponClientFacade{
 	}
 	
 	
-	public Coupon getCoupon(long coupId) throws Exception {
-		return couponDAO.getCoupon(coupId);
-	}
 	
-	public Set<Coupon> getCoupons() throws CouponException {
-		return couponDAO.getCoupons(0,0,0,false);
-	}
-	
-	public Set<Coupon> getAllCoupons() throws CouponException {
-		return couponDAO.getCoupons(0, 0, 0, true);
-	}
 
 
 	
