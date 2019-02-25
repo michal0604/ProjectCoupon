@@ -4,21 +4,14 @@ package projectCoupon;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-import Clients.AdminFacad;
-import Clients.Client.Clients;
-import Company_Coupon.Company_Coupon;
-import Company_Coupon.Company_CouponDAO;
-import Company_Coupon.Company_CouponFacad;
-import Customer_Coupon.Customer_Coupon;
-import Customer_Coupon.Customer_CouponFacad;
+import projectCoupon.Clients.CompanyFacade;
 import projectCoupon.Company.Company;
-import projectCoupon.Company.CompanyFacade;
-import projectCoupon.Coupons.Coupon;
+import projectCoupon.Company_Coupon.Company_Coupon;
+import projectCoupon.Company_Coupon.Company_CouponFacad;
 import projectCoupon.Coupons.CouponFacade;
-import projectCoupon.Coupons.Utile;
-import projectCoupon.Coupons.couponType;
 import projectCoupon.Customer.Customer;
-import projectCoupon.Customer.CustomerFacade;
+import projectCoupon.Customer_Coupon.Customer_Coupon;
+import projectCoupon.Customer_Coupon.Customer_CouponFacad;
 
 public class TestCoupon {
 
@@ -47,25 +40,25 @@ public class TestCoupon {
 		Company p3 = new Company(4, "Intel", "INTEL-1234", "INTEL@co.il");
 
 		CompanyFacade CompanyFacade = new CompanyFacade();
-		CompanyFacade.insertCompany(p1);
-		CompanyFacade.insertCompany(p2);
-		CompanyFacade.insertCompany(p3);
+	//	CompanyFacade.insertCompany(p1);
+	//	CompanyFacade.insertCompany(p2);
+	//	CompanyFacade.insertCompany(p3);
 	//	System.out.println(CompanyFacade.getAllCompany());
-		System.out.println(CompanyFacade.getCompany(1));
-		CompanyFacade.updateCompany(p3, "AMDOCS", "AMDOCS-1234", "AMDOCS@co.il");
+	//	System.out.println(CompanyFacade.getCompany(1));
+	//	CompanyFacade.updateCompany(p3, "AMDOCS", "AMDOCS-1234", "AMDOCS@co.il");
 		
      	System.out.println("-------------------------------------------------------------");
 	
-		CustomerFacade customerFacade=new CustomerFacade();
+	//CustomerFacade customerFacade=new CustomerFacade();
 		Customer  c1=new Customer(1, "URI", "1234");
 		Customer  c2=new Customer(2, "Oz", "2345");
 		Customer  c3=new Customer(3, "Pazit", "3456");	
-		customerFacade.insertCustomer(c1);
-		customerFacade.insertCustomer(c2);
-		customerFacade.insertCustomer(c3);
-        System.out.println(customerFacade.getAllCustomer());
-        System.out.println(customerFacade.getCustomer(1));
-        customerFacade.updateCustomer(c3, "Yossi", "6789");
+	//	customerFacade.insertCustomer(c1);
+	//	customerFacade.insertCustomer(c2);
+	//	customerFacade.insertCustomer(c3);
+    //    System.out.println(customerFacade.getAllCustomer());
+    //    System.out.println(customerFacade.getCustomer(1));
+    //    customerFacade.updateCustomer(c3, "Yossi", "6789");
         System.out.println("---------------------------------------------------------");
 		
 		Customer_CouponFacad customer_CouponFacad=new Customer_CouponFacad();

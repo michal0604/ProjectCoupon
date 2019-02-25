@@ -278,13 +278,13 @@ import projectCoupon.Exception.CouponException;
 
 
 		@Override
-		public void removeExpiredCoupons() throws CouponException {
+		public void removeExpiredCoupons(long coupId) throws CouponException {
 			Connection connection = pool.getConnection();
 			try {
 				connection.setAutoCommit(false);
 				String sql = "DELETE FROM app.CompanyCoupon WHERE coupon_id = ?";
 				PreparedStatement pstmt = connection.prepareStatement(sql);
-				pstmt.setLong(1, couponId);
+				pstmt.setLong(1, coupId);
 				pstmt.executeUpdate();
 				
 				sql = "DELETE FROM app.CustomerCoupon WHERE coupon_id = ?";
@@ -354,6 +354,36 @@ import projectCoupon.Exception.CouponException;
 		public Set<Coupon> getCouponsByMaxCouponDate(long companyId, Date maxCouponDate) {
 			// TODO Auto-generated method stub
 			return null;
+		}
+
+		@Override
+		public Set<Coupon> getAllPurchasedCouponsByPrice(long customerId, long price) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public Set<Coupon> getAllPurchasedCouponsByType(long customerId, couponType type) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public Set<Coupon> getAllPurchasedCoupons(long customerId) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public void purchaseCoupon(long customerId, long coupId) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public boolean isCouponPurchasedByCustomer(long customerId, long coupId) {
+			// TODO Auto-generated method stub
+			return false;
 		}
 			
 	}

@@ -244,6 +244,18 @@ public class CompanyDBDAO implements CompanyDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void createCompany(Company company) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeCompany(long compId) {
+		// TODO Auto-generated method stub
+		
+	}
 	}
 
 

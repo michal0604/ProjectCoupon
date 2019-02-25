@@ -51,6 +51,8 @@ import projectCoupon.Exception.CouponException;
 
 		boolean isCouponPurchasedByCustomer(long customerId, long coupId);
 
+		void removeExpiredCoupons(long couponId) throws CouponException;
+
 		
 
 	}

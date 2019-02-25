@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Scanner;
 
 import projectCoupon.Customer.Customer;
-import projectCoupon.Customer.CustomerFacade;
 
 public class InteractiveTest {
 	
@@ -54,13 +53,13 @@ public class InteractiveTest {
 	}
 	
 	private void doCustomerOperation(int operation) {
-		CustomerFacade customerFacade=new CustomerFacade();
+	//	CustomerFacade customerFacade=new CustomerFacade();
 		Customer newCustomer,oldCustomer;
 		switch (operation) {
 		case OP_ADD:
 			try {
 				newCustomer = readCustomer(new Customer(),true);
-				customerFacade.insertCustomer(newCustomer);
+	//			customerFacade.insertCustomer(newCustomer);
 			} 
 			catch (Exception e) {
 				e.printStackTrace();
@@ -68,11 +67,11 @@ public class InteractiveTest {
 			break;
 		case OP_UPDATE:
 			try {
-				oldCustomer = chooseCustomer(customerFacade.getAllCustomer(),"update",true);
-				if(oldCustomer != null) {
-					newCustomer = readCustomer(oldCustomer,false);
-					customerFacade.updateCustomer(oldCustomer, newCustomer.getCustomerName(), newCustomer.getPassword());
-				}
+			//	oldCustomer = chooseCustomer(customerFacade.getAllCustomer(),"update",true);
+			//	if(oldCustomer != null) {
+			//		newCustomer = readCustomer(oldCustomer,false);
+		//			customerFacade.updateCustomer(oldCustomer, newCustomer.getCustomerName(), newCustomer.getPassword());
+		//		}
 			} 
 			catch (Exception e) {
 				e.printStackTrace();
@@ -80,17 +79,17 @@ public class InteractiveTest {
 			break;
 		case OP_REMOVE:
 			try {
-				oldCustomer = chooseCustomer(customerFacade.getAllCustomer(),"update",true);
-				if(oldCustomer !=null) {
-					customerFacade.removeCustomer(oldCustomer);
-				}
+		//		oldCustomer = chooseCustomer(customerFacade.getAllCustomer(),"update",true);
+		//		if(oldCustomer !=null) {
+			//		customerFacade.removeCustomer(oldCustomer);
+		//		}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			break;
 		case OP_LIST:
 			try {
-				chooseCustomer(customerFacade.getAllCustomer(),"show anything",false);
+		//		chooseCustomer(customerFacade.getAllCustomer(),"show anything",false);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
