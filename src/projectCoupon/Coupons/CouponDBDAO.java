@@ -122,7 +122,7 @@ import projectCoupon.Exception.CouponException;
 				coupon.setPrice(rs.getDouble(8));
 				coupon.setImage(rs.getString(9));
 				switch (rs.getString(6)) {
-				case "food":
+				case "Food":
 					coupon.setType(couponType.food);
 					break;
 				case "Resturans":
@@ -160,12 +160,12 @@ import projectCoupon.Exception.CouponException;
 
 		@Override
 		public List<Coupon> getAllCoupons() throws Exception {
-			con = DriverManager.getConnection(Database.getDBUrl());
+			Connection connection = pool.getConnection();
 			List<Coupon> set = new ArrayList<Coupon>();
 			Coupon coupon;
 			String sql = "SELECT * FROM Coupon";
 			try {
-				Statement stm = con.createStatement(); 
+				Statement stm = connection.createStatement(); 
 				ResultSet rs = stm.executeQuery(sql);
 				while (rs.next()) {
 					coupon = new Coupon();
@@ -209,7 +209,7 @@ import projectCoupon.Exception.CouponException;
 				System.out.println(e);
 				throw new Exception("cannot get Coupon data");
 			} finally {
-				con.close();
+				connection.close();
 			}
 			return set;
 		}
@@ -219,7 +219,7 @@ import projectCoupon.Exception.CouponException;
 			Connection connection=null;
 			try {
 				// Create a connection:
-				con = DriverManager.getConnection(Database.getDBUrl());
+				connection = pool.getConnection();
 
 				// Create sql command for delete one record:
 				String sql = "drop table ",Coupon;

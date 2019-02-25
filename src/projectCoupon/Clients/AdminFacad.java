@@ -87,7 +87,7 @@ public class AdminFacad implements CouponClientFacade{
 	}
 
 	
-	public Set<Company> getAllCompanies() throws Exception  {
+	public List<Company> getAllCompanies() throws Exception  {
 		return companyDAO.getAllCompanys();
 	}
 		

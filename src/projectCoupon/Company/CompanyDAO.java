@@ -1,6 +1,6 @@
 package projectCoupon.Company;
 
-import java.util.Set;
+import java.util.List;
 
 import projectCoupon.Clients.clientType;
 import projectCoupon.Exception.CouponException;
@@ -37,7 +37,7 @@ public interface CompanyDAO {
 	 * @return all the companies stored in the data acces
 	 * @throws Exceptionwhen there is a problem connecting the data object
 	 */
-	Set<Company> getAllCompanys() throws Exception;
+	List<Company> getAllCompanys() throws Exception;
 
 	/**
 	 * @return

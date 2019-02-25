@@ -1,14 +1,16 @@
 package projectCoupon.Company;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import projectCoupon.ConnectionPool;
+import projectCoupon.Database;
 import projectCoupon.Clients.clientType;
 import projectCoupon.Exception.CompanyRemovalException;
 import projectCoupon.Exception.CompanyUpdateException;
@@ -152,9 +154,9 @@ public class CompanyDBDAO implements CompanyDAO {
 	 * @see projectCoupon.Company.CompanyDAO#getAllCompanys
 	 */
 	@Override
-	public Set<Company> getAllCompanys() throws Exception {
-		Connection connection=pool.getConnection();
-		Set<Company> set = new HashSet<>();
+	public List<Company> getAllCompanys() throws Exception {
+		Connection connection = pool.getConnection();
+		List<Company> set = new ArrayList<Company>();
 		String sql = "SELECT * FROM Company";
 		try {
 			Statement stm = connection.createStatement(); 
