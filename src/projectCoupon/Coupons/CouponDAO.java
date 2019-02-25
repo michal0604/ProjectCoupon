@@ -20,25 +20,23 @@ import projectCoupon.Exception.CouponException;
 
 		List<Coupon> getAllCoupons() throws Exception;
 
-		Coupon dropTable() throws Exception;
-		public static void removeExpiredCoupons() throws CouponException {
-			// TODO Auto-generated method stub
-			
-		}
 
 		//TODO function empty
 		boolean isCouponExistsForCompany(long companyId, long coupId);
 
 		boolean isCouponTitleExists(String coupTitle);
+		
+		List<Coupon> getAllCouponsByType(long couponId, String typeName) throws Exception;
 
-		Set<Coupon> getCoupons(long companyId, int i, int j, boolean b);
+		List<Coupon> getAllCouponsByPrice(long couponId, double priceMax) throws Exception;
 
-		Set<Coupon> getCouponsByType(long companyId, couponType coupType);
+		List<Coupon> getAllCouponsByDate(long couponId, String untilDate) throws Exception;
 
-		Set<Coupon> getCouponsByMaxCouponPrice(long companyId, double price);
+		
 
-		Set<Coupon> getCouponsByMaxCouponDate(long companyId, Date maxCouponDate);
+		List<Coupon> getAllCoupons(long couponId) throws Exception;
 
+		
 		void removeCoupon(Coupon Coupon) throws Exception;
 
 		Set<Coupon> getAllPurchasedCouponsByPrice(long customerId, long price);
@@ -52,6 +50,10 @@ import projectCoupon.Exception.CouponException;
 		boolean isCouponPurchasedByCustomer(long customerId, long coupId);
 
 		void removeExpiredCoupons(long couponId) throws CouponException;
+
+		
+
+		List<Coupon> getCouponsByType(long couponId, String typeName) throws Exception;
 
 		
 

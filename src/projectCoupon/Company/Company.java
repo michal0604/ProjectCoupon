@@ -8,7 +8,7 @@ package projectCoupon.Company;
  */
 public class Company {
 	
-	private long id;
+	private long companyId;
 	private String compName;
 	private String password;
 	private String email;
@@ -27,25 +27,29 @@ public class Company {
 	 * @param password = company password 
 	 * @param email = company email
 	 */
-	public Company(long id, String compName, String password, String email) {
-		this.id = id;
+	public Company(long companyId, String compName, String password, String email) {
+		this.companyId = companyId;
 		this.compName = compName;
 		this.password = password;
 		this.email = email;
 	}
+	
+	
+	
+	
 
 	/**
 	 * @return the id of the company.
 	 */
-	public long getId() {
-		return id;
+	public long getCompanyId() {
+		return companyId;
 	}
-
+	
 	/**
 	 * @param id  Sets the id of company.
 	 */
-	public void setId(long id) {
-		this.id = id;
+	public void setCompanyId(long companyId) {
+		this.companyId = companyId;
 	}
 
 	/**
@@ -92,7 +96,7 @@ public class Company {
 
 	@Override
 	public String toString() {
-		return "Company (id=" + id + ", compName=" + compName + ", password=" + password + ", email=" + email + ")";
+		return "Company (companyId=" + companyId+ ", compName=" + compName + ", password=" + password + ", email=" + email + ")";
 	}
 
 	/**

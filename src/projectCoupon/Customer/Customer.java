@@ -2,7 +2,7 @@ package projectCoupon.Customer;
 
 public class Customer {
 
-	private long id;
+	private long customerId;
 	private String customerName;
 	private String password;
 
@@ -10,19 +10,17 @@ public class Customer {
 
 	}
 
-	public Customer(long id, String customerName, String password) {
+	public Customer(long customerId, String customerName, String password) {
 		super();
-		this.id = id;
+		this.customerId = customerId;
 		this.customerName = customerName;
 		this.password = password;
 	}
 
-	public long getId() {
-		return id;
-	}
+	
 
-	public void setId(long id) {
-		this.id = id;
+	public long getCustomerId() {
+		return customerId;
 	}
 
 	public String getCustomerName() {
@@ -43,11 +41,20 @@ public class Customer {
 
 	@Override
 	public String toString() {
-		return "Customer [id=" + id + ", customerName=" + customerName + ", password=" + password + "]";
+		return "Customer [customerID=" + customerId+ ", customerName=" + customerName + ", password=" + password + "]";
+	}
+
+	public void setCustomerId(long customerId) {
+		this.customerId = customerId;
+	}
+
+	
+
+	
 	}
 
 
 	
 
 	
-}
+

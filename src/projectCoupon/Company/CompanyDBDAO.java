@@ -8,10 +8,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import projectCoupon.ConnectionPool;
 import projectCoupon.Database;
 import projectCoupon.Clients.clientType;
+import projectCoupon.Coupons.Coupon;
 import projectCoupon.Exception.CompanyRemovalException;
 import projectCoupon.Exception.CompanyUpdateException;
 import projectCoupon.Exception.CouponException;
@@ -40,19 +42,16 @@ public class CompanyDBDAO implements CompanyDAO {
 	@Override
 	public void insertCompany(Company Company) throws Exception {
 		Connection connection = pool.getConnection();
-		String sql = "INSERT INTO Company (COMP_NAME,PASSWORD,EMAIL) VALUES(?,?,?)";
+		String sql = "INSERT INTO Company (ID,COMP_NAME,PASSWORD,EMAIL) VALUES(?,?,?)";
 
 		try {
 			PreparedStatement pstmt = connection.prepareStatement(sql); {
 		}
-
-			pstmt.setString(1, Company.getCompName());
-			pstmt.setString(2, Company.getPassword());
-			pstmt.setString(3, Company.getEmail());
+			pstmt.setLong(1, Company.getCompanyId());
+			pstmt.setString(2, Company.getCompName());
+			pstmt.setString(3, Company.getPassword());
+			pstmt.setString(4, Company.getEmail());
 			pstmt.executeUpdate();
-
-			// why 1 2 3
-
 		} 
 		catch (SQLException ex) {
 			System.out.println(ex.getLocalizedMessage());
@@ -60,7 +59,8 @@ public class CompanyDBDAO implements CompanyDAO {
 			throw new Exception("Company creation failed");
 		} 
 		finally {
-			pool.closeAllConnections(connection);
+			connection.close();
+			pool.returnConnection(connection);
 		}
 	}
 
@@ -78,8 +78,8 @@ public class CompanyDBDAO implements CompanyDAO {
 			
 		PreparedStatement pstm1 = connection.prepareStatement(sql); {
 			connection.setAutoCommit(false);
-			System.out.println(Company.getId());
-			pstm1.setLong(1, Company.getId());
+			System.out.println(Company.getCompanyId());
+			pstm1.setLong(1, Company.getCompanyId());
 			pstm1.executeUpdate();
 			connection.commit();
 		}
@@ -110,7 +110,7 @@ public class CompanyDBDAO implements CompanyDAO {
 			
 		Statement stm = connection.createStatement(); 
 			String sql = "UPDATE Company " + " SET COMP_NAME='" + Company.getCompName() + "', PASSWORD='"
-					+ Company.getPassword() + "',EMAIL='" + Company.getEmail() + "' WHERE ID=" + Company.getId();
+					+ Company.getPassword() + "',EMAIL='" + Company.getEmail() + "' WHERE ID=" + Company.getCompanyId();
 			stm.executeUpdate(sql);
 		} 
 		catch (SQLException e) {
@@ -134,7 +134,7 @@ public class CompanyDBDAO implements CompanyDAO {
 			String sql = "SELECT * FROM Company WHERE ID=" + id;
 			ResultSet rs = stm.executeQuery(sql);
 			rs.next();
-			company.setId(rs.getLong(1));
+			company.setCompanyId(rs.getLong(1));
 			company.setCompName(rs.getString(2));
 			company.setPassword(rs.getString(3));
 			company.setEmail(rs.getString(4));
@@ -177,45 +177,7 @@ public class CompanyDBDAO implements CompanyDAO {
 			pool.closeAllConnections(connection);
 		}
 		return set;
-	}
-
-	/**
-	 * dropes the company table from Database
-	 * 
-	 * @see projectCoupon.Company.CompanyDAO#dropTable()
-	 */
-	//TODO i don't know if it is a good design to allow this method from hear.
-	public Company dropTable() throws Exception {
-		Connection connection = pool.getConnection();
-		try {
-			// Create a connection:
-		
-			// Create sql command for delete one record:
-			String sql = "drop table ", Company;
-
-			// Create an object for executing the above command:
-			PreparedStatement preparedStatement = connection.prepareStatement(sql);
-
-			// Execute:
-			preparedStatement.executeUpdate();
-
-			System.out.println("drop succeeded.");
-		} 
-		catch (Exception e) {
-			System.out.println("error");
-		} 
-		finally {
-			try {
-				pool.closeAllConnections(connection);
-			} 
-			catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return null;
-
-	}
+	}	
 
 	@Override
 	public boolean isCompanyNameExists(String compName) throws CouponException {
@@ -247,16 +209,18 @@ public class CompanyDBDAO implements CompanyDAO {
 		return null;
 	}
 
-	@Override
-	public void createCompany(Company company) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 	@Override
 	public void removeCompany(long compId) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Set<Coupon> getCoupons(long compId) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	}
 

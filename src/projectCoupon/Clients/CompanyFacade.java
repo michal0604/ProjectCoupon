@@ -1,6 +1,7 @@
 package projectCoupon.Clients;
 
 import java.sql.Date;
+import java.util.HashSet;
 import java.util.Set;
 import projectCoupon.Clients.CouponClientFacade;
 import projectCoupon.Company.Company;
@@ -78,10 +79,10 @@ public class CompanyFacade  implements CouponClientFacade {
 			if (couponDAO.isCouponExistsForCompany(companyId, coupId)) {
 				couponDAO.removeCoupon(coupId);
 			} else {
-				throw new CouponException("STOP! Coupon Not Exist for Company! Remove Coupon is Canceled!");
+				throw new CouponException("Coupon Not Exist for Company! Remove Coupon is Canceled!");
 			}
 		} else {
-			throw new CouponException("STOP! No Coupon Was Chosen! Remove Coupon is Canceled!");
+			throw new CouponException("No Coupon Was Chosen! Remove Coupon is Canceled!");
 		}
 	}
 
@@ -123,24 +124,47 @@ public class CompanyFacade  implements CouponClientFacade {
 	}	
 	
 	
-	public Set<Coupon> getCoupons() throws CouponException {
-		return couponDAO.getCoupons(companyId,0,0,false);
+	public Set<Coupon> getCoupons() throws Exception {
+		Set<Coupon>allCoupons=new HashSet<Coupon>();
+		allCoupons=couponDAO.getAllCoupons();
+		return allCoupons;
 	}
 
 	
-	public Set<Coupon> getCouponsByType(couponType coupType) throws CouponException {
-		return couponDAO.getCouponsByType(companyId, coupType);
+	public Set<Coupon> getCouponsByType(couponType coupType) throws Exception {
+		Set<Coupon> coupons = new HashSet<>();
+		for (Coupon coupon : companyDAO.getCoupons(companyId)) {
+			if (coupon.getType().equals(coupType) ) {
+				coupons.add(coupon);
+			}
+		}
+		return coupons;
 	}
+	
 
 	
-	public Set<Coupon> getCouponsByMaxCouponPrice(double price) throws CouponException {
-		return couponDAO.getCouponsByMaxCouponPrice(companyId,price);
+	public Set<Coupon> getCouponsByMaxCouponPrice(double price) throws Exception {
+		Set<Coupon> coupons = new HashSet<>();
+		for (Coupon coupon : companyDAO.getCoupons(companyId)) {
+			if (coupon.getPrice() <= price ) {
+				coupons.add(coupon);
+			}
+		}
+		return coupons;
 	}
 
+
 	
-	public Set<Coupon> getCouponsByMaxCouponDate(Date maxCouponDate)  throws CouponException{
-		return couponDAO.getCouponsByMaxCouponDate(companyId, maxCouponDate);		
-	}
+	public Set<Coupon> getCouponsByMaxCouponDate(Date endDate)  throws Exception{
+		Set<Coupon> coupons = new HashSet<>();
+		for (Coupon coupon : companyDAO.getCoupons(companyId)) {
+			if (coupon.getEnd_date().equals(endDate) || coupon.getEnd_date().before(endDate) ) {
+				coupons.add(coupon);
+			}
+		}
+		return coupons;
+	}		
+	
 	
 	
 	public long getCompanyId() {

@@ -30,9 +30,9 @@ import projectCoupon.Clients.clientType;
 
 		Customer getCustomer(String custName) throws Exception;
 
-		Customer getCustomer(long custId);
+		Customer getCustomer(long custId) throws Exception;
 
-		void createCustomer(Customer customer);
+		
 		
 		
 	}

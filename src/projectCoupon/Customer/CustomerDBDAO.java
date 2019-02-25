@@ -11,6 +11,7 @@ import java.util.List;
 
 import projectCoupon.ConnectionPool;
 import projectCoupon.Database;
+import projectCoupon.Exception.CouponException;
 
 public class CustomerDBDAO implements CustomerDAO {
 	private ConnectionPool pool;
@@ -22,14 +23,14 @@ public class CustomerDBDAO implements CustomerDAO {
 	@Override
 	public void insertCustomer(Customer Customer) throws Exception {
 		Connection connection = pool.getConnection();
-		String sql = "INSERT INTO Customer (CUST_NAME,PASSWORD) VALUES(?,?)";
+		String sql = "INSERT INTO Customer (ID, CUST_NAME,PASSWORD) VALUES(?,?)";
 
 		try {
 			PreparedStatement pstmt = connection.prepareStatement(sql); {
 		}
-
-			pstmt.setString(1, Customer.getCustomerName());
-			pstmt.setString(2, Customer.getPassword());
+			pstmt.setLong(1, Customer.getCustomerId())
+			pstmt.setString(2, Customer.getCustomerName());
+			pstmt.setString(3, Customer.getPassword());
 
 			pstmt.executeUpdate();
 			System.out.println("Customer created" + Customer.toString());
@@ -37,7 +38,8 @@ public class CustomerDBDAO implements CustomerDAO {
 			System.out.println(ex.getLocalizedMessage());
 			throw new Exception("Customer creation failed");
 		} finally {
-			pool.closeAllConnections(connection);
+			connection.close();
+			pool.returnConnection(connection);
 		}
 	}
 
@@ -50,7 +52,7 @@ public class CustomerDBDAO implements CustomerDAO {
 			PreparedStatement pstm1 = connection.prepareStatement(pre1); {
 		}
 			connection.setAutoCommit(false);
-			pstm1.setLong(1, Customer.getId());
+			pstm1.setLong(1, Customer.getCustomerId());
 			pstm1.executeUpdate();
 			connection.commit();
 		} catch (SQLException e) {
@@ -61,7 +63,8 @@ public class CustomerDBDAO implements CustomerDAO {
 			}
 			throw new Exception("failed to remove customer");
 		} finally {
-			pool.closeAllConnections(connection);
+			connection.close();
+			pool.returnConnection(connection);
 		}
 	}
 
@@ -71,13 +74,14 @@ public class CustomerDBDAO implements CustomerDAO {
 		try {
 		Statement stm = connection.createStatement(); {
 			String sql = "UPDATE Customer " + " SET CUST_NAME='" + Customer.getCustomerName() + "', PASSWORD='"
-					+ Customer.getPassword() + "' WHERE ID=" + Customer.getId();
+					+ Customer.getPassword() + "' WHERE ID=" + Customer.getCustomerId();
 			stm.executeUpdate(sql);
 		}
 		} catch (SQLException e) {
 			throw new Exception("update Customer failed");
 		}
-		pool.closeAllConnections(connection);
+		connection.close();
+		pool.returnConnection(connection);
 	}
 
 	@Override
@@ -90,14 +94,15 @@ public class CustomerDBDAO implements CustomerDAO {
 			String sql = "SELECT * FROM Customer WHERE ID=" + custName;
 			ResultSet rs = stm.executeQuery(sql);
 			rs.next();
-			customer.setId(rs.getLong(1));
+			customer.setCustomerId(rs.getLong(1));
 			customer.setCustomerName(rs.getString(2));
 			customer.setPassword(rs.getString(3));
 
 		} catch (SQLException e) {
 			throw new Exception("unable to get Customer data");
 		} finally {
-			pool.closeAllConnections(connection);
+			connection.close();
+			pool.returnConnection(connection);
 		}
 		return customer;
 	}
@@ -111,16 +116,17 @@ public class CustomerDBDAO implements CustomerDAO {
 			String sql = "SELECT * FROM CUSTOMER";
 			ResultSet rs = stm.executeQuery(sql);
 			while (rs.next()) {
-				long id = rs.getLong(1);
+				long customerId = rs.getLong(1);
 				String customerName = rs.getString(2);
 				String password = rs.getString(3);
-				set.add(new Customer(id, customerName, password));
+				set.add(new Customer(customerId, customerName, password));
 			}
 		} catch (SQLException e) {
 			System.out.println(e);
 			throw new Exception("cannot get Customer data");
 		} finally {
-			pool.closeAllConnections(connection);
+			connection.close();
+			pool.returnConnection(connection);
 		}
 		return set;
 	}
@@ -140,15 +146,27 @@ public class CustomerDBDAO implements CustomerDAO {
 	}
 
 	@Override
-	public Customer getCustomer(long custId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Customer getCustomer(long custId) throws Exception {
+		pool = ConnectionPool.getInstance();
+		Connection connection = pool.getConnection();
+		Customer customer = new Customer();
+		try (Statement statement = connection.createStatement()) {
+			String sql = "SELECT * FROM Customer WHERE ID=" + custId;
+			ResultSet resultSet = statement.executeQuery(sql);
+			resultSet.next();
+			customer.setCustomerId(resultSet.getLong(1));
+			customer.setCustomerName(resultSet.getString(2));
+			customer.setPassword(resultSet.getString(3));
+
+		} catch (SQLException e) {
+			throw new Exception("unable to get data, customerId: " + custId);
+		} finally {
+			connection.close();
+			pool.returnConnection(connection);
+		}
+		return customer;
 	}
 
-	@Override
-	public void createCustomer(Customer customer) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 }

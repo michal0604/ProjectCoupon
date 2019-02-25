@@ -128,9 +128,16 @@ import projectCoupon.Exception.CouponException;
 			return customer;
 		}
 		
-		public Customer getCustomer(long id) throws Exception {
-			return custDAO.getCustomer(id);
+		public Customer getCustomer() throws Exception {
+			try {
+				System.out.println(custDAO.getCustomer(this.customer.getCustomerId()));
+				return custDAO.getCustomer(this.customer.getCustomerId());
+			} catch (Exception e) {
+				throw new Exception("Cusstomer failed to get customer details. customerId: " + this.customer.getCustomerId());
+			}
 		}
+
+		
 
 		public java.util.List<Customer> getAllCustomer() throws Exception {
 			// ProductDBDAO comDAO=new ProductDBDAO();
