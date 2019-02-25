@@ -128,7 +128,7 @@ public class Database {
 						
 						
 				stm.executeUpdate(sql);
-				System.out.println("create customer_coupon success");
+				System.out.println("success:" + sql);
 				
 				} catch (SQLException e) {
 					System.out.println("create failed");
@@ -144,7 +144,7 @@ public class Database {
 						+ "COUPON_ID bigint not null REFERENCES Coupon(ID),"
 						+ "PRIMARY KEY(COUPON_ID, COMP_ID))";
 				stm.executeUpdate(sql);
-				System.out.println("create company coupon success");
+				System.out.println("success: "+ sql);
 				
 				}catch (SQLException e) {
 					e.printStackTrace();

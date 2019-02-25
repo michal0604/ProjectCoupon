@@ -1,56 +1,27 @@
 package projectCoupon;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Set;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
-import Exception.CouponException;
+import projectCoupon.Coupons.Utile;
+import projectCoupon.Exception.CouponException;
 
-/*
 
-	  Singleton Connect to DB server and DB url using parameters from file.
-	  pool of 10 connections + get url string from file.
-	 */
 
 	public class ConnectionPool {
 
-		private static ConnectionPool instance;
-		private static final long maxConnections = 10;
-		private static Set<Connection> connections;
-		private static String databaseUrl;
+		private static ConnectionPool instance ;
+		private static int maxConnections = 10;
+		private BlockingQueue<Connection> connections = new LinkedBlockingQueue<Connection>(maxConnections);
 
-		/**
-		 * Constructor
-		 * Get params for DB server and Derby DB connection.
-		 * @throws CouponException
-		 */
-		private ConnectionPool() throws CouponException {
-			connections = new HashSet<Connection>();
-		
+		private ConnectionPool()  {
 			try {
-				/**
-				 * Get driver from file
-				 */
-//				Class.forName(GetFileParms.getDriverName());
-//				databaseUrl = GetFileParms.getDbUrl();
-
-				databaseUrl = "jdbc:derby://localhost:1527/db_coupons;create=true";
-				Class.forName("org.apache.derby.jdbc.ClientDriver");
-
-				/**
-				 * Get and Set connections in array
-				 * Initiate maxConnection Connections 
-				 */
-				for (int i = 0; i < maxConnections; i++) {
-					connections.add(DriverManager.getConnection(databaseUrl));
-				}
-				
-			} catch (Exception e) {
-				//closeAllConnections();
-				throw new CouponException("Connection Pool Startup Error");
+				Class.forName(Utile.getDBUrl());
+			} catch (ClassNotFoundException e) {
+				System.out.println(e.getMessage());
 			}
 		}
 		
@@ -102,7 +73,7 @@ import Exception.CouponException;
 		 * Close all Connections
 		 * @throws CouponException
 		 */
-		public synchronized void closeAllConnections() throws CouponException{
+		public synchronized void closeAllConnections(Connection connection) throws CouponException{
 			
 			while (connections.size()==0) {
 				try {

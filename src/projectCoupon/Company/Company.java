@@ -1,4 +1,3 @@
-//delete
 package projectCoupon.Company;
 
 /**
