@@ -9,7 +9,7 @@ import java.sql.Statement;
 
 public class Database {
 
-	private static final String Company = null;
+	// TODO do we need this argument: private static final String Company = null;
 	public static String getDriverData() {
 		return "org.apache.derby.jdbc.ClientDriver";
 	}

@@ -1,8 +1,11 @@
 package projectCoupon.Clients;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
-import projectCoupon.Clients.CouponClientFacade;
+
 import projectCoupon.Company.Company;
 import projectCoupon.Company.CompanyDAO;
 import projectCoupon.Company.CompanyDBDAO;
@@ -17,7 +20,7 @@ public class CompanyFacade  implements CouponClientFacade {
 
 	private CompanyDAO companyDAO;
 	private CouponDAO couponDAO ;
-	private Utile Utils;
+	// TODO do we need this argument: private Utile Utils;
 	private long companyId = 0;
 	private Company company;
 	
@@ -28,7 +31,7 @@ public class CompanyFacade  implements CouponClientFacade {
 	public CompanyFacade() throws CouponException  {
 		companyDAO = new CompanyDBDAO();
 		couponDAO = new CouponDBDAO();
-		Utils = new Utile();
+		// TODO do we need this argument: Utils = new Utile();
 	}
 
 	@Override
@@ -37,7 +40,7 @@ public class CompanyFacade  implements CouponClientFacade {
 		company = companyDAO.login(name, password,clientType);
 		if (company != null) {
 			// initiate companyId to remember facade.
-			this.companyId = company.getId();
+			this.companyId = company.getCompanyId();
 			this.company = company;
 			return this;
 		} else {
@@ -78,17 +81,17 @@ public class CompanyFacade  implements CouponClientFacade {
 			if (couponDAO.isCouponExistsForCompany(companyId, coupId)) {
 				couponDAO.removeCoupon(coupId);
 			} else {
-				throw new CouponException("STOP! Coupon Not Exist for Company! Remove Coupon is Canceled!");
+				throw new CouponException("Coupon Not Exist for Company! Remove Coupon is Canceled!");
 			}
 		} else {
-			throw new CouponException("STOP! No Coupon Was Chosen! Remove Coupon is Canceled!");
+			throw new CouponException("No Coupon Was Chosen! Remove Coupon is Canceled!");
 		}
 	}
 
 	
 	public void updateCoupon(Coupon coupon) throws Exception {
 		if (coupon != null) {
-			long couponId = coupon.getId();
+			long couponId = coupon.getCouponId();
 			if (couponDAO.isCouponExistsForCompany(companyId, couponId)) {
 				Double CoupPrice = coupon.getPrice();
 				if (CoupPrice > 0) {
@@ -123,24 +126,47 @@ public class CompanyFacade  implements CouponClientFacade {
 	}	
 	
 	
-	public Set<Coupon> getCoupons() throws CouponException {
-		return couponDAO.getCoupons(companyId,0,0,false);
+	public List<Coupon> getCoupons() throws Exception {
+		List<Coupon>allCoupons=new ArrayList<Coupon>();
+		allCoupons=couponDAO.getAllCoupons();
+		return allCoupons;
 	}
 
 	
-	public Set<Coupon> getCouponsByType(couponType coupType) throws CouponException {
-		return couponDAO.getCouponsByType(companyId, coupType);
+	public Set<Coupon> getCouponsByType(couponType coupType) throws Exception {
+		Set<Coupon> coupons = new HashSet<>();
+		for (Coupon coupon : companyDAO.getCoupons(companyId)) {
+			if (coupon.getType().equals(coupType) ) {
+				coupons.add(coupon);
+			}
+		}
+		return coupons;
 	}
+	
 
 	
-	public Set<Coupon> getCouponsByMaxCouponPrice(double price) throws CouponException {
-		return couponDAO.getCouponsByMaxCouponPrice(companyId,price);
+	public Set<Coupon> getCouponsByMaxCouponPrice(double price) throws Exception {
+		Set<Coupon> coupons = new HashSet<>();
+		for (Coupon coupon : companyDAO.getCoupons(companyId)) {
+			if (coupon.getPrice() <= price ) {
+				coupons.add(coupon);
+			}
+		}
+		return coupons;
 	}
 
+
 	
-	public Set<Coupon> getCouponsByMaxCouponDate(Date maxCouponDate)  throws CouponException{
-		return couponDAO.getCouponsByMaxCouponDate(companyId, maxCouponDate);		
-	}
+	public Set<Coupon> getCouponsByMaxCouponDate(Date endDate)  throws Exception{
+		Set<Coupon> coupons = new HashSet<>();
+		for (Coupon coupon : companyDAO.getCoupons(companyId)) {
+			if (coupon.getEnd_date().equals(endDate) || coupon.getEnd_date().before(endDate) ) {
+				coupons.add(coupon);
+			}
+		}
+		return coupons;
+	}		
+	
 	
 	
 	public long getCompanyId() {

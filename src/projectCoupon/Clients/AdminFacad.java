@@ -1,14 +1,10 @@
 package projectCoupon.Clients;
 
 import java.util.List;
-import java.util.Set;
 
 import projectCoupon.Company.Company;
 import projectCoupon.Company.CompanyDAO;
 import projectCoupon.Company.CompanyDBDAO;
-import projectCoupon.Coupons.Coupon;
-import projectCoupon.Coupons.CouponDAO;
-import projectCoupon.Coupons.CouponDBDAO;
 import projectCoupon.Customer.Customer;
 import projectCoupon.Customer.CustomerDAO;
 import projectCoupon.Customer.CustomerDBDAO;
@@ -19,13 +15,13 @@ public class AdminFacad implements CouponClientFacade{
 	private static final String ADMINPASSWORD = "1234";
 	private CompanyDAO companyDAO;
 	private CustomerDAO customerDAO;
-	private CouponDAO couponDAO;
+	//private CouponDAO couponDAO;
 
 
 	public AdminFacad() throws CouponException {
 		this.companyDAO = new CompanyDBDAO();
 		this.customerDAO = new CustomerDBDAO();
-		this.couponDAO = new CouponDBDAO();
+		//this.couponDAO = new CouponDBDAO();
 	}
 	@Override
 	public CouponClientFacade login(String name, String password, clientType clientType) throws Exception {
@@ -45,7 +41,12 @@ public class AdminFacad implements CouponClientFacade{
 			if (compName != null) {
 				if (company.getPassword() != null) {
 					if (!companyDAO.isCompanyNameExists(compName)) {
-						companyDAO.createCompany(company);
+						try {
+							companyDAO.insertCompany(company);
+						} catch (Exception e) {
+							//TODO see what is the Exception and fix line
+							throw new CouponException(e.getMessage()); 
+						}
 					} else {
 						throw new CouponException(" Company Name Already Exists! Create New Company Canceled!"); 
 					}
@@ -98,7 +99,12 @@ public class AdminFacad implements CouponClientFacade{
 			if (custName != null) {
 				if (customer.getPassword() != null) {
 					if (!customerDAO.isCustomerNameExists(custName)) {
-						customerDAO.createCustomer(customer);
+						try {
+							customerDAO.insertCustomer(customer);
+						} catch (Exception e) {
+							//TODO see what is the Exception and fix line
+							throw new CouponException(e.getMessage()); 
+						}
 					} else {
 						throw new CouponException("Customer Already Exists! Create New Customer Canceled!"); 
 					}

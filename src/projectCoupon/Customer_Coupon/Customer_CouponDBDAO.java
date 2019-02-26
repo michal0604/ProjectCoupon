@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import projectCoupon.ConnectionPool;
+import projectCoupon.Coupons.Coupon;
+import projectCoupon.Customer.Customer;
 import projectCoupon.Exception.CouponException;
 
 public class Customer_CouponDBDAO implements Customer_CouponDAO {
@@ -103,8 +105,8 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 		Connection connection=pool.getConnection();
 		List<Customer_Coupon> list = new ArrayList<Customer_Coupon>();
 		try {
-			Statement stm = connection.createStatement();
-			String sql = "SELECT CUST_ID FROM CUSTOMER_COUPON WHERE COUPON_ID=?";
+			//Statement stm = connection.createStatement();
+			//String sql = "SELECT CUST_ID FROM CUSTOMER_COUPON WHERE COUPON_ID=?";
 			List<Customer_Coupon> allList = getAllCustomer_Coupon();
 			for(Customer_Coupon iter:allList) {
 				if(iter.getCoupon_id() == couponId) {
@@ -126,8 +128,8 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 		Connection connection=pool.getConnection();
 		List<Customer_Coupon>list=new ArrayList<Customer_Coupon>();
 		try {
-			Statement stm = connection.createStatement();
-			String sql = "SELECT COUPON_ID FROM CUSTOMER_COUPON WHERE CUST_ID=?";
+			//Statement stm = connection.createStatement();
+			//String sql = "SELECT COUPON_ID FROM CUSTOMER_COUPON WHERE CUST_ID=?";
 			
 			List<Customer_Coupon> allList = getAllCustomer_Coupon();
 			for(Customer_Coupon iter:allList) {
@@ -160,6 +162,34 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 			throw new Exception("update error");
 		}
 		pool.closeAllConnections(connection);
+	}
+
+
+	@Override
+	public void insertCustomer_Coupon(Customer customer, Coupon coupon) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void removeCustomer_Coupon(Customer customer, Coupon coupon) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void removeCustomer_Coupon(Customer customer) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void removeCustomer_Coupon(Coupon coupon) throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 		
 	}

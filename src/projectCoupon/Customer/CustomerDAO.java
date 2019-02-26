@@ -2,9 +2,6 @@ package projectCoupon.Customer;
 
 
 	import java.util.List;
-import java.util.Set;
-
-import org.apache.derby.client.am.ClientTypes;
 
 import projectCoupon.Clients.clientType;
 
@@ -30,9 +27,9 @@ import projectCoupon.Clients.clientType;
 
 		Customer getCustomer(String custName) throws Exception;
 
-		Customer getCustomer(long custId);
+		Customer getCustomer(long custId) throws Exception;
 
-		void createCustomer(Customer customer);
+		
 		
 		
 	}

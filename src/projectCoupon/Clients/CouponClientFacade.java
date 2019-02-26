@@ -1,7 +1,5 @@
 package projectCoupon.Clients;
 
-import projectCoupon.Exception.CouponException;
-
 public interface CouponClientFacade {
 	
 //	public static String user = null;

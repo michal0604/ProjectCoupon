@@ -7,9 +7,7 @@ import java.util.Locale;
 import java.util.Scanner;
 
 import projectCoupon.Company.Company;
-import projectCoupon.Company.CompanyFacade;
 import projectCoupon.Coupons.Coupon;
-import projectCoupon.Coupons.CouponFacade;
 import projectCoupon.Coupons.couponType;
 import projectCoupon.Customer.Customer;
 
@@ -124,7 +122,7 @@ public class InteractiveTest {
 		}
 		long id = scanner.nextLong();
 		for(Customer iter: allCustomer) {
-			if(iter.getId() == id){
+			if(iter.getCustomerId() == id){
 				customer = iter;
 			}
 		}
@@ -170,13 +168,13 @@ public class InteractiveTest {
 	}
 
 	private void doCompanyOperation(int operation) {
-		CompanyFacade companyFacade=new CompanyFacade();
+		//CompanyFacade companyFacade=new CompanyFacade();
 		Company newCompany,oldCompany;
 		switch (operation) {
 		case OP_ADD:
 			try {
 				newCompany = readCompany(new Company(),true);
-				companyFacade.insertCompany(newCompany);
+				//companyFacade.insertCompany(newCompany);
 			} 
 			catch (Exception e) {
 				e.printStackTrace();
@@ -184,32 +182,32 @@ public class InteractiveTest {
 			break;
 		case OP_UPDATE:
 			try {
-				oldCompany = chooseCompany(companyFacade.getAllCompany(),"update",true);
-				if(oldCompany != null) {
-					newCompany = readCompany(oldCompany,false);
-					companyFacade.updateCompany(oldCompany, newCompany.getCompName(), newCompany.getPassword(),newCompany.getEmail());
-				}
+//				oldCompany = chooseCompany(companyFacade.getAllCompany(),"update",true);
+//				if(oldCompany != null) {
+//					newCompany = readCompany(oldCompany,false);
+					//companyFacade.updateCompany(oldCompany, newCompany.getCompName(), newCompany.getPassword(),newCompany.getEmail());
+//				}
 			} 
 			catch (Exception e) {
 				e.printStackTrace();
 			}
 			break;
 		case OP_REMOVE:
-			try {
-				oldCompany = chooseCompany(companyFacade.getAllCompany(),"update",true);
-				if(oldCompany !=null) {
-					companyFacade.removeCompany(oldCompany);
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+//			try {
+//				oldCompany = chooseCompany(companyFacade.getAllCompany(),"update",true);
+//				if(oldCompany !=null) {
+//					companyFacade.removeCompany(oldCompany);
+//				}
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
 			break;
 		case OP_LIST:
-			try {
-				chooseCompany(companyFacade.getAllCompany(),"show anything",false);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+//			try {
+//				chooseCompany(companyFacade.getAllCompany(),"show anything",false);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
 			break;
 		default:
 			break;
@@ -234,7 +232,7 @@ public class InteractiveTest {
 		}
 		long id = scanner.nextLong();
 		for(Company iter: allCompany) {
-			if(iter.getId() == id){
+			if(iter.getCompanyId() == id){
 				company = iter;
 			}
 		}
@@ -295,46 +293,46 @@ public class InteractiveTest {
 	}
 
 	private void doCouponOperation(int operation) {
-		CouponFacade couponFacade=new CouponFacade();
+//		CouponFacade couponFacade=new CouponFacade();
 		Coupon newCoupon,oldCoupon;
 		switch (operation) {
 		case OP_ADD:
 			try {
 				newCoupon = readCoupon(new Coupon(),true);
-				couponFacade.insertCoupon(newCoupon);
+	//			couponFacade.insertCoupon(newCoupon);
 			} 
 			catch (Exception e) {
 				e.printStackTrace();
 			}
 			break;
 		case OP_UPDATE:
-			try {
-				oldCoupon = chooseCoupon(couponFacade.getAllCoupons(),"update",true);
-				if(oldCoupon != null) {
-					newCoupon = readCoupon(oldCoupon,false);
-					couponFacade.updateCoupon(oldCoupon, newCoupon.getTitle(), newCoupon.getStart_date(), newCoupon.getEnd_date(), newCoupon.getAmount(), newCoupon.getType(), newCoupon.getMessage(),newCoupon.getPrice(), newCoupon.getImage());
-				}
-			} 
-			catch (Exception e) {
-				e.printStackTrace();
-			}
+//			try {
+//				oldCoupon = chooseCoupon(couponFacade.getAllCoupons(),"update",true);
+//				if(oldCoupon != null) {
+//					newCoupon = readCoupon(oldCoupon,false);
+//					couponFacade.updateCoupon(oldCoupon, newCoupon.getTitle(), newCoupon.getStart_date(), newCoupon.getEnd_date(), newCoupon.getAmount(), newCoupon.getType(), newCoupon.getMessage(),newCoupon.getPrice(), newCoupon.getImage());
+//				}
+//			} 
+//			catch (Exception e) {
+//				e.printStackTrace();
+//			}
 			break;
 		case OP_REMOVE:
-			try {
-				oldCoupon = chooseCoupon(couponFacade.getAllCoupons(),"update",true);
-				if(oldCoupon !=null) {
-					couponFacade.removeCoupon(oldCoupon);
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+//			try {
+//				oldCoupon = chooseCoupon(couponFacade.getAllCoupons(),"update",true);
+//				if(oldCoupon !=null) {
+//					couponFacade.removeCoupon(oldCoupon);
+//				}
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
 			break;
 		case OP_LIST:
-			try {
-				chooseCoupon(couponFacade.getAllCoupons(),"show anything",false);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+//			try {
+//				chooseCoupon(couponFacade.getAllCoupons(),"show anything",false);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
 			break;
 		default:
 			break;
@@ -359,7 +357,7 @@ public class InteractiveTest {
 		}
 		long id = scanner.nextLong();
 		for(Coupon iter: allCoupons) {
-			if(iter.getId() == id){
+			if(iter.getCouponId() == id){
 				coupon = iter;
 			}
 		}

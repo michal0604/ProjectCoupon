@@ -8,7 +8,7 @@ import projectCoupon.Clients.CompanyFacade;
 import projectCoupon.Company.Company;
 import projectCoupon.Company_Coupon.Company_Coupon;
 import projectCoupon.Company_Coupon.Company_CouponFacad;
-import projectCoupon.Coupons.CouponFacade;
+
 import projectCoupon.Customer.Customer;
 import projectCoupon.Customer_Coupon.Customer_Coupon;
 import projectCoupon.Customer_Coupon.Customer_CouponFacad;
@@ -22,16 +22,16 @@ public class TestCoupon {
 		Database.dropTableifNeeded(con);
 		Database.createTables(con);
 
-	    CouponFacade couponFacade = new CouponFacade();
+	//    CouponFacade couponFacade = new CouponFacade();
 	//	Coupon a1=new Coupon(1, "pizzaHut", Utile.getCurrentDate(), Utile.getExpiredDate(), 50, couponType.food, "40 shekel for pizza", 40.7, "C:\\Users\\testlab\\Desktop\\תמונות של פרוייקט");
 	//	Coupon a2=new Coupon(2, "shoes", Utile.getCurrentDate(), Utile.getExpiredDate(), 50, couponType.Sports, "sale on shoes", 540.5, "shoes img");
 	
 	//	couponFacade.insertCoupon(a1);
 	  //  couponFacade.insertCoupon(a2);
-	    System.out.println(couponFacade.getAllCoupons());
-	    System.out.println(couponFacade.getCoupon(1));
+	//    System.out.println(couponFacade.getAllCoupons());
+	//    System.out.println(couponFacade.getCoupon(1));
 	  //  couponFacade.updateCoupon(a1, "pizzaHut", Utile.getCurrentDate(), Utile.getExpiredDate(), 89, couponType.food, "piza", 78.9, "pic");
-	    System.out.println(couponFacade.getAllCoupons());
+	//    System.out.println(couponFacade.getAllCoupons());
 	   // couponFacade.removeCoupon(a2);
 	   // System.out.println(couponFacade.getAllCoupons());
 	    System.out.println("------------------------------------------------------------------"); 

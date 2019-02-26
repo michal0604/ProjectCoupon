@@ -1,20 +1,17 @@
 package projectCoupon.Clients;
 
 
-	import java.awt.List;
-import java.sql.Connection;
-	import java.util.Set;
 
-	
-	import projectCoupon.Company.Company;
-	import projectCoupon.Coupons.Coupon;
-	import projectCoupon.Coupons.CouponDAO;
-	import projectCoupon.Coupons.CouponDBDAO;
-	import projectCoupon.Coupons.Utile;
-	import projectCoupon.Coupons.couponType;
-	import projectCoupon.Customer.Customer;
-	import projectCoupon.Customer.CustomerDAO;
-	import projectCoupon.Customer.CustomerDBDAO;
+import java.util.List;
+
+import projectCoupon.Coupons.Coupon;
+import projectCoupon.Coupons.CouponDAO;
+import projectCoupon.Coupons.CouponDBDAO;
+import projectCoupon.Coupons.Utile;
+import projectCoupon.Coupons.couponType;
+import projectCoupon.Customer.Customer;
+import projectCoupon.Customer.CustomerDAO;
+import projectCoupon.Customer.CustomerDBDAO;
 import projectCoupon.Exception.CouponException;
 
 	public class CustomerFacad implements CouponClientFacade {
@@ -43,7 +40,7 @@ import projectCoupon.Exception.CouponException;
 			customer = CustomerDAO.login(name, password, clientType);
 			if (customer != null) {
 				// initiate customerId to remember in facade.
-				this.custId = customer.getId();
+				this.custId = customer.getCustomerId();
 				this.customer = customer;
 				return this; 
 			} else {
@@ -94,15 +91,20 @@ import projectCoupon.Exception.CouponException;
 		}
 		
 		
-		public Set<Coupon> getCouponsByType(couponType coupType) throws CouponException {
-			return couponDAO.getCouponsByType(0,coupType);
+		public List<Coupon> getCouponsByType(couponType coupType) throws CouponException {
+			try {
+				return couponDAO.getCouponsByType(0,coupType);
+			} catch (Exception e) {
+				//TODO see what is the Exception and fix line
+				throw new CouponException(e.getMessage()); 
+			}
 		}
 		
-		public Set<Coupon> getAllPurchasedCoupons() throws CouponException{
+		public List<Coupon> getAllPurchasedCoupons() throws CouponException{
 			return couponDAO.getAllPurchasedCoupons(custId);
 		}
 
-		public Set<Coupon> getAllPurchasedCouponsByType (couponType type) throws CouponException {
+		public List<Coupon> getAllPurchasedCouponsByType (couponType type) throws CouponException {
 			return couponDAO.getAllPurchasedCouponsByType (custId,type);
 		}
 		
@@ -112,7 +114,7 @@ import projectCoupon.Exception.CouponException;
 		 * @return Coupon collection
 		 * @throws CouponException
 		 */
-		public Set<Coupon> getAllPurchasedCouponsByPrice (long price) throws CouponException {
+		public List<Coupon> getAllPurchasedCouponsByPrice (long price) throws CouponException {
 			return couponDAO.getAllPurchasedCouponsByPrice (custId,price);
 		}
 		
@@ -128,9 +130,16 @@ import projectCoupon.Exception.CouponException;
 			return customer;
 		}
 		
-		public Customer getCustomer(long id) throws Exception {
-			return custDAO.getCustomer(id);
+		public Customer getCustomer() throws Exception {
+			try {
+				System.out.println(custDAO.getCustomer(this.customer.getCustomerId()));
+				return custDAO.getCustomer(this.customer.getCustomerId());
+			} catch (Exception e) {
+				throw new Exception("Cusstomer failed to get customer details. customerId: " + this.customer.getCustomerId());
+			}
 		}
+
+		
 
 		public java.util.List<Customer> getAllCustomer() throws Exception {
 			// ProductDBDAO comDAO=new ProductDBDAO();

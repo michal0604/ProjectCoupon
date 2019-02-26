@@ -1,8 +1,10 @@
 package projectCoupon.Company;
 
 import java.util.List;
+import java.util.Set;
 
 import projectCoupon.Clients.clientType;
+import projectCoupon.Coupons.Coupon;
 import projectCoupon.Exception.CouponException;
 
 public interface CompanyDAO {
@@ -43,16 +45,16 @@ public interface CompanyDAO {
 	 * @return
 	 * @throws Exception
 	 */
-	//TODO is this supposed to be hear
-	Company dropTable() throws Exception;
+	
 	
 	public boolean isCompanyNameExists(String compName) throws CouponException;
 	
 	//TODO function empty
 	Company login(String name, String password, clientType clientType);
 
-	void createCompany(Company company);
 
 	void removeCompany(long compId);
+
+	Set<Coupon> getCoupons(long compId) throws Exception;
 
 }

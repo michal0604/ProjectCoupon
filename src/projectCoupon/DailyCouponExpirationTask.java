@@ -1,18 +1,15 @@
 package projectCoupon;
 
-import projectCoupon.Coupons.CouponDAO;
-import projectCoupon.Coupons.CouponDBDAO;
 import projectCoupon.Exception.CouponException;
 
 public class DailyCouponExpirationTask implements Runnable {
-	
-	private CouponDAO couponDAO;
+
+	// TODO do we need this argument: private CouponDAO couponDAO;
 	private int sleepTime;
 	private boolean quit = false;
-		
-	
+
 	public DailyCouponExpirationTask(int sleepTime) throws CouponException {
-		couponDAO = new CouponDBDAO();
+		// TODO do we need this argument: couponDAO = new CouponDBDAO();
 		this.sleepTime = sleepTime;
 	}
 
@@ -20,14 +17,15 @@ public class DailyCouponExpirationTask implements Runnable {
 	public void run() {
 		while (!this.quit) {
 			try {
-				CouponDAO.removeExpiredCoupons();
-				
+				// TODO figure out how to creat this thing
+				// CouponDAO.removeExpiredCoupons();
+
 				Thread.sleep(sleepTime);
 			} catch (InterruptedException e) {
 				System.out.println("Interrupted!");
-			} catch (CouponException e) {
-				System.out.println(e);
-			} 
+			} // catch (CouponException e) {
+//				System.out.println(e);
+//			} 
 		}
 	}
 

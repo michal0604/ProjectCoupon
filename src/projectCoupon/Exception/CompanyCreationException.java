@@ -10,7 +10,7 @@ public class CompanyCreationException extends Exception {
 		private Company company;
 		
 		public CompanyCreationException() {
-			this.company = company;
+			// TODO do we need this assignment: this.company = company;
 		}
 		
 		@Override

@@ -3,7 +3,7 @@ package projectCoupon.Coupons;
 import java.sql.Date;
 
 public class Coupon {
-	private long id;
+	private long couponId;
 	private String title;
 	private Date start_date;
 	private Date end_date;
@@ -18,10 +18,10 @@ public class Coupon {
 	}
 	
 
-	public Coupon(long id, String title, Date start_date, Date end_date, int amount, couponType type,
+	public Coupon(long couponId, String title, Date start_date, Date end_date, int amount, couponType type,
 			String message, Double price, String image) {
 		super();
-		this.id = id;
+		this.couponId = couponId;
 		this.title = title;
 		this.start_date = start_date;
 		this.end_date = end_date;
@@ -34,19 +34,14 @@ public class Coupon {
 
 
 
-
-	public long getId() {
-		return id;
+	public long getCouponId() {
+		return couponId;
 	}
 
 
-
-
-	public void setId(long id) {
-		this.id = id;
+	public void setCouponId(long couponId) {
+		this.couponId = couponId;
 	}
-
-
 
 
 	public String getTitle() {
@@ -161,7 +156,7 @@ public class Coupon {
 
 	@Override
 	public String toString() {
-		return "Coupon [id=" + id + ", title=" + title + ", start_date=" + start_date + ", end_date=" + end_date
+		return "Coupon [couponId=" + couponId + ", title=" + title + ", start_date=" + start_date + ", end_date=" + end_date
 				+ ", amount=" + amount + ", type=" + type + ", message=" + message + ", price=" + price + ", image="
 				+ image + "]";
 	}
