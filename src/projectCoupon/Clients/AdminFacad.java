@@ -1,5 +1,6 @@
 package projectCoupon.Clients;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import projectCoupon.Company.Company;
@@ -35,7 +36,7 @@ public class AdminFacad implements CouponClientFacade{
 	}
 
 	
-	public void createCompany(Company company) throws CouponException {
+	public void createCompany(Company company) throws CouponException, SQLException {
 		if (company != null) {
 			String compName = company.getCompName();
 			if (compName != null) {

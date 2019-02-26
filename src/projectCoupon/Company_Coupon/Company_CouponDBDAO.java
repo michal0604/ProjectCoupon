@@ -94,7 +94,8 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		pool.closeAllConnections(connection);
+		connection.close();
+		pool.returnConnection(connection);
 
 		return list;
 	}
@@ -119,7 +120,8 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 			System.out.println(e);
 			throw new Exception("cannot get Company_Coupon data");
 		} finally {
-			pool.closeAllConnections(connection);
+			connection.close();
+			pool.returnConnection(connection);
 		}
 		return list;
 	}
@@ -143,7 +145,8 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 			System.out.println(e);
 			throw new Exception("cannot get Company_Coupon data");
 		} finally {
-			pool.closeAllConnections(connection);
+			connection.close();
+			pool.returnConnection(connection);
 		}
 		return set;
 	}
@@ -160,7 +163,8 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 		} catch (SQLException e) {
 			throw new Exception("update error");
 		}
-		pool.closeAllConnections(connection);
+		connection.close();
+		pool.returnConnection(connection);
 	}
 
 	@Override

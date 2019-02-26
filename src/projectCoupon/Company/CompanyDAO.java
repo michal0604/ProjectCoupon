@@ -1,5 +1,6 @@
 package projectCoupon.Company;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Set;
 
@@ -43,11 +44,12 @@ public interface CompanyDAO {
 
 	/**
 	 * @return
+	 * @throws SQLException 
 	 * @throws Exception
 	 */
 	
 	
-	public boolean isCompanyNameExists(String compName) throws CouponException;
+	public boolean isCompanyNameExists(String compName) throws CouponException, SQLException;
 	
 	//TODO function empty
 	Company login(String name, String password, clientType clientType);

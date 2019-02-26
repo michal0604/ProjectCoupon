@@ -92,7 +92,8 @@ public class CompanyDBDAO implements CompanyDAO {
 			throw new Exception("failed to remove Company");
 		} 
 		finally {
-			pool.closeAllConnections(connection);
+			connection.close();
+			pool.returnConnection(connection);
 		}
 	}
 
@@ -114,7 +115,8 @@ public class CompanyDBDAO implements CompanyDAO {
 		catch (SQLException e) {
 			throw new CompanyUpdateException(Company);
 		}
-		pool.closeAllConnections(connection);
+		connection.close();
+		pool.returnConnection(connection);
 	}
 
 	/**
@@ -141,7 +143,8 @@ public class CompanyDBDAO implements CompanyDAO {
 		} catch (SQLException e) {
 			throw new Exception("unable to get Company data");
 		} finally {
-			pool.closeAllConnections(connection);
+			connection.close();
+			pool.returnConnection(connection);
 		}
 		return company;
 	}
@@ -172,13 +175,14 @@ public class CompanyDBDAO implements CompanyDAO {
 			throw new Exception("cannot get Company data");
 		} 
 		finally {
-			pool.closeAllConnections(connection);
+			connection.close();
+			pool.returnConnection(connection);
 		}
 		return set;
 	}	
 
 	@Override
-	public boolean isCompanyNameExists(String compName) throws CouponException {
+	public boolean isCompanyNameExists(String compName) throws CouponException, SQLException {
 		Connection connection = pool.getConnection();
 		try {
 			String sql = "SELECT id FROM Company WHERE company_name = ? "; 
@@ -194,12 +198,18 @@ public class CompanyDBDAO implements CompanyDAO {
 			throw new CouponException("DB ERROR! Failed to checking if Company name already exists.");
 		} catch (Exception e) {
 			throw new CouponException("APP ERROR! Failed to checking if Company name already exists.");
-		} finally {
-			pool.returnConnection(connection);
+		} 
+		finally {
+		connection.close();
+		pool.returnConnection(connection);
 		}
-	}
-
+		}
+			
+			
 	
+	
+
+
 
 	@Override
 	public Company login(String name, String password, clientType clientType) {
