@@ -17,17 +17,18 @@ import projectCoupon.Exception.CouponException;
 		private static int maxConnections = 10;
 		private BlockingQueue<Connection> connections = new LinkedBlockingQueue<Connection>(maxConnections);
 
-		private ConnectionPool()  {
+		private ConnectionPool() throws CouponException  {
 			try {
 				Class.forName(Utile.getDBUrl());
 			} catch (ClassNotFoundException e) {
-				System.out.println(e.getMessage());
+				throw new CouponException(e.getMessage());
 			}
 		}
 		
 		/**
 		 * @return ConnectionPool
 		 *  method - SINGLETON instance 
+		 * @throws CouponException 
 		 */
 		public static ConnectionPool getInstance() throws CouponException{
 			if (instance==null)instance = new ConnectionPool();

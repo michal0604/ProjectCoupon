@@ -2,13 +2,14 @@ package projectCoupon.Clients;
 
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import projectCoupon.Company.Company;
 import projectCoupon.Company.CompanyDAO;
 import projectCoupon.Company.CompanyDBDAO;
+import projectCoupon.Company_Coupon.Company_Coupon;
+import projectCoupon.Company_Coupon.Company_CouponDAO;
+import projectCoupon.Company_Coupon.Company_CouponDBDAO;
 import projectCoupon.Coupons.Coupon;
 import projectCoupon.Coupons.CouponDAO;
 import projectCoupon.Coupons.CouponDBDAO;
@@ -20,7 +21,7 @@ public class CompanyFacade  implements CouponClientFacade {
 
 	private CompanyDAO companyDAO;
 	private CouponDAO couponDAO ;
-	// TODO do we need this argument: private Utile Utils;
+	private Company_CouponDAO company_CouponDAO;
 	private long companyId = 0;
 	private Company company;
 	
@@ -31,7 +32,7 @@ public class CompanyFacade  implements CouponClientFacade {
 	public CompanyFacade() throws CouponException  {
 		companyDAO = new CompanyDBDAO();
 		couponDAO = new CouponDBDAO();
-		// TODO do we need this argument: Utils = new Utile();
+		company_CouponDAO = new Company_CouponDBDAO();
 	}
 
 	@Override
@@ -133,9 +134,12 @@ public class CompanyFacade  implements CouponClientFacade {
 	}
 
 	
-	public Set<Coupon> getCouponsByType(couponType coupType) throws Exception {
-		Set<Coupon> coupons = new HashSet<>();
-		for (Coupon coupon : companyDAO.getCoupons(companyId)) {
+	public List<Coupon> getCouponsByType(couponType coupType) throws Exception {
+		List<Coupon> coupons = new ArrayList<Coupon>();
+		Coupon coupon;
+		List<Company_Coupon> companyCouponList = company_CouponDAO.getCouponsByCompanyId(companyId);
+		for (Company_Coupon companyCoupon : companyCouponList) {
+			coupon = couponDAO.getCoupon(companyCoupon.getCoupon_Id());
 			if (coupon.getType().equals(coupType) ) {
 				coupons.add(coupon);
 			}
@@ -145,9 +149,12 @@ public class CompanyFacade  implements CouponClientFacade {
 	
 
 	
-	public Set<Coupon> getCouponsByMaxCouponPrice(double price) throws Exception {
-		Set<Coupon> coupons = new HashSet<>();
-		for (Coupon coupon : companyDAO.getCoupons(companyId)) {
+	public List<Coupon> getCouponsByMaxCouponPrice(double price) throws Exception {
+		List<Coupon> coupons = new ArrayList<Coupon>();
+		Coupon coupon;
+		List<Company_Coupon> companyCouponList = company_CouponDAO.getCouponsByCompanyId(companyId);
+		for (Company_Coupon companyCoupon : companyCouponList) {
+			coupon = couponDAO.getCoupon(companyCoupon.getCoupon_Id());
 			if (coupon.getPrice() <= price ) {
 				coupons.add(coupon);
 			}
@@ -157,9 +164,12 @@ public class CompanyFacade  implements CouponClientFacade {
 
 
 	
-	public Set<Coupon> getCouponsByMaxCouponDate(Date endDate)  throws Exception{
-		Set<Coupon> coupons = new HashSet<>();
-		for (Coupon coupon : companyDAO.getCoupons(companyId)) {
+	public List<Coupon> getCouponsByMaxCouponDate(Date endDate)  throws Exception{
+		List<Coupon> coupons = new ArrayList<Coupon>();
+		Coupon coupon;
+		List<Company_Coupon> companyCouponList = company_CouponDAO.getCouponsByCompanyId(companyId);
+		for (Company_Coupon companyCoupon : companyCouponList) {
+			coupon = couponDAO.getCoupon(companyCoupon.getCoupon_Id());
 			if (coupon.getEnd_date().equals(endDate) || coupon.getEnd_date().before(endDate) ) {
 				coupons.add(coupon);
 			}
