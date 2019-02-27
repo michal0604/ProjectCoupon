@@ -2,7 +2,6 @@ package projectCoupon.Company;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Set;
 
 import projectCoupon.Clients.clientType;
 import projectCoupon.Coupons.Coupon;
@@ -25,7 +24,6 @@ public interface CompanyDAO {
 	 * @param company - company to be updated in the Data Object
 	 * @throws Exception
 	 */
-	
 
 	void updateCompany(Company company) throws Exception;
 
@@ -44,19 +42,17 @@ public interface CompanyDAO {
 
 	/**
 	 * @return
-	 * @throws SQLException 
+	 * @throws SQLException
 	 * @throws Exception
 	 */
-	
-	
+
 	public boolean isCompanyNameExists(String compName) throws CouponException, SQLException;
-	
-	//TODO function empty
-	Company login(String name, String password, clientType clientType);
 
+	// TODO function empty
+	Company login(String name, String password) throws CouponException, SQLException;
 
-	void removeCompany(long compId);
+	void removeCompany(long compId) throws Exception;
 
-	Set<Coupon> getCoupons(long compId) throws Exception;
+	List<Coupon> getCoupons(long compId) throws Exception;
 
 }

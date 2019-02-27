@@ -130,8 +130,7 @@ public class CustomerDBDAO implements CustomerDAO {
 
 	@Override
 	public void removeCustomer(long custId) throws Exception {
-		// TODO Auto-generated method stub
-		
+		removeCustomer(getCustomer(custId));		
 	}
 
 	

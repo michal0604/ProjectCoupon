@@ -25,7 +25,7 @@ public class AdminFacad implements CouponClientFacade{
 		//this.couponDAO = new CouponDBDAO();
 	}
 	@Override
-	public CouponClientFacade login(String name, String password, clientType clientType) throws Exception {
+	public CouponClientFacade login(String name, String password) throws Exception {
 		 if ( name.equals(ADMINUSERNAME) && password.equals(ADMINPASSWORD)) { 
 			 return this; 
 		 }	
@@ -67,7 +67,7 @@ public class AdminFacad implements CouponClientFacade{
 	}
 	
 	
-	public void removeCompany(long compId) throws CouponException {
+	public void removeCompany(long compId) throws Exception {
 		if (compId > 0) {
 			companyDAO.removeCompany(compId);
 		} else {

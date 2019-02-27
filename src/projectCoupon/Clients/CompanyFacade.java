@@ -35,9 +35,9 @@ public class CompanyFacade  implements CouponClientFacade {
 	}
 
 	@Override
-	public CouponClientFacade login(String name, String password, clientType clientType) throws Exception {
+	public CouponClientFacade login(String name, String password) throws Exception {
 		Company company = new Company();
-		company = companyDAO.login(name, password,clientType);
+		company = companyDAO.login(name, password);
 		if (company != null) {
 			// initiate companyId to remember facade.
 			this.companyId = company.getCompanyId();

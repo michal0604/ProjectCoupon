@@ -35,9 +35,9 @@ import projectCoupon.Exception.CouponException;
 		}
 		
 		@Override
-		public CouponClientFacade login(String name, String password, clientType clientType) throws Exception {
+		public CouponClientFacade login(String name, String password) throws Exception {
 			Customer customer = new Customer();
-			customer = CustomerDAO.login(name, password, clientType);
+			customer = CustomerDAO.login(name, password);
 			if (customer != null) {
 				// initiate customerId to remember in facade.
 				this.custId = customer.getCustomerId();

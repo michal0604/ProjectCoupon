@@ -20,7 +20,7 @@ import projectCoupon.Clients.clientType;
 
 		List<Customer> getAllCustomer() throws Exception;
 
-		static Customer login(String name, String password, clientType clientType) {
+		static Customer login(String name, String password) {
 			// TODO Auto-generated method stub
 			return null;
 		}

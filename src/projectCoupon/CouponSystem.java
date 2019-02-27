@@ -54,7 +54,7 @@ public class CouponSystem {
 		} 
 		
 		if (couponClientFacade != null) {
-			couponClientFacade = couponClientFacade.login(user,pass,clientType);
+			couponClientFacade = couponClientFacade.login(user,pass);
 			if (couponClientFacade != null) {
 				return couponClientFacade;
 			} else {

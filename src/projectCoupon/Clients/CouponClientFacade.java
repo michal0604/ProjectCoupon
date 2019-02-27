@@ -8,7 +8,7 @@ public interface CouponClientFacade {
 	
 	
 
-	CouponClientFacade login(String name, String password, clientType clientType) throws Exception;
+	CouponClientFacade login(String name, String password) throws Exception;
 
 	
 	
