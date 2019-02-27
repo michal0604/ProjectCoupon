@@ -6,6 +6,7 @@ import projectCoupon.Clients.AdminFacad;
 import projectCoupon.Clients.CouponClientFacade;
 import projectCoupon.Clients.CustomerFacad;
 import projectCoupon.Clients.clientType;
+import projectCoupon.Exception.ConnectionException;
 import projectCoupon.Exception.CouponException;
 
 public class CouponSystem {
@@ -35,7 +36,7 @@ public class CouponSystem {
 		return instance;
 	}
 
-	public CouponClientFacade login(String user,String pass,clientType clientType) throws Exception {
+	public CouponClientFacade login(String user,String pass,clientType clientType) throws CouponException {
 
 		CouponClientFacade couponClientFacade = null;
 		
@@ -54,7 +55,12 @@ public class CouponSystem {
 		} 
 		
 		if (couponClientFacade != null) {
-			couponClientFacade = couponClientFacade.login(user,pass,clientType);
+			try {
+				couponClientFacade = couponClientFacade.login(user,pass,clientType);
+			} catch (Exception e) {
+				throw new CouponException("Login Failed");
+				
+			}
 			if (couponClientFacade != null) {
 				return couponClientFacade;
 			} else {
@@ -70,13 +76,13 @@ public class CouponSystem {
 	 * Close all Connection Pool connections.	
 	 * Stop daily coupon expiration task deletion Thread. 
 	 **/
-	public void shutdown() throws CouponException{
+	public void shutdown() throws ConnectionException{
 
 		try {
 			ConnectionPool connectionPool = ConnectionPool.getInstance();
 			connectionPool.closeAllConnections(connection);
 		} catch (CouponException e) {
-			throw new CouponException("ERROR! Properly Shut Down Application Failed!");
+			throw new ConnectionException("ERROR! Properly Shut Down Application Failed!");
 		}
 		DailyTask.stopTask();
 	}
