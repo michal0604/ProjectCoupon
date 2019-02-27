@@ -44,7 +44,8 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 			}
 			throw new Exception("failed to remove customer_Coupon");
 		} finally {
-			pool.closeAllConnections(connection);
+			connection.close();
+			pool.returnConnection(connection);
 		}
 	}
 	
@@ -68,8 +69,8 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 			throw new Exception("Customer_Coupon creation failed");
 		} finally
 {
-			
-			pool.closeAllConnections(connection);
+			connection.close();
+			pool.returnConnection(connection);
 		}
 		
 	}
@@ -95,7 +96,8 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 			System.out.println(e);
 			throw new Exception("cannot get Customer_Coupon data");
 		} finally {
-			pool.closeAllConnections(connection);
+			connection.close();
+			pool.returnConnection(connection);
 		}
 		return set;
 	}
@@ -117,7 +119,8 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 		}catch (Exception e) {
 			System.out.println(e);
 		}
-		pool.closeAllConnections(connection);
+		connection.close();
+		pool.returnConnection(connection);
 		
 		return list;
 	}
@@ -140,7 +143,8 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 		}catch (Exception e) {
 			System.out.println(e);
 		}
-		pool.closeAllConnections(connection);
+		connection.close();
+		pool.returnConnection(connection);
 		
 		return list;
 		
@@ -161,7 +165,8 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 		catch (SQLException e) {
 			throw new Exception("update error");
 		}
-		pool.closeAllConnections(connection);
+		connection.close();
+		pool.returnConnection(connection);
 	}
 
 

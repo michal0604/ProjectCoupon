@@ -7,22 +7,32 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class Database {
+import javax.sql.PooledConnection;
 
+import projectCoupon.Exception.CouponException;
+
+public class Database {
+	
 	// TODO do we need this argument: private static final String Company = null;
 	public static String getDriverData() {
 		return "org.apache.derby.jdbc.ClientDriver";
 	}
+	
 
 	public static String getDBUrl() {
 		return "jdbc:derby://localhost:3301/JBDB;create=true";
 	}
+	
+	private static ConnectionPool pool;
+	public  Database()throws CouponException {
+		pool = ConnectionPool.getInstance();
+	}
 
-	public static void dropTableifNeeded(Connection con) throws SQLException {
+	public static void dropTableifNeeded(Connection connection) throws SQLException, CouponException {
 		String sql;
 		Statement stmt;
-	//	con = DriverManager.getConnection(Database.getDBUrl());
-		stmt = con.createStatement();
+	  connection=pool.getConnection();
+		stmt = connection.createStatement();
 		try {
 			sql = "DROP TABLE Customer_Coupon";
 			stmt.executeUpdate(sql);
@@ -64,16 +74,18 @@ public class Database {
 		catch (SQLException e) {
 			System.out.println("COUPON Table did not exist");
 		}
+		connection.close();
+		pool.returnConnection(connection);
 		
 	
 	}
 
-	public static void createTables(Connection con) throws SQLException {
+	public static void createTables(Connection connection) throws SQLException, Exception {
 
 		String sql;
-		
+		connection=pool.getConnection();
 		try {
-		Statement stmt = con.createStatement();
+		Statement stmt = connection.createStatement();
 
 		// create Company table
 		sql = "CREATE TABLE Company(ID bigint not null primary key generated always as identity(start with 1, increment by 1),"
@@ -86,7 +98,7 @@ public class Database {
 			//throw new CompanyCreationException(Company);
 		}
 		try {
-		Statement stmt2 = con.createStatement();
+		Statement stmt2 = connection.createStatement();
 		sql = "CREATE TABLE CUSTOMER("
 				+ "ID bigint not null primary key generated always as identity(start with 1, increment by 1), "
 				+ "CUST_NAME varchar(50) not null, " 
@@ -98,7 +110,7 @@ public class Database {
 		}
 
 		try {
-			java.sql.Statement stm = con.createStatement();
+			java.sql.Statement stm = connection.createStatement();
 		
 		sql = "CREATE TABLE Coupon("
 				+ "ID bigint not null primary key generated always as identity(start with 1, increment by 1),"
@@ -120,7 +132,7 @@ public class Database {
 		
 		// create join table Customer_Coupon
 				try {
-				java.sql.Statement stm = con.createStatement();
+				java.sql.Statement stm = connection.createStatement();
 				sql = "CREATE TABLE Customer_Coupon("
 						+ "CUST_ID bigint not null REFERENCES CUSTOMER(ID),"
 						+ "COUPON_ID bigint not null REFERENCES COUPON(ID),"
@@ -138,7 +150,7 @@ public class Database {
 
 			//	  create join table Company_Coupon
 				try {
-				java.sql.Statement stm = con.createStatement();
+				java.sql.Statement stm = connection.createStatement();
 				sql = "CREATE TABLE Company_Coupon("
 						+ "COMP_ID bigint not null REFERENCES Company(ID),"
 						+ "COUPON_ID bigint not null REFERENCES Coupon(ID),"
@@ -151,17 +163,18 @@ public class Database {
 				}
 				
 				finally {
-					con.close();
+					connection.close();
+					pool.returnConnection(connection);
 				}
 		
 		
 	}
 	
 
-	public static void main(String[] args) throws SQLException {
-		Connection con = DriverManager.getConnection(Database.getDBUrl());
-		Database.dropTableifNeeded(con);
-		Database.createTables(con);
+	public static void main(String[] args) throws SQLException, Exception {
+		Connection connection = DriverManager.getConnection(Database.getDBUrl());
+		Database.dropTableifNeeded(connection);
+		Database.createTables(connection);
 	}
 
 	

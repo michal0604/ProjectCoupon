@@ -42,7 +42,7 @@ public interface CouponDAO {
 
 	boolean isCouponPurchasedByCustomer(long customerId, long coupId);
 
-	void removeExpiredCoupons(long couponId) throws CouponException;
+	void removeExpiredCoupons(long couponId) throws CouponException, Exception;
 
 	List<Coupon> getCouponsByType(long couponId, couponType coupType) throws Exception;
 

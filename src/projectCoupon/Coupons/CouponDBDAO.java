@@ -40,7 +40,8 @@ import projectCoupon.Exception.CouponException;
 				System.out.println(ex.getLocalizedMessage());
 				throw new SQLException("Coupon creation failed");
 			} finally {
-				pool.closeAllConnections(connection);
+				connection.close();
+				pool.returnConnection(connection);
 			}
 		}
 			
@@ -239,14 +240,15 @@ import projectCoupon.Exception.CouponException;
 				}
 				throw new Exception("failed to remove Coupon");
 			} finally {
-				pool.closeAllConnections(connection);
+				connection.close();
+				pool.returnConnection(connection);
 			}
 			
 		}
 
 
 		@Override
-		public void removeExpiredCoupons(long coupId) throws CouponException {
+		public void removeExpiredCoupons(long coupId) throws CouponException, Exception {
 			Connection connection = pool.getConnection();
 			try {
 				connection.setAutoCommit(false);
@@ -277,6 +279,9 @@ import projectCoupon.Exception.CouponException;
 			} catch (Exception e) {
 				throw new CouponException("APP ERROR! Remove Coupon Failed.");
 			} finally {
+				connection.close();
+			
+				
 				pool.returnConnection(connection);
 			}
 		}
