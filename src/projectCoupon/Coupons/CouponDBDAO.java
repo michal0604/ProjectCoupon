@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import projectCoupon.ConnectionPool;
+import projectCoupon.Exception.ConnectionException;
 import projectCoupon.Exception.CouponException;
+import projectCoupon.Exception.CreateException;
 
 	public class CouponDBDAO implements CouponDAO {
 		private ConnectionPool pool;
@@ -20,8 +22,14 @@ import projectCoupon.Exception.CouponException;
 		}
 
 		@Override
-		public void insertCoupon(Coupon coupon) throws Exception {
-			Connection connection=pool.getConnection();
+		public void insertCoupon(Coupon coupon)throws CreateException, SQLException {
+			Connection connection = null ;
+			try {
+				connection = pool.getConnection();
+			} catch (ConnectionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			String sql = "INSERT INTO Coupon(ID,TITLE,START_DATE,END_DATE,AMOUNT,TYPE,MESSAGE,PRICE,IMAGE) VALUES(?,?,?,?,?,?,?,?)";
 			try {			       
     			PreparedStatement pstmt = connection.prepareStatement(sql);
@@ -38,12 +46,23 @@ import projectCoupon.Exception.CouponException;
 
 			} catch (SQLException ex) {
 				System.out.println(ex.getLocalizedMessage());
-				throw new SQLException("Coupon creation failed");
+				throw new CreateException("Coupon creation failed");
 			} finally {
 				connection.close();
-				pool.returnConnection(connection);
+				try {
+					pool.returnConnection(connection);
+				} catch (ConnectionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
+				
+				
+			
+			
+			
+		
 			
 
 		@Override
@@ -248,40 +267,25 @@ import projectCoupon.Exception.CouponException;
 
 
 		@Override
-		public void removeExpiredCoupons(long coupId) throws CouponException, Exception {
-			Connection connection = pool.getConnection();
+		public void removeExpiredCoupons() throws CouponException {
+			Connection connection;
 			try {
-				connection.setAutoCommit(false);
-				String sql = "DELETE FROM app.CompanyCoupon WHERE coupon_id = ?";
-				PreparedStatement pstmt = connection.prepareStatement(sql);
-				pstmt.setLong(1, coupId);
-				pstmt.executeUpdate();
-				
-				sql = "DELETE FROM app.CustomerCoupon WHERE coupon_id = ?";
-				pstmt = connection.prepareStatement(sql);
-				pstmt.setLong(1, coupId);
-				pstmt.executeUpdate();
-				
-				sql = "DELETE FROM app.Coupon WHERE id = ?";
-				pstmt = connection.prepareStatement(sql);
-				pstmt.setLong(1, coupId);
-				pstmt.executeUpdate();
-				
-				connection.commit();
-				
+				connection = pool.getConnection();
+			} catch (ConnectionException e1) {
+				throw new ConnectionException("connection failed");
+			}
+			try {
+				String sql = "SELECT id FROM app.Coupon WHERE end_date < CURRENT_DATE ";
+				Statement pstmt = connection.createStatement();
+				ResultSet rs = pstmt.executeQuery(sql); 
+				while (rs.next()) {
+					this.removeCoupon(rs.getLong("id"));			
+				} 
 			} catch (SQLException e) {
-				try {
-					connection.rollback();
-				} catch (SQLException e1) {
-					throw new CouponException("DB ERROR! Remove Coupon Failed. RollBack Transaction Failed!");
-				}
-				throw new CouponException("DB ERROR! Remove Coupon Failed.");
+				throw new CouponException("DB ERROR! Remove Expired Coupon Failed.");
 			} catch (Exception e) {
-				throw new CouponException("APP ERROR! Remove Coupon Failed.");
+				throw new CouponException("APP ERROR! Remove Expired Coupon Failed.");
 			} finally {
-				connection.close();
-			
-				
 				pool.returnConnection(connection);
 			}
 		}

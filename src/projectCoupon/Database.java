@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import projectCoupon.Exception.ConnectionException;
 import projectCoupon.Exception.CouponException;
 
 public class Database {
@@ -22,7 +23,7 @@ public class Database {
 		pool = ConnectionPool.getInstance();
 	}
 
-	public static void dropTableifNeeded(Connection connection) throws SQLException, CouponException {
+	public static void dropTableifNeeded(Connection connection) throws SQLException, CouponException, ConnectionException {
 		String sql;
 		Statement stmt;
 		connection = pool.getConnection();

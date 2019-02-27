@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import projectCoupon.ConnectionPool;
+import projectCoupon.Exception.ConnectionException;
+import projectCoupon.Exception.CreateException;
+import projectCoupon.Exception.RemoveException;
 
 public class CustomerDBDAO implements CustomerDAO {
 	private ConnectionPool pool;
@@ -18,8 +21,14 @@ public class CustomerDBDAO implements CustomerDAO {
 	}
 
 	@Override
-	public void insertCustomer(Customer Customer) throws Exception {
-		Connection connection = pool.getConnection();
+	public void insertCustomer(Customer Customer) throws CreateException {
+		Connection connection = null;
+		try {
+			connection = pool.getConnection();
+		} catch (ConnectionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		String sql = "INSERT INTO Customer (ID, CUST_NAME,PASSWORD) VALUES(?,?)";
 
 		try {
@@ -33,16 +42,32 @@ public class CustomerDBDAO implements CustomerDAO {
 			System.out.println("Customer created" + Customer.toString());
 		} catch (SQLException ex) {
 			System.out.println(ex.getLocalizedMessage());
-			throw new Exception("Customer creation failed");
+			throw new CreateException("Customer creation failed");
 		} finally {
-			connection.close();
-			pool.returnConnection(connection);
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				pool.returnConnection(connection);
+			} catch (ConnectionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
 	@Override
-	public void removeCustomer(Customer Customer) throws Exception {
-		Connection connection=pool.getConnection();
+	public void removeCustomer(Customer Customer) throws RemoveException {
+		Connection connection = null;
+		try {
+			connection = pool.getConnection();
+		} catch (ConnectionException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
 		String pre1 = "DELETE FROM Customer WHERE id=?";
 
 		try {
@@ -56,12 +81,27 @@ public class CustomerDBDAO implements CustomerDAO {
 			try {
 				connection.rollback();
 			} catch (SQLException e1) {
-				throw new Exception("Database error");
+				try {
+					throw new Exception("Database error");
+				} catch (Exception e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
 			}
-			throw new Exception("failed to remove customer");
+			throw new RemoveException("failed to remove customer");
 		} finally {
-			connection.close();
-			pool.returnConnection(connection);
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				pool.returnConnection(connection);
+			} catch (ConnectionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 

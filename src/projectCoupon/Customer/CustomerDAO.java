@@ -4,13 +4,15 @@ package projectCoupon.Customer;
 	import java.util.List;
 
 import projectCoupon.Clients.clientType;
+import projectCoupon.Exception.CreateException;
+import projectCoupon.Exception.RemoveException;
 
 
 
 	public interface CustomerDAO{
-		void insertCustomer(Customer Customer) throws Exception;
+		void insertCustomer(Customer Customer) throws CreateException;
 
-		void removeCustomer(long custId) throws Exception;
+		void removeCustomer(long custId) throws RemoveException, Exception;
 
 		void updateCustomer(Customer Customer) throws Exception;
 		
