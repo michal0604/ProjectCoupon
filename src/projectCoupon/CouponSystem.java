@@ -6,8 +6,8 @@ import projectCoupon.Clients.AdminFacad;
 import projectCoupon.Clients.CouponClientFacade;
 import projectCoupon.Clients.CustomerFacad;
 import projectCoupon.Clients.clientType;
-import projectCoupon.Exception.ConnectionException;
 import projectCoupon.Exception.CouponException;
+import projectCoupon.Exception.DailyCouponException;
 
 public class CouponSystem {
 	
@@ -66,13 +66,17 @@ public class CouponSystem {
 	 * Close all Connection Pool connections.	
 	 * Stop daily coupon expiration task deletion Thread. 
 	 **/
-	public void shutdown() throws ConnectionException{
+	public void shutdown() throws DailyCouponException{
 
 		try {
 			ConnectionPool connectionPool = ConnectionPool.getInstance();
-			connectionPool.closeAllConnections(connection);
-		} catch (CouponException e) {
-			throw new ConnectionException("ERROR! Properly Shut Down Application Failed!");
+			try {
+				connectionPool.closeAllConnections(connection);
+			} catch (Exception e) {
+              throw new DailyCouponException("connection failed");
+			}
+		} catch (Exception e) {
+			throw new DailyCouponException("ERROR! Properly Shut Down Application Failed!");
 		}
 		DailyTask.stopTask();
 	}

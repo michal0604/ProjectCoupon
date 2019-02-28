@@ -10,9 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import projectCoupon.ConnectionPool;
-import projectCoupon.Exception.ConnectionException;
 import projectCoupon.Exception.CouponException;
 import projectCoupon.Exception.CreateException;
+import projectCoupon.Exception.RemoveException;
+import projectCoupon.Exception.UpdateException;
 
 	public class CouponDBDAO implements CouponDAO {
 		private ConnectionPool pool;
@@ -22,13 +23,12 @@ import projectCoupon.Exception.CreateException;
 		}
 
 		@Override
-		public void insertCoupon(Coupon coupon)throws CreateException, SQLException {
+		public void insertCoupon(Coupon coupon)throws CreateException {
 			Connection connection = null ;
 			try {
 				connection = pool.getConnection();
-			} catch (ConnectionException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} catch (Exception e) {
+				throw new CreateException("didnt success to connect");
 			}
 			String sql = "INSERT INTO Coupon(ID,TITLE,START_DATE,END_DATE,AMOUNT,TYPE,MESSAGE,PRICE,IMAGE) VALUES(?,?,?,?,?,?,?,?)";
 			try {			       
@@ -45,29 +45,32 @@ import projectCoupon.Exception.CreateException;
 				pstmt.executeUpdate();
 
 			} catch (SQLException ex) {
-				System.out.println(ex.getLocalizedMessage());
 				throw new CreateException("Coupon creation failed");
 			} finally {
-				connection.close();
+				try {
+					connection.close();
+				} catch (SQLException e1) {
+					throw new CreateException("close connection was failed");
+				}
 				try {
 					pool.returnConnection(connection);
-				} catch (ConnectionException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				} catch (Exception e) {
+					throw new CreateException("close connection was failed");
 				}
 			}
 		}
 				
-				
-			
-			
-			
-		
 			
 
 		@Override
-		public void removeCoupon(Coupon Coupon) throws Exception {
-			Connection connection=pool.getConnection();
+          public void removeCoupon(Coupon Coupon)throws RemoveException {
+			Connection connection = null;
+			try {
+				connection = pool.getConnection();
+			} catch (Exception e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
 			String sql = "DELETE FROM Coupon WHERE id=?";
 
 			//what is the different statement and preparedStatement
@@ -83,20 +86,32 @@ import projectCoupon.Exception.CreateException;
 					connection.rollback();
 			
 				} catch (SQLException e1) {
-					throw new Exception("Database error");
+					throw new RemoveException("Database error");
 				}
-				throw new Exception("failed to remove Coupon");
+				throw new RemoveException("failed to remove Coupon");
 			} finally {
-				connection.close();
-				pool.returnConnection(connection);
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					throw new RemoveException("Database error");
+				}
+				try {
+					pool.returnConnection(connection);
+				} catch (Exception e) {
+					throw new RemoveException("Database error");
+				}
 			}
 		}
-			
-		
+	
 
 		@Override
-		public void updateCoupon(Coupon Coupon) throws Exception {
-			Connection connection=pool.getConnection();
+		public void updateCoupon(Coupon Coupon) throws UpdateException {
+			Connection connection = null;
+			try {
+				connection = pool.getConnection();
+			} catch (Exception e1) {
+				throw new UpdateException("Database error");
+			}
 			try { 
 				//Statement stm = connection.createStatement();
 				String sql = "UPDATE Coupon SET TITLE=?, START_DATE=?, END_DATE=?, AMOUNT=?,"
@@ -116,17 +131,30 @@ import projectCoupon.Exception.CreateException;
 				System.out.println("update success");
 			} 
 			catch (SQLException e) {
-				throw new Exception("update Coupon failed "+ e.getMessage());
+				throw new UpdateException("update Coupon failed "+ e.getMessage());
 			}
 			finally{
-				connection.close();
-				pool.returnConnection(connection);
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					throw new UpdateException("Database error");
+				}
+				try {
+					pool.returnConnection(connection);
+				} catch (Exception e) {
+					throw new UpdateException("Database error");
+				}
 			}
 		}
 			
 		@Override
-		public Coupon getCoupon(long couponId) throws Exception {
-			Connection connection=pool.getConnection();
+		public Coupon getCoupon(long couponId) throws CouponException {
+			Connection connection = null;
+			try {
+				connection = pool.getConnection();
+			} catch (Exception e1) {
+				throw new CouponException("Database error");
+			}
 			Coupon coupon = new Coupon();
 			try {
 				Statement stm = connection.createStatement();
@@ -170,18 +198,31 @@ import projectCoupon.Exception.CreateException;
 			}
 				
 			catch (SQLException e) {
-				throw new Exception("unable to get Coupon data " + e.getMessage());
+				throw new CouponException("unable to get Coupon data " + e.getMessage());
 			} finally {
-				connection.close();
-				pool.returnConnection(connection);
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					throw new CouponException("Database error");
+				}
+				try {
+					pool.returnConnection(connection);
+				} catch (Exception e) {
+					throw new CouponException("Database error");
+				}
 			}
 			return coupon;
 		}
 		
 
 		@Override
-		public List<Coupon> getAllCoupons() throws Exception {
-			Connection connection = pool.getConnection();
+		public List<Coupon> getAllCoupons() throws CouponException {
+			Connection connection;
+			try {
+				connection = pool.getConnection();
+			} catch (Exception e1) {
+				throw new CouponException("Database error");
+			}
 			List<Coupon> set = new ArrayList<Coupon>();
 			Coupon coupon;
 			String sql = "SELECT * FROM Coupon";
@@ -228,18 +269,31 @@ import projectCoupon.Exception.CreateException;
 				}
 			} catch (SQLException e) {
 				System.out.println(e);
-				throw new Exception("cannot get Coupon data");
+				throw new CouponException("cannot get Coupon data");
 			} finally {
-				connection.close();
-				pool.returnConnection(connection);
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					throw new CouponException("Database error");
+				}
+				try {
+					pool.returnConnection(connection);
+				} catch (Exception e) {
+					throw new CouponException("Database error");
+				}
 			}
 			return set;
 		}
 
 
 		@Override
-		public void removeCouponID(long id) throws Exception {
-			Connection connection=pool.getConnection();
+		public void removeCouponID(long id) throws CouponException {
+			Connection connection;
+			try {
+				connection = pool.getConnection();
+			} catch (Exception e2) {
+				throw new CouponException("Database error");
+			}
 			String sql = "DELETE FROM Coupon WHERE id=?";
 
 			//what is the different statement and preparedStatement
@@ -255,12 +309,24 @@ import projectCoupon.Exception.CreateException;
 					connection.rollback();
 			
 				} catch (SQLException e1) {
-					throw new Exception("Database error");
+					throw new CouponException("Database error");
 				}
-				throw new Exception("failed to remove Coupon");
+				try {
+					throw new Exception("failed to remove Coupon");
+				} catch (Exception e1) {
+					throw new CouponException("Database error");
+				}
 			} finally {
-				connection.close();
-				pool.returnConnection(connection);
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					throw new CouponException("Database error");
+				}
+				try {
+					pool.returnConnection(connection);
+				} catch (Exception e) {
+					throw new CouponException("Database error");
+				}
 			}
 			
 		}
@@ -271,8 +337,8 @@ import projectCoupon.Exception.CreateException;
 			Connection connection;
 			try {
 				connection = pool.getConnection();
-			} catch (ConnectionException e1) {
-				throw new ConnectionException("connection failed");
+			} catch (Exception e1) {
+				throw new CouponException("connection failed"+e1);
 			}
 			try {
 				String sql = "SELECT id FROM app.Coupon WHERE end_date < CURRENT_DATE ";
@@ -286,16 +352,25 @@ import projectCoupon.Exception.CreateException;
 			} catch (Exception e) {
 				throw new CouponException("APP ERROR! Remove Expired Coupon Failed.");
 			} finally {
-				pool.returnConnection(connection);
+				try {
+					pool.returnConnection(connection);
+				} catch (Exception e) {
+					throw new CouponException("Database error");
+				}
 			}
 		}
 
 		
 
 		@Override
-		public List<Coupon> getCouponsByType(long couponId, couponType coupType) throws Exception {
+		public List<Coupon> getCouponsByType(long couponId, couponType coupType) throws CouponException {
 			pool = ConnectionPool.getInstance();
-			Connection connection =pool.getConnection();
+			Connection connection;
+			try {
+				connection = pool.getConnection();
+			} catch (Exception e1) {
+				throw new CouponException("Database error");
+			}
 			List<Coupon> list = new ArrayList<>();
 			String sql = String.format("select * from Coupon where ID = %d and TYPE = '%s'", couponId, coupType.name());
 
@@ -333,87 +408,49 @@ import projectCoupon.Exception.CreateException;
 
 			} catch (SQLException e) {
 				System.out.println(e);
-				throw new Exception("DB error - unable to get Coupon data. couponId: " + couponId + " couponType: "+ coupType.name());
+				throw new CouponException("DB error - unable to get Coupon data. couponId: " + couponId + " couponType: "+ coupType.name());
 			}catch (Exception e) {
-				throw new Exception("unable to get Coupon data. couponId: " + couponId + " couponType: "+ coupType.name());
+				throw new CouponException("unable to get Coupon data. couponId: " + couponId + " couponType: "+ coupType.name());
 			}finally {
-				connection.close();
-				pool.returnConnection(connection);
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					throw new CouponException("Database error");
+				}
+				try {
+					pool.returnConnection(connection);
+				} catch (Exception e) {
+					throw new CouponException("Database error");
+				}
 			}
 			return list;
 		}
 		
+	
+
 		@Override
-		public List<Coupon> getAllPurchasedCouponsByPrice(long customerId, long price) {
+		public List<Coupon> getAllCouponsByDate(long couponId, String untilDate) throws CouponException {
 			// TODO Auto-generated method stub
 			return null;
 		}
 
 		@Override
-		public List<Coupon> getAllPurchasedCouponsByType(long customerId, couponType type) {
+		public List<Coupon> getAllCoupons(long couponId) throws CouponException {
 			// TODO Auto-generated method stub
 			return null;
 		}
 
-		@Override
-		public List<Coupon> getAllPurchasedCoupons(long customerId) {
-			// TODO Auto-generated method stub
-			return null;
-		}
 
 		@Override
-		public void purchaseCoupon(long customerId, long coupId) {
+		public void removeCoupon(long coupId) throws CouponException {
 			// TODO Auto-generated method stub
 			
-		}
-
-		@Override
-		public boolean isCouponPurchasedByCustomer(long customerId, long coupId) {
-			// TODO Auto-generated method stub
-			return false;
 		}
 
 		
 
 		@Override
-		public List<Coupon> getAllCouponsByPrice(long couponId, double priceMax) throws Exception {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public List<Coupon> getAllCouponsByDate(long couponId, String untilDate) throws Exception {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public List<Coupon> getAllCoupons(long couponId) throws Exception {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		//TODO function empty
-		@Override
-		public boolean isCouponExistsForCompany(long companyId, long coupId) {
-			// TODO Auto-generated method stub
-			return false;
-		}
-
-		@Override
-		public void removeCoupon(long coupId) throws Exception {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public boolean isCouponTitleExists(String coupTitle) {
-			// TODO Auto-generated method stub
-			return false;
-		}
-
-		@Override
-		public List<Coupon> getAllCouponsByType(long couponId, String typeName) throws Exception {
+		public List<Coupon> getAllCouponsByType(long couponId, String typeName) throws CouponException {
 			// TODO Auto-generated method stub
 			return null;
 		}

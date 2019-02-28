@@ -8,7 +8,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import projectCoupon.Coupons.Utile;
-import projectCoupon.Exception.ConnectionException;
+
 import projectCoupon.Exception.CouponException;
 
 
@@ -42,14 +42,13 @@ import projectCoupon.Exception.CouponException;
 		 * @return Connection
 		 * @throws CouponException
 		 */
-		public synchronized Connection getConnection() throws ConnectionException{
+		public synchronized Connection getConnection() throws CouponException{
 
 			while (connections.size()==0) {
 				try {
 					this.wait();
 				} catch (InterruptedException e) {
-					throw new ConnectionException("connection failed");
-					
+					throw new CouponException("connection failed");	
 				}
 			}
 			
@@ -63,11 +62,11 @@ import projectCoupon.Exception.CouponException;
 		 * Methods return connection to Connection pool
 		 * @throws CouponException
 		 */
-		public synchronized void returnConnection(Connection con)throws ConnectionException{ //throws Exception {
+		public synchronized void returnConnection(Connection con)throws CouponException{ //throws Exception {
 			try {
 				con.setAutoCommit(true);
 			} catch (SQLException e) {
-				throw new ConnectionException("ERROR! Return Connection Properly Failed!");
+				throw new CouponException("ERROR! Return Connection Properly Failed!");
 			}
 			connections.add(con);
 			this.notify();
@@ -77,7 +76,7 @@ import projectCoupon.Exception.CouponException;
 		 * Close all Connections
 		 * @throws ConnectionException 
 		 */
-		public synchronized void closeAllConnections(Connection connection) throws CouponException, ConnectionException{
+		public synchronized void closeAllConnections(Connection connection) throws CouponException{
 			
 			while (connections.size()==0) {
 				try {
@@ -92,7 +91,7 @@ import projectCoupon.Exception.CouponException;
 				try {
 					iterator.next().close();
 				} catch (SQLException e) {
-					throw new ConnectionException("Connections: Close All Connection: Error!");
+					throw new CouponException("Connections: Close All Connection: Error!");
 				}
 			}
 		}

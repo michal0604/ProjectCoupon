@@ -3,9 +3,12 @@ package projectCoupon.Company;
 import java.sql.SQLException;
 import java.util.List;
 
-import projectCoupon.Exception.CompanyRemovalException;
-import projectCoupon.Exception.CompanyUpdateException;
+import projectCoupon.Coupons.Coupon;
+import projectCoupon.Exception.CompanyException;
 import projectCoupon.Exception.CouponException;
+import projectCoupon.Exception.CreateException;
+import projectCoupon.Exception.RemoveException;
+import projectCoupon.Exception.UpdateException;
 
 public interface CompanyDAO {
 	
@@ -15,7 +18,7 @@ public interface CompanyDAO {
 	 * @throws CouponException for problems in inserting the company to the DB 
 	 * @throws SQLException for DB related failures 
 	 */
-	void insertCompany(Company company) throws CouponException, SQLException;
+	void insertCompany(Company company) throws CreateException;
 
 	/**
 	 * remove a company  from the Database
@@ -24,7 +27,7 @@ public interface CompanyDAO {
 	 * @throws CompanyRemovalException for problems regarding the removal of company from DB
 	 * @throws SQLException SQLException for DB related failures
 	 */
-	void removeCompany(Company company) throws CouponException, CompanyRemovalException, SQLException;
+	void removeCompany(Company company) throws RemoveException;
 
 	/**
 	 * updates a company into the Database
@@ -33,7 +36,7 @@ public interface CompanyDAO {
 	 * @throws CompanyUpdateException or problems in updating the company to the DB 
 	 * @throws SQLException for DB related failures 
 	 */
-	void updateCompany(Company company) throws CouponException, CompanyUpdateException, SQLException;
+	void updateCompany(Company company) throws UpdateException;
 
 	/**
 	 * get a company data set by the company's id.
@@ -41,7 +44,7 @@ public interface CompanyDAO {
 	 * @throws CouponException  for errors happing due to trying to get a company from DB
 	 * @throws SQLException for DB related failures
 	 */
-	Company getCompany(long id) throws CouponException, SQLException;
+	Company getCompany(long id) throws CompanyException;
 
 	/**
 	 * get all the Companies from the Database.
@@ -49,15 +52,7 @@ public interface CompanyDAO {
 	 * @throws CouponException  for errors happing due to trying to get all companies from DB
 	 * @throws SQLException for DB related failures
 	 */
-	List<Company> getAllCompanys() throws CouponException, SQLException;
-
-	/**
-	 * returns if a company identified by the name exist in the DB records.
-	 * 
-	 * @throws CouponException for error related to the retrieval of the company 
-	 * @throws SQLException for DB related failures
-	 */
-	public boolean isCompanyNameExists(String compName) throws CouponException, SQLException;
+	List<Company> getAllCompanys() throws CompanyException;
 
 	/**
 	 * this method returns a company iff the user password is correct.
@@ -65,16 +60,9 @@ public interface CompanyDAO {
 	 * @throws CouponException for problem retrieving the company data.
 	 * @throws SQLException for DB related failures
 	 */
-	Company login(String name, String password) throws CouponException, SQLException;
+	Company login(String name, String password) throws CompanyException;
 
+	List<Coupon> getCoupons(long custId) throws CouponException;
 	
-	/**
-	 * remove a company identified by its id from the Database
-	 * 
-	 * @throws CouponException  
-	 * @throws CompanyRemovalException for problems regarding the removal of company from DB
-	 * @throws SQLException SQLException for DB related failures
-	 */
-	void removeCompany(long compId) throws CouponException, CompanyRemovalException, SQLException;
 
 }
