@@ -7,11 +7,18 @@ import projectCoupon.Exception.CompanyRemovalException;
 import projectCoupon.Exception.CompanyUpdateException;
 import projectCoupon.Exception.CouponException;
 
+/**
+ * this interface lists the data access object operations Company's requirements.
+ * 
+ *  @author Eivy & Michal
+ *
+ */
 public interface CompanyDAO {
 	
 	/**
 	 * Inserts a company data set to the Database
 	 * 
+	 * @param company company to be inserted
 	 * @throws CouponException for problems in inserting the company to the DB 
 	 * @throws SQLException for DB related failures 
 	 */
@@ -20,6 +27,7 @@ public interface CompanyDAO {
 	/**
 	 * remove a company  from the Database
 	 * 
+	 * @param company company to be removed
 	 * @throws CouponException  
 	 * @throws CompanyRemovalException for problems regarding the removal of company from DB
 	 * @throws SQLException SQLException for DB related failures

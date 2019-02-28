@@ -1,6 +1,7 @@
 package projectCoupon.Clients;
 
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,9 @@ import projectCoupon.Coupons.CouponDAO;
 import projectCoupon.Coupons.CouponDBDAO;
 import projectCoupon.Coupons.Utile;
 import projectCoupon.Coupons.couponType;
+import projectCoupon.Exception.ConnectionException;
 import projectCoupon.Exception.CouponException;
+import projectCoupon.Exception.CreateException;
 
 public class CompanyFacade  implements CouponClientFacade {
 
@@ -25,18 +28,31 @@ public class CompanyFacade  implements CouponClientFacade {
 	private long companyId = 0;
 	private Company company;
 	
+
 	/**
-	 * Constructor
-	 * @throws CouponException 
+	 * cTor for company handling system
+	 * 
+	 * @throws CouponException for errors in creation of the resources needed for the system
 	 */
-	public CompanyFacade() throws CouponException  {
+	public CompanyFacade() throws CouponException{
 		companyDAO = new CompanyDBDAO();
 		couponDAO = new CouponDBDAO();
 		company_CouponDAO = new Company_CouponDBDAO();
 	}
 
+	
+	/**
+	 * this method returns a company iff the user password is correct.
+	 * 
+	 * @param name  name for login
+	 * @param password  password for login
+	 * @throws CouponException for problem retrieving the company data.
+	 * @throws SQLException for DB related failures
+	 *
+	 * @see projectCoupon.Clients.CouponClientFacade#login(java.lang.String, java.lang.String)
+	 */
 	@Override
-	public CouponClientFacade login(String name, String password) throws Exception {
+	public CouponClientFacade login(String name, String password) throws CouponException, SQLException{
 		Company company = new Company();
 		company = companyDAO.login(name, password);
 		if (company != null) {
@@ -50,7 +66,16 @@ public class CompanyFacade  implements CouponClientFacade {
 	}
 
 
-	public void createCoupon(Coupon coupon) throws Exception {
+	/**
+	 * this method adds a coupon to the system
+	 * 
+	 * @param coupon the coupon to be added.
+	 * @throws ConnectionException 
+	 * @throws SQLException 
+	 * @throws CreateException 
+	 * @throws CouponException 
+	 */
+	public void createCoupon(Coupon coupon) throws CreateException, SQLException, ConnectionException, CouponException {
 		if (coupon != null) {
 			String CoupTitle = coupon.getTitle();
 			if (CoupTitle != null) {
@@ -77,6 +102,10 @@ public class CompanyFacade  implements CouponClientFacade {
 		}
 	}
 	
+	/**
+	 * @param coupId
+	 * @throws Exception
+	 */
 	public void removeCoupon(long coupId) throws Exception {
 		if (coupId > 0) {
 			if (couponDAO.isCouponExistsForCompany(companyId, coupId)) {
@@ -90,6 +119,10 @@ public class CompanyFacade  implements CouponClientFacade {
 	}
 
 	
+	/**
+	 * @param coupon
+	 * @throws Exception
+	 */
 	public void updateCoupon(Coupon coupon) throws Exception {
 		if (coupon != null) {
 			long couponId = coupon.getCouponId();
@@ -117,16 +150,29 @@ public class CompanyFacade  implements CouponClientFacade {
 	}
 	
 	
+	/**
+	 * @return
+	 * @throws Exception
+	 */
 	public Company getCompany() throws Exception {
 		return companyDAO.getCompany(companyId);
 	}
 	
 
+	/**
+	 * @param coupId
+	 * @return
+	 * @throws Exception
+	 */
 	public Coupon getCoupon(long coupId) throws Exception {
 		return couponDAO.getCoupon(coupId);
 	}	
 	
 	
+	/**
+	 * @return
+	 * @throws Exception
+	 */
 	public List<Coupon> getCoupons() throws Exception {
 		List<Coupon>allCoupons=new ArrayList<Coupon>();
 		allCoupons=couponDAO.getAllCoupons();
@@ -134,6 +180,11 @@ public class CompanyFacade  implements CouponClientFacade {
 	}
 
 	
+	/**
+	 * @param coupType
+	 * @return
+	 * @throws Exception
+	 */
 	public List<Coupon> getCouponsByType(couponType coupType) throws Exception {
 		List<Coupon> coupons = new ArrayList<Coupon>();
 		Coupon coupon;
@@ -149,6 +200,11 @@ public class CompanyFacade  implements CouponClientFacade {
 	
 
 	
+	/**
+	 * @param price
+	 * @return
+	 * @throws Exception
+	 */
 	public List<Coupon> getCouponsByMaxCouponPrice(double price) throws Exception {
 		List<Coupon> coupons = new ArrayList<Coupon>();
 		Coupon coupon;
@@ -164,6 +220,11 @@ public class CompanyFacade  implements CouponClientFacade {
 
 
 	
+	/**
+	 * @param endDate
+	 * @return
+	 * @throws Exception
+	 */
 	public List<Coupon> getCouponsByMaxCouponDate(Date endDate)  throws Exception{
 		List<Coupon> coupons = new ArrayList<Coupon>();
 		Coupon coupon;
@@ -179,11 +240,17 @@ public class CompanyFacade  implements CouponClientFacade {
 	
 	
 	
+	/**
+	 * @return
+	 */
 	public long getCompanyId() {
 		return companyId;
 	}
 	
 	
+	/**
+	 * @return
+	 */
 	public Company getCompanyInstance() {
 		return company;
 	}

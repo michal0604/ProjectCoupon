@@ -20,6 +20,10 @@ import projectCoupon.Exception.CouponException;
  * @author Eivy & Michal
  *
  */
+/**
+ * @author eivy
+ *
+ */
 public class CompanyDBDAO implements CompanyDAO {
 
 	private ConnectionPool pool;
