@@ -48,11 +48,12 @@ public class CompanyFacade  implements CouponClientFacade {
 	 * @param password  password for login
 	 * @throws CouponException for problem retrieving the company data.
 	 * @throws SQLException for DB related failures
+	 * @throws ConnectionException 
 	 *
 	 * @see projectCoupon.Clients.CouponClientFacade#login(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public CouponClientFacade login(String name, String password) throws CouponException, SQLException{
+	public CouponClientFacade login(String name, String password) throws CouponException, SQLException, ConnectionException{
 		Company company = new Company();
 		company = companyDAO.login(name, password);
 		if (company != null) {
@@ -70,9 +71,9 @@ public class CompanyFacade  implements CouponClientFacade {
 	 * this method adds a coupon to the system
 	 * 
 	 * @param coupon the coupon to be added.
-	 * @throws ConnectionException 
-	 * @throws SQLException 
-	 * @throws CreateException 
+	 * @throws ConnectionException errors due to connection problems
+	 * @throws SQLException  errors due to SQL problems
+	 * @throws CreateException errors in creation
 	 * @throws CouponException 
 	 */
 	public void createCoupon(Coupon coupon) throws CreateException, SQLException, ConnectionException, CouponException {
@@ -82,7 +83,7 @@ public class CompanyFacade  implements CouponClientFacade {
 				Date startDate = coupon.getStart_date();
 				Date endDate = coupon.getEnd_date();
 				if (startDate.getTime() <= endDate.getTime()) {
-					if (startDate.getTime() >= Utile.toDate(0).getTime()) {//ts.getTime()) { //new Timestamp(System.currentTimeMillis()).getTime()) {
+					if (startDate.getTime() >= Utile.toDate(0).getTime()) {
 						if (!couponDAO.isCouponTitleExists(CoupTitle)) {
 							couponDAO.insertCoupon(coupon);
 						} else {

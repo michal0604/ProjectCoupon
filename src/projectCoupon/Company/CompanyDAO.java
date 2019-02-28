@@ -5,6 +5,7 @@ import java.util.List;
 
 import projectCoupon.Exception.CompanyRemovalException;
 import projectCoupon.Exception.CompanyUpdateException;
+import projectCoupon.Exception.ConnectionException;
 import projectCoupon.Exception.CouponException;
 
 /**
@@ -21,8 +22,9 @@ public interface CompanyDAO {
 	 * @param company company to be inserted
 	 * @throws CouponException for problems in inserting the company to the DB 
 	 * @throws SQLException for DB related failures 
+	 * @throws ConnectionException for connection problems
 	 */
-	void insertCompany(Company company) throws CouponException, SQLException;
+	void insertCompany(Company company) throws CouponException, SQLException, ConnectionException;
 
 	/**
 	 * remove a company  from the Database
@@ -37,6 +39,7 @@ public interface CompanyDAO {
 	/**
 	 * updates a company into the Database
 	 * 
+	 * @param company company to update
 	 * @throws CouponException regarding the connection problem
 	 * @throws CompanyUpdateException or problems in updating the company to the DB 
 	 * @throws SQLException for DB related failures 
@@ -46,6 +49,7 @@ public interface CompanyDAO {
 	/**
 	 * get a company data set by the company's id.
 	 * 
+	 * @param id representing the id of the required company
 	 * @throws CouponException  for errors happing due to trying to get a company from DB
 	 * @throws SQLException for DB related failures
 	 */
@@ -56,29 +60,36 @@ public interface CompanyDAO {
 	 * 
 	 * @throws CouponException  for errors happing due to trying to get all companies from DB
 	 * @throws SQLException for DB related failures
+	 * @throws ConnectionException error occurring due to connection problems
 	 */
-	List<Company> getAllCompanys() throws CouponException, SQLException;
+	List<Company> getAllCompanys() throws CouponException, SQLException, ConnectionException;
 
 	/**
 	 * returns if a company identified by the name exist in the DB records.
 	 * 
+	 * @param compName name that should be checked for existing
 	 * @throws CouponException for error related to the retrieval of the company 
 	 * @throws SQLException for DB related failures
+	 * @throws ConnectionException error occurring due to connection problems
 	 */
-	public boolean isCompanyNameExists(String compName) throws CouponException, SQLException;
+	public boolean isCompanyNameExists(String compName) throws CouponException, SQLException, ConnectionException;
 
 	/**
 	 * this method returns a company iff the user password is correct.
 	 * 
+	 * @param name company's name of the logged in company
+	 * @param password company's password of the logged in company
 	 * @throws CouponException for problem retrieving the company data.
 	 * @throws SQLException for DB related failures
+	 * @throws ConnectionException error occurring due to connection problems
 	 */
-	Company login(String name, String password) throws CouponException, SQLException;
+	Company login(String name, String password) throws CouponException, SQLException, ConnectionException;
 
 	
 	/**
 	 * remove a company identified by its id from the Database
 	 * 
+	 * @param compId the id of the company that should be deleted 
 	 * @throws CouponException  
 	 * @throws CompanyRemovalException for problems regarding the removal of company from DB
 	 * @throws SQLException SQLException for DB related failures

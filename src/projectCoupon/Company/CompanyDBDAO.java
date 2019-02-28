@@ -11,6 +11,7 @@ import java.util.List;
 import projectCoupon.ConnectionPool;
 import projectCoupon.Exception.CompanyRemovalException;
 import projectCoupon.Exception.CompanyUpdateException;
+import projectCoupon.Exception.ConnectionException;
 import projectCoupon.Exception.CouponException;
 
 /**
@@ -40,13 +41,15 @@ public class CompanyDBDAO implements CompanyDAO {
 	/**
 	 * Inserts a company data set to the Database
 	 * 
+	 * @param company company to be inserted
 	 * @throws CouponException for problems in inserting the company to the DB 
 	 * @throws SQLException for DB related failures 
+	 * @throws ConnectionException for connection problems
 	 * 
 	 * @see projectCoupon.Company.CompanyDAO#insertCompany
 	 */
 	@Override
-	public void insertCompany(Company Company) throws CouponException, SQLException{
+	public void insertCompany(Company Company) throws CouponException, SQLException, ConnectionException{
 		Connection connection = pool.getConnection();
 		String sql = "INSERT INTO Company (ID,COMP_NAME,PASSWORD,EMAIL) VALUES(?,?,?)";
 
@@ -68,6 +71,7 @@ public class CompanyDBDAO implements CompanyDAO {
 	/**
 	 * remove a company  from the Database
 	 * 
+	 * @param company company to be remove
 	 * @throws CouponException  
 	 * @throws CompanyRemovalException for problems regarding the removal of company from DB
 	 * @throws SQLException SQLException for DB related failures
@@ -100,6 +104,7 @@ public class CompanyDBDAO implements CompanyDAO {
 	/**
 	 * updates a company into the Database
 	 * 
+	 * @param company company to update
 	 * @throws CouponException regarding the connection problem
 	 * @throws CompanyUpdateException or problems in updating the company to the DB 
 	 * @throws SQLException for DB related failures 
@@ -127,6 +132,7 @@ public class CompanyDBDAO implements CompanyDAO {
 	/**
 	 * get a company data set by the company's id.
 	 * 
+	 * @param id representing the id of the required company
 	 * @throws CouponException  for errors happing due to trying to get a company from DB
 	 * @throws SQLException for DB related failures
 	 * 
@@ -159,13 +165,14 @@ public class CompanyDBDAO implements CompanyDAO {
 	/**
 	 * get all the Companies from the Database.
 	 * 
-	 * @throws CouponException  for errors happing due to trying to get all companies from DB
+	 * @throws CouponException  for errors occurring due to trying to get all companies from DB
 	 * @throws SQLException for DB related failures
+	 * @throws ConnectionException error occurring due to connection problems
 	 * 
 	 * @see projectCoupon.Company.CompanyDAO#getAllCompanys
 	 */
 	@Override
-	public List<Company> getAllCompanys() throws CouponException, SQLException{
+	public List<Company> getAllCompanys() throws CouponException, SQLException, ConnectionException{
 		Connection connection = pool.getConnection();
 		List<Company> set = new ArrayList<Company>();
 		String sql = "SELECT * FROM Company";
@@ -191,12 +198,14 @@ public class CompanyDBDAO implements CompanyDAO {
 	/**
 	 * returns if a company identified by the name exist in the DB records.
 	 * 
+	 * @param compName name that should be checked for existing
 	 * @throws CouponException for error related to the retrieval of the company 
 	 * @throws SQLException for DB related failures
+	 * @throws ConnectionException error occurring due to connection problems
 	 * 
 	 * @see projectCoupon.Company.CompanyDAO#getAllCompanys
 	 */
-	public boolean isCompanyNameExists(String compName) throws CouponException, SQLException{
+	public boolean isCompanyNameExists(String compName) throws CouponException, SQLException, ConnectionException{
 		Connection connection = pool.getConnection();
 		try {
 			String sql = "SELECT id FROM Company WHERE company_name = ? ";
@@ -220,13 +229,16 @@ public class CompanyDBDAO implements CompanyDAO {
 	/**
 	 * this method returns a company iff the user password is correct.
 	 * 
+	 * @param name company's name of the logged in company
+	 * @param password company's password of the logged in company
 	 * @throws CouponException for problem retrieving the company data.
 	 * @throws SQLException for DB related failures
+	 * @throws ConnectionException error occurring due to connection problems
 	 * 
 	 * @see projectCoupon.Company.CompanyDAO#login(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public Company login(String name, String password) throws CouponException, SQLException{
+	public Company login(String name, String password) throws CouponException, SQLException, ConnectionException{
 		Connection connection = pool.getConnection();
 		Company company = new Company();
 		try {
@@ -257,6 +269,7 @@ public class CompanyDBDAO implements CompanyDAO {
 	/**
 	 * remove a company identified by its id from the Database
 	 * 
+	 * @param compId the id of the company that should be deleted 
 	 * @throws CouponException  
 	 * @throws CompanyRemovalException for problems regarding the removal of company from DB
 	 * @throws SQLException SQLException for DB related failures
