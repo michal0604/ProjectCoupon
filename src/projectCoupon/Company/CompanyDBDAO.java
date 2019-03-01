@@ -348,7 +348,38 @@ public class CompanyDBDAO implements CompanyDAO {
 		}
 		return coupons;
 	}
+
+	@Override
+	public boolean isCompanyNameExists(String compName) throws CouponException {
+		Connection connection = pool.getConnection();
+		try {
+			String sql = "SELECT companyId FROM Company WHERE compName = ? "; 
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+			pstmt.setString(1, compName);
+			ResultSet rs = pstmt.executeQuery(); 
+			if (rs.next()) {
+				return true;
+			} 
+			return false;
+				
+		} catch (SQLException e) {
+			throw new CouponException("Failed to checking if Company name already exists.");
+		} catch (Exception e) {
+			throw new CouponException("Failed to checking if Company name already exists.");
+		} finally {
+			pool.returnConnection(connection);
+		}
 	}
+
+	@Override
+	public void removeCompany(long compId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+	}
+	
 
 	
 	

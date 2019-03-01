@@ -31,6 +31,8 @@ import projectCoupon.Exception.UpdateException;
 		Customer getCustomer(long cusomerId) throws CustomerException;
        
 		List<Coupon> getCoupons(long custId) throws CouponException;
+
+		boolean isCustomerNameExists(String custName)throws CouponException;
 		
 		
 		

@@ -454,8 +454,159 @@ import projectCoupon.Exception.UpdateException;
 			// TODO Auto-generated method stub
 			return null;
 		}
+
+		@Override
+		public List<Coupon> getAllCouponsByPrice(long couponId, double priceMax) throws CouponException {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public boolean isCouponTitleExists(String Title) throws CouponException {
+			Connection connection = null;
+			try {
+				connection = pool.getConnection();
+			} catch (Exception e1) {
+				throw new CouponException("connection failed");
+			}
+			try {
+				String sql = "SELECT couponId FROM Coupon WHERE title = ? "; 
+				PreparedStatement pstmt = connection.prepareStatement(sql);
+				pstmt.setString(1, Title);
+				ResultSet rs = pstmt.executeQuery(); 
+				if (rs.next()) {
+					return true;
+				} 
+				return false;
+				
+			} catch (SQLException e) {
+				
+					throw new CouponException(" ERROR! Checking if Coupon Title Exists Failed.");
+				
+			} catch (Exception e) {
+				
+					throw new CouponException("ERROR! Checking if Coupon Title Exists Failed.");
+				
+			} finally {
+				try {
+					pool.returnConnection(connection);
+				} catch (CouponException e) {
+				}
+				
+			}
+		}
+
+		@Override
+		public boolean isCouponExistsForCompany(long companyId, long couponId) throws CouponException {
+			Connection connection = pool.getConnection();
+			try {
+				String sql = "SELECT couponId FROM Company_Coupon WHERE companyId = ? AND couponId = ? "; 
+				PreparedStatement pstmt = connection.prepareStatement(sql);
+				pstmt.setLong(1, companyId);
+				pstmt.setLong(2, couponId);
+				ResultSet rs = pstmt.executeQuery();
+				if (rs.next()) {
+					return true;
+				} 
+				return false;
+					
+			} catch (SQLException e) {
+				throw new CouponException("ERROR! Checking if Coupon Exists For The Company is Failed.");
+			} catch (Exception e) {
+				throw new CouponException(" ERROR! Checking if Coupon Exists For The Company is Failed.");
+			} finally {
+				pool.returnConnection(connection);
+			}
+		}
+
+		@Override
+		public boolean isCouponPurchasedByCustomer(long custId, long coupId) throws CouponException {
+			Connection connection = pool.getConnection();
+			try {
+				String sql = "SELECT couponId FROM Customer_Coupon WHERE customerId = ? AND couponId = ? "; 
+				PreparedStatement pstmt = connection.prepareStatement(sql);
+				pstmt.setLong(1, custId);
+				pstmt.setLong(2, coupId);
+				ResultSet rs = pstmt.executeQuery(); 
+				if (rs.next()) {
+					return true;
+				} 
+				return false;
+					
+			} catch (SQLException e) {
+				throw new CouponException("ERROR! Checking If Coupon Already Exists For Company is Failed.");
+			} catch (Exception e) {
+				throw new CouponException("ERROR! Checking If Coupon Already Exists For Company is Failed.");
+			} finally {
+				pool.returnConnection(connection);
+			}
+		}
+
+		@Override
+		public void purchaseCoupon(long custId, long coupId) throws CouponException {
+			Connection connection = pool.getConnection();
+
+			try {
+				connection.setAutoCommit(false);
+				String sql = "INSERT INTO app.Customer_Coupon (customerId,couponId) VALUES (?,?)";
+				PreparedStatement pstmt = connection.prepareStatement(sql);
+
+				pstmt.setLong(1, custId);
+				pstmt.setLong(2, coupId);
+
+				pstmt.executeUpdate();
+				
+				sql = "UPDATE app.Coupon SET amount = amount - 1 WHERE id = ?";
+				pstmt = connection.prepareStatement(sql);
+				pstmt.setLong(1, coupId);
+			
+				pstmt.executeUpdate();
+				
+				connection.commit();
+				
+			} catch (SQLException e) {
+				try {
+					connection.rollback();
+				} catch (SQLException e1) {
+					throw new CouponException("DB ERROR! Purchase Coupon is Failed. RollBack Failed!");
+				}
+				throw new CouponException("DB ERROR! Purchase Coupon is Failed.");
+			} catch (Exception e) {
+				throw new CouponException("APP ERROR! Purchase Coupon is Failed.");
+			} finally {
+				pool.returnConnection(connection);
+			}
+		}
+
+		@Override
+		public List<Coupon> getAllCouponsByType(long couponId, couponType coupType) throws CouponException {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public List<Coupon> getAllPurchasedCouponsByPrice(long custId, long price) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public List<Coupon> getAllPurchasedCoupons(long custId) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public List<Coupon> getAllPurchasedCouponsByType(long custId, couponType type) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+			
+		}
+		}
+		
+		
 	
-	}
 
 
 	

@@ -1,8 +1,8 @@
 package projectCoupon.Company_Coupon;
 
 public class Company_Coupon {
-	private long comp_Id;
-	private long coupon_Id;
+	private long companyId;
+	private long couponId;
 	
 	
 	public Company_Coupon() {
@@ -10,39 +10,39 @@ public class Company_Coupon {
 	}
 
 
-	public Company_Coupon(long comp_Id, long coupon_Id) {
+	public Company_Coupon(long companyId, long couponId) {
 		super();
-		this.comp_Id = comp_Id;
-		this.coupon_Id = coupon_Id;
+		this.companyId = companyId;
+		this.couponId = couponId;
 	}
 
 
-	public long getComp_Id() {
-		return comp_Id;
+	public long getCompanyId() {
+		return companyId;
 	}
 
 
-	public void setComp_Id(long comp_Id) {
-		this.comp_Id = comp_Id;
+	public void setCompanyId(long companyId) {
+		this.companyId = companyId;
 	}
 
 
-	public long getCoupon_Id() {
-		return coupon_Id;
+	public long getCouponId() {
+		return couponId;
 	}
 
 
-	public void setCoupon_Id(long coupon_Id) {
-		this.coupon_Id = coupon_Id;
+	public void setCouponId(long couponId) {
+		this.couponId = couponId;
 	}
 
 
 	@Override
 	public String toString() {
-		return "Company_Coupon [comp_Id=" + comp_Id + ", coupon_Id=" + coupon_Id + "]";
+		return "Company_Coupon [companyId=" + companyId + ", couponId=" + couponId + "]";
 	}
-	
-	
+
+
 	
 
 }

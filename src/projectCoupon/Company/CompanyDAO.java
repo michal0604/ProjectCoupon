@@ -64,5 +64,15 @@ public interface CompanyDAO {
 
 	List<Coupon> getCoupons(long custId) throws CouponException;
 	
+	/**
+	 * Check if Company Name Exists (For Creating New Company)
+	 * return boolean - true - Company name exists.
+	 * 					false - Company name not  exists.
+	 * throws CouponException.
+	 */
+	
+	public boolean isCompanyNameExists(String compName) throws CouponException;
+
+	void removeCompany(long compId);
 
 }

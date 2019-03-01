@@ -343,7 +343,31 @@ public class CustomerDBDAO implements CustomerDAO {
 			}
 		}
 	}
+
+	@Override
+	public boolean isCustomerNameExists(String customerName)throws CouponException {
+		Connection connection = pool.getConnection();
+		try {
+			String sql = "SELECT customerId FROM Customer WHERE customerName = ? "; 
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+			pstmt.setString(1, customerName);
+			ResultSet rs = pstmt.executeQuery(); 
+			if (rs.next()) {
+				return true;
+			} 
+			return false;
+				
+		} catch (SQLException e) {
+			throw new CouponException(" Failed to checking if Customer name already exists.");
+		} catch (Exception e) {
+			throw new CouponException(" Failed to checking if Customer name already exists.");
+		} finally {
+			pool.returnConnection(connection);
+		}
 	}
+		
+	}
+	
 
 	
 
