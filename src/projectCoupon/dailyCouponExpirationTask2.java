@@ -77,7 +77,7 @@ public class dailyCouponExpirationTask2 implements Runnable {
 					if (current.getEnd_date().isBefore(LocalDate.now())||current.getEnd_date().equals(LocalDate.now())){
 					customer_CouponDBDAO.removeCustomer_Coupon(current);
 					company_CouponDBDAO.removeCompany_CouponByCoupon(current);
-					couponDBDAO.removeExpiredCoupons();
+					couponDBDAO.removeCoupon(current);
 						}
 					}
 				}

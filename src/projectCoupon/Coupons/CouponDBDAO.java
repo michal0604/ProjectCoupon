@@ -335,7 +335,8 @@ import projectCoupon.Exception.UpdateException;
 		}
 
 
-		
+		/*
+	
 		
 		public List<Coupon> remvoveCouponExpired()throws CouponException{
 			Connection connection;
@@ -365,6 +366,7 @@ import projectCoupon.Exception.UpdateException;
 			}
 				
 			}
+			*/
 		
 
 		@Override
