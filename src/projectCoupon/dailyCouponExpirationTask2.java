@@ -56,8 +56,11 @@ public class dailyCouponExpirationTask2 implements Runnable {
 		}
 		
 		
+	}
+	
+	
 	@Override
-	public void run() {
+	public void run()  {
 		while (running) {
 			try {
 				TIMEUNIT.sleep(SLEEPTIME);
@@ -72,22 +75,22 @@ public class dailyCouponExpirationTask2 implements Runnable {
 				while(itr.hasNext()) {
 					Coupon current=itr.next();
 					if (current.getEnd_date().isBefore(LocalDate.now())||current.getEnd_date().equals(LocalDate.now())){
-					couponDBDAO.removeExpiredCoupons();
 					customer_CouponDBDAO.removeCustomer_Coupon(current);
 					company_CouponDBDAO.removeCompany_CouponByCoupon(current);
+					couponDBDAO.removeExpiredCoupons();
 						}
 					}
 				}
 			 catch (Exception e) {
-			
-					throw new CouponException(" delete coupon failed");
-			 }
-				
-		}	
-			
-		}
-	}
+				e.printStackTrace();
+				System.out.println("daily task was failed");
+				}
+							}
+							
+						}
+					
 
+			
 
 	/**
 	 * Gracefully stops the Daily Task
@@ -96,11 +99,4 @@ public class dailyCouponExpirationTask2 implements Runnable {
 		running = false;
 	}
 
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		
-	}
 }
-
-
