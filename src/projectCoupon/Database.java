@@ -3,9 +3,9 @@ package projectCoupon;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-import projectCoupon.Exception.ConnectionException;
 import projectCoupon.Exception.CouponException;
+import projectCoupon.Exception.CreateException;
+import projectCoupon.Exception.RemoveException;
 
 public class Database {
 
@@ -23,17 +23,25 @@ public class Database {
 		pool = ConnectionPool.getInstance();
 	}
 
-	public static void dropTableifNeeded(Connection connection) throws SQLException, CouponException, ConnectionException {
+	public static void dropTableifNeeded(Connection connection) throws RemoveException{
 		String sql;
-		Statement stmt;
-		connection = pool.getConnection();
-		stmt = connection.createStatement();
+		Statement stmt = null;
+		try {
+			connection = pool.getConnection();
+		} catch (Exception e1) {
+			throw new RemoveException("connction failed");
+		}
+		try {
+			stmt = connection.createStatement();
+		} catch (SQLException e1) {
+			throw new RemoveException("createstatment is failed");
+		}
 		try {
 			sql = "DROP TABLE Customer_Coupon";
 			stmt.executeUpdate(sql);
 			System.out.println("Droped Customer_Coupon Table");
 		} catch (SQLException e) {
-			System.out.println("Customer_Coupon Table did not drop: " + e.getMessage());
+			throw new RemoveException("Customer_Coupon Table did not drop: " + e.getMessage());
 		}
 
 		try {
@@ -41,38 +49,50 @@ public class Database {
 			stmt.executeUpdate(sql);
 			System.out.println("Droped Company_Coupon Table");
 		} catch (SQLException e) {
-			System.out.println("Company_Coupon Table did not drop: " + e.getMessage());
+			throw new RemoveException("Company_Coupon Table did not drop: " + e.getMessage());
 		}
 		try {
 			sql = "DROP TABLE Company";
 			stmt.executeUpdate(sql);
 			System.out.println("Droped Company Table");
 		} catch (SQLException e) {
-			System.out.println("Company Table did not drop: " + e.getMessage());
+			throw new RemoveException("Company Table did not drop: " + e.getMessage());
 		}
 		try {
 			sql = "DROP TABLE CUSTOMER";
 			stmt.executeUpdate(sql);
 			System.out.println("Droped Customer Table");
 		} catch (SQLException e) {
-			System.out.println("Customer Table did not drop: " + e.getMessage());
+			throw new RemoveException("Customer Table did not drop: " + e.getMessage());
 		}
 		try {
 			sql = "DROP TABLE Coupon";
 			stmt.executeUpdate(sql);
 			System.out.println("Droped COUPON Table");
 		} catch (SQLException e) {
-			System.out.println("COUPON Table did not exist");
+			throw new RemoveException("COUPON Table did not exist");
 		}
-		connection.close();
-		pool.returnConnection(connection);
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			throw new RemoveException("connection close failed");
+		}
+		try {
+			pool.returnConnection(connection);
+		} catch (Exception e) {
+			throw new RemoveException("return connection doesnt excess");
+		}
 
 	}
 
-	public static void createTables(Connection connection) throws SQLException, Exception {
+	public static void createTables(Connection connection) throws SQLException, CreateException {
 
 		String sql;
-		connection = pool.getConnection();
+		try {
+			connection = pool.getConnection();
+		} catch (Exception e1) {
+			throw new CreateException("didnt success in get connection");
+		}
 		try {
 			Statement stmt = connection.createStatement();
 
@@ -84,8 +104,7 @@ public class Database {
 			stmt.executeUpdate(sql);
 			System.out.println("success:" + sql);
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-			// throw new CompanyCreationException(Company);
+			throw new CreateException("create company didn't succeed");
 		}
 		try {
 			Statement stmt2 = connection.createStatement();
@@ -95,7 +114,7 @@ public class Database {
 			stmt2.executeUpdate(sql);
 			System.out.println("success:" + sql);
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			throw new CreateException("create customer didn't succeed");
 		}
 
 		try {
@@ -110,7 +129,7 @@ public class Database {
 			stm.executeUpdate(sql);
 			System.out.println("success:" + sql);
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			throw new CreateException("create coupon didn't succeed");
 		}
 
 		// create join table Customer_Coupon
@@ -123,7 +142,7 @@ public class Database {
 			System.out.println("success:" + sql);
 
 		} catch (SQLException e) {
-			System.out.println("create failed");
+			throw new CreateException("create customer_coupon didn't succeed");
 
 		}
 
@@ -136,12 +155,16 @@ public class Database {
 			System.out.println("success: " + sql);
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new CreateException("create company_coupon didn't succeed");
 		}
 
 		finally {
 			connection.close();
-			pool.returnConnection(connection);
+			try {
+				pool.returnConnection(connection);
+			} catch (Exception e) {
+				throw new CreateException(" didn't succeed in close connection");
+			}
 		}
 
 	}

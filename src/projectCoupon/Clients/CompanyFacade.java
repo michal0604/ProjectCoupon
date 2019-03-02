@@ -191,7 +191,7 @@ public class CompanyFacade  implements CouponClientFacade {
 		Coupon coupon;
 		List<Company_Coupon> companyCouponList = company_CouponDAO.getCouponsByCompanyId(companyId);
 		for (Company_Coupon companyCoupon : companyCouponList) {
-			coupon = couponDAO.getCoupon(companyCoupon.getCoupon_Id());
+			coupon = couponDAO.getCoupon(companyCoupon.getCouponId());
 			if (coupon.getType().equals(coupType) ) {
 				coupons.add(coupon);
 			}
@@ -211,7 +211,7 @@ public class CompanyFacade  implements CouponClientFacade {
 		Coupon coupon;
 		List<Company_Coupon> companyCouponList = company_CouponDAO.getCouponsByCompanyId(companyId);
 		for (Company_Coupon companyCoupon : companyCouponList) {
-			coupon = couponDAO.getCoupon(companyCoupon.getCoupon_Id());
+			coupon = couponDAO.getCoupon(companyCoupon.getCouponId());
 			if (coupon.getPrice() <= price ) {
 				coupons.add(coupon);
 			}
@@ -231,7 +231,7 @@ public class CompanyFacade  implements CouponClientFacade {
 		Coupon coupon;
 		List<Company_Coupon> companyCouponList = company_CouponDAO.getCouponsByCompanyId(companyId);
 		for (Company_Coupon companyCoupon : companyCouponList) {
-			coupon = couponDAO.getCoupon(companyCoupon.getCoupon_Id());
+			coupon = couponDAO.getCoupon(companyCoupon.getCouponId());
 			if (coupon.getEnd_date().equals(endDate) || coupon.getEnd_date().before(endDate) ) {
 				coupons.add(coupon);
 			}

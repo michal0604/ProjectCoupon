@@ -21,10 +21,6 @@ import projectCoupon.Exception.CouponException;
  * @author Eivy & Michal
  *
  */
-/**
- * @author eivy
- *
- */
 public class CompanyDBDAO implements CompanyDAO {
 
 	private ConnectionPool pool;
@@ -41,7 +37,6 @@ public class CompanyDBDAO implements CompanyDAO {
 	/**
 	 * Inserts a company data set to the Database
 	 * 
-	 * @param company company to be inserted
 	 * @throws CouponException for problems in inserting the company to the DB 
 	 * @throws SQLException for DB related failures 
 	 * @throws ConnectionException for connection problems

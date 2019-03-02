@@ -2,6 +2,7 @@ package projectCoupon.Clients;
 
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import projectCoupon.Coupons.Coupon;
@@ -37,7 +38,7 @@ import projectCoupon.Exception.CouponException;
 		@Override
 		public CouponClientFacade login(String name, String password) throws Exception {
 			Customer customer = new Customer();
-			customer = CustomerDAO.login(name, password);
+			customer = custDAO.login(name, password);
 			if (customer != null) {
 				// initiate customerId to remember in facade.
 				this.custId = customer.getCustomerId();
@@ -90,15 +91,17 @@ import projectCoupon.Exception.CouponException;
 			return couponDAO.getCoupon(coupId);
 		}
 		
+		 public List<Coupon> getAllCouponsByType(long couponId, couponType couponType) throws CouponException{
+			 List<Coupon> coupons = new ArrayList<Coupon>();
+				for (Coupon coupon : custDAO.getCoupons(custId)) {
+					if (coupon.getType().equals(couponType) ) {
+						coupons.add(coupon);
+					}
+				}
+				return coupons;
+		 }
 		
-		public List<Coupon> getCouponsByType(couponType coupType) throws CouponException {
-			try {
-				return couponDAO.getCouponsByType(0,coupType);
-			} catch (Exception e) {
-				//TODO see what is the Exception and fix line
-				throw new CouponException(e.getMessage()); 
-			}
-		}
+		
 		
 		public List<Coupon> getAllPurchasedCoupons() throws CouponException{
 			return couponDAO.getAllPurchasedCoupons(custId);

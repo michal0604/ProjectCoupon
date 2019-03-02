@@ -4,27 +4,30 @@ package projectCoupon.Customer_Coupon;
 import java.util.List;
 
 import projectCoupon.Coupons.Coupon;
+import projectCoupon.Coupons.couponType;
 import projectCoupon.Customer.Customer;
+import projectCoupon.Exception.CouponException;
+import projectCoupon.Exception.CreateException;
+import projectCoupon.Exception.RemoveException;
+import projectCoupon.Exception.UpdateException;
 
 public interface Customer_CouponDAO {
 	
 		
-		void insertCustomer_Coupon(Customer customer, Coupon coupon) throws Exception;
+		void insertCustomer_Coupon(Customer customer, Coupon coupon) throws CreateException;
 		
-		void removeCustomer_Coupon(Customer customer, Coupon coupon) throws Exception;
+		void removeCustomer_Coupon(Customer customer, Coupon coupon) throws RemoveException;
 		
-		void removeCustomer_Coupon(Customer_Coupon customer_coupon) throws Exception;
+		void removeCustomer_Coupon(Customer customer) throws RemoveException;
 		
-		void removeCustomer_Coupon(Customer customer) throws Exception;
-		
-		void removeCustomer_Coupon(Coupon coupon) throws Exception;
+		void removeCustomer_Coupon(Coupon coupon) throws RemoveException;
 	
-		List<Customer_Coupon> getCustomersByCouponId(long couponId) throws Exception;
+		List<Customer_Coupon> getCustomersByCouponId(long couponId) throws CouponException;
 		
-		List<Customer_Coupon> getCouponsByCustomerId(long customerId) throws Exception;
+		List<Customer_Coupon> getCouponsByCustomerId(long customerId) throws CouponException;
 		
-		List<Customer_Coupon> getAllCustomer_Coupon() throws Exception;	
+		List<Customer_Coupon> getAllCustomer_Coupon() throws CouponException;	
 		
-		void updateCustomer_Coupon(Customer_Coupon customer_Coupon) throws Exception;
+		void updateCustomer_Coupon(Customer customer, Coupon coupon) throws UpdateException;
 		
 }

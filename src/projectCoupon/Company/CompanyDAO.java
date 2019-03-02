@@ -25,6 +25,7 @@ public interface CompanyDAO {
 	 * @throws ConnectionException for connection problems
 	 */
 	void insertCompany(Company company) throws CouponException, SQLException, ConnectionException;
+	void insertCompany(Company company) throws CreateException;
 
 	/**
 	 * remove a company  from the Database
