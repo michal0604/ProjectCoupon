@@ -3,7 +3,6 @@ package projectCoupon.Customer;
 
 	import java.util.List;
 
-import projectCoupon.Clients.clientType;
 import projectCoupon.Coupons.Coupon;
 import projectCoupon.Exception.CouponException;
 import projectCoupon.Exception.CreateException;

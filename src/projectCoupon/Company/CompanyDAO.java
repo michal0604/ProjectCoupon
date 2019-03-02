@@ -3,10 +3,8 @@ package projectCoupon.Company;
 import java.sql.SQLException;
 import java.util.List;
 
-import projectCoupon.Exception.CompanyRemovalException;
-import projectCoupon.Exception.CompanyUpdateException;
-import projectCoupon.Exception.ConnectionException;
 import projectCoupon.Exception.CouponException;
+import projectCoupon.Exception.CreateException;
 
 /**
  * this interface lists the data access object operations Company's requirements.
@@ -24,8 +22,7 @@ public interface CompanyDAO {
 	 * @throws SQLException for DB related failures 
 	 * @throws ConnectionException for connection problems
 	 */
-	void insertCompany(Company company) throws CouponException, SQLException, ConnectionException;
-	void insertCompany(Company company) throws CreateException;
+	void insertCompany(Company company) throws CouponException, SQLException;
 
 	/**
 	 * remove a company  from the Database
@@ -35,7 +32,7 @@ public interface CompanyDAO {
 	 * @throws CompanyRemovalException for problems regarding the removal of company from DB
 	 * @throws SQLException SQLException for DB related failures
 	 */
-	void removeCompany(Company company) throws CouponException, CompanyRemovalException, SQLException;
+	void removeCompany(Company company) throws CouponException, SQLException;
 
 	/**
 	 * updates a company into the Database
@@ -45,7 +42,7 @@ public interface CompanyDAO {
 	 * @throws CompanyUpdateException or problems in updating the company to the DB 
 	 * @throws SQLException for DB related failures 
 	 */
-	void updateCompany(Company company) throws CouponException, CompanyUpdateException, SQLException;
+	void updateCompany(Company company) throws CouponException, SQLException;
 
 	/**
 	 * get a company data set by the company's id.
@@ -63,7 +60,7 @@ public interface CompanyDAO {
 	 * @throws SQLException for DB related failures
 	 * @throws ConnectionException error occurring due to connection problems
 	 */
-	List<Company> getAllCompanys() throws CouponException, SQLException, ConnectionException;
+	List<Company> getAllCompanys() throws CouponException, SQLException;
 
 	/**
 	 * returns if a company identified by the name exist in the DB records.
@@ -73,7 +70,7 @@ public interface CompanyDAO {
 	 * @throws SQLException for DB related failures
 	 * @throws ConnectionException error occurring due to connection problems
 	 */
-	public boolean isCompanyNameExists(String compName) throws CouponException, SQLException, ConnectionException;
+	public boolean isCompanyNameExists(String compName) throws CouponException, SQLException;
 
 	/**
 	 * this method returns a company iff the user password is correct.
@@ -84,7 +81,7 @@ public interface CompanyDAO {
 	 * @throws SQLException for DB related failures
 	 * @throws ConnectionException error occurring due to connection problems
 	 */
-	Company login(String name, String password) throws CouponException, SQLException, ConnectionException;
+	Company login(String name, String password) throws CouponException, SQLException;
 
 	
 	/**
@@ -95,6 +92,6 @@ public interface CompanyDAO {
 	 * @throws CompanyRemovalException for problems regarding the removal of company from DB
 	 * @throws SQLException SQLException for DB related failures
 	 */
-	void removeCompany(long compId) throws CouponException, CompanyRemovalException, SQLException;
+	void removeCompany(long compId) throws CouponException, SQLException;
 
 }

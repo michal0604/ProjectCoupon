@@ -9,9 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import projectCoupon.ConnectionPool;
-import projectCoupon.Exception.CompanyRemovalException;
-import projectCoupon.Exception.CompanyUpdateException;
-import projectCoupon.Exception.ConnectionException;
 import projectCoupon.Exception.CouponException;
 
 /**
@@ -44,7 +41,7 @@ public class CompanyDBDAO implements CompanyDAO {
 	 * @see projectCoupon.Company.CompanyDAO#insertCompany
 	 */
 	@Override
-	public void insertCompany(Company Company) throws CouponException, SQLException, ConnectionException{
+	public void insertCompany(Company Company) throws CouponException, SQLException{
 		Connection connection = pool.getConnection();
 		String sql = "INSERT INTO Company (ID,COMP_NAME,PASSWORD,EMAIL) VALUES(?,?,?)";
 
@@ -74,7 +71,7 @@ public class CompanyDBDAO implements CompanyDAO {
 	 * @see projectCoupon.Company.CompanyDAO#removeCompany
 	 */
 	@Override
-	public void removeCompany(Company Company) throws CouponException, CompanyRemovalException, SQLException{
+	public void removeCompany(Company Company) throws CouponException, SQLException{
 		Connection connection = pool.getConnection();
 		String sql = "DELETE FROM Company WHERE id=?";
 		try {
@@ -84,12 +81,8 @@ public class CompanyDBDAO implements CompanyDAO {
 			pstm1.executeUpdate();
 			connection.commit();
 		} catch (SQLException e) {
-			try {
 				connection.rollback();
-			} catch (SQLException e1) {
-				throw new CompanyRemovalException(Company);
-			}
-			throw new SQLException("failed to remove Company "+e.getMessage());
+				throw new SQLException("failed to remove Company "+e.getMessage());
 		} finally {
 			connection.close();
 			pool.returnConnection(connection);
@@ -107,7 +100,7 @@ public class CompanyDBDAO implements CompanyDAO {
 	 * @see projectCoupon.Company.CompanyDAO#updateCompany
 	 */
 	@Override
-	public void updateCompany(Company Company) throws CouponException, CompanyUpdateException, SQLException{
+	public void updateCompany(Company Company){
 		Connection connection = pool.getConnection();
 		try {
 
@@ -167,7 +160,7 @@ public class CompanyDBDAO implements CompanyDAO {
 	 * @see projectCoupon.Company.CompanyDAO#getAllCompanys
 	 */
 	@Override
-	public List<Company> getAllCompanys() throws CouponException, SQLException, ConnectionException{
+	public List<Company> getAllCompanys() throws CouponException, SQLException{
 		Connection connection = pool.getConnection();
 		List<Company> set = new ArrayList<Company>();
 		String sql = "SELECT * FROM Company";
@@ -200,7 +193,7 @@ public class CompanyDBDAO implements CompanyDAO {
 	 * 
 	 * @see projectCoupon.Company.CompanyDAO#getAllCompanys
 	 */
-	public boolean isCompanyNameExists(String compName) throws CouponException, SQLException, ConnectionException{
+	public boolean isCompanyNameExists(String compName) throws CouponException, SQLException{
 		Connection connection = pool.getConnection();
 		try {
 			String sql = "SELECT id FROM Company WHERE company_name = ? ";
@@ -233,7 +226,7 @@ public class CompanyDBDAO implements CompanyDAO {
 	 * @see projectCoupon.Company.CompanyDAO#login(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public Company login(String name, String password) throws CouponException, SQLException, ConnectionException{
+	public Company login(String name, String password) throws CouponException, SQLException{
 		Connection connection = pool.getConnection();
 		Company company = new Company();
 		try {
@@ -272,7 +265,7 @@ public class CompanyDBDAO implements CompanyDAO {
 	 * @see projectCoupon.Company.CompanyDAO#removeCompany(long)
 	 */
 	@Override
-	public void removeCompany(long compId) throws CouponException, CompanyRemovalException, SQLException{
+	public void removeCompany(long compId) throws SQLException, CouponException{
 		removeCompany(getCompany(compId));
 
 	}
