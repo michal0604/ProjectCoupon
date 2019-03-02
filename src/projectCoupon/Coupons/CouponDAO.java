@@ -12,29 +12,25 @@ public interface CouponDAO {
 
 	void removeCoupon(long coupId) throws CouponException;
 
-	void updateCoupon(Coupon Coupon) throws UpdateException;
+	void updateCoupon(Coupon Coupon) throws UpdateException, CreateException;
 
-	Coupon getCoupon(long id) throws CouponException;
+	Coupon getCoupon(long id) throws CouponException, CreateException;
 
 	List<Coupon> getAllCoupons() throws CouponException;
 
-	List<Coupon> getAllCouponsByType(long couponId, couponType coupType) throws CouponException;
+	List<Coupon> getAllCouponsByType(couponType coupType) throws CouponException;
 
-	List<Coupon> getAllCouponsByPrice(long couponId, double priceMax) throws CouponException;
+	List<Coupon> getAllCouponsByPrice(double priceMax) throws CouponException;
 
-	List<Coupon> getAllCouponsByDate(long couponId, String untilDate) throws CouponException;
+	List<Coupon> getAllCouponsByDate(String untilDate) throws CouponException;
 
 	List<Coupon> getAllCoupons(long couponId) throws CouponException;
 
-	void removeCoupon(Coupon Coupon) throws  RemoveException;
+	void removeCoupon(Coupon Coupon) throws  RemoveException, CreateException;
 
 	void removeExpiredCoupons() throws CouponException, Exception;
 
 	public boolean isCouponTitleExists(String coupTitle) throws CouponException;
-
-	 public boolean isCouponExistsForCompany(long companyId, long coupId)throws CouponException;
-
-	 public boolean isCouponPurchasedByCustomer(long custId, long coupId) throws CouponException;
 
 	void purchaseCoupon(long custId, long coupId)throws CouponException;
 
