@@ -333,8 +333,10 @@ import projectCoupon.Exception.UpdateException;
 
 
 		@Override
-		public void removeExpiredCoupons() throws CouponException {
+		//TODO this function should get a DATE and replace current Data
+		public List<Long> removeExpiredCoupons() throws CouponException {
 			Connection connection;
+			List<Long> removedIdList = new ArrayList<Long>();
 			try {
 				connection = pool.getConnection();
 			} catch (Exception e1) {
@@ -345,7 +347,7 @@ import projectCoupon.Exception.UpdateException;
 				Statement pstmt = connection.createStatement();
 				ResultSet rs = pstmt.executeQuery(sql); 
 				while (rs.next()) {
-					this.removeCoupon(rs.getLong("id"));			
+					removedIdList.add(rs.getLong("id"));
 				} 
 			} catch (SQLException e) {
 				throw new CouponException("DB ERROR! Remove Expired Coupon Failed.");
@@ -358,6 +360,7 @@ import projectCoupon.Exception.UpdateException;
 					throw new CouponException("Database error");
 				}
 			}
+			return removedIdList;
 		}
 
 		

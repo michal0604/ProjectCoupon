@@ -62,7 +62,7 @@ public interface CompanyDAO {
 	 */
 	Company login(String name, String password) throws CompanyException;
 
-	List<Coupon> getCoupons(long custId) throws CouponException;
+	List<Coupon> getCoupons() throws CouponException;
 	
 	/**
 	 * Check if Company Name Exists (For Creating New Company)
@@ -74,5 +74,9 @@ public interface CompanyDAO {
 	public boolean isCompanyNameExists(String compName) throws CouponException;
 
 	void removeCompany(long compId);
+
+	void removeCoupon(long companyId, long couponId);
+
+	Set<Coupon> getCoupons(long compId) throws CouponException;
 
 }

@@ -18,7 +18,7 @@ public class Utile {
 	    public static Date getExpiredDate() {
 	    	
 	        LocalDate localDate = LocalDate.now();
-	        localDate = localDate.plusYears(1);
+	        localDate = localDate.plusDays(30);
 	    	Date date = java.sql.Date.valueOf(localDate);
 	    	
 	    	return date;

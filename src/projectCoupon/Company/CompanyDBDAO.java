@@ -171,6 +171,9 @@ public class CompanyDBDAO implements CompanyDAO {
 	 * 
 	 * @see projectCoupon.Company.CompanyDAO#getCompany
 	 */
+	/* (non-Javadoc)
+	 * @see projectCoupon.Company.CompanyDAO#getCompany(long)
+	 */
 	@Override
 	public Company getCompany(long id) throws CompanyException{
 		Connection connection = null;
@@ -215,6 +218,9 @@ public class CompanyDBDAO implements CompanyDAO {
 	 * @throws SQLException for DB related failures
 	 * 
 	 * @see projectCoupon.Company.CompanyDAO#getAllCompanys
+	 */
+	/* (non-Javadoc)
+	 * @see projectCoupon.Company.CompanyDAO#getAllCompanys()
 	 */
 	@Override
 	public List<Company> getAllCompanys() throws CompanyException{
@@ -303,6 +309,9 @@ public class CompanyDBDAO implements CompanyDAO {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see projectCoupon.Company.CompanyDAO#getCoupons(long)
+	 */
 	@Override
 	public List<Coupon> getCoupons(long companyId) throws CouponException {
 		

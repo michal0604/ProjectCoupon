@@ -33,6 +33,8 @@ import projectCoupon.Exception.UpdateException;
 		List<Coupon> getCoupons(long custId) throws CouponException;
 
 		boolean isCustomerNameExists(String custName)throws CouponException;
+
+		void removeCoupon(long custId, long couponId);
 		
 		
 		

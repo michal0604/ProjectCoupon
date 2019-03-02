@@ -2,6 +2,8 @@ package projectCoupon.Company_Coupon;
 
 import java.util.List;
 
+import projectCoupon.Company.Company;
+import projectCoupon.Coupons.Coupon;
 import projectCoupon.Exception.CouponException;
 
 public class Company_CouponFacad {
@@ -31,8 +33,8 @@ public class Company_CouponFacad {
 		}
 	}
 
-	public void insertCompany_Coupon(Company_Coupon company_Coupon) throws Exception {
-		// TODO update the exception to the suited one
+	public void insertCompany_Coupon(Company company, Coupon coupon) throws Exception {
+		Company_Coupon company_Coupon = new Company_Coupon(company.getCompanyId(), coupon.getCouponId());
 		comp_couponDAO.insertCompany_Coupon(company_Coupon);
 	}
 
