@@ -26,6 +26,12 @@ public interface Company_CouponDAO {
 	List<Company_Coupon> getAllCompany_Coupons() throws CouponException;
 	
 	void updateCompany_Coupon(Company_Coupon company_Coupon) throws UpdateException;
+
+	void removeCompany_Coupon(Company company) throws RemoveException;
+
+	void removeCompany_CouponByCoupon(Company company) throws RemoveException;
+
+	
 	
 }
 

@@ -1,12 +1,15 @@
 package projectCoupon.Coupons;
 
-	import java.sql.Connection;
+	import java.security.interfaces.RSAKey;
+import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import projectCoupon.ConnectionPool;
@@ -332,37 +335,36 @@ import projectCoupon.Exception.UpdateException;
 		}
 
 
-		@Override
-		//TODO this function should get a DATE and replace current Data
-		public List<Long> removeExpiredCoupons() throws CouponException {
+		
+		
+		public List<Coupon> remvoveCouponExpired()throws CouponException{
 			Connection connection;
-			List<Long> removedIdList = new ArrayList<Long>();
-			try {
-				connection = pool.getConnection();
-			} catch (Exception e1) {
-				throw new CouponException("connection failed"+e1);
-			}
-			try {
+			connection=pool.getConnection();
+			Coupon coupon=new Coupon();
+			List<Coupon>allCoupons=new ArrayList<Coupon>();
+			allCoupons=getAllCoupons();
+			
+			Iterator<Coupon>itr=allCoupons.iterator();
+			if (coupon.getEnd_date().isBefore(LocalDate.now())||coupon.getEnd_date()==LocalDate.now()) {
+			}try {
 				String sql = "SELECT id FROM app.Coupon WHERE end_date < CURRENT_DATE ";
 				Statement pstmt = connection.createStatement();
 				ResultSet rs = pstmt.executeQuery(sql); 
-				while (rs.next()) {
-					removedIdList.add(rs.getLong("id"));
-				} 
-			} catch (SQLException e) {
-				throw new CouponException("DB ERROR! Remove Expired Coupon Failed.");
+			    while(rs.next()) {
+				removeCoupon(coupon);
+			}
+			
 			} catch (Exception e) {
-				throw new CouponException("APP ERROR! Remove Expired Coupon Failed.");
-			} finally {
+				throw new CouponException("sql quary failed");
+			}finally {
 				try {
 					pool.returnConnection(connection);
-				} catch (Exception e) {
-					throw new CouponException("Database error");
+				} catch (Exception exception) {
+					throw new CouponException("connection failed");
 				}
 			}
-			return removedIdList;
-		}
-
+				
+			}
 		
 
 		@Override

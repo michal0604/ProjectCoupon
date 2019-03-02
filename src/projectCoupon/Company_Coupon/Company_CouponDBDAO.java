@@ -183,7 +183,7 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 	
 
 	@Override
-	public void removeCompany_Coupon(Coupon coupon) throws RemoveException {
+	public void removeCompany_CouponByCoupon(Coupon coupon) throws RemoveException { {
 		Connection connection;
 		try {
 			connection = pool.getConnection();
@@ -306,6 +306,32 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 				throw new CreateException("connection failed");
 			}
 		}
+		
+	}
+
+
+	
+
+
+	@Override
+	public void removeCompany_Coupon(Company_Coupon company_Coupon) throws RemoveException {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void removeCompany_CouponByCompany(Company company) throws RemoveException {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+	@Override
+	public void updateCompany_Coupon(Company_Coupon company_Coupon) throws UpdateException {
+		// TODO Auto-generated method stub
 		
 	}
 
