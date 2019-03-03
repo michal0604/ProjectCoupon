@@ -4,7 +4,6 @@ package projectCoupon.Customer_Coupon;
 import java.util.List;
 
 import projectCoupon.Coupons.Coupon;
-import projectCoupon.Coupons.couponType;
 import projectCoupon.Customer.Customer;
 import projectCoupon.Exception.CouponException;
 import projectCoupon.Exception.CreateException;
@@ -29,5 +28,9 @@ public interface Customer_CouponDAO {
 		List<Customer_Coupon> getAllCustomer_Coupon() throws CouponException;	
 		
 		void updateCustomer_Coupon(Customer customer, Coupon coupon) throws UpdateException;
+
+		boolean isCouponPurchasedByCustomer(long custId, long coupId) throws CouponException;
+
+		void purchaseCoupon(long custId, long coupId) throws CouponException;
 		
 }

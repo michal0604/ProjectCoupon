@@ -1,8 +1,6 @@
 package projectCoupon.Coupons;
 
 import java.sql.Connection;
-	import java.security.interfaces.RSAKey;
-import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -113,8 +111,8 @@ public class CouponDBDAO implements CouponDAO {
 					+ " TYPE=?, MESSAGE=?, PRICE=?, IMAGE=? WHERE ID=?";
 			PreparedStatement stm1 = connection.prepareStatement(sql);
 			stm1.setString(1, Coupon.getTitle());
-			stm1.setDate(2, Coupon.getStart_date());
-			stm1.setDate(3, Coupon.getEnd_date());
+			stm1.setDate(2,  (Date)Coupon.getStart_date());
+			stm1.setDate(3, (Date)Coupon.getEnd_date());
 			stm1.setInt(4, Coupon.getAmount());
 			stm1.setString(5, Coupon.getType().toString());
 			stm1.setString(6, Coupon.getMessage());
@@ -128,7 +126,7 @@ public class CouponDBDAO implements CouponDAO {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				throw new UpdateException("Database error");
+				throw new UpdateException("Database error "+ e.getMessage());
 			}
 			try {
 				pool.returnConnection(connection);
@@ -315,7 +313,7 @@ public class CouponDBDAO implements CouponDAO {
 	}
 
 	@Override
-	public void removeExpiredCoupons() throws CouponException {
+	public List<Long> removeExpiredCoupons() throws CouponException {
 		Connection connection;
 		try {
 			connection = pool.getConnection();
@@ -465,87 +463,23 @@ public class CouponDBDAO implements CouponDAO {
 		}
 	}
 
+	
 	@Override
-	public boolean isCouponPurchasedByCustomer(long custId, long coupId) throws CouponException {
-		Connection connection = pool.getConnection();
-		try {
-			String sql = "SELECT couponId FROM Customer_Coupon WHERE customerId = ? AND couponId = ? ";
-			PreparedStatement pstmt = connection.prepareStatement(sql);
-			pstmt.setLong(1, custId);
-			pstmt.setLong(2, coupId);
-			ResultSet rs = pstmt.executeQuery();
-			if (rs.next()) {
-				return true;
-			}
-			return false;
-
-		} catch (SQLException e) {
-			throw new CouponException("ERROR! Checking If Coupon Already Exists For Company is Failed.");
-		} catch (Exception e) {
-			throw new CouponException("ERROR! Checking If Coupon Already Exists For Company is Failed.");
-		} finally {
-			pool.returnConnection(connection);
-		}
-	}
-
-	@Override
-	public void purchaseCoupon(long custId, long coupId) throws CouponException {
-		Connection connection = pool.getConnection();
-
-		try {
-			connection.setAutoCommit(false);
-			String sql = "INSERT INTO app.Customer_Coupon (customerId,couponId) VALUES (?,?)";
-			PreparedStatement pstmt = connection.prepareStatement(sql);
-
-			pstmt.setLong(1, custId);
-			pstmt.setLong(2, coupId);
-
-			pstmt.executeUpdate();
-
-			sql = "UPDATE app.Coupon SET amount = amount - 1 WHERE id = ?";
-			pstmt = connection.prepareStatement(sql);
-			pstmt.setLong(1, coupId);
-
-			pstmt.executeUpdate();
-
-			connection.commit();
-
-		} catch (SQLException e) {
-			try {
-				connection.rollback();
-			} catch (SQLException e1) {
-				throw new CouponException("DB ERROR! Purchase Coupon is Failed. RollBack Failed!");
-			}
-			throw new CouponException("DB ERROR! Purchase Coupon is Failed.");
-		} catch (Exception e) {
-			throw new CouponException("APP ERROR! Purchase Coupon is Failed.");
-		} finally {
-			pool.returnConnection(connection);
-		}
-	}
-
-	@Override
-	public List<Coupon> getAllCouponsByType(long couponId, couponType coupType) throws CouponException {
+	public List<Coupon> getAllCouponsByDate(String untilDate) throws CouponException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Coupon> getAllPurchasedCouponsByPrice(long custId, long price) {
+	public List<Coupon> getAllCoupons(long couponId) throws CouponException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Coupon> getAllPurchasedCoupons(long custId) {
+	public void deleteCoupon(Coupon coupon) {
 		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Coupon> getAllPurchasedCouponsByType(long custId, couponType type) {
-		// TODO Auto-generated method stub
-		return null;
+		
 	}
 
 }

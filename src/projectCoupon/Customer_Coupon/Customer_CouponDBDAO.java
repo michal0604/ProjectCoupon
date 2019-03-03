@@ -1,6 +1,5 @@
 package projectCoupon.Customer_Coupon;
 
-import java.nio.channels.NonWritableChannelException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,7 +10,6 @@ import java.util.List;
 
 import projectCoupon.ConnectionPool;
 import projectCoupon.Coupons.Coupon;
-import projectCoupon.Coupons.couponType;
 import projectCoupon.Customer.Customer;
 import projectCoupon.Exception.CouponException;
 import projectCoupon.Exception.CreateException;
@@ -21,15 +19,15 @@ import projectCoupon.Exception.UpdateException;
 public class Customer_CouponDBDAO implements Customer_CouponDAO {
 
 	private static final String AND = null;
-	
+
 	private ConnectionPool pool;
-	public  Customer_CouponDBDAO()throws CouponException {
+
+	public Customer_CouponDBDAO() throws CouponException {
 		pool = ConnectionPool.getInstance();
 	}
-	
 
 	@Override
-	public void removeCustomer_Coupon(Customer customer ,Coupon coupon) throws RemoveException {
+	public void removeCustomer_Coupon(Customer customer, Coupon coupon) throws RemoveException {
 		Connection connection;
 		try {
 			connection = pool.getConnection();
@@ -39,8 +37,9 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 		String sql = "DELETE FROM CUSTOMER_COUPON  WHERE customerId=? AND couponId=?";
 
 		try {
-			PreparedStatement stm = connection.prepareStatement(sql); {
-		}
+			PreparedStatement stm = connection.prepareStatement(sql);
+			{
+			}
 			connection.setAutoCommit(false);
 			stm.setLong(1, customer.getCustomerId());
 			stm.setLong(2, coupon.getCouponId());
@@ -66,11 +65,8 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 			}
 		}
 	}
-	
 
-		
-	
-	public void insertCustomer_Coupon(Customer customer,Coupon coupon) throws CreateException {
+	public void insertCustomer_Coupon(Customer customer, Coupon coupon) throws CreateException {
 		Connection connection;
 		try {
 			connection = pool.getConnection();
@@ -78,19 +74,19 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 			throw new CreateException("connection failed");
 		}
 		String sql = "INSERT INTO Customer_Coupon(customerId,couponId) VALUES(?,?)";
-		
+
 		try {
-			PreparedStatement pstmt = connection.prepareStatement(sql); {
-		}	
-			pstmt.setLong(1,customer.getCustomerId());
-			pstmt.setLong(2, coupon.getCouponId());	
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+			{
+			}
+			pstmt.setLong(1, customer.getCustomerId());
+			pstmt.setLong(2, coupon.getCouponId());
 			pstmt.executeUpdate();
 			System.out.println("Customer_Coupon created" + customer.toString());
 		} catch (SQLException ex) {
 			System.out.println(ex.getLocalizedMessage());
 			throw new CreateException("Customer_Coupon creation failed");
-		} finally
-{
+		} finally {
 			try {
 				connection.close();
 			} catch (SQLException e) {
@@ -102,11 +98,11 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 				throw new CreateException("connection failed");
 			}
 		}
-		
+
 	}
-	
+
 	// TO DO- do we need to do getallcoupon, gettallcustomer instead??
-	
+
 	@Override
 	public List<Customer_Coupon> getAllCustomer_Coupon() throws CouponException {
 		Connection connection;
@@ -116,15 +112,15 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 			throw new CouponException("connection failed");
 		}
 		List<Customer_Coupon> list = new ArrayList<Customer_Coupon>();
-		
-		try { 
+
+		try {
 			Statement stm = connection.createStatement();
-			String sql = "SELECT * FROM CUSTOMER_COUPON"; 
-		    ResultSet rs = stm.executeQuery(sql);
+			String sql = "SELECT * FROM CUSTOMER_COUPON";
+			ResultSet rs = stm.executeQuery(sql);
 			while (rs.next()) {
 				long cust_id = rs.getLong(1);
 				long coupon_id = rs.getLong(2);
-				
+
 				list.add(new Customer_Coupon(cust_id, coupon_id));
 			}
 		} catch (SQLException e) {
@@ -158,13 +154,13 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 			Statement stm = connection.createStatement();
 			String sql = "SELECT customerId FROM CUSTOMER_COUPON WHERE couponId=?";
 			List<Customer_Coupon> allList = getAllCustomer_Coupon();
-			for(Customer_Coupon iter:allList) {
-				if(iter.getCouponId() == couponId) {
+			for (Customer_Coupon iter : allList) {
+				if (iter.getCouponId() == couponId) {
 					list.add(iter);
 				}
-			
-		}
-		}catch (Exception e) {
+
+			}
+		} catch (Exception e) {
 			throw new CouponException("unable to get customers by couponId");
 		}
 		try {
@@ -177,10 +173,9 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 		} catch (Exception e) {
 			throw new CouponException("connection failed");
 		}
-		
+
 		return list;
 	}
-
 
 	@Override
 	public List<Customer_Coupon> getCouponsByCustomerId(long custId) throws CouponException {
@@ -190,18 +185,18 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 		} catch (Exception e1) {
 			throw new CouponException("connection failed");
 		}
-		List<Customer_Coupon>list=new ArrayList<Customer_Coupon>();
+		List<Customer_Coupon> list = new ArrayList<Customer_Coupon>();
 		try {
 			Statement stm = connection.createStatement();
 			String sql = "SELECT couponId FROM CUSTOMER_COUPON WHERE customerId=?";
-			
+
 			List<Customer_Coupon> allList = getAllCustomer_Coupon();
-			for(Customer_Coupon iter:allList) {
-				if(iter.getCustomerId()==custId) {
+			for (Customer_Coupon iter : allList) {
+				if (iter.getCustomerId() == custId) {
 					list.add(iter);
 				}
-		}
-		}catch (Exception e) {
+			}
+		} catch (Exception e) {
 			throw new CouponException("unable to get coupon by customerId");
 		}
 		try {
@@ -214,29 +209,26 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 		} catch (Exception e) {
 			throw new CouponException("connection failed");
 		}
-		
+
 		return list;
-		
+
 	}
 
-
-
-
 	@Override
-	public void updateCustomer_Coupon(Customer customer,Coupon coupon) throws UpdateException {
+	public void updateCustomer_Coupon(Customer customer, Coupon coupon) throws UpdateException {
 		Connection connection;
 		try {
 			connection = pool.getConnection();
 		} catch (Exception e1) {
 			throw new UpdateException("connection failed");
 		}
-		try { 
+		try {
 			Statement stm = connection.createStatement();
 			String sql = "UPDATE Customer_Coupon " + " SET customerId='" + customer.getCustomerId() + "', coupon_Id='"
-					+ coupon.getCouponId()+ "' WHERE ID=" + customer.getCustomerId()+ AND + "' WHERE ID=" + coupon.getCouponId();
+					+ coupon.getCouponId() + "' WHERE ID=" + customer.getCustomerId() + AND + "' WHERE ID="
+					+ coupon.getCouponId();
 			stm.executeUpdate(sql);
-		} 
-		catch (SQLException e) {
+		} catch (SQLException e) {
 			throw new UpdateException("unable to update table");
 		}
 		try {
@@ -251,12 +243,6 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 		}
 	}
 
-
-
-
-	
-
-
 	@Override
 	public void removeCustomer_Coupon(Customer customer) throws RemoveException {
 
@@ -266,7 +252,6 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 		} catch (Exception e1) {
 			throw new RemoveException("connection failed");
 		}
-		
 
 		String sql = "delete from Customer_Coupon where customerId = ?";
 
@@ -285,20 +270,20 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 				throw new RemoveException("DataBase error");
 			}
 			throw new RemoveException("remove Customer_Coupon by customerId failed");
-			
+
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-          throw new RemoveException("connction failed");
+				throw new RemoveException("connction failed");
 			}
 			try {
 				pool.returnConnection(connection);
 			} catch (Exception e) {
-				 throw new RemoveException("connction failed");
+				throw new RemoveException("connction failed");
 			}
-	}
-	
+		}
+
 	}
 
 	@Override
@@ -314,7 +299,7 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 
 		try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
-			connection.setAutoCommit(false); 
+			connection.setAutoCommit(false);
 			preparedStatement.setLong(1, coupon.getCouponId());
 			preparedStatement.executeUpdate();
 			connection.commit();
@@ -341,11 +326,64 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 		}
 
 	}
-		
+
+	@Override
+	public boolean isCouponPurchasedByCustomer(long custId, long coupId) throws CouponException {
+		Connection connection = pool.getConnection();
+		try {
+			String sql = "SELECT couponId FROM Customer_Coupon WHERE customerId = ? AND couponId = ? ";
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+			pstmt.setLong(1, custId);
+			pstmt.setLong(2, coupId);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				return true;
+			}
+			return false;
+
+		} catch (SQLException e) {
+			throw new CouponException("ERROR! Checking If Coupon Already Exists For Company is Failed.");
+		} catch (Exception e) {
+			throw new CouponException("ERROR! Checking If Coupon Already Exists For Company is Failed.");
+		} finally {
+			pool.returnConnection(connection);
+		}
+	}
+	
+	@Override
+	public void purchaseCoupon(long custId, long coupId) throws CouponException {
+		Connection connection = pool.getConnection();
+
+		try {
+			connection.setAutoCommit(false);
+			String sql = "INSERT INTO app.Customer_Coupon (customerId,couponId) VALUES (?,?)";
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+
+			pstmt.setLong(1, custId);
+			pstmt.setLong(2, coupId);
+
+			pstmt.executeUpdate();
+
+			sql = "UPDATE app.Coupon SET amount = amount - 1 WHERE id = ?";
+			pstmt = connection.prepareStatement(sql);
+			pstmt.setLong(1, coupId);
+
+			pstmt.executeUpdate();
+
+			connection.commit();
+
+		} catch (SQLException e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				throw new CouponException("DB ERROR! Purchase Coupon is Failed. RollBack Failed!");
+			}
+			throw new CouponException("DB ERROR! Purchase Coupon is Failed.");
+		} catch (Exception e) {
+			throw new CouponException("APP ERROR! Purchase Coupon is Failed.");
+		} finally {
+			pool.returnConnection(connection);
+		}
 	}
 
-
-	
-		
-	
-	
+}

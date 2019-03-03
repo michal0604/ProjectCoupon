@@ -2,7 +2,6 @@ package projectCoupon.Coupons;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Set;
 
 import projectCoupon.Exception.CouponException;
 import projectCoupon.Exception.CreateException;
@@ -34,21 +33,10 @@ public interface CouponDAO {
 
 	public boolean isCouponTitleExists(String coupTitle) throws CouponException;
 
-	void purchaseCoupon(long custId, long coupId)throws CouponException;
-
-	List<Coupon> getAllPurchasedCouponsByPrice(long custId, long price);
-
-	List<Coupon> getAllPurchasedCoupons(long custId);
-
-	List<Coupon> getAllPurchasedCouponsByType(long custId, couponType type);
-
 	void removeCouponID(long id) throws CouponException;
 
 	void deleteCoupon(Coupon coupon);
-	Set<Long> getCustomersId(Coupon coupon) throws CouponException;
-
 	
-
 	//List<Coupon> getCouponsByType(long couponId, couponType coupType) throws CouponException;
 
 }
