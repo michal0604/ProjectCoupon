@@ -31,6 +31,8 @@ public interface Company_CouponDAO {
 
 	void removeCompany_CouponByCoupon(Company company) throws RemoveException;
 
+	boolean isCouponExistsForCompany(long companyId, long couponId) throws CouponException;
+
 	
 	
 }

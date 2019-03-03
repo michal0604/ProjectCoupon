@@ -11,7 +11,7 @@ import projectCoupon.Exception.UpdateException;
 public interface CouponDAO {
 	void insertCoupon(Coupon Coupon) throws CreateException, SQLException;
 
-	void removeCoupon(long coupId) throws CouponException;
+	void removeCoupon(long coupId) throws CouponException, CreateException, RemoveException;
 
 	void updateCoupon(Coupon Coupon) throws UpdateException, CreateException;
 
@@ -25,8 +25,6 @@ public interface CouponDAO {
 
 	List<Coupon> getAllCouponsByDate(String untilDate) throws CouponException;
 
-	List<Coupon> getAllCoupons(long couponId) throws CouponException;
-
 	void removeCoupon(Coupon Coupon) throws  RemoveException, CreateException;
 
 	List<Long> removeExpiredCoupons() throws CouponException, Exception;
@@ -35,8 +33,6 @@ public interface CouponDAO {
 
 	void removeCouponID(long id) throws CouponException;
 
-	void deleteCoupon(Coupon coupon);
-	
 	//List<Coupon> getCouponsByType(long couponId, couponType coupType) throws CouponException;
 
 }

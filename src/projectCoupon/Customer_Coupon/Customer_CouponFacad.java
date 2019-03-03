@@ -55,12 +55,12 @@ public class Customer_CouponFacad {
 			return cust_couponDAO.getAllCustomer_Coupon();
 		}
 
-		public List<Customer_Coupon> getCustomersByCouponId(long couponId) throws Exception{
+		public List<Long> getCustomersByCouponId(long couponId) throws Exception{
 			
 			 return cust_couponDAO.getCustomersByCouponId(couponId);
 		}
 		
-		public List<Customer_Coupon> getCouponsByCustomerId(long customerId) throws Exception{
+		public List<Long> getCouponsByCustomerId(long customerId) throws Exception{
 			
 			 return cust_couponDAO.getCouponsByCustomerId(customerId);
 

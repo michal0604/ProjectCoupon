@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import projectCoupon.ConnectionPool;
-import projectCoupon.Coupons.Coupon;
-import projectCoupon.Coupons.CouponDBDAO;
 import projectCoupon.Exception.CouponException;
 import projectCoupon.Exception.CreateException;
 import projectCoupon.Exception.CustomerException;
@@ -19,9 +17,9 @@ import projectCoupon.Exception.UpdateException;
 
 public class CustomerDBDAO implements CustomerDAO {
 	private ConnectionPool pool;
-	
+
 	public CustomerDBDAO() throws projectCoupon.Exception.CouponException {
-		pool=ConnectionPool.getInstance();
+		pool = ConnectionPool.getInstance();
 	}
 
 	@Override
@@ -35,8 +33,9 @@ public class CustomerDBDAO implements CustomerDAO {
 		String sql = "INSERT INTO Customer (ID, CustomerName,PASSWORD) VALUES(?,?)";
 
 		try {
-			PreparedStatement pstmt = connection.prepareStatement(sql); {
-		}
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+			{
+			}
 			pstmt.setLong(1, Customer.getCustomerId());
 			pstmt.setString(2, Customer.getCustomerName());
 			pstmt.setString(3, Customer.getPassword());
@@ -71,8 +70,9 @@ public class CustomerDBDAO implements CustomerDAO {
 		String pre1 = "DELETE FROM Customer WHERE customerId=?";
 
 		try {
-			PreparedStatement pstm1 = connection.prepareStatement(pre1); {
-		}
+			PreparedStatement pstm1 = connection.prepareStatement(pre1);
+			{
+			}
 			connection.setAutoCommit(false);
 			pstm1.setLong(1, customerId);
 			pstm1.executeUpdate();
@@ -101,26 +101,27 @@ public class CustomerDBDAO implements CustomerDAO {
 			}
 		}
 	}
-	
+
 	@Override
 	public void removeCustomer(Customer customer) throws RemoveException {
-		removeCustomer(customer.getCustomerId());		
+		removeCustomer(customer.getCustomerId());
 	}
 
 	@Override
 	public void updateCustomer(Customer Customer) throws UpdateException {
-	Connection connection;
-	try {
-		connection = pool.getConnection();
-	} catch (Exception e1) {
-		throw new UpdateException("connection failed");
-	}
+		Connection connection;
 		try {
-		Statement stm = connection.createStatement(); {
-			String sql = "UPDATE Customer " + " SET customerName='" + Customer.getCustomerName() + "', PASSWORD='"
-					+ Customer.getPassword() + "' WHERE ID=" + Customer.getCustomerId();
-			stm.executeUpdate(sql);
+			connection = pool.getConnection();
+		} catch (Exception e1) {
+			throw new UpdateException("connection failed");
 		}
+		try {
+			Statement stm = connection.createStatement();
+			{
+				String sql = "UPDATE Customer " + " SET customerName='" + Customer.getCustomerName() + "', PASSWORD='"
+						+ Customer.getPassword() + "' WHERE ID=" + Customer.getCustomerId();
+				stm.executeUpdate(sql);
+			}
 		} catch (SQLException e) {
 			throw new UpdateException("update Customer failed");
 		}
@@ -209,7 +210,6 @@ public class CustomerDBDAO implements CustomerDAO {
 		return list;
 	}
 
-
 	@Override
 	public Customer getCustomer(long custId) throws CustomerException {
 		try {
@@ -250,54 +250,6 @@ public class CustomerDBDAO implements CustomerDAO {
 	}
 
 	@Override
-	public List<Coupon> getCoupons(long customerId) throws CouponException {
-		
-		try {
-			pool = ConnectionPool.getInstance();
-		} catch (CouponException e1) {
-			throw new CouponException("connection failed");
-		}
-		Connection connection;
-		try {
-			connection = pool.getConnection();
-		} catch (Exception e1) {
-			throw new CouponException("connection failed");
-		}
-	
-		List<Coupon> coupons = new ArrayList<Coupon>();
-		CouponDBDAO couponDBDAO=new CouponDBDAO();
-	
-			String sql = "SELECT couponId FROM Customer WHERE customerId=?";
-			PreparedStatement stmt;
-			try {
-				stmt = connection.prepareStatement(sql);
-			} catch (SQLException e1) {
-				throw new CouponException("connection failed");
-			}
-			try {
-				stmt.setLong(1, customerId);
-			} catch (SQLException e1) {
-				throw new CouponException("problems with set");
-			}
-			ResultSet rs;
-			try {
-				rs = stmt.executeQuery();
-			} catch (SQLException e1) {
-				throw new CouponException("problems with set");
-			}
-        try {
-			while (rs.next()) {
-				coupons.add(couponDBDAO.getCoupon(rs.getLong("couponId")));
-			}
-		} catch (Exception e) {
-			throw new CouponException("unable to get coupon");
-		}
-		return coupons;
-	}
-
-	
-
-	@Override
 	public Customer login(String customerName, String password) throws CustomerException {
 		Connection connection;
 		try {
@@ -309,14 +261,14 @@ public class CustomerDBDAO implements CustomerDAO {
 		try {
 			String sql = "SELECT id, customerName, password FROM app.Customer WHERE customerName = ? and password = ?";
 			PreparedStatement pstmt = connection.prepareStatement(sql);
-		
+
 			pstmt.setString(1, customerName);
 			pstmt.setString(2, password);
 
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
 				long customerId = rs.getLong("id");
-				if (customerId > 0) { 
+				if (customerId > 0) {
 					customer = new Customer();
 					customer.setCustomerId(customerId);
 					customer.setCustomerName(customerName);
@@ -325,7 +277,7 @@ public class CustomerDBDAO implements CustomerDAO {
 				}
 			}
 			return null;
-			
+
 		} catch (SQLException e) {
 			throw new CustomerException(" Login Failed");
 		} catch (Exception e) {
@@ -345,18 +297,18 @@ public class CustomerDBDAO implements CustomerDAO {
 	}
 
 	@Override
-	public boolean isCustomerNameExists(String customerName)throws CouponException {
+	public boolean isCustomerNameExists(String customerName) throws CouponException {
 		Connection connection = pool.getConnection();
 		try {
-			String sql = "SELECT customerId FROM Customer WHERE customerName = ? "; 
+			String sql = "SELECT customerId FROM Customer WHERE customerName = ? ";
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, customerName);
-			ResultSet rs = pstmt.executeQuery(); 
+			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
 				return true;
-			} 
+			}
 			return false;
-				
+
 		} catch (SQLException e) {
 			throw new CouponException(" Failed to checking if Customer name already exists.");
 		} catch (Exception e) {
@@ -365,10 +317,5 @@ public class CustomerDBDAO implements CustomerDAO {
 			pool.returnConnection(connection);
 		}
 	}
-		
-	}
-	
 
-	
-
-
+}

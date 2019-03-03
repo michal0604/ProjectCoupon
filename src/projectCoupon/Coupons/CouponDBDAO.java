@@ -315,6 +315,7 @@ public class CouponDBDAO implements CouponDAO {
 	@Override
 	public List<Long> removeExpiredCoupons() throws CouponException {
 		Connection connection;
+		List<Long> expieredList = new ArrayList<Long>();
 		try {
 			connection = pool.getConnection();
 		} catch (Exception e) {
@@ -325,8 +326,9 @@ public class CouponDBDAO implements CouponDAO {
 			Statement pstmt = connection.createStatement();
 			ResultSet rs = pstmt.executeQuery(sql);
 			while (rs.next()) {
-				this.removeCoupon(rs.getLong("id"));
+				expieredList.add(rs.getLong(1));
 			}
+			return expieredList;
 		} catch (SQLException e) {
 			throw new CouponException("DB ERROR! Remove Expired Coupon Failed. "+e.getMessage());
 		}  finally {
@@ -346,8 +348,9 @@ public class CouponDBDAO implements CouponDAO {
 		List<Coupon> list = new ArrayList<Coupon>();
 		String sql = String.format("select * from Coupon where TYPE = '%s'", coupType.name());
 
-		try (Statement statement = connection.createStatement(); ResultSet resultSet = statement.executeQuery(sql)) {
-
+		try {
+			Statement statement = connection.createStatement(); 
+			ResultSet resultSet = statement.executeQuery(sql);
 			while (resultSet.next()) {
 				Coupon coupon = new Coupon();
 				coupon.setCouponId(resultSet.getLong(1));
@@ -361,7 +364,7 @@ public class CouponDBDAO implements CouponDAO {
 				coupon.setImage(resultSet.getString(9));
 				list.add(coupon);
 			}
-
+			return list;
 		} catch (SQLException e) {
 			System.out.println(e);
 			throw new CouponException(
@@ -378,31 +381,87 @@ public class CouponDBDAO implements CouponDAO {
 				throw new CouponException("Database error");
 			}
 		}
-		return list;
 	}
 
 	@Override
-	public List<Coupon> getAllCouponsByDate(long couponId, String untilDate) throws CouponException {
-		// TODO Auto-generated method stub
+	public List<Coupon> getAllCouponsByDate(String untilDate) throws CouponException {
+		// TODO generated getAllCouponsByDate
 		return null;
 	}
 
 	@Override
-	public void removeCoupon(long coupId) throws CouponException {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public List<Coupon> getAllCouponsByType(String typeName) throws CouponException {
-		// TODO Auto-generated method stub
-		return null;
+	public void removeCoupon(long coupId) throws CouponException, CreateException, RemoveException {
+		removeCoupon(getCoupon(coupId));
 	}
 
 	@Override
 	public List<Coupon> getAllCouponsByPrice(double priceMax) throws CouponException {
-		// TODO Auto-generated method stub
-		return null;
+		Connection connection;
+		try {
+			connection = pool.getConnection();
+		} catch (Exception e) {
+			throw new CouponException("Database error "+e.getMessage());
+		}
+		List<Coupon> set = new ArrayList<Coupon>();
+		Coupon coupon;
+		String sql = String.format("select * from Coupon where Price = '%f'", priceMax);
+		try {
+			Statement stm = connection.createStatement();
+			ResultSet rs = stm.executeQuery(sql);
+			while (rs.next()) {
+				coupon = new Coupon();
+				coupon.setCouponId(rs.getLong(1));
+				coupon.setTitle(rs.getString(2));
+				coupon.setStart_date(rs.getDate(3));
+				coupon.setEnd_date(rs.getDate(4));
+				coupon.setAmount(rs.getInt(5));
+				coupon.setMessage(rs.getString(7));
+				coupon.setPrice(rs.getDouble(8));
+				coupon.setImage(rs.getString(9));
+				switch (rs.getString(6)) {
+				case "food":
+					coupon.setType(couponType.food);
+					break;
+				case "Resturans":
+					coupon.setType(couponType.Resturans);
+					break;
+				case "Electricity":
+					coupon.setType(couponType.Electricity);
+					break;
+				case "Health":
+					coupon.setType(couponType.Health);
+					break;
+				case "Sports":
+					coupon.setType(couponType.Sports);
+					break;
+				case "Camping":
+					coupon.setType(couponType.Camping);
+					break;
+				case "Traveling":
+					coupon.setType(couponType.Traveling);
+					break;
+				default:
+					System.out.println("Coupon not existent");
+					break;
+				}
+				set.add(coupon);
+			}
+		} catch (SQLException e) {
+			System.out.println(e);
+			throw new CouponException("cannot get Coupon data "+e.getMessage());
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				throw new CouponException("Database error "+e.getMessage());
+			}
+			try {
+				pool.returnConnection(connection);
+			} catch (Exception e) {
+				throw new CouponException("Database error "+e.getMessage());
+			}
+		}
+		return set;
 	}
 
 	@Override
@@ -439,47 +498,4 @@ public class CouponDBDAO implements CouponDAO {
 
 		}
 	}
-
-	@Override
-	public boolean isCouponExistsForCompany(long companyId, long couponId) throws CouponException {
-		Connection connection = pool.getConnection();
-		try {
-			String sql = "SELECT couponId FROM Company_Coupon WHERE companyId = ? AND couponId = ? ";
-			PreparedStatement pstmt = connection.prepareStatement(sql);
-			pstmt.setLong(1, companyId);
-			pstmt.setLong(2, couponId);
-			ResultSet rs = pstmt.executeQuery();
-			if (rs.next()) {
-				return true;
-			}
-			return false;
-
-		} catch (SQLException e) {
-			throw new CouponException("ERROR! Checking if Coupon Exists For The Company is Failed.");
-		} catch (Exception e) {
-			throw new CouponException(" ERROR! Checking if Coupon Exists For The Company is Failed.");
-		} finally {
-			pool.returnConnection(connection);
-		}
-	}
-
-	
-	@Override
-	public List<Coupon> getAllCouponsByDate(String untilDate) throws CouponException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Coupon> getAllCoupons(long couponId) throws CouponException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void deleteCoupon(Coupon coupon) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

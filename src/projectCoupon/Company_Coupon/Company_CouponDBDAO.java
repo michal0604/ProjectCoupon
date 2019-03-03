@@ -70,8 +70,6 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 		Connection connection = pool.getConnection();
 		List<Company_Coupon> list = new ArrayList<Company_Coupon>();
 		try {
-			Statement stm = connection.createStatement();
-			String sql = "SELECT companyId FROM COMPANY_COUPON WHERE couponId=?";
 			List<Company_Coupon> allList = getAllCompany_Coupons();
 			for (Company_Coupon iter : allList) {
 				if (iter.getCouponId() == couponId) {
@@ -335,7 +333,28 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 		
 	}
 
-	
+	@Override
+	public boolean isCouponExistsForCompany(long companyId, long couponId) throws CouponException {
+		Connection connection = pool.getConnection();
+		try {
+			String sql = "SELECT couponId FROM Company_Coupon WHERE companyId = ? AND couponId = ? ";
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+			pstmt.setLong(1, companyId);
+			pstmt.setLong(2, couponId);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				return true;
+			}
+			return false;
+
+		} catch (SQLException e) {
+			throw new CouponException("ERROR! Checking if Coupon Exists For The Company is Failed.");
+		} catch (Exception e) {
+			throw new CouponException(" ERROR! Checking if Coupon Exists For The Company is Failed.");
+		} finally {
+			pool.returnConnection(connection);
+		}
+	}
 		
 	}
 
