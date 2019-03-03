@@ -99,6 +99,11 @@ public class Company {
 		return "Company (companyId=" + companyId+ ", compName=" + compName + ", password=" + password + ", email=" + email + ")";
 	}
 
+	public Object getCoupons() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	/**
 	 * @return the list of coupons endorsed by the company
 	 */

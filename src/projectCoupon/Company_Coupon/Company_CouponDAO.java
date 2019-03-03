@@ -11,13 +11,13 @@ import projectCoupon.Exception.UpdateException;
 
 public interface Company_CouponDAO {
 	
-	void insertCompany_Coupon(Company company, Coupon coupon) throws CreateException;
+	void insertCompany_Coupon(Company_Coupon company_Coupon) throws CreateException;
 	
-	void removeCompany_Coupon(Company company, Coupon coupon) throws RemoveException;
+	void removeCompany_Coupon(Company_Coupon company_Coupon) throws RemoveException;
 	
-    void removeCompany_Coupon(Company company) throws RemoveException;
+    void removeCompany_CouponByCompany(Company company) throws RemoveException;
 	
-	void removeCompany_Coupon(Coupon coupon) throws RemoveException;
+	void removeCompany_CouponByCoupon(Coupon coupon) throws RemoveException;
 
 	List<Company_Coupon> getCompanysByCouponId(long couponId) throws CouponException;
 	
@@ -25,7 +25,13 @@ public interface Company_CouponDAO {
 	
 	List<Company_Coupon> getAllCompany_Coupons() throws CouponException;
 	
-	void updateCompany_Coupon(Company company, Coupon coupon) throws UpdateException;
+	void updateCompany_Coupon(Company_Coupon company_Coupon) throws UpdateException;
+
+	void removeCompany_Coupon(Company company) throws RemoveException;
+
+	void removeCompany_CouponByCoupon(Company company) throws RemoveException;
+
+	
 	
 }
 

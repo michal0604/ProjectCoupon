@@ -1,12 +1,13 @@
 package projectCoupon.Coupons;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class Coupon {
 	private long couponId;
 	private String title;
-	private Date start_date;
-	private Date end_date;
+	private LocalDate start_date;
+	private LocalDate end_date;
 	private int amount;
 	private couponType type;
 	private String message;
@@ -18,7 +19,7 @@ public class Coupon {
 	}
 	
 
-	public Coupon(long couponId, String title, Date start_date, Date end_date, int amount, couponType type,
+	public Coupon(long couponId, String title, LocalDate start_date, LocalDate end_date, int amount, couponType type,
 			String message, Double price, String image) {
 		super();
 		this.couponId = couponId;
@@ -58,29 +59,29 @@ public class Coupon {
 
 
 
-	public Date getStart_date() {
+	public LocalDate getStart_date() {
 		return start_date;
 	}
 
 
 
 
-	public void setStart_date(java.util.Date date) {
-		this.start_date = (Date) date;
+	public void setStart_date() {
+		this.start_date =  start_date;
 	}
 
 
 
 
-	public Date getEnd_date() {
+	public LocalDate getEnd_date() {
 		return end_date;
 	}
 
 
 
 
-	public void setEnd_date(java.util.Date date) {
-		this.end_date = (Date) date;
+	public void setEnd_date() {
+		this.end_date = end_date;
 	}
 
 

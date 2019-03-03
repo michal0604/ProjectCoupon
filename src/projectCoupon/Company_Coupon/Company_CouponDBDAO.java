@@ -11,7 +11,6 @@ import java.util.List;
 import projectCoupon.ConnectionPool;
 import projectCoupon.Company.Company;
 import projectCoupon.Coupons.Coupon;
-import projectCoupon.Coupons.couponType;
 import projectCoupon.Exception.CouponException;
 import projectCoupon.Exception.CreateException;
 import projectCoupon.Exception.RemoveException;
@@ -25,48 +24,7 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 		pool = ConnectionPool.getInstance();
 	}
 
-	@Override
-	public void insertCompany_Coupon(Company company, Coupon coupon) throws CreateException {
-		Connection connection;
-		try {
-			connection = pool.getConnection();
-		} catch (CouponException e) {
-			throw new CreateException("connection failed");
-		}
-		
-		String sql = "INSERT INTO Company_Coupon(companyId,couponId) VALUES(?,?)";
-
-		try {
-
-			PreparedStatement pstmt = connection.prepareStatement(sql);
-			{
-
-				pstmt.setLong(1, company.getCompanyId());
-				pstmt.setLong(2, coupon.getCouponId());
-
-				pstmt.executeUpdate();
-				System.out.println("Company_Coupon added: companyId: " + company.getCompanyId() + " couponId: "
-						+ coupon.getCouponId());
-			}
-		} catch (SQLException ex) {
-			System.out.println(ex.getLocalizedMessage());
-			throw new CreateException("Company_Coupon creation failed");
-		} finally {
-			try {
-				connection.close();
-			} catch (SQLException e) {
-				throw new CreateException("connection failed");
-			}
-
-			try {
-				pool.returnConnection(connection);
-			} catch (CouponException e) {
-				throw new CreateException("connection failed");
-			}
-		}
-
-	}
-
+	
 	@Override
 	public void removeCompany_Coupon(Company company, Coupon coupon) throws RemoveException {
 		Connection connection;
@@ -225,7 +183,7 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 	
 
 	@Override
-	public void removeCompany_Coupon(Coupon coupon) throws RemoveException {
+	public void removeCompany_CouponByCoupon(Coupon coupon) throws RemoveException { {
 		Connection connection;
 		try {
 			connection = pool.getConnection();
@@ -309,6 +267,75 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 	}
 	
 	}
+
+	public void insertCompany_Coupon(Company_Coupon company_Coupon) throws CreateException {
+		Connection connection;
+		try {
+			connection = pool.getConnection();
+		} catch (CouponException e) {
+			throw new CreateException("connection failed");
+		}
+		
+		String sql = "INSERT INTO Company_Coupon(companyId,couponId) VALUES(?,?)";
+
+		try {
+
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+			{
+
+				pstmt.setLong(1, company_Coupon.getCompanyId());
+				pstmt.setLong(2, company_Coupon.getCouponId());
+
+				pstmt.executeUpdate();
+				System.out.println("Company_Coupon added: companyId: " + company_Coupon.getCompanyId() + " couponId: "
+						+ company_Coupon.getCouponId());
+			}
+		} catch (SQLException ex) {
+			System.out.println(ex.getLocalizedMessage());
+			throw new CreateException("Company_Coupon creation failed");
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				throw new CreateException("connection failed");
+			}
+
+			try {
+				pool.returnConnection(connection);
+			} catch (CouponException e) {
+				throw new CreateException("connection failed");
+			}
+		}
+		
+	}
+
+
+	
+
+
+	@Override
+	public void removeCompany_Coupon(Company_Coupon company_Coupon) throws RemoveException {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void removeCompany_CouponByCompany(Company company) throws RemoveException {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+	@Override
+	public void updateCompany_Coupon(Company_Coupon company_Coupon) throws UpdateException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
 		
 	}
 

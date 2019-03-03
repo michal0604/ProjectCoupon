@@ -3,8 +3,8 @@ package projectCoupon.Company;
 import java.sql.SQLException;
 import java.util.List;
 
+import projectCoupon.Exception.CompanyException;
 import projectCoupon.Exception.CouponException;
-import projectCoupon.Exception.CreateException;
 
 /**
  * this interface lists the data access object operations Company's requirements.
@@ -79,11 +79,11 @@ public interface CompanyDAO {
 	 * @param password company's password of the logged in company
 	 * @throws CouponException for problem retrieving the company data.
 	 * @throws SQLException for DB related failures
+	 * @throws CompanyException 
 	 * @throws ConnectionException error occurring due to connection problems
 	 */
-	Company login(String name, String password) throws CouponException, SQLException;
+	Company login(String name, String password) throws CouponException, SQLException, CompanyException;
 
-	
 	/**
 	 * remove a company identified by its id from the Database
 	 * 
