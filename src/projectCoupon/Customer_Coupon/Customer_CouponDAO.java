@@ -28,9 +28,5 @@ public interface Customer_CouponDAO {
 		void updateCustomer_Coupon(long custId, long coupId) throws UpdateException;
 
 		boolean isCouponPurchasedByCustomer(long custId, long coupId) throws CouponException;
-
-		void purchaseCoupon(long custId, long coupId) throws CouponException;
-
-		boolean isPairInData(long custId, long coupId);
 		
 }

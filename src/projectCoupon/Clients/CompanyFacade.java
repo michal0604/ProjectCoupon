@@ -16,7 +16,6 @@ import projectCoupon.Coupons.CouponDAO;
 import projectCoupon.Coupons.CouponDBDAO;
 import projectCoupon.Coupons.Utile;
 import projectCoupon.Coupons.couponType;
-import projectCoupon.Exception.ConnectionException;
 import projectCoupon.Exception.CouponException;
 import projectCoupon.Exception.CreateException;
 
@@ -76,12 +75,12 @@ public class CompanyFacade  implements CouponClientFacade {
 	 * @throws CreateException errors in creation
 	 * @throws CouponException 
 	 */
-	public void createCoupon(Coupon coupon) throws CreateException, SQLException, ConnectionException, CouponException {
+	public void createCoupon(Coupon coupon) throws CreateException, SQLException, CouponException {
 		if (coupon != null) {
 			String CoupTitle = coupon.getTitle();
 			if (CoupTitle != null) {
-				Date startDate = coupon.getStart_date();
-				Date endDate = coupon.getEnd_date();
+				Date startDate = (Date) coupon.getStart_date();
+				Date endDate = (Date) coupon.getEnd_date();
 				if (startDate.getTime() <= endDate.getTime()) {
 					if (startDate.getTime() >= Utile.toDate(0).getTime()) {
 						if (!couponDAO.isCouponTitleExists(CoupTitle)) {
@@ -109,7 +108,8 @@ public class CompanyFacade  implements CouponClientFacade {
 	 */
 	public void removeCoupon(long coupId) throws Exception {
 		if (coupId > 0) {
-			if (couponDAO.isCouponExistsForCompany(companyId, coupId)) {
+			if (company_CouponDAO.isCouponExistsForCompany(companyId, coupId)) {
+				company_CouponDAO.removeCompany_Coupon(companyId, coupId);
 				couponDAO.removeCoupon(coupId);
 			} else {
 				throw new CouponException("Coupon Not Exist for Company! Remove Coupon is Canceled!");
@@ -127,11 +127,11 @@ public class CompanyFacade  implements CouponClientFacade {
 	public void updateCoupon(Coupon coupon) throws Exception {
 		if (coupon != null) {
 			long couponId = coupon.getCouponId();
-			if (couponDAO.isCouponExistsForCompany(companyId, couponId)) {
+			if (company_CouponDAO.isCouponExistsForCompany(companyId, couponId)) {
 				Double CoupPrice = coupon.getPrice();
 				if (CoupPrice > 0) {
-		       Date startDate = couponDAO.getCoupon(couponId).getStart_date();
-					Date endDate = coupon.getEnd_date();
+		       Date startDate = (Date) couponDAO.getCoupon(couponId).getStart_date();
+					Date endDate = (Date) coupon.getEnd_date();
 					if (startDate.getTime() <= endDate.getTime()) {
 						
 							couponDAO.updateCoupon(coupon);
