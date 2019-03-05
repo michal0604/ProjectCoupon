@@ -121,6 +121,7 @@ public class CompanyDBDAO implements CompanyDAO {
 					+ Company.getPassword() + "',EMAIL='" + Company.getEmail() + "' WHERE ID=" + Company.getCompanyId();
 			stm.executeUpdate(sql);
 		} catch (SQLException e) {
+			//TODO check this
 			throw new CompanyUpdateException(Company);
 		} finally {
 			connection.close();
