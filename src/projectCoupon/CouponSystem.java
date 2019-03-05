@@ -14,7 +14,7 @@ public class CouponSystem {
 	
 	
 	private static CouponSystem instance;
-	DailyCouponExpirationTask DailyTask;
+	DailyCouponException DailyTask;
 	Thread thread;
 	Connection connection;
 	
@@ -27,7 +27,7 @@ public class CouponSystem {
 	
 	public CouponSystem() throws CouponException {
 		// Activate the daily Coupons Deletion Demon (Thread)
-		DailyTask = new DailyCouponExpirationTask(SLEEPTIME);
+		DailyTask = new DailyCouponException(SLEEPTIME);
 		thread = new Thread(DailyTask);
 		thread.start();
 	}

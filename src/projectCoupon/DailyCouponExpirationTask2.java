@@ -1,30 +1,18 @@
 package projectCoupon;
 
-import java.sql.Connection;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import javax.sql.PooledConnection;
-
-import projectCoupon.Company.Company;
-import projectCoupon.Company.CompanyDAO;
-import projectCoupon.Company_Coupon.Company_Coupon;
-import projectCoupon.Company_Coupon.Company_CouponDAO;
 import projectCoupon.Company_Coupon.Company_CouponDBDAO;
 import projectCoupon.Coupons.Coupon;
-import projectCoupon.Coupons.CouponDAO;
 import projectCoupon.Coupons.CouponDBDAO;
-import projectCoupon.Customer.CustomerDAO;
-import projectCoupon.Customer_Coupon.Customer_Coupon;
-import projectCoupon.Customer_Coupon.Customer_CouponDAO;
 import projectCoupon.Customer_Coupon.Customer_CouponDBDAO;
 import projectCoupon.Exception.CouponException;
 
-public class dailyCouponExpirationTask2 implements Runnable {
+public class DailyCouponExpirationTask2 implements Runnable {
 	//
 	// Attributes
 	//
@@ -37,7 +25,7 @@ public class dailyCouponExpirationTask2 implements Runnable {
 	private Thread dailyTaskThread;
 	
 
-	public dailyCouponExpirationTask2( ) throws CouponException{
+	public DailyCouponExpirationTask2( ) throws CouponException{
 
 	}
 
@@ -74,9 +62,9 @@ public class dailyCouponExpirationTask2 implements Runnable {
 				Iterator<Coupon>itr=allCoupons.iterator();
 				while(itr.hasNext()) {
 					Coupon current=itr.next();
-					if (current.getEnd_date().isBefore(LocalDate.now())||current.getEnd_date().equals(LocalDate.now())){
-					customer_CouponDBDAO.removeCustomer_Coupon(current);
-					company_CouponDBDAO.removeCompany_CouponByCoupon(current);
+					if (current.getStart_date().compareTo(current.getEnd_date())<0){
+					customer_CouponDBDAO.removeCustomer_CouponByCoupId(current.getCouponId());
+					company_CouponDBDAO.removeCompany_CouponByCouponId(current.getCouponId());
 					couponDBDAO.removeCoupon(current);
 						}
 					}

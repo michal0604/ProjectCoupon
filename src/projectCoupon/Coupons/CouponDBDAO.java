@@ -311,7 +311,7 @@ public class CouponDBDAO implements CouponDAO {
 		}
 
 	}
-
+//we need this ???
 	@Override
 	public List<Long> removeExpiredCoupons() throws CouponException {
 		Connection connection;
