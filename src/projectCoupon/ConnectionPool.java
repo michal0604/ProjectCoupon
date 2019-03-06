@@ -1,6 +1,5 @@
 package projectCoupon;
 
-import java.net.ConnectException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Iterator;
@@ -8,7 +7,6 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import projectCoupon.Coupons.Utile;
-
 import projectCoupon.Exception.CouponException;
 
 

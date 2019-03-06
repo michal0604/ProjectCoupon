@@ -8,7 +8,6 @@ import java.util.List;
 import projectCoupon.Company.Company;
 import projectCoupon.Company.CompanyDAO;
 import projectCoupon.Company.CompanyDBDAO;
-import projectCoupon.Company_Coupon.Company_Coupon;
 import projectCoupon.Company_Coupon.Company_CouponDAO;
 import projectCoupon.Company_Coupon.Company_CouponDBDAO;
 import projectCoupon.Coupons.Coupon;
@@ -16,6 +15,7 @@ import projectCoupon.Coupons.CouponDAO;
 import projectCoupon.Coupons.CouponDBDAO;
 import projectCoupon.Coupons.Utile;
 import projectCoupon.Coupons.couponType;
+import projectCoupon.Exception.CompanyException;
 import projectCoupon.Exception.CouponException;
 import projectCoupon.Exception.CreateException;
 
@@ -47,12 +47,13 @@ public class CompanyFacade  implements CouponClientFacade {
 	 * @param password  password for login
 	 * @throws CouponException for problem retrieving the company data.
 	 * @throws SQLException for DB related failures
+	 * @throws CompanyException 
 	 * @throws ConnectionException 
 	 *
 	 * @see projectCoupon.Clients.CouponClientFacade#login(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public CouponClientFacade login(String name, String password) throws CouponException, SQLException, ConnectionException{
+	public CouponClientFacade login(String name, String password) throws CouponException, SQLException, CompanyException{
 		Company company = new Company();
 		company = companyDAO.login(name, password);
 		if (company != null) {
@@ -189,9 +190,9 @@ public class CompanyFacade  implements CouponClientFacade {
 	public List<Coupon> getCouponsByType(couponType coupType) throws Exception {
 		List<Coupon> coupons = new ArrayList<Coupon>();
 		Coupon coupon;
-		List<Company_Coupon> companyCouponList = company_CouponDAO.getCouponsByCompanyId(companyId);
-		for (Company_Coupon companyCoupon : companyCouponList) {
-			coupon = couponDAO.getCoupon(companyCoupon.getCouponId());
+		List<Long> companyCouponList = company_CouponDAO.getCouponsByCompanyId(companyId);
+		for (Long couponId : companyCouponList) {
+			coupon = couponDAO.getCoupon(couponId);
 			if (coupon.getType().equals(coupType) ) {
 				coupons.add(coupon);
 			}
@@ -209,9 +210,9 @@ public class CompanyFacade  implements CouponClientFacade {
 	public List<Coupon> getCouponsByMaxCouponPrice(double price) throws Exception {
 		List<Coupon> coupons = new ArrayList<Coupon>();
 		Coupon coupon;
-		List<Company_Coupon> companyCouponList = company_CouponDAO.getCouponsByCompanyId(companyId);
-		for (Company_Coupon companyCoupon : companyCouponList) {
-			coupon = couponDAO.getCoupon(companyCoupon.getCouponId());
+		List<Long> companyCouponList = company_CouponDAO.getCouponsByCompanyId(companyId);
+		for (Long couponId : companyCouponList) {
+			coupon = couponDAO.getCoupon(couponId);
 			if (coupon.getPrice() <= price ) {
 				coupons.add(coupon);
 			}
@@ -229,9 +230,9 @@ public class CompanyFacade  implements CouponClientFacade {
 	public List<Coupon> getCouponsByMaxCouponDate(Date endDate)  throws Exception{
 		List<Coupon> coupons = new ArrayList<Coupon>();
 		Coupon coupon;
-		List<Company_Coupon> companyCouponList = company_CouponDAO.getCouponsByCompanyId(companyId);
-		for (Company_Coupon companyCoupon : companyCouponList) {
-			coupon = couponDAO.getCoupon(companyCoupon.getCouponId());
+		List<Long> companyCouponList = company_CouponDAO.getCouponsByCompanyId(companyId);
+		for (Long couponId : companyCouponList) {
+			coupon = couponDAO.getCoupon(couponId);
 			if (coupon.getEnd_date().equals(endDate) || coupon.getEnd_date().before(endDate) ) {
 				coupons.add(coupon);
 			}

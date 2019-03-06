@@ -2,17 +2,13 @@ package projectCoupon;
 
 import java.util.List;
 
-import projectCoupon.Company_Coupon.Company_CouponDAO;
 import projectCoupon.Coupons.CouponDAO;
 import projectCoupon.Coupons.CouponDBDAO;
-import projectCoupon.Customer_Coupon.Customer_CouponDAO;
 import projectCoupon.Exception.CouponException;
 
 public class DailyCouponExpirationTask implements Runnable {
 
 	private CouponDAO couponDAO;
-	private Customer_CouponDAO customer_CouponDAO;
-	private Company_CouponDAO company_CouponDAO;
 	private int sleepTime;
 	private boolean quit = false;
 
