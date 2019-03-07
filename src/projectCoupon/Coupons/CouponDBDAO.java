@@ -28,7 +28,7 @@ public class CouponDBDAO implements CouponDAO {
 		try {
 			connection = pool.getConnection();
 		} catch (CouponException e) {
-			throw new CreateException("didnt success to connect "+e.getMessage());
+			throw new CreateException("didnt success to connect " + e.getMessage());
 		}
 		String sql = "INSERT INTO Coupon(ID,TITLE,START_DATE,END_DATE,AMOUNT,TYPE,MESSAGE,PRICE,IMAGE) VALUES(?,?,?,?,?,?,?,?)";
 		try {
@@ -45,55 +45,53 @@ public class CouponDBDAO implements CouponDAO {
 			pstmt.executeUpdate();
 
 		} catch (SQLException ex) {
-			throw new CreateException("Coupon creation failed "+ex.getMessage());
+			throw new CreateException("Coupon creation failed " + ex.getMessage());
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException e1) {
-				throw new CreateException("close connection was failed "+e1.getMessage());
+				throw new CreateException("close connection was failed " + e1.getMessage());
 			}
 			try {
 				pool.returnConnection(connection);
 			} catch (Exception e) {
-				throw new CreateException("close connection was failed "+e.getMessage());
+				throw new CreateException("close connection was failed " + e.getMessage());
 			}
 		}
 	}
 
 	@Override
-	public void removeCoupon(Coupon Coupon) throws CreateException, RemoveException{
+	public void removeCoupon(Coupon Coupon) throws CreateException, RemoveException {
 		Connection connection = null;
 		try {
 			connection = pool.getConnection();
 		} catch (CouponException e) {
-			throw new CreateException("didnt success to connect "+e.getMessage());
+			throw new CreateException("didnt success to connect " + e.getMessage());
 		}
 		String sql = "DELETE FROM Coupon WHERE id=?";
-		try { 
+		try {
 			PreparedStatement pstm1 = connection.prepareStatement(sql);
 			connection.setAutoCommit(false);
 			pstm1.setLong(1, Coupon.getCouponId());
 			pstm1.executeUpdate();
 			connection.commit();
-		} 
-		catch (SQLException e) {
+		} catch (SQLException e) {
 			try {
 				connection.rollback();
-			} 
-			catch (SQLException e1) {
-				throw new RemoveException("Database error "+e1.getMessage());
+			} catch (SQLException e1) {
+				throw new RemoveException("Database error " + e1.getMessage());
 			}
-			throw new RemoveException("failed to remove Coupon "+e.getMessage());
+			throw new RemoveException("failed to remove Coupon " + e.getMessage());
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				throw new RemoveException("Database error "+e.getMessage());
+				throw new RemoveException("Database error " + e.getMessage());
 			}
 			try {
 				pool.returnConnection(connection);
 			} catch (Exception e) {
-				throw new RemoveException("Database error "+e.getMessage());
+				throw new RemoveException("Database error " + e.getMessage());
 			}
 		}
 	}
@@ -104,15 +102,15 @@ public class CouponDBDAO implements CouponDAO {
 		try {
 			connection = pool.getConnection();
 		} catch (CouponException e) {
-			throw new CreateException("didnt success to connect "+e.getMessage());
+			throw new CreateException("didnt success to connect " + e.getMessage());
 		}
 		try {
 			String sql = "UPDATE Coupon SET TITLE=?, START_DATE=?, END_DATE=?, AMOUNT=?,"
 					+ " TYPE=?, MESSAGE=?, PRICE=?, IMAGE=? WHERE ID=?";
 			PreparedStatement stm1 = connection.prepareStatement(sql);
 			stm1.setString(1, Coupon.getTitle());
-			stm1.setDate(2,  (Date)Coupon.getStart_date());
-			stm1.setDate(3, (Date)Coupon.getEnd_date());
+			stm1.setDate(2, (Date) Coupon.getStart_date());
+			stm1.setDate(3, (Date) Coupon.getEnd_date());
 			stm1.setInt(4, Coupon.getAmount());
 			stm1.setString(5, Coupon.getType().toString());
 			stm1.setString(6, Coupon.getMessage());
@@ -126,23 +124,23 @@ public class CouponDBDAO implements CouponDAO {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				throw new UpdateException("Database error "+ e.getMessage());
+				throw new UpdateException("Database error " + e.getMessage());
 			}
 			try {
 				pool.returnConnection(connection);
 			} catch (CouponException e) {
-				throw new CreateException("didnt success to return connection "+e.getMessage());
+				throw new CreateException("didnt success to return connection " + e.getMessage());
 			}
 		}
 	}
 
 	@Override
-	public Coupon getCoupon(long couponId) throws CreateException, CouponException{
+	public Coupon getCoupon(long couponId) throws CreateException, CouponException {
 		Connection connection = null;
 		try {
 			connection = pool.getConnection();
 		} catch (CouponException e) {
-			throw new CreateException("didnt success to connect "+e.getMessage());
+			throw new CreateException("didnt success to connect " + e.getMessage());
 		}
 		Coupon coupon = new Coupon();
 		try {
@@ -192,12 +190,12 @@ public class CouponDBDAO implements CouponDAO {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				throw new CouponException("Database error "+e.getMessage());
+				throw new CouponException("Database error " + e.getMessage());
 			}
 			try {
 				pool.returnConnection(connection);
 			} catch (Exception e) {
-				throw new CouponException("Database error "+e.getMessage());
+				throw new CouponException("Database error " + e.getMessage());
 			}
 		}
 		return coupon;
@@ -209,7 +207,7 @@ public class CouponDBDAO implements CouponDAO {
 		try {
 			connection = pool.getConnection();
 		} catch (Exception e) {
-			throw new CouponException("Database error "+e.getMessage());
+			throw new CouponException("Database error " + e.getMessage());
 		}
 		List<Coupon> set = new ArrayList<Coupon>();
 		Coupon coupon;
@@ -257,17 +255,17 @@ public class CouponDBDAO implements CouponDAO {
 			}
 		} catch (SQLException e) {
 			System.out.println(e);
-			throw new CouponException("cannot get Coupon data "+e.getMessage());
+			throw new CouponException("cannot get Coupon data " + e.getMessage());
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				throw new CouponException("Database error "+e.getMessage());
+				throw new CouponException("Database error " + e.getMessage());
 			}
 			try {
 				pool.returnConnection(connection);
 			} catch (Exception e) {
-				throw new CouponException("Database error "+e.getMessage());
+				throw new CouponException("Database error " + e.getMessage());
 			}
 		}
 		return set;
@@ -279,10 +277,10 @@ public class CouponDBDAO implements CouponDAO {
 		try {
 			connection = pool.getConnection();
 		} catch (Exception e) {
-			throw new CouponException("Database error "+e.getMessage());
+			throw new CouponException("Database error " + e.getMessage());
 		}
 		String sql = "DELETE FROM Coupon WHERE id=?";
-		try { 
+		try {
 			PreparedStatement pstm1 = connection.prepareStatement(sql);
 			connection.setAutoCommit(false);
 			pstm1.setLong(1, id);
@@ -294,24 +292,25 @@ public class CouponDBDAO implements CouponDAO {
 				connection.rollback();
 
 			} catch (SQLException e1) {
-				throw new CouponException("Database error "+e1.getMessage());
+				throw new CouponException("Database error " + e1.getMessage());
 			}
-			throw new CouponException("failed to remove Coupon "+e.getMessage());
+			throw new CouponException("failed to remove Coupon " + e.getMessage());
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				throw new CouponException("Database error "+e.getMessage());
+				throw new CouponException("Database error " + e.getMessage());
 			}
 			try {
 				pool.returnConnection(connection);
 			} catch (Exception e) {
-				throw new CouponException("Database error "+e.getMessage());
+				throw new CouponException("Database error " + e.getMessage());
 			}
 		}
 
 	}
-//we need this ???
+
+	// we need this ???
 	@Override
 	public List<Long> removeExpiredCoupons() throws CouponException {
 		Connection connection;
@@ -330,8 +329,8 @@ public class CouponDBDAO implements CouponDAO {
 			}
 			return expieredList;
 		} catch (SQLException e) {
-			throw new CouponException("DB ERROR! Remove Expired Coupon Failed. "+e.getMessage());
-		}  finally {
+			throw new CouponException("DB ERROR! Remove Expired Coupon Failed. " + e.getMessage());
+		} finally {
 			pool.returnConnection(connection);
 		}
 	}
@@ -349,7 +348,7 @@ public class CouponDBDAO implements CouponDAO {
 		String sql = String.format("select * from Coupon where TYPE = '%s'", coupType.name());
 
 		try {
-			Statement statement = connection.createStatement(); 
+			Statement statement = connection.createStatement();
 			ResultSet resultSet = statement.executeQuery(sql);
 			while (resultSet.next()) {
 				Coupon coupon = new Coupon();
@@ -367,9 +366,8 @@ public class CouponDBDAO implements CouponDAO {
 			return list;
 		} catch (SQLException e) {
 			System.out.println(e);
-			throw new CouponException(
-					"DB error - unable to get Coupon data. couponType: " + coupType.name());
-		}  finally {
+			throw new CouponException("DB error - unable to get Coupon data. couponType: " + coupType.name());
+		} finally {
 			try {
 				connection.close();
 			} catch (SQLException e) {
@@ -400,7 +398,7 @@ public class CouponDBDAO implements CouponDAO {
 		try {
 			connection = pool.getConnection();
 		} catch (Exception e) {
-			throw new CouponException("Database error "+e.getMessage());
+			throw new CouponException("Database error " + e.getMessage());
 		}
 		List<Coupon> set = new ArrayList<Coupon>();
 		Coupon coupon;
@@ -448,17 +446,17 @@ public class CouponDBDAO implements CouponDAO {
 			}
 		} catch (SQLException e) {
 			System.out.println(e);
-			throw new CouponException("cannot get Coupon data "+e.getMessage());
+			throw new CouponException("cannot get Coupon data " + e.getMessage());
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				throw new CouponException("Database error "+e.getMessage());
+				throw new CouponException("Database error " + e.getMessage());
 			}
 			try {
 				pool.returnConnection(connection);
 			} catch (Exception e) {
-				throw new CouponException("Database error "+e.getMessage());
+				throw new CouponException("Database error " + e.getMessage());
 			}
 		}
 		return set;
