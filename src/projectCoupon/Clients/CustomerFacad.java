@@ -6,7 +6,6 @@ import java.util.List;
 import projectCoupon.Coupons.Coupon;
 import projectCoupon.Coupons.CouponDAO;
 import projectCoupon.Coupons.CouponDBDAO;
-import projectCoupon.Coupons.Utile;
 import projectCoupon.Coupons.couponType;
 import projectCoupon.Customer.Customer;
 import projectCoupon.Customer.CustomerDAO;
@@ -15,13 +14,14 @@ import projectCoupon.Customer_Coupon.Customer_CouponDAO;
 import projectCoupon.Customer_Coupon.Customer_CouponDBDAO;
 import projectCoupon.Exception.CouponException;
 import projectCoupon.Exception.CreateException;
+import projectCoupon.Exception.CustomerException;
+import projectCoupon.Exception.UpdateException;
 
 public class CustomerFacad implements CouponClientFacade {
 
 	private CustomerDAO custDAO;
 	private CouponDAO couponDAO;
 	private Customer_CouponDAO customer_CouponDAO;
-	private Utile utile;
 	private long custId = 0;
 	private Customer customer;
 
@@ -30,15 +30,12 @@ public class CustomerFacad implements CouponClientFacade {
 		custDAO = new CustomerDBDAO();
 		couponDAO = new CouponDBDAO();
 		customer_CouponDAO = new Customer_CouponDBDAO();
-		utile = new Utile();
-
 	}
 
 	public CustomerFacad() throws CouponException {
 		custDAO = new CustomerDBDAO();
 		couponDAO = new CouponDBDAO();
 		customer_CouponDAO = new Customer_CouponDBDAO();
-		utile = new Utile();
 	}
 
 	@Override
@@ -68,12 +65,12 @@ public class CustomerFacad implements CouponClientFacade {
 		custDAO.updateCustomer(customer);
 	}
 
-	public void purchaseCoupon(long coupId) throws Exception {
+	public void purchaseCoupon(long coupId) throws CouponException, CreateException, UpdateException{
 		Coupon coupon = new Coupon();
 		coupon = couponDAO.getCoupon(coupId);
 		if (coupon != null) {
 			if (coupon.getAmount() > 0) {
-				if (coupon.getEnd_date().getTime() >= utile.today().getTime()) {
+				if (coupon.getEnd_date().getTime() >= Utile.getCurrentDate().getTime()) {
 					if (!customer_CouponDAO.isCouponPurchasedByCustomer(coupId, coupId)){
 						coupon.setAmount(coupon.getAmount() - 1);
 						couponDAO.updateCoupon(coupon);
@@ -152,14 +149,9 @@ public class CustomerFacad implements CouponClientFacade {
 		return customer;
 	}
 
-	public Customer getCustomer() throws Exception {
-		try {
+	public Customer getCustomer() throws CustomerException{
 			System.out.println(custDAO.getCustomer(this.customer.getCustomerId()));
 			return custDAO.getCustomer(this.customer.getCustomerId());
-		} catch (Exception e) {
-			throw new Exception(
-					"Cusstomer failed to get customer details. customerId: " + this.customer.getCustomerId());
-		}
 	}
 
 	public java.util.List<Customer> getAllCustomer() throws Exception {

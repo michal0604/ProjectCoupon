@@ -6,9 +6,7 @@ public class Customer {
 	private String customerName;
 	private String password;
 
-	public Customer() {
-
-	}
+	public Customer() {}
 
 	public Customer(long customerId, String customerName, String password) {
 		super();
@@ -16,8 +14,6 @@ public class Customer {
 		this.customerName = customerName;
 		this.password = password;
 	}
-
-	
 
 	public long getCustomerId() {
 		return customerId;
@@ -41,20 +37,11 @@ public class Customer {
 
 	@Override
 	public String toString() {
-		return "Customer [customerID=" + customerId+ ", customerName=" + customerName + ", password=" + password + "]";
+		return "Customer [customerID=" + customerId + ", customerName=" + customerName + ", password=" + password + "]";
 	}
 
 	public void setCustomerId(long customerId) {
 		this.customerId = customerId;
 	}
 
-	
-
-	
-	}
-
-
-	
-
-	
-
+}

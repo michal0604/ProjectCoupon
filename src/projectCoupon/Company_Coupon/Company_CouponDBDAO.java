@@ -237,18 +237,18 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 				System.out.println("Company_Coupon added: companyId: " + companyId + " couponId: " + couponId);
 			}
 		} catch (SQLException e) {
-				throw new CreateException("Company_Coupon creation failed "+ e.getMessage());
+			throw new CreateException("Company_Coupon creation failed " + e.getMessage());
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				throw new CreateException("connection failed "+ e.getMessage());
+				throw new CreateException("connection failed " + e.getMessage());
 			}
 
 			try {
 				pool.returnConnection(connection);
 			} catch (CouponException e) {
-				throw new CreateException("connection failed "+ e.getMessage());
+				throw new CreateException("connection failed " + e.getMessage());
 			}
 		}
 
@@ -269,9 +269,9 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 			return false;
 
 		} catch (SQLException e) {
-			throw new CouponException("ERROR! Checking if Coupon Exists For The Company is Failed. "+ e.getMessage());
+			throw new CouponException("ERROR! Checking if Coupon Exists For The Company is Failed. " + e.getMessage());
 		} catch (Exception e) {
-			throw new CouponException(" ERROR! Checking if Coupon Exists For The Company is Failed. "+ e.getMessage());
+			throw new CouponException(" ERROR! Checking if Coupon Exists For The Company is Failed. " + e.getMessage());
 		} finally {
 			pool.returnConnection(connection);
 		}

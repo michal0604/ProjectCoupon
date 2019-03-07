@@ -297,7 +297,7 @@ public class CustomerDBDAO implements CustomerDAO {
 			return false;
 
 		} catch (SQLException e) {
-			throw new CouponException(" Failed to checking if Customer name already exists. "+ e.getMessage());
+			throw new CouponException(" Failed to checking if Customer name already exists. " + e.getMessage());
 		} finally {
 			pool.returnConnection(connection);
 		}

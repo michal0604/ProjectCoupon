@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import projectCoupon.Coupons.Utile;
+import projectCoupon.Clients.Utile;
 import projectCoupon.Exception.CouponException;
 
 

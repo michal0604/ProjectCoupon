@@ -121,7 +121,7 @@ public class CompanyDBDAO implements CompanyDAO {
 					+ Company.getPassword() + "',EMAIL='" + Company.getEmail() + "' WHERE ID=" + Company.getCompanyId();
 			stm.executeUpdate(sql);
 		} catch (SQLException e) {
-			//TODO check this
+			// TODO check this
 			throw new CompanyUpdateException(Company);
 		} finally {
 			connection.close();
@@ -301,15 +301,15 @@ public class CompanyDBDAO implements CompanyDAO {
 	public boolean isCompanyNameExists(String compName) throws CouponException {
 		Connection connection = pool.getConnection();
 		try {
-			String sql = "SELECT companyId FROM Company WHERE compName = ? "; 
+			String sql = "SELECT companyId FROM Company WHERE compName = ? ";
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, compName);
-			ResultSet rs = pstmt.executeQuery(); 
+			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
 				return true;
-			} 
+			}
 			return false;
-				
+
 		} catch (SQLException e) {
 			throw new CouponException("Failed to checking if Company name already exists.");
 		} catch (Exception e) {

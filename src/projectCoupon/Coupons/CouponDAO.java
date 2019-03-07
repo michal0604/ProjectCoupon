@@ -25,14 +25,12 @@ public interface CouponDAO {
 
 	List<Coupon> getAllCouponsByDate(String untilDate) throws CouponException;
 
-	void removeCoupon(Coupon Coupon) throws  RemoveException, CreateException;
+	void removeCoupon(Coupon Coupon) throws RemoveException, CreateException;
 
 	List<Long> removeExpiredCoupons() throws CouponException, Exception;
 
 	public boolean isCouponTitleExists(String coupTitle) throws CouponException;
 
 	void removeCouponID(long id) throws CouponException;
-
-	//List<Coupon> getCouponsByType(long couponId, couponType coupType) throws CouponException;
 
 }

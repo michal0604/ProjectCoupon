@@ -13,7 +13,6 @@ import projectCoupon.Company_Coupon.Company_CouponDBDAO;
 import projectCoupon.Coupons.Coupon;
 import projectCoupon.Coupons.CouponDAO;
 import projectCoupon.Coupons.CouponDBDAO;
-import projectCoupon.Coupons.Utile;
 import projectCoupon.Coupons.couponType;
 import projectCoupon.Exception.CompanyException;
 import projectCoupon.Exception.CouponException;
@@ -83,7 +82,7 @@ public class CompanyFacade  implements CouponClientFacade {
 				Date startDate = (Date) coupon.getStart_date();
 				Date endDate = (Date) coupon.getEnd_date();
 				if (startDate.getTime() <= endDate.getTime()) {
-					if (startDate.getTime() >= Utile.toDate(0).getTime()) {
+					if (startDate.getTime() >= Utile.getCurrentDate().getTime()) {
 						if (!couponDAO.isCouponTitleExists(CoupTitle)) {
 							couponDAO.insertCoupon(coupon);
 						} else {
