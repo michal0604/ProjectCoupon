@@ -24,8 +24,10 @@ public class TestCoupon {
 
 		Class.forName(Database.getDriverData());
 		Connection con=DriverManager.getConnection(Database.getDBUrl());
-		Database.dropTableifNeeded(con);
-		Database.createTables(con);
+		Database.dropTableifNeeded();
+		Database.createTables();
+		
+		
 
 	//    CouponFacade couponFacade = new CouponFacade();
 	//	Coupon a1=new Coupon(1, "pizzaHut", Utile.getCurrentDate(), Utile.getExpiredDate(), 50, couponType.food, "40 shekel for pizza", 40.7, "C:\\Users\\testlab\\Desktop\\תמונות של פרוייקט");

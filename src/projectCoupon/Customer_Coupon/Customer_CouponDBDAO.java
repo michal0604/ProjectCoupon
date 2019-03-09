@@ -21,7 +21,11 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 	private ConnectionPool pool;
 
 	public Customer_CouponDBDAO() throws CouponException {
-		pool = ConnectionPool.getInstance();
+		try {
+			pool = ConnectionPool.getInstance();
+		} catch (SQLException e) {
+			throw new CouponException("connection failed");
+		}
 	}
 
 	@Override

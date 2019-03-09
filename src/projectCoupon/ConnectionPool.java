@@ -1,6 +1,7 @@
 package projectCoupon;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.concurrent.BlockingQueue;
@@ -19,18 +20,40 @@ import projectCoupon.Exception.CouponException;
 
 		private ConnectionPool() throws CouponException  {
 			try {
-				Class.forName(Utile.getDBUrl());
-			} catch (ClassNotFoundException e) {
+				Class.forName(Utile.getDriverData());
+			} catch (Exception e) {
 				throw new CouponException(e.getMessage());
 			}
+			Connection con;
+			try {
+				con = DriverManager.getConnection(Database.getDBUrl());
+			} catch (SQLException e) {
+				throw new CouponException("connection failed");
+			}
+			try {
+				con.close();
+			} catch (SQLException e) {
+				throw new CouponException("connection failed");
+			}
+			while (this.connections.size() < maxConnections) {
+				try {
+					con = DriverManager.getConnection(Database.getDBUrl());
+				} catch (SQLException e) {
+					throw new CouponException("connection failed");
+				}
+				this.connections.offer(con);
+			}
+
 		}
-		
+			
+
 		/**
 		 * @return ConnectionPool
 		 *  method - SINGLETON instance 
 		 * @throws CouponException 
+		 * @throws SQLException 
 		 */
-		public static ConnectionPool getInstance() throws CouponException{
+		public static ConnectionPool getInstance() throws CouponException, SQLException{
 			if (instance==null)instance = new ConnectionPool();
 			return instance;
 		}

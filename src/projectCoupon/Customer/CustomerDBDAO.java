@@ -19,7 +19,11 @@ public class CustomerDBDAO implements CustomerDAO {
 	private ConnectionPool pool;
 
 	public CustomerDBDAO() throws CouponException {
-		pool = ConnectionPool.getInstance();
+		try {
+			pool = ConnectionPool.getInstance();
+		} catch (SQLException e) {
+			throw new CouponException("connection failed");
+		}
 	}
 
 	@Override
@@ -202,7 +206,11 @@ public class CustomerDBDAO implements CustomerDAO {
 	@Override
 	public Customer getCustomer(long CustomerId) throws CustomerException {
 		try {
-			pool = ConnectionPool.getInstance();
+			try {
+				pool = ConnectionPool.getInstance();
+			} catch (SQLException e) {
+				throw new CouponException("connection failed");
+			}
 		} catch (CouponException e) {
 			throw new CustomerException("connection failed " + e.getMessage());
 		}

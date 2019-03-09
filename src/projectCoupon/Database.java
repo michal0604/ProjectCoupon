@@ -17,25 +17,33 @@ public class Database {
 		return "jdbc:derby://localhost:3301/JBDB;create=true";
 	}
 
-	private static ConnectionPool pool;
+	private static ConnectionPool Pool;
 
-	public Database() throws CouponException {
-		pool = ConnectionPool.getInstance();
+	public Database() throws CouponException, SQLException {
+		Pool = ConnectionPool.getInstance();
 	}
 
-	public static void dropTableifNeeded(Connection connection) throws RemoveException{
+	public static void dropTableifNeeded() throws RemoveException, SQLException{
 		String sql;
 		Statement stmt = null;
 		try {
-			connection = pool.getConnection();
-		} catch (Exception e1) {
-			throw new RemoveException("connction failed");
+			Pool=ConnectionPool.getInstance();
+		} catch (CouponException e2) {
+			throw new RemoveException("connection failed");
 		}
+		Connection connection;
+		try {
+			connection = Pool.getConnection();
+		} catch (CouponException e2) {
+			throw new RemoveException("connection failed");
+		}
+		
 		try {
 			stmt = connection.createStatement();
 		} catch (SQLException e1) {
 			throw new RemoveException("createstatment is failed");
 		}
+		
 		try {
 			sql = "DROP TABLE Customer_Coupon";
 			stmt.executeUpdate(sql);
@@ -78,27 +86,34 @@ public class Database {
 			throw new RemoveException("connection close failed");
 		}
 		try {
-			pool.returnConnection(connection);
+			Pool.returnConnection(connection);
 		} catch (Exception e) {
 			throw new RemoveException("return connection doesnt excess");
 		}
 
 	}
 
-	public static void createTables(Connection connection) throws SQLException, CreateException {
+	public static void createTables() throws SQLException, CreateException {
 
 		String sql;
+		
 		try {
-			connection = pool.getConnection();
-		} catch (Exception e1) {
-			throw new CreateException("didnt success in get connection");
+			Pool=ConnectionPool.getInstance();
+		} catch (CouponException e2) {
+			throw new CreateException("connection failed");
+		}
+		Connection con;
+		try {
+			con = Pool.getConnection();
+		} catch (CouponException e2) {
+			throw new CreateException("connection failed");
 		}
 		try {
-			Statement stmt = connection.createStatement();
+			Statement stmt = con.createStatement();
 
 			// create Company table
-			sql = "CREATE TABLE Company(ID bigint not null primary key generated always as identity(start with 1, increment by 1),"
-					+ "COMP_NAME varchar(50) not null," + "PASSWORD varchar(50) not null,"
+			sql = "CREATE TABLE Company(companyId bigint not null primary key generated always as identity(start with 1, increment by 1),"
+					+ "compName varchar(50) not null," + "PASSWORD varchar(50) not null,"
 					+ "EMAIL varchar(50) not null)";
 
 			stmt.executeUpdate(sql);
@@ -107,7 +122,7 @@ public class Database {
 			throw new CreateException("create company didn't succeed");
 		}
 		try {
-			Statement stmt2 = connection.createStatement();
+			Statement stmt2 = con.createStatement();
 			sql = "CREATE TABLE CUSTOMER("
 					+ "ID bigint not null primary key generated always as identity(start with 1, increment by 1), "
 					+ "CUST_NAME varchar(50) not null, " + "PASSWORD varchar(50) not null)";
@@ -118,7 +133,7 @@ public class Database {
 		}
 
 		try {
-			java.sql.Statement stm = connection.createStatement();
+			java.sql.Statement stm = con.createStatement();
 
 			sql = "CREATE TABLE Coupon("
 					+ "ID bigint not null primary key generated always as identity(start with 1, increment by 1),"
@@ -134,7 +149,7 @@ public class Database {
 
 		// create join table Customer_Coupon
 		try {
-			java.sql.Statement stm = connection.createStatement();
+			java.sql.Statement stm = con.createStatement();
 			sql = "CREATE TABLE Customer_Coupon(" + "CUST_ID bigint not null REFERENCES CUSTOMER(ID),"
 					+ "COUPON_ID bigint not null REFERENCES COUPON(ID)," + "PRIMARY KEY(COUPON_ID, CUST_ID))";
 
@@ -148,9 +163,9 @@ public class Database {
 
 		// create join table Company_Coupon
 		try {
-			java.sql.Statement stm = connection.createStatement();
-			sql = "CREATE TABLE Company_Coupon(" + "COMP_ID bigint not null REFERENCES Company(ID),"
-					+ "COUPON_ID bigint not null REFERENCES Coupon(ID)," + "PRIMARY KEY(COUPON_ID, COMP_ID))";
+			java.sql.Statement stm = con.createStatement();
+			sql = "CREATE TABLE Company_Coupon(" + "companyId bigint not null REFERENCES Company(companyId),"
+					+ "couponId bigint not null REFERENCES Coupon(couponId)," + "PRIMARY KEY(couponId, companyId))";
 			stm.executeUpdate(sql);
 			System.out.println("success: " + sql);
 
@@ -159,9 +174,9 @@ public class Database {
 		}
 
 		finally {
-			connection.close();
+			con.close();
 			try {
-				pool.returnConnection(connection);
+				Pool.returnConnection(con);
 			} catch (Exception e) {
 				throw new CreateException(" didn't succeed in close connection");
 			}

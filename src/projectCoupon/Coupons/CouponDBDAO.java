@@ -19,7 +19,11 @@ public class CouponDBDAO implements CouponDAO {
 	private ConnectionPool pool;
 
 	public CouponDBDAO() throws CouponException {
-		pool = ConnectionPool.getInstance();
+		try {
+			pool = ConnectionPool.getInstance();
+		} catch (SQLException e) {
+			throw new CouponException("connection failed");
+		}
 	}
 
 	@Override
@@ -337,7 +341,11 @@ public class CouponDBDAO implements CouponDAO {
 
 	@Override
 	public List<Coupon> getAllCouponsByType(couponType coupType) throws CouponException {
-		pool = ConnectionPool.getInstance();
+		try {
+			pool = ConnectionPool.getInstance();
+		} catch (SQLException e2) {
+			throw new CouponException("connection failed");
+		}
 		Connection connection;
 		try {
 			connection = pool.getConnection();

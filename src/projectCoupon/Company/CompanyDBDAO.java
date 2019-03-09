@@ -30,7 +30,11 @@ public class CompanyDBDAO implements CompanyDAO {
 	 *             for problems from creation.
 	 */
 	public CompanyDBDAO() throws CouponException {
-		pool = ConnectionPool.getInstance();
+		try {
+			pool = ConnectionPool.getInstance();
+		} catch (SQLException e) {
+			throw new CouponException("connection failed");
+		}
 	}
 
 	/**
