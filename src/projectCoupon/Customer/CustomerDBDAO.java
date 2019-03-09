@@ -30,7 +30,7 @@ public class CustomerDBDAO implements CustomerDAO {
 		} catch (CouponException e) {
 			throw new CreateException("connection failed " + e.getMessage());
 		}
-		String sql = "INSERT INTO Customer (ID, CustomerName,PASSWORD) VALUES(?,?)";
+		String sql = "INSERT INTO Customer (customerId, CustomerName,PASSWORD) VALUES(?,?)";
 
 		try {
 			PreparedStatement pstmt = connection.prepareStatement(sql);
@@ -108,7 +108,7 @@ public class CustomerDBDAO implements CustomerDAO {
 		try {
 			Statement stm = connection.createStatement();
 			String sql = "UPDATE Customer " + " SET customerName='" + Customer.getCustomerName() + "', PASSWORD='"
-					+ Customer.getPassword() + "' WHERE ID=" + Customer.getCustomerId();
+					+ Customer.getPassword() + "' WHERE CustomerId=" + Customer.getCustomerId();
 			stm.executeUpdate(sql);
 		} catch (SQLException e) {
 			throw new UpdateException("update Customer failed " + e.getMessage());
@@ -200,7 +200,7 @@ public class CustomerDBDAO implements CustomerDAO {
 	}
 
 	@Override
-	public Customer getCustomer(long custId) throws CustomerException {
+	public Customer getCustomer(long CustomerId) throws CustomerException {
 		try {
 			pool = ConnectionPool.getInstance();
 		} catch (CouponException e) {
@@ -214,7 +214,7 @@ public class CustomerDBDAO implements CustomerDAO {
 		}
 		Customer customer = new Customer();
 		try (Statement statement = connection.createStatement()) {
-			String sql = "SELECT * FROM Customer WHERE ID=" + custId;
+			String sql = "SELECT * FROM Customer WHERE CustomerId=" + CustomerId;
 			ResultSet resultSet = statement.executeQuery(sql);
 			resultSet.next();
 			customer.setCustomerId(resultSet.getLong(1));
@@ -222,7 +222,7 @@ public class CustomerDBDAO implements CustomerDAO {
 			customer.setPassword(resultSet.getString(3));
 
 		} catch (SQLException e) {
-			throw new CustomerException("unable to get data, customerId: " + custId);
+			throw new CustomerException("unable to get data, customerId: " + CustomerId);
 		} finally {
 			try {
 				connection.close();

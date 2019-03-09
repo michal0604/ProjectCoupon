@@ -1,45 +1,97 @@
 package projectCoupon;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+import projectCoupon.Company_Coupon.Company_CouponDBDAO;
+import projectCoupon.Coupons.Coupon;
 import projectCoupon.Coupons.CouponDAO;
 import projectCoupon.Coupons.CouponDBDAO;
+import projectCoupon.Customer_Coupon.Customer_CouponDBDAO;
 import projectCoupon.Exception.CouponException;
 
 public class DailyCouponExpirationTask implements Runnable {
-
-	private CouponDAO couponDAO;
+	
+	private CouponDAO coupDAO;
 	private int sleepTime;
-	private boolean quit = false;
+	//
+	// Attributes
+	//
+	private CouponDBDAO couponDBDAO=new CouponDBDAO();
+	private Customer_CouponDBDAO customer_CouponDBDAO=new Customer_CouponDBDAO();
+	private Company_CouponDBDAO company_CouponDBDAO=new Company_CouponDBDAO();
+	private boolean running = true;
+	private final static TimeUnit TIMEUNIT = TimeUnit.HOURS;
+	private static int SLEEPTIME = 24;
+	private Thread dailyTaskThread;
+	
 
-	public DailyCouponExpirationTask(int sleepTime) throws CouponException {
-		couponDAO = new CouponDBDAO();
-		this.sleepTime = sleepTime;
+	public DailyCouponExpirationTask(int SLEEPTIME  ) throws CouponException{
+		coupDAO=new CouponDBDAO();
+		this.SLEEPTIME=SLEEPTIME;
+		
+
 	}
 
-	@Override
-	public void run() {
-		while (!this.quit) {
-			try {
-				//TODO 1)removeExpiredCoupons() =>getCouponsWithEndDateBefore(Date);
-				//		2) remove indexes from joint tabels
-				//		3)remove indexed from Coupon
-				List<Long> idsToRemove = couponDAO.removeExpiredCoupons();
-
-				// TO DO COUPONEXCEPTION THROW
-				Thread.sleep(sleepTime);
-			} catch (InterruptedException e) {
-				System.out.println("Interrupted!");
-			} catch (CouponException e) {
-				System.out.println("remove failed");
-			} catch (Exception e) {
-
-			}
+	//
+	// Functions
+	//
+	
+	public void startTask()throws CouponException{
+		try {
+			dailyTaskThread=new Thread(this);
+		    dailyTaskThread.start();
+		    System.out.println("daily task is start");
+			
+		} catch (Exception e) {
+			throw new CouponException("daily task failed");
 		}
+		
+		
 	}
+	
+	
+	@Override
+	public void run()  {
+		while (running) {
+			try {
+				TIMEUNIT.sleep(SLEEPTIME);
+			} catch (InterruptedException e) {
+				System.out.println("bye bye");
+				System.exit(0);
+			}
+			try {
+				System.out.println(LocalDateTime.now() + " - Daily Task Running...");
+				List<Coupon>allCoupons=new ArrayList<Coupon>();
+				Iterator<Coupon>itr=allCoupons.iterator();
+				while(itr.hasNext()) {
+					Coupon current=itr.next();
+					if (current.getStart_date().compareTo(current.getEnd_date())<0){
+					customer_CouponDBDAO.removeCustomer_CouponByCoupId(current.getCouponId());
+					company_CouponDBDAO.removeCompany_CouponByCouponId(current.getCouponId());
+					couponDBDAO.removeCoupon(current);
+						}
+					}
+				}
+			 catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("daily task was failed");
+				}
+							}
+							
+						}
+					
 
-	public void stopTask() {
-		this.quit = true;
+			
+
+	/**
+	 * Gracefully stops the Daily Task
+	 */
+	public void stop() {
+		running = false;
 	}
 
 }

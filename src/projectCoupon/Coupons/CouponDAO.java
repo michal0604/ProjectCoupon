@@ -11,11 +11,11 @@ import projectCoupon.Exception.UpdateException;
 public interface CouponDAO {
 	void insertCoupon(Coupon Coupon) throws CreateException, SQLException;
 
-	void removeCoupon(long coupId) throws CouponException, CreateException, RemoveException;
+	void removeCoupon(long couponId) throws CouponException, CreateException, RemoveException;
 
 	void updateCoupon(Coupon Coupon) throws UpdateException, CreateException;
 
-	Coupon getCoupon(long id) throws CouponException, CreateException;
+	Coupon getCoupon(long couponId) throws CouponException, CreateException;
 
 	List<Coupon> getAllCoupons() throws CouponException;
 
@@ -31,6 +31,6 @@ public interface CouponDAO {
 
 	public boolean isCouponTitleExists(String coupTitle) throws CouponException;
 
-	void removeCouponID(long id) throws CouponException;
+	void removeCouponID(long couponId) throws CouponException;
 
 }

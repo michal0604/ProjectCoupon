@@ -11,13 +11,13 @@ import projectCoupon.Exception.UpdateException;
 public interface Customer_CouponDAO {
 	
 		
-		void insertCustomer_Coupon(long custId, long coupId) throws CreateException;
+		void insertCustomer_Coupon(long customerId, long couponId) throws CreateException;
 		
-		void removeCustomer_Coupon(long custId, long coupId) throws RemoveException;
+		void removeCustomer_Coupon(long customerId, long couponId) throws RemoveException;
 		
-		void removeCustomer_CouponByCustomerId(long custId) throws RemoveException;
+		void removeCustomer_CouponByCustomerId(long customerId) throws RemoveException;
 		
-		void removeCustomer_CouponByCoupId(long coupId) throws RemoveException;
+		void removeCustomer_CouponByCoupId(long couponId) throws RemoveException;
 	
 		List<Long> getCustomersByCouponId(long couponId) throws CouponException, CreateException;
 		
@@ -25,8 +25,8 @@ public interface Customer_CouponDAO {
 		
 		List<Customer_Coupon> getAllCustomer_Coupon() throws CouponException, CreateException;	
 		
-		void updateCustomer_Coupon(long custId, long coupId) throws UpdateException;
+		void updateCustomer_Coupon(long customerId, long couponId) throws UpdateException;
 
-		boolean isCouponPurchasedByCustomer(long custId, long coupId) throws CouponException;
+		boolean isCouponPurchasedByCustomer(long customerId, long couponId) throws CouponException;
 		
 }

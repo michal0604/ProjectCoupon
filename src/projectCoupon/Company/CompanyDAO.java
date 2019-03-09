@@ -41,8 +41,9 @@ public interface CompanyDAO {
 	 * @throws CouponException regarding the connection problem
 	 * @throws CompanyUpdateException or problems in updating the company to the DB 
 	 * @throws SQLException for DB related failures 
+	 * @throws CompanyException 
 	 */
-	void updateCompany(Company company) throws CouponException, SQLException;
+	void updateCompany(Company company) throws   CompanyException;
 
 	/**
 	 * get a company data set by the company's id.
@@ -51,7 +52,7 @@ public interface CompanyDAO {
 	 * @throws CouponException  for errors happing due to trying to get a company from DB
 	 * @throws SQLException for DB related failures
 	 */
-	Company getCompany(long id) throws CouponException, SQLException;
+	Company getCompany(long companyId) throws CouponException, SQLException;
 
 	/**
 	 * get all the Companies from the Database.
@@ -82,7 +83,7 @@ public interface CompanyDAO {
 	 * @throws CompanyException 
 	 * @throws ConnectionException error occurring due to connection problems
 	 */
-	Company login(String name, String password) throws CouponException, SQLException, CompanyException;
+	Company login(String compName, String password) throws CouponException, SQLException, CompanyException;
 
 	/**
 	 * remove a company identified by its id from the Database
@@ -92,6 +93,6 @@ public interface CompanyDAO {
 	 * @throws CompanyRemovalException for problems regarding the removal of company from DB
 	 * @throws SQLException SQLException for DB related failures
 	 */
-	void removeCompany(long compId) throws CouponException, SQLException;
+	void removeCompany(long companyId) throws CouponException, SQLException;
 
 }

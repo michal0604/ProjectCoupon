@@ -14,7 +14,7 @@ public class CouponSystem {
 	
 	
 	private static CouponSystem instance;
-	DailyCouponException DailyTask;
+	DailyCouponExpirationTask DailyTask;
 	Thread thread;
 	Connection connection;
 	
@@ -27,7 +27,7 @@ public class CouponSystem {
 	
 	public CouponSystem() throws CouponException {
 		// Activate the daily Coupons Deletion Demon (Thread)
-		DailyTask = new DailyCouponException(SLEEPTIME);
+		DailyTask =new DailyCouponExpirationTask(SLEEPTIME);
 		thread = new Thread(DailyTask);
 		thread.start();
 	}
@@ -79,7 +79,7 @@ public class CouponSystem {
 		} catch (Exception e) {
 			throw new DailyCouponException("ERROR! Properly Shut Down Application Failed!");
 		}
-		DailyTask.stopTask();
+		DailyTask.stop();
 	}
 }
 

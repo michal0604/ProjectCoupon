@@ -30,7 +30,7 @@ public class CouponDBDAO implements CouponDAO {
 		} catch (CouponException e) {
 			throw new CreateException("didnt success to connect " + e.getMessage());
 		}
-		String sql = "INSERT INTO Coupon(ID,TITLE,START_DATE,END_DATE,AMOUNT,TYPE,MESSAGE,PRICE,IMAGE) VALUES(?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO Coupon(couponId,TITLE,START_DATE,END_DATE,AMOUNT,TYPE,MESSAGE,PRICE,IMAGE) VALUES(?,?,?,?,?,?,?,?)";
 		try {
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setLong(1, coupon.getCouponId());
@@ -68,7 +68,7 @@ public class CouponDBDAO implements CouponDAO {
 		} catch (CouponException e) {
 			throw new CreateException("didnt success to connect " + e.getMessage());
 		}
-		String sql = "DELETE FROM Coupon WHERE id=?";
+		String sql = "DELETE FROM Coupon WHERE couponId=?";
 		try {
 			PreparedStatement pstm1 = connection.prepareStatement(sql);
 			connection.setAutoCommit(false);
@@ -106,7 +106,7 @@ public class CouponDBDAO implements CouponDAO {
 		}
 		try {
 			String sql = "UPDATE Coupon SET TITLE=?, START_DATE=?, END_DATE=?, AMOUNT=?,"
-					+ " TYPE=?, MESSAGE=?, PRICE=?, IMAGE=? WHERE ID=?";
+					+ " TYPE=?, MESSAGE=?, PRICE=?, IMAGE=? WHERE couponId=?";
 			PreparedStatement stm1 = connection.prepareStatement(sql);
 			stm1.setString(1, Coupon.getTitle());
 			stm1.setDate(2, (Date) Coupon.getStart_date());
@@ -145,7 +145,7 @@ public class CouponDBDAO implements CouponDAO {
 		Coupon coupon = new Coupon();
 		try {
 			Statement stm = connection.createStatement();
-			String sql = "SELECT * FROM Coupon WHERE ID=" + couponId;
+			String sql = "SELECT * FROM Coupon WHERE couponId=" + couponId;
 			ResultSet rs = stm.executeQuery(sql);
 			rs.next();
 			coupon.setCouponId(rs.getLong(1));
@@ -272,18 +272,18 @@ public class CouponDBDAO implements CouponDAO {
 	}
 
 	@Override
-	public void removeCouponID(long id) throws CouponException {
+	public void removeCouponID(long couponId) throws CouponException {
 		Connection connection;
 		try {
 			connection = pool.getConnection();
 		} catch (Exception e) {
 			throw new CouponException("Database error " + e.getMessage());
 		}
-		String sql = "DELETE FROM Coupon WHERE id=?";
+		String sql = "DELETE FROM Coupon WHERE couponId=?";
 		try {
 			PreparedStatement pstm1 = connection.prepareStatement(sql);
 			connection.setAutoCommit(false);
-			pstm1.setLong(1, id);
+			pstm1.setLong(1, couponId);
 			pstm1.executeUpdate();
 			connection.commit();
 

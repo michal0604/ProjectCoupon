@@ -11,7 +11,7 @@ import projectCoupon.Exception.UpdateException;
 public interface CustomerDAO {
 	void insertCustomer(Customer Customer) throws CreateException;
 
-	void removeCustomer(long custId) throws RemoveException;
+	void removeCustomer(long customerId) throws RemoveException;
 
 	void updateCustomer(Customer Customer) throws UpdateException;
 
@@ -19,12 +19,12 @@ public interface CustomerDAO {
 
 	List<Customer> getAllCustomer() throws CustomerException;
 
-	public Customer login(String name, String password) throws CustomerException;
+	public Customer login(String customerName, String password) throws CustomerException;
 
-	Customer getCustomer(String custName) throws CustomerException;
+	Customer getCustomer(String customerName) throws CustomerException;
 
-	Customer getCustomer(long cusomerId) throws CustomerException;
+	Customer getCustomer(long customerId) throws CustomerException;
 
-	boolean isCustomerNameExists(String custName) throws CouponException;
+	boolean isCustomerNameExists(String customerName) throws CouponException;
 
 }
