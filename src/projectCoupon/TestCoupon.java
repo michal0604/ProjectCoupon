@@ -4,23 +4,31 @@ package projectCoupon;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+import projectCoupon.Clients.AdminFacad;
+import projectCoupon.Clients.Utile;
+import projectCoupon.Coupons.Coupon;
+import projectCoupon.Coupons.CouponDBDAO;
+import projectCoupon.Coupons.couponType;
+
 public class TestCoupon {
 
 	public static void main(String[] args) throws Exception {
 
 		Class.forName(Database.getDriverData());
 		Connection con=DriverManager.getConnection(Database.getDBUrl());
-		Database.dropTableifNeeded();
-		Database.createTables();
+		//Database.dropTableifNeeded();
+	//	Database.createTables();
 		
 		
 
-	//    CouponFacade couponFacade = new CouponFacade();
-	//	Coupon a1=new Coupon(1, "pizzaHut", Utile.getCurrentDate(), Utile.getExpiredDate(), 50, couponType.food, "40 shekel for pizza", 40.7, "C:\\Users\\testlab\\Desktop\\תמונות של פרוייקט");
-	//	Coupon a2=new Coupon(2, "shoes", Utile.getCurrentDate(), Utile.getExpiredDate(), 50, couponType.Sports, "sale on shoes", 540.5, "shoes img");
+		CouponDBDAO couponDBDAO=new CouponDBDAO();
+	  
+		Coupon a1=new Coupon(1, "pizzaHut",Utile.getCurrentDate(), Utile.getDateAfter(12), 50, couponType.Camping, "40 shekel for pizza", 40.7, "jj");
+		Coupon a2=new Coupon(2, "shoes", Utile.getCurrentDate(), Utile.getDateAfter(4), 50, couponType.Sports, "sale on shoes", 540.5, "shoes img");
 	
-	//	couponFacade.insertCoupon(a1);
-	  //  couponFacade.insertCoupon(a2);
+		couponDBDAO.insertCoupon(a1);
+		couponDBDAO.insertCoupon(a2);
+	   // couponFacade.insertCoupon(a2);
 	//    System.out.println(couponFacade.getAllCoupons());
 	//    System.out.println(couponFacade.getCoupon(1));
 	  //  couponFacade.updateCoupon(a1, "pizzaHut", Utile.getCurrentDate(), Utile.getExpiredDate(), 89, couponType.food, "piza", 78.9, "pic");

@@ -26,15 +26,18 @@ public class CouponDBDAO implements CouponDAO {
 		}
 	}
 
+	private static ConnectionPool Pool;
+	
 	@Override
 	public void insertCoupon(Coupon coupon) throws CreateException {
+		
 		Connection connection = null;
 		try {
 			connection = pool.getConnection();
 		} catch (CouponException e) {
 			throw new CreateException("didnt success to connect " + e.getMessage());
 		}
-		String sql = "INSERT INTO Coupon(couponId,TITLE,START_DATE,END_DATE,AMOUNT,TYPE,MESSAGE,PRICE,IMAGE) VALUES(?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO Coupon(couponId,title,start_date,end_date,amount,type,message,price,image) VALUES(?,?,?,?,?,?,?,?)";
 		try {
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setLong(1, coupon.getCouponId());
