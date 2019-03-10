@@ -1,7 +1,7 @@
 package projectCoupon.Clients;
 
 
-	public enum clientType {
+	public enum ClientType {
 		ADMIN,
 		COMPANY,
 		CUSTOMER

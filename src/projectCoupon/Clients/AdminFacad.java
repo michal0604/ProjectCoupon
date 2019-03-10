@@ -11,29 +11,28 @@ import projectCoupon.Customer.CustomerDAO;
 import projectCoupon.Customer.CustomerDBDAO;
 import projectCoupon.Exception.CouponException;
 
-public class AdminFacad implements CouponClientFacade{
-	private static final String ADMINUSERNAME = "admin";
-	private static final String ADMINPASSWORD = "1234";
+public class AdminFacad extends CouponClientFacade{
+	private static final String ADMIN_USER_NAME = "admin";
+	private static final String ADMIN_PASSWORD = "1234";
 	private CompanyDAO companyDAO;
 	private CustomerDAO customerDAO;
-	//private CouponDAO couponDAO;
 
 
-	public AdminFacad() throws CouponException {
+
+	private AdminFacad() throws CouponException{
 		this.companyDAO = new CompanyDBDAO();
 		this.customerDAO = new CustomerDBDAO();
-		//this.couponDAO = new CouponDBDAO();
 	}
-	@Override
-	public CouponClientFacade login(String name, String password) throws Exception {
-		 if ( name.equals(ADMINUSERNAME) && password.equals(ADMINPASSWORD)) { 
-			 return this; 
-		 }	
-		 else {
+	
+	 public static CouponClientFacade login(String name, String password) throws CouponException{
+		if(name.equals(ADMIN_USER_NAME)&& password.equals(ADMIN_PASSWORD)) {
+			return new AdminFacad();
+		}
+		else {
+			return null;
+		}
+	}
 
-		return null;
-	}
-	}
 
 	
 	public void createCompany(Company company) throws CouponException, SQLException {

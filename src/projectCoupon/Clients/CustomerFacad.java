@@ -17,7 +17,7 @@ import projectCoupon.Exception.CreateException;
 import projectCoupon.Exception.CustomerException;
 import projectCoupon.Exception.UpdateException;
 
-public class CustomerFacad implements CouponClientFacade {
+public class CustomerFacad extends CouponClientFacade {
 
 	private CustomerDAO custDAO;
 	private CouponDAO couponDAO;
@@ -25,27 +25,19 @@ public class CustomerFacad implements CouponClientFacade {
 	private long custId = 0;
 	private Customer customer;
 
-	public CustomerFacad(Customer customer) throws CouponException {
-		this.customer = customer;
+	private CustomerFacad() throws CouponException {
 		custDAO = new CustomerDBDAO();
 		couponDAO = new CouponDBDAO();
 		customer_CouponDAO = new Customer_CouponDBDAO();
 	}
 
-	public CustomerFacad() throws CouponException {
-		custDAO = new CustomerDBDAO();
-		couponDAO = new CouponDBDAO();
-		customer_CouponDAO = new Customer_CouponDBDAO();
-	}
-
-	@Override
-	public CouponClientFacade login(String name, String password) throws Exception {
-		Customer customer = custDAO.login(name, password);
+	public static CouponClientFacade login(String name, String password) throws CustomerException, CouponException{
+		Customer customer = new CustomerDBDAO().login(name, password);
 		if (customer != null) {
-			// initiate customerId to remember in facade.
-			this.custId = customer.getCustomerId();
-			this.customer = customer;
-			return this;
+			CustomerFacad customerFacad = new CustomerFacad();
+			customerFacad.custId = customer.getCustomerId();
+			customerFacad.customer = customer;
+			return customerFacad;
 		} else {
 			return null;
 		}

@@ -3,20 +3,6 @@ package projectCoupon;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.util.Date;
-
-import javax.rmi.CORBA.Util;
-
-import org.apache.derby.client.am.Utils;
-
-import projectCoupon.Clients.CompanyFacade;
-import projectCoupon.Clients.Utile;
-import projectCoupon.Company_Coupon.Company_CouponFacad;
-import projectCoupon.Coupons.Coupon;
-import projectCoupon.Coupons.CouponDAO;
-import projectCoupon.Coupons.couponType;
-import projectCoupon.Customer_Coupon.Customer_Coupon;
-import projectCoupon.Customer_Coupon.Customer_CouponFacad;
 
 public class TestCoupon {
 
