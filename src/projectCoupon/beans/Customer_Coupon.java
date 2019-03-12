@@ -1,4 +1,4 @@
-package projectCoupon.Customer_Coupon;
+package projectCoupon.beans;
 
 public class Customer_Coupon {
 	private long customerId;

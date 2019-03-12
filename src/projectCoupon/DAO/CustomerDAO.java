@@ -1,4 +1,4 @@
-package projectCoupon.Customer;
+package projectCoupon.DAO;
 
 import java.util.List;
 
@@ -7,6 +7,7 @@ import projectCoupon.Exception.CreateException;
 import projectCoupon.Exception.CustomerException;
 import projectCoupon.Exception.RemoveException;
 import projectCoupon.Exception.UpdateException;
+import projectCoupon.beans.Customer;
 
 public interface CustomerDAO {
 	void insertCustomer(Customer Customer) throws CreateException;

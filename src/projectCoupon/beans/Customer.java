@@ -1,4 +1,4 @@
-package projectCoupon.Customer;
+package projectCoupon.beans;
 
 public class Customer {
 

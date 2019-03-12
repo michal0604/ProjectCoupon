@@ -1,4 +1,4 @@
-package projectCoupon.Customer_Coupon;
+package projectCoupon.DAO;
 
 
 import java.util.List;
@@ -7,6 +7,7 @@ import projectCoupon.Exception.CouponException;
 import projectCoupon.Exception.CreateException;
 import projectCoupon.Exception.RemoveException;
 import projectCoupon.Exception.UpdateException;
+import projectCoupon.beans.Customer_Coupon;
 
 public interface Customer_CouponDAO {
 	

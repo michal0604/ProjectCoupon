@@ -1,15 +1,15 @@
-package projectCoupon.Clients;
+package projectCoupon.facad;
 
 import java.sql.SQLException;
 import java.util.List;
 
-import projectCoupon.Company.Company;
-import projectCoupon.Company.CompanyDAO;
-import projectCoupon.Company.CompanyDBDAO;
-import projectCoupon.Customer.Customer;
-import projectCoupon.Customer.CustomerDAO;
-import projectCoupon.Customer.CustomerDBDAO;
+import projectCoupon.DAO.CompanyDAO;
+import projectCoupon.DAO.CustomerDAO;
+import projectCoupon.DBDAO.CompanyDBDAO;
+import projectCoupon.DBDAO.CustomerDBDAO;
 import projectCoupon.Exception.CouponException;
+import projectCoupon.beans.Company;
+import projectCoupon.beans.Customer;
 
 public class AdminFacad extends CouponClientFacade{
 	private static final String ADMIN_USER_NAME = "admin";

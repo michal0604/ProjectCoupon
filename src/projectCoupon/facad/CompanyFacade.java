@@ -1,22 +1,23 @@
-package projectCoupon.Clients;
+package projectCoupon.facad;
 
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import projectCoupon.Company.Company;
-import projectCoupon.Company.CompanyDAO;
-import projectCoupon.Company.CompanyDBDAO;
-import projectCoupon.Company_Coupon.Company_CouponDAO;
-import projectCoupon.Company_Coupon.Company_CouponDBDAO;
-import projectCoupon.Coupons.Coupon;
-import projectCoupon.Coupons.CouponDAO;
-import projectCoupon.Coupons.CouponDBDAO;
-import projectCoupon.Coupons.couponType;
+import projectCoupon.DAO.CompanyDAO;
+import projectCoupon.DAO.Company_CouponDAO;
+import projectCoupon.DAO.CouponDAO;
+import projectCoupon.DBDAO.CompanyDBDAO;
+import projectCoupon.DBDAO.Company_CouponDBDAO;
+import projectCoupon.DBDAO.CouponDBDAO;
 import projectCoupon.Exception.CompanyException;
 import projectCoupon.Exception.CouponException;
 import projectCoupon.Exception.CreateException;
+import projectCoupon.beans.Company;
+import projectCoupon.beans.Coupon;
+import projectCoupon.beans.couponType;
+import projectCoupon.utils.Utile;
 
 public class CompanyFacade extends CouponClientFacade {
 

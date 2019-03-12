@@ -4,19 +4,20 @@ package projectCoupon;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-import projectCoupon.Clients.AdminFacad;
-import projectCoupon.Clients.Utile;
-import projectCoupon.Company.Company;
-import projectCoupon.Company.CompanyDBDAO;
-import projectCoupon.Company_Coupon.Company_Coupon;
-import projectCoupon.Company_Coupon.Company_CouponDBDAO;
-import projectCoupon.Coupons.Coupon;
-import projectCoupon.Coupons.CouponDBDAO;
-import projectCoupon.Coupons.couponType;
-import projectCoupon.Customer.Customer;
-import projectCoupon.Customer.CustomerDBDAO;
-import projectCoupon.Customer_Coupon.Customer_Coupon;
-import projectCoupon.Customer_Coupon.Customer_CouponDBDAO;
+import projectCoupon.DB.Database;
+import projectCoupon.DBDAO.CompanyDBDAO;
+import projectCoupon.DBDAO.Company_CouponDBDAO;
+import projectCoupon.DBDAO.CouponDBDAO;
+import projectCoupon.DBDAO.CustomerDBDAO;
+import projectCoupon.DBDAO.Customer_CouponDBDAO;
+import projectCoupon.beans.Company;
+import projectCoupon.beans.Company_Coupon;
+import projectCoupon.beans.Coupon;
+import projectCoupon.beans.Customer;
+import projectCoupon.beans.Customer_Coupon;
+import projectCoupon.beans.couponType;
+import projectCoupon.facad.AdminFacad;
+import projectCoupon.utils.Utile;
 
 public class TestCoupon {
 

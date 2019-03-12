@@ -1,4 +1,4 @@
-package projectCoupon.Coupons;
+package projectCoupon.beans;
 
 import java.util.Date;
 

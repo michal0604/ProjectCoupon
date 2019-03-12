@@ -1,4 +1,4 @@
-package projectCoupon.Clients;
+package projectCoupon.utils;
 
 import java.sql.Date;
 import java.time.LocalDate;

@@ -1,10 +1,11 @@
-package projectCoupon.Clients;
+package projectCoupon.facad;
 
 import java.sql.SQLException;
 
 import projectCoupon.Exception.CompanyException;
 import projectCoupon.Exception.CouponException;
 import projectCoupon.Exception.CustomerException;
+import projectCoupon.utils.ClientType;
 
 public abstract class CouponClientFacade {
 

@@ -1,4 +1,4 @@
-package projectCoupon.Coupons;
+package projectCoupon.DAO;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -7,6 +7,8 @@ import projectCoupon.Exception.CouponException;
 import projectCoupon.Exception.CreateException;
 import projectCoupon.Exception.RemoveException;
 import projectCoupon.Exception.UpdateException;
+import projectCoupon.beans.Coupon;
+import projectCoupon.beans.couponType;
 
 public interface CouponDAO {
 	void insertCoupon(Coupon Coupon) throws CreateException, SQLException;

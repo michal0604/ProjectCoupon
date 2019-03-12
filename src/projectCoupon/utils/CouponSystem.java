@@ -1,11 +1,10 @@
-package projectCoupon;
+package projectCoupon.utils;
 
 import java.sql.Connection;
 
-import projectCoupon.Clients.ClientType;
-import projectCoupon.Clients.CouponClientFacade;
 import projectCoupon.Exception.CouponException;
 import projectCoupon.Exception.DailyCouponException;
+import projectCoupon.facad.CouponClientFacade;
 
 public class CouponSystem {
 

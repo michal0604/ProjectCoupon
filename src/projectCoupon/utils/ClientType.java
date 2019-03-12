@@ -1,4 +1,4 @@
-package projectCoupon.Clients;
+package projectCoupon.utils;
 
 
 	public enum ClientType {

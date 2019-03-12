@@ -1,4 +1,4 @@
-package projectCoupon.Coupons;
+package projectCoupon.DBDAO;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -9,11 +9,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import projectCoupon.ConnectionPool;
+import projectCoupon.DAO.CouponDAO;
 import projectCoupon.Exception.CouponException;
 import projectCoupon.Exception.CreateException;
 import projectCoupon.Exception.RemoveException;
 import projectCoupon.Exception.UpdateException;
+import projectCoupon.beans.Coupon;
+import projectCoupon.beans.couponType;
+import projectCoupon.utils.ConnectionPool;
 
 public class CouponDBDAO implements CouponDAO {
 	private ConnectionPool pool;

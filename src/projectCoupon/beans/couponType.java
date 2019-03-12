@@ -1,4 +1,4 @@
-package projectCoupon.Coupons;
+package projectCoupon.beans;
 
 public enum couponType {
 	food,

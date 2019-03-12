@@ -1,4 +1,4 @@
-package projectCoupon.Company;
+package projectCoupon.beans;
 
 /**
  * this calls is for an object representing Company data

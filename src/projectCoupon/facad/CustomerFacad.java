@@ -1,21 +1,22 @@
-package projectCoupon.Clients;
+package projectCoupon.facad;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import projectCoupon.Coupons.Coupon;
-import projectCoupon.Coupons.CouponDAO;
-import projectCoupon.Coupons.CouponDBDAO;
-import projectCoupon.Coupons.couponType;
-import projectCoupon.Customer.Customer;
-import projectCoupon.Customer.CustomerDAO;
-import projectCoupon.Customer.CustomerDBDAO;
-import projectCoupon.Customer_Coupon.Customer_CouponDAO;
-import projectCoupon.Customer_Coupon.Customer_CouponDBDAO;
+import projectCoupon.DAO.CouponDAO;
+import projectCoupon.DAO.CustomerDAO;
+import projectCoupon.DAO.Customer_CouponDAO;
+import projectCoupon.DBDAO.CouponDBDAO;
+import projectCoupon.DBDAO.CustomerDBDAO;
+import projectCoupon.DBDAO.Customer_CouponDBDAO;
 import projectCoupon.Exception.CouponException;
 import projectCoupon.Exception.CreateException;
 import projectCoupon.Exception.CustomerException;
 import projectCoupon.Exception.UpdateException;
+import projectCoupon.beans.Coupon;
+import projectCoupon.beans.Customer;
+import projectCoupon.beans.couponType;
+import projectCoupon.utils.Utile;
 
 public class CustomerFacad extends CouponClientFacade {
 

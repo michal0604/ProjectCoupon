@@ -1,4 +1,4 @@
-package projectCoupon.Customer;
+package projectCoupon.DBDAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,12 +8,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import projectCoupon.ConnectionPool;
+import projectCoupon.DAO.CustomerDAO;
 import projectCoupon.Exception.CouponException;
 import projectCoupon.Exception.CreateException;
 import projectCoupon.Exception.CustomerException;
 import projectCoupon.Exception.RemoveException;
 import projectCoupon.Exception.UpdateException;
+import projectCoupon.beans.Customer;
+import projectCoupon.utils.ConnectionPool;
 
 public class CustomerDBDAO implements CustomerDAO {
 	private ConnectionPool pool;
