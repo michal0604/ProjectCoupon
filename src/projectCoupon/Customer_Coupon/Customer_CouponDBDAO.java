@@ -36,7 +36,7 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 		} catch (Exception e) {
 			throw new RemoveException("connection failed " + e.getMessage());
 		}
-		String sql = "DELETE FROM CUSTOMER_COUPON  WHERE customerId=? AND couponId=?";
+		String sql = "DELETE FROM CUSTOMER_COUPON  WHERE customer_ID=? AND coupon_Id=?";
 
 		try {
 			PreparedStatement stm = connection.prepareStatement(sql);
@@ -75,7 +75,7 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 		} catch (Exception e1) {
 			throw new CreateException("connection failed");
 		}
-		String sql = "INSERT INTO Customer_Coupon(customerId,couponId) VALUES(?,?)";
+		String sql = "INSERT INTO Customer_Coupon(Customer_ID, Coupon_ID) VALUES(?,?)";
 
 		try {
 			PreparedStatement pstmt = connection.prepareStatement(sql);
@@ -173,7 +173,7 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 		}
 		try {
 			Statement stm = connection.createStatement();
-			String sql = "UPDATE Customer_Coupon " + " SET customerId='" + customerId + "', coupon_Id='" + couponId
+			String sql = "UPDATE Customer_Coupon " + " SET customer_Id='" + customerId + "', coupon_Id='" + couponId
 					+ "' WHERE ID=" + customerId + AND + "' WHERE ID=" + couponId;
 			stm.executeUpdate(sql);
 		} catch (SQLException e) {
@@ -201,7 +201,7 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 			throw new RemoveException("connection failed " + e.getMessage());
 		}
 
-		String sql = "delete from Customer_Coupon where customerId = ?";
+		String sql = "delete from Customer_Coupon where customer_Id = ?";
 
 		try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
@@ -236,7 +236,7 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 	public boolean isCouponPurchasedByCustomer(long customerId, long couponId) throws CouponException {
 		Connection connection = pool.getConnection();
 		try {
-			String sql = "SELECT couponId FROM Customer_Coupon WHERE customerId = ? AND couponId = ? ";
+			String sql = "SELECT coupon_Id FROM Customer_Coupon WHERE customer_Id = ? AND coupon_Id = ? ";
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setLong(1, customerId);
 			pstmt.setLong(2, couponId);
@@ -266,7 +266,7 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 			throw new RemoveException("connection failed " + e.getMessage());
 		}
 
-		String sql = "delete from Customer_Coupon where couponId = ?";
+		String sql = "delete from Customer_Coupon where ID = ?";
 
 		try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 

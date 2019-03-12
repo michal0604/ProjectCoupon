@@ -6,9 +6,17 @@ import java.sql.DriverManager;
 
 import projectCoupon.Clients.AdminFacad;
 import projectCoupon.Clients.Utile;
+import projectCoupon.Company.Company;
+import projectCoupon.Company.CompanyDBDAO;
+import projectCoupon.Company_Coupon.Company_Coupon;
+import projectCoupon.Company_Coupon.Company_CouponDBDAO;
 import projectCoupon.Coupons.Coupon;
 import projectCoupon.Coupons.CouponDBDAO;
 import projectCoupon.Coupons.couponType;
+import projectCoupon.Customer.Customer;
+import projectCoupon.Customer.CustomerDBDAO;
+import projectCoupon.Customer_Coupon.Customer_Coupon;
+import projectCoupon.Customer_Coupon.Customer_CouponDBDAO;
 
 public class TestCoupon {
 
@@ -16,10 +24,17 @@ public class TestCoupon {
 
 		Class.forName(Database.getDriverData());
 		Connection con=DriverManager.getConnection(Database.getDBUrl());
-		//Database.dropTableifNeeded();
-	//	Database.createTables();
+		Database.dropTableifNeeded();
+		Database.createTables();
 		
 		
+		CompanyDBDAO companyDBDAO=new CompanyDBDAO();
+		Company s1=new Company(1, "HP", "1234", "EB@HH");
+		Company s2=new Company(2, "eci", "222", "ff@kk");
+		companyDBDAO.insertCompany(s1);
+		companyDBDAO.insertCompany(s2);
+	
+	//	companyDBDAO.removeCompany(s2);
 
 		CouponDBDAO couponDBDAO=new CouponDBDAO();
 	  
@@ -28,70 +43,56 @@ public class TestCoupon {
 	
 		couponDBDAO.insertCoupon(a1);
 		couponDBDAO.insertCoupon(a2);
-	   // couponFacade.insertCoupon(a2);
-	//    System.out.println(couponFacade.getAllCoupons());
-	//    System.out.println(couponFacade.getCoupon(1));
-	  //  couponFacade.updateCoupon(a1, "pizzaHut", Utile.getCurrentDate(), Utile.getExpiredDate(), 89, couponType.food, "piza", 78.9, "pic");
-	//    System.out.println(couponFacade.getAllCoupons());
-	   // couponFacade.removeCoupon(a2);
-	   // System.out.println(couponFacade.getAllCoupons());
+	  System.out.println(couponDBDAO.getAllCoupons()); 
+	 // couponDBDAO.updateCoupon(a2);??????
+	
+	 
 	 //   System.out.println("------------------------------------------------------------------"); 
-	//	Company p1 = new Company(1, "HP", "HP-1234", "HP@co.il");
-	//	Company p2 = new Company(2, "ECI", "ECI1-234", "ECI@co.il");
-	//	Company p3 = new Company(4, "Intel", "INTEL-1234", "INTEL@co.il");
+	
 
-	//	CompanyFacade CompanyFacade = new CompanyFacade();
-	//	CompanyFacade.insertCompany(p1);
-	//	CompanyFacade.insertCompany(p2);
-	//	CompanyFacade.insertCompany(p3);
-	//	System.out.println(CompanyFacade.getAllCompany());
-	//	System.out.println(CompanyFacade.getCompany(1));
-	//	CompanyFacade.updateCompany(p3, "AMDOCS", "AMDOCS-1234", "AMDOCS@co.il");
 		
      //	System.out.println("-------------------------------------------------------------");
 	
-	//CustomerFacade customerFacade=new CustomerFacade();
-	//	Customer  c1=new Customer(1, "URI", "1234");
-	//	Customer  c2=new Customer(2, "Oz", "2345");
-	//	Customer  c3=new Customer(3, "Pazit", "3456");	
-	//	customerFacade.insertCustomer(c1);
-	//	customerFacade.insertCustomer(c2);
-	//	customerFacade.insertCustomer(c3);
-    //    System.out.println(customerFacade.getAllCustomer());
-    //    System.out.println(customerFacade.getCustomer(1));
-    //    customerFacade.updateCustomer(c3, "Yossi", "6789");
+	CustomerDBDAO customerDBDAO=new CustomerDBDAO();
+		Customer  c1=new Customer(1, "URI", "1234");
+		Customer  c2=new Customer(2, "Oz", "2345");
+		Customer  c3=new Customer(3, "Pazit", "3456");	
+	customerDBDAO.insertCustomer(c1);
+	customerDBDAO.insertCustomer(c2);
+	customerDBDAO.insertCustomer(c3);
+    System.out.println(customerDBDAO.getAllCustomer());
     //    System.out.println("---------------------------------------------------------");
 		
-	//	Customer_CouponFacad customer_CouponFacad=new Customer_CouponFacad();
-	//	Customer_Coupon cnc1= new Customer_Coupon(1,1);
-	//	Customer_Coupon cnc2= new Customer_Coupon(2,1);
-	//	Customer_Coupon cnc3= new Customer_Coupon(2,2);
+	Customer_CouponDBDAO customer_CouponDBDAO=new Customer_CouponDBDAO();
+		Customer_Coupon cnc1= new Customer_Coupon(1,1);
+		Customer_Coupon cnc2= new Customer_Coupon(2,1);
+		Customer_Coupon cnc3= new Customer_Coupon(2,2);
 		
-	//	customer_CouponFacad.insertCustomer_Coupon(cnc1);
-	//	customer_CouponFacad.insertCustomer_Coupon(cnc2);
-	//	customer_CouponFacad.insertCustomer_Coupon(cnc3);
-		/*
+		customer_CouponDBDAO.insertCustomer_Coupon(1, 1);
+		customer_CouponDBDAO.insertCustomer_Coupon(2, 1);
+		customer_CouponDBDAO.insertCustomer_Coupon(2, 2);
+	
 		System.out.println("ALL");
-		System.out.println(customer_CouponFacad.getAllCustomer_Coupon());
+		System.out.println(customer_CouponDBDAO.getAllCustomer_Coupon());
      	System.out.println("BY customerId");
-		System.out.println(customer_CouponFacad.getCouponsByCustomerId(1));
+		System.out.println(customer_CouponDBDAO.getCouponsByCustomerId(1));
 		System.out.println("BY couponId");
-		System.out.println(customer_CouponFacad.getCustomersByCouponId(2));
+		System.out.println(customer_CouponDBDAO.getCustomersByCouponId(2));
 		
 		System.out.println("---------------------------------------------------------------");
-     	Company_CouponFacad company_CouponFacad=new Company_CouponFacad();
-     	//Company_Coupon b1=new Company_Coupon(1, 2);
-    // 	Company_Coupon b2=new Company_Coupon(1, 1);
+     	Company_CouponDBDAO company_CouponDBDAO=new Company_CouponDBDAO();
+     	Company_Coupon b1=new Company_Coupon(1, 2);
+     	Company_Coupon b2=new Company_Coupon(1, 1);
      	
-     	company_CouponFacad.insertCompany_Coupon(1,2);
-     	company_CouponFacad.insertCompany_Coupon(1,1);
+     	company_CouponDBDAO.insertCompany_Coupon(1,2);
+     	company_CouponDBDAO.insertCompany_Coupon(1,1);
      	System.out.println("ALL");
-     	System.out.println(company_CouponFacad.getAllCCompany_Coupon());
+     	System.out.println(company_CouponDBDAO.getAllCompany_Coupons());
      	System.out.println("BY companyId");
-     	System.out.println(company_CouponFacad.getCouponsByCompanyId(1));
+     	System.out.println(company_CouponDBDAO.getCouponsByCompanyId(1));
      	System.out.println("BY couponId");
-		System.out.println(company_CouponFacad.getCompanysByCouponId(2));
-     */
+		System.out.println(company_CouponDBDAO.getCompanysByCouponId(1));
+     
    
 		
 

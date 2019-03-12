@@ -51,8 +51,9 @@ public class CompanyDBDAO implements CompanyDAO {
 	 */
 	@Override
 	public void insertCompany(Company Company) throws CouponException, SQLException {
+		pool=ConnectionPool.getInstance();
 		Connection connection = pool.getConnection();
-		String sql = "INSERT INTO Company (companyId,compName,PASSWORD,EMAIL) VALUES(?,?,?)";
+		String sql  = "insert into Company(ID, COMP_NAME, PASSWORD, EMAIL) values (?,?,?,?)";
 
 		try {
 			PreparedStatement pstmt = connection.prepareStatement(sql);
@@ -85,7 +86,7 @@ public class CompanyDBDAO implements CompanyDAO {
 	@Override
 	public void removeCompany(Company Company) throws CouponException, SQLException {
 		Connection connection = pool.getConnection();
-		String sql = "DELETE FROM Company WHERE companyId=?";
+		String sql = "delete from Company where ID = ?";
 		try {
 			PreparedStatement pstm1 = connection.prepareStatement(sql);
 			connection.setAutoCommit(false);
@@ -127,8 +128,9 @@ public class CompanyDBDAO implements CompanyDAO {
 		try {
 
 			Statement stm = connection.createStatement();
-			String sql = "UPDATE Company " + " SET compName='" + Company.getCompName() + "', PASSWORD='"
-					+ Company.getPassword() + "',EMAIL='" + Company.getEmail() + "' WHERE ID=" + Company.getCompanyId();
+			String sql = String.format("update Company set COMP_NAME= '%s',PASSWORD = '%s', EMAIL= '%s' where ID = %d",
+					Company.getCompName(), Company.getPassword(), Company.getEmail(),
+					Company.getCompanyId());
 			stm.executeUpdate(sql);
 		} catch (Exception e) {
 			throw new CompanyException("update failed");
@@ -167,12 +169,13 @@ public class CompanyDBDAO implements CompanyDAO {
 	 */
 	@Override
 	public Company getCompany(long companyId) throws CouponException, SQLException {
+		pool=ConnectionPool.getInstance();
 		Connection connection = pool.getConnection();
 		Company company = new Company();
 		try {
 			Statement stm = connection.createStatement();
 
-			String sql = "SELECT * FROM Company WHERE companyId=" + companyId;
+			String sql = "SELECT * FROM Company WHERE ID=" + companyId;
 			ResultSet rs = stm.executeQuery(sql);
 			rs.next();
 			company.setCompanyId(rs.getLong(1));
@@ -247,7 +250,7 @@ public class CompanyDBDAO implements CompanyDAO {
 	public boolean isCompanyNameExists1(String compName) throws CouponException, SQLException {
 		Connection connection = pool.getConnection();
 		try {
-			String sql = "SELECT companyId FROM Company WHERE compName = ? ";
+			String sql = "SELECT ID FROM Company WHERE COMP_NAME = ? ";
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, compName);
 			ResultSet rs = pstmt.executeQuery();
@@ -287,7 +290,7 @@ public class CompanyDBDAO implements CompanyDAO {
 		Connection connection = pool.getConnection();
 		Company company = new Company();
 		try {
-			String sql = "SELECT companyId FROM Company WHERE compName = ? ";
+			String sql = "SELECT ID FROM Company WHERE COMP_NAME = ? ";
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, compName);
 			ResultSet rs = pstmt.executeQuery();
@@ -320,7 +323,7 @@ public class CompanyDBDAO implements CompanyDAO {
 	public boolean isCompanyNameExists(String compName) throws CouponException {
 		Connection connection = pool.getConnection();
 		try {
-			String sql = "SELECT companyId FROM Company WHERE compName = ? ";
+			String sql = "SELECT ID FROM Company WHERE COMP_NAME = ? ";
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, compName);
 			ResultSet rs = pstmt.executeQuery();

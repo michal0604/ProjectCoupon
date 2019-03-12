@@ -34,7 +34,7 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 		} catch (CouponException e2) {
 			throw new RemoveException("connection failed");
 		}
-		String sql = "DELETE FROM COMPANY_COUPON  WHERE companyId=? AND couponId=?";
+		String sql = "DELETE FROM COMPANY_COUPON  WHERE company_ID=? AND Coupon_ID=?";
 
 		try {
 			PreparedStatement stm = connection.prepareStatement(sql);
@@ -127,7 +127,7 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 		}
 		try {
 			Statement stm = connection.createStatement();
-			String sql = "UPDATE Company_Coupon " + " SET companyId='" + companyId + "', coupon_Id='" + couponId
+			String sql = "UPDATE Company_Coupon " + " SET company_ID='" + companyId + "', coupon_ID='" + couponId
 					+ "' WHERE ID=" + companyId + AND + "' WHERE ID=" + couponId;
 			stm.executeUpdate(sql);
 		} catch (SQLException e) {
@@ -149,7 +149,7 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 	public void removeCompany_CouponByCouponId(long couponId) throws CouponException, RemoveException {
 		Connection connection;
 		connection = pool.getConnection();
-		String sql = "delete from Company_Coupon where couponId = ?";
+		String sql = "delete from Company_Coupon where coupon_ID = ?";
 		try {
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			connection.setAutoCommit(false);
@@ -187,7 +187,7 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 		} catch (CouponException e) {
 			throw new RemoveException("connection failed " + e.getMessage());
 		}
-		String sql = "delete from Company_Coupon where companyId = ?";
+		String sql = "delete from Company_Coupon where company_ID = ?";
 
 		try {
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -227,7 +227,7 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 			throw new CreateException("connection failed");
 		}
 
-		String sql = "INSERT INTO Company_Coupon(companyId,couponId) VALUES(?,?)";
+		String sql = "insert into Company_Coupon (Company_ID, Coupon_ID) values (?,?)";
 
 		try {
 
@@ -262,7 +262,7 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 	public boolean isCouponExistsForCompany(long companyId, long couponId) throws CouponException {
 		Connection connection = pool.getConnection();
 		try {
-			String sql = "SELECT couponId FROM Company_Coupon WHERE companyId = ? AND couponId = ? ";
+			String sql = "SELECT coupon_Id FROM Company_Coupon WHERE company_Id = ? AND coupon_Id = ? ";
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setLong(1, companyId);
 			pstmt.setLong(2, couponId);

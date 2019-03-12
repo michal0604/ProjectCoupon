@@ -37,7 +37,7 @@ public class CouponDBDAO implements CouponDAO {
 		} catch (CouponException e) {
 			throw new CreateException("didnt success to connect " + e.getMessage());
 		}
-		String sql = "INSERT INTO Coupon(couponId,title,start_date,end_date,amount,type,message,price,image) VALUES(?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO Coupon (ID,title,start_date,end_date,amount,type,message,price,image) VALUES(?,?,?,?,?,?,?,?,?)";
 		try {
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setLong(1, coupon.getCouponId());
@@ -75,7 +75,7 @@ public class CouponDBDAO implements CouponDAO {
 		} catch (CouponException e) {
 			throw new CreateException("didnt success to connect " + e.getMessage());
 		}
-		String sql = "DELETE FROM Coupon WHERE couponId=?";
+		String sql = "DELETE FROM Coupon WHERE ID=?";
 		try {
 			PreparedStatement pstm1 = connection.prepareStatement(sql);
 			connection.setAutoCommit(false);
@@ -113,7 +113,7 @@ public class CouponDBDAO implements CouponDAO {
 		}
 		try {
 			String sql = "UPDATE Coupon SET TITLE=?, START_DATE=?, END_DATE=?, AMOUNT=?,"
-					+ " TYPE=?, MESSAGE=?, PRICE=?, IMAGE=? WHERE couponId=?";
+					+ " TYPE=?, MESSAGE=?, PRICE=?, IMAGE=? WHERE ID=?";
 			PreparedStatement stm1 = connection.prepareStatement(sql);
 			stm1.setString(1, Coupon.getTitle());
 			stm1.setDate(2, (Date) Coupon.getStart_date());
@@ -152,7 +152,7 @@ public class CouponDBDAO implements CouponDAO {
 		Coupon coupon = new Coupon();
 		try {
 			Statement stm = connection.createStatement();
-			String sql = "SELECT * FROM Coupon WHERE couponId=" + couponId;
+			String sql = "SELECT * FROM Coupon WHERE ID=" + couponId;
 			ResultSet rs = stm.executeQuery(sql);
 			rs.next();
 			coupon.setCouponId(rs.getLong(1));
@@ -286,7 +286,7 @@ public class CouponDBDAO implements CouponDAO {
 		} catch (Exception e) {
 			throw new CouponException("Database error " + e.getMessage());
 		}
-		String sql = "DELETE FROM Coupon WHERE couponId=?";
+		String sql = "DELETE FROM Coupon WHERE ID=?";
 		try {
 			PreparedStatement pstm1 = connection.prepareStatement(sql);
 			connection.setAutoCommit(false);
@@ -328,7 +328,7 @@ public class CouponDBDAO implements CouponDAO {
 			throw new CouponException("connection failed " + e.getMessage());
 		}
 		try {
-			String sql = "SELECT id FROM app.Coupon WHERE end_date < CURRENT_DATE ";
+			String sql = "SELECT ID FROM app.Coupon WHERE end_date < CURRENT_DATE ";
 			Statement pstmt = connection.createStatement();
 			ResultSet rs = pstmt.executeQuery(sql);
 			while (rs.next()) {
@@ -482,7 +482,7 @@ public class CouponDBDAO implements CouponDAO {
 			throw new CouponException("connection failed");
 		}
 		try {
-			String sql = "SELECT couponId FROM Coupon WHERE title = ? ";
+			String sql = "SELECT ID FROM Coupon WHERE title = ? ";
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, Title);
 			ResultSet rs = pstmt.executeQuery();
