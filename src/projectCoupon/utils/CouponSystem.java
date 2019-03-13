@@ -1,9 +1,9 @@
 package projectCoupon.utils;
 
 import java.sql.Connection;
-
 import projectCoupon.Exception.CouponException;
 import projectCoupon.Exception.DailyCouponException;
+import projectCoupon.facad.AdminFacad;
 import projectCoupon.facad.CouponClientFacade;
 
 public class CouponSystem {
@@ -12,19 +12,20 @@ public class CouponSystem {
 	DailyCouponExpirationTask DailyTask;
 	Thread thread;
 	Connection connection;
-
+	
 	/**
 	 * Thread timer - 1000*3600*24 is every 24 hours
 	 */
 	private static final int DAY = 1000 * 3600 * 24;
 	private static final int SLEEPTIME = 1 * DAY;
 
-	public CouponSystem() throws CouponException {
+	private CouponSystem() throws CouponException {
 		// Activate the daily Coupons Deletion Demon (Thread)
 		DailyTask = new DailyCouponExpirationTask(SLEEPTIME);
 		thread = new Thread(DailyTask);
 		thread.start();
 	}
+	
 
 	public static CouponSystem getInstance() throws CouponException {
 		if (instance == null)
@@ -32,16 +33,16 @@ public class CouponSystem {
 		return instance;
 	}
 
-	public CouponClientFacade login(String user, String pass, ClientType clientType) throws CouponException {
+	
 
-		CouponClientFacade couponClientFacade = CouponClientFacade.login(clientType, user, pass);
+		public  CouponClientFacade login(String name, String password,ClientType clientType) throws Exception {
+			try {
+				switch (clientType) {
 
-		if (couponClientFacade != null) {
-			return couponClientFacade;
-		} else {
-			throw new CouponException("Login Falied! Invalid User or Password!");
-		}
-	}
+				case ADMIN;
+				
+					
+					
 
 	/**
 	 * Shutdown system. Close all Connection Pool connections. Stop daily coupon

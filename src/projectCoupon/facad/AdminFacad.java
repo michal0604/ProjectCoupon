@@ -4,33 +4,43 @@ import java.sql.SQLException;
 import java.util.List;
 
 import projectCoupon.DAO.CompanyDAO;
+import projectCoupon.DAO.Company_CouponDAO;
 import projectCoupon.DAO.CustomerDAO;
+import projectCoupon.DAO.Customer_CouponDAO;
 import projectCoupon.DBDAO.CompanyDBDAO;
+import projectCoupon.DBDAO.Company_CouponDBDAO;
 import projectCoupon.DBDAO.CustomerDBDAO;
+import projectCoupon.DBDAO.Customer_CouponDBDAO;
 import projectCoupon.Exception.CouponException;
 import projectCoupon.beans.Company;
+import projectCoupon.beans.Company_Coupon;
 import projectCoupon.beans.Customer;
+import projectCoupon.utils.ClientType;
 
-public class AdminFacad extends CouponClientFacade{
+    public class AdminFacad implements CouponClientFacade{
 	private static final String ADMIN_USER_NAME = "admin";
 	private static final String ADMIN_PASSWORD = "1234";
 	private CompanyDAO companyDAO;
 	private CustomerDAO customerDAO;
+	private Company_CouponDAO company_CouponDAO;
+	private Customer_CouponDAO customer_CouponDAO;
 
 
 
 	private AdminFacad() throws CouponException{
 		this.companyDAO = new CompanyDBDAO();
 		this.customerDAO = new CustomerDBDAO();
+		this.customer_CouponDAO=new Customer_CouponDBDAO();
+		this.company_CouponDAO=new Company_CouponDBDAO();
 	}
 	
-	 public static CouponClientFacade login(String name, String password) throws CouponException{
-		if(name.equals(ADMIN_USER_NAME)&& password.equals(ADMIN_PASSWORD)) {
-			return new AdminFacad();
-		}
-		else {
-			return null;
-		}
+	@Override
+	public boolean login(String name, String password, ClientType clientType) throws Exception {
+		 if ( name.equals(this.ADMIN_USER_NAME) && password.equals(this.ADMIN_PASSWORD)) { 
+			 return true; 
+		 }	
+
+		return false;
 	}
 
 
@@ -60,18 +70,13 @@ public class AdminFacad extends CouponClientFacade{
 			throw new CouponException("Company Information Not Exist! Create New Company Failed!"); 
 		}	
 	}
-	public void insertCompany(Company Company) throws Exception {
-		//TODO update the exception to the suited one
-		companyDAO.insertCompany(Company);
-	}
 	
 	
-	public void removeCompany(long compId) throws Exception {
-		if (compId > 0) {
-			companyDAO.removeCompany(compId);
-		} else {
-			throw new CouponException(" Remove Company is Canceled"); 
-		}
+	
+	public void removeCompany(Company company) throws Exception {
+		    company_CouponDAO.removeCompany_Coupon(company);
+			companyDAO.removeCompany(company);
+			
 	}
 	
 	
@@ -121,6 +126,7 @@ public class AdminFacad extends CouponClientFacade{
 	
 	
 	public void removeCustomer(Customer customer) throws Exception {
+		customer_CouponDAO.removeCustomer_Coupon(customer);
 		customerDAO.removeCustomer(customer);
 	}
 	
@@ -138,12 +144,25 @@ public class AdminFacad extends CouponClientFacade{
 	public Customer getCustomer(long id) throws Exception {
 		return customerDAO.getCustomer(id);
 	}
+
+
+
+
+
+	
+	}
+
+	
+	
+
+	
+
 	
 	
 	
 
 
 	
-}
+
 
 

@@ -1,29 +1,13 @@
 package projectCoupon.facad;
 
-import java.sql.SQLException;
-
-import projectCoupon.Exception.CompanyException;
-import projectCoupon.Exception.CouponException;
-import projectCoupon.Exception.CustomerException;
 import projectCoupon.utils.ClientType;
 
-public abstract class CouponClientFacade {
+public interface CouponClientFacade {
 
 
-	public static CouponClientFacade login(String name, String password) throws CouponException , SQLException, CompanyException,CustomerException{return null;};
+	public boolean login(String name, String password,ClientType clientType) throws Exception;
 
-	public static CouponClientFacade login(ClientType type,String name, String password) throws CouponException {
-		if(type.equals(ClientType.ADMIN)) {
-			return AdminFacad.login(name, password);
-		}
-		else if(type.equals(ClientType.COMPANY)){
-			return AdminFacad.login(name, password);
-		}
-		else if(type.equals(ClientType.CUSTOMER)){
-			return AdminFacad.login(name, password);
-		}
-		return null;
-	}
+	
 	
 }
 

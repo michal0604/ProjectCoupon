@@ -359,7 +359,8 @@ public class CouponDBDAO implements CouponDAO {
 			throw new CouponException("Database error");
 		}
 		List<Coupon> list = new ArrayList<Coupon>();
-		String sql = String.format("select * from Coupon where TYPE = '%s'", coupType.name());
+		String sql = "select * from Coupon where TYPE=" + coupType;
+				
 
 		try {
 			Statement statement = connection.createStatement();
@@ -397,14 +398,74 @@ public class CouponDBDAO implements CouponDAO {
 
 	@Override
 	public List<Coupon> getAllCouponsByDate(String untilDate) throws CouponException {
-		// TODO generated getAllCouponsByDate
-		return null;
+		Connection connection;
+		try {
+			connection = pool.getConnection();
+		} catch (Exception e) {
+			throw new CouponException("Database error " + e.getMessage());
+		}
+		List<Coupon> set = new ArrayList<Coupon>();
+		Coupon coupon;
+		String sql = "select * from Coupon where end_date="+ untilDate;
+		try {
+			Statement stm = connection.createStatement();
+			ResultSet rs = stm.executeQuery(sql);
+			while (rs.next()) {
+				coupon = new Coupon();
+				coupon.setCouponId(rs.getLong(1));
+				coupon.setTitle(rs.getString(2));
+				coupon.setStart_date(rs.getDate(3));
+				coupon.setEnd_date(rs.getDate(4));
+				coupon.setAmount(rs.getInt(5));
+				coupon.setMessage(rs.getString(7));
+				coupon.setPrice(rs.getDouble(8));
+				coupon.setImage(rs.getString(9));
+				switch (rs.getString(6)) {
+				case "food":
+					coupon.setType(couponType.food);
+					break;
+				case "Resturans":
+					coupon.setType(couponType.Resturans);
+					break;
+				case "Electricity":
+					coupon.setType(couponType.Electricity);
+					break;
+				case "Health":
+					coupon.setType(couponType.Health);
+					break;
+				case "Sports":
+					coupon.setType(couponType.Sports);
+					break;
+				case "Camping":
+					coupon.setType(couponType.Camping);
+					break;
+				case "Traveling":
+					coupon.setType(couponType.Traveling);
+					break;
+				default:
+					System.out.println("Coupon not existent");
+					break;
+				}
+				set.add(coupon);
+			}
+		} catch (SQLException e) {
+			System.out.println(e);
+			throw new CouponException("cannot get Coupon data " + e.getMessage());
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				throw new CouponException("Database error " + e.getMessage());
+			}
+			try {
+				pool.returnConnection(connection);
+			} catch (Exception e) {
+				throw new CouponException("Database error " + e.getMessage());
+			}
+		}
+		return set;
 	}
 
-	@Override
-	public void removeCoupon(long coupId) throws CouponException, CreateException, RemoveException {
-		removeCoupon(getCoupon(coupId));
-	}
 
 	@Override
 	public List<Coupon> getAllCouponsByPrice(double priceMax) throws CouponException {
@@ -416,7 +477,7 @@ public class CouponDBDAO implements CouponDAO {
 		}
 		List<Coupon> set = new ArrayList<Coupon>();
 		Coupon coupon;
-		String sql = String.format("select * from Coupon where Price = '%f'", priceMax);
+		String sql = "select * from Coupon where Price = "+ priceMax;
 		try {
 			Statement stm = connection.createStatement();
 			ResultSet rs = stm.executeQuery(sql);

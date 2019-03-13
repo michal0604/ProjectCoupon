@@ -12,8 +12,6 @@ import projectCoupon.beans.Customer;
 public interface CustomerDAO {
 	void insertCustomer(Customer Customer) throws CreateException;
 
-	void removeCustomer(long customerId) throws RemoveException;
-
 	void updateCustomer(Customer Customer) throws UpdateException;
 
 	void removeCustomer(Customer Customer) throws RemoveException;

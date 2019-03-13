@@ -17,9 +17,10 @@ import projectCoupon.Exception.CreateException;
 import projectCoupon.beans.Company;
 import projectCoupon.beans.Coupon;
 import projectCoupon.beans.couponType;
+import projectCoupon.utils.ClientType;
 import projectCoupon.utils.Utile;
 
-public class CompanyFacade extends CouponClientFacade {
+public class CompanyFacade implements CouponClientFacade {
 
 	private CompanyDAO companyDAO;
 	private CouponDAO couponDAO;
@@ -54,18 +55,19 @@ public class CompanyFacade extends CouponClientFacade {
 	 * @throws ConnectionException
 	 *
 	 */
-	public static CouponClientFacade login(String name, String password)
-			throws CouponException, SQLException, CompanyException {
+
+	@Override
+	public boolean login(String name, String password, ClientType clientType) throws Exception {
 		Company company = new Company();
 		company = new CompanyDBDAO().login(name, password);
 		if (company != null) {
 			CompanyFacade companyFacade = new CompanyFacade();
 			companyFacade.companyId = company.getCompanyId();
 			companyFacade.company = company;
-			return companyFacade;
+			return true;
 		} else {
-			return null;
-		}
+			return false;
+		}	
 	}
 
 	/**
@@ -114,11 +116,11 @@ public class CompanyFacade extends CouponClientFacade {
 	 * @param coupId
 	 * @throws Exception
 	 */
-	public void removeCoupon(long coupId) throws Exception {
+	public void removeCouponID(long coupId) throws Exception {
 		if (coupId > 0) {
 			if (company_CouponDAO.isCouponExistsForCompany(companyId, coupId)) {
 				company_CouponDAO.removeCompany_Coupon(companyId, coupId);
-				couponDAO.removeCoupon(coupId);
+				couponDAO.removeCouponID(coupId);
 			} else {
 				throw new CouponException("Coupon Not Exist for Company! Remove Coupon is Canceled!");
 			}
@@ -252,5 +254,8 @@ public class CompanyFacade extends CouponClientFacade {
 	public Company getCompanyInstance() {
 		return company;
 	}
+
+
+	
 
 }

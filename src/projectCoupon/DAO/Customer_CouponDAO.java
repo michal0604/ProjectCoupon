@@ -7,6 +7,7 @@ import projectCoupon.Exception.CouponException;
 import projectCoupon.Exception.CreateException;
 import projectCoupon.Exception.RemoveException;
 import projectCoupon.Exception.UpdateException;
+import projectCoupon.beans.Customer;
 import projectCoupon.beans.Customer_Coupon;
 
 public interface Customer_CouponDAO {
@@ -16,7 +17,7 @@ public interface Customer_CouponDAO {
 		
 		void removeCustomer_Coupon(long customerId, long couponId) throws RemoveException;
 		
-		void removeCustomer_CouponByCustomerId(long customerId) throws RemoveException;
+		void removeCustomer_Coupon(Customer customer) throws RemoveException;
 		
 		void removeCustomer_CouponByCoupId(long couponId) throws RemoveException;
 	

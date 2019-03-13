@@ -94,6 +94,6 @@ public interface CompanyDAO {
 	 * @throws CompanyRemovalException for problems regarding the removal of company from DB
 	 * @throws SQLException SQLException for DB related failures
 	 */
-	void removeCompany(long companyId) throws CouponException, SQLException;
+	
 
 }

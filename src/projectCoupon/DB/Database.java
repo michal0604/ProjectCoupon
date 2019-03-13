@@ -1,8 +1,11 @@
-package projectCoupon;
+package projectCoupon.DB;
+
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import projectCoupon.utils.ConnectionPool;
 import projectCoupon.Exception.CouponException;
 import projectCoupon.Exception.CreateException;
 import projectCoupon.Exception.RemoveException;

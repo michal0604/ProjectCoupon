@@ -16,9 +16,10 @@ import projectCoupon.Exception.UpdateException;
 import projectCoupon.beans.Coupon;
 import projectCoupon.beans.Customer;
 import projectCoupon.beans.couponType;
+import projectCoupon.utils.ClientType;
 import projectCoupon.utils.Utile;
 
-public class CustomerFacad extends CouponClientFacade {
+public class CustomerFacad implements CouponClientFacade {
 
 	private CustomerDAO custDAO;
 	private CouponDAO couponDAO;
@@ -32,23 +33,14 @@ public class CustomerFacad extends CouponClientFacade {
 		customer_CouponDAO = new Customer_CouponDBDAO();
 	}
 
-	public static CouponClientFacade login(String name, String password) throws CustomerException, CouponException{
-		Customer customer = new CustomerDBDAO().login(name, password);
-		if (customer != null) {
-			CustomerFacad customerFacad = new CustomerFacad();
-			customerFacad.custId = customer.getCustomerId();
-			customerFacad.customer = customer;
-			return customerFacad;
-		} else {
-			return null;
-		}
-	}
+
 
 	public void insertCustomer(Customer customer) throws Exception {
 		custDAO.insertCustomer(customer);
 	}
 
 	public void removeCustomer(Customer customer) throws Exception {
+		customer_CouponDAO.removeCustomer_Coupon(customer);
 		custDAO.removeCustomer(customer);
 	}
 
@@ -149,5 +141,20 @@ public class CustomerFacad extends CouponClientFacade {
 
 	public java.util.List<Customer> getAllCustomer() throws Exception {
 		return custDAO.getAllCustomer();
+	}
+
+	@Override
+	public boolean login(String name, String password, ClientType clientType) throws Exception {
+		Customer customer = new CustomerDBDAO().login(name, password);
+		if (customer != null) {
+			CustomerFacad customerFacad = new CustomerFacad();
+			customerFacad.custId = customer.getCustomerId();
+			customerFacad.customer = customer;
+			return true;
+		} else {
+			return false;
+		}
+		
+		
 	}
 }

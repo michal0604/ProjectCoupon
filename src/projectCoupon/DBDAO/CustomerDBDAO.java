@@ -59,9 +59,9 @@ public class CustomerDBDAO implements CustomerDAO {
 			}
 		}
 	}
-
+	
 	@Override
-	public void removeCustomer(long customerId) throws RemoveException {
+	public void removeCustomer(Customer customer) throws RemoveException {
 		Connection connection = null;
 		try {
 			connection = pool.getConnection();
@@ -73,7 +73,7 @@ public class CustomerDBDAO implements CustomerDAO {
 		try {
 			PreparedStatement pstm1 = connection.prepareStatement(pre1);
 			connection.setAutoCommit(false);
-			pstm1.setLong(1, customerId);
+			pstm1.setLong(1, customer.getCustomerId());
 			pstm1.executeUpdate();
 			connection.commit();
 		} catch (SQLException e) {
@@ -96,11 +96,7 @@ public class CustomerDBDAO implements CustomerDAO {
 			}
 
 		}
-	}
 
-	@Override
-	public void removeCustomer(Customer customer) throws RemoveException {
-		removeCustomer(customer.getCustomerId());
 	}
 
 	@Override

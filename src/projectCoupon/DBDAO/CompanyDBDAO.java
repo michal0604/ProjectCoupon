@@ -235,39 +235,8 @@ public class CompanyDBDAO implements CompanyDAO {
 		return set;
 	}
 
-	/**
-	 * returns if a company identified by the name exist in the DB records.
-	 * 
-	 * @param compName
-	 *            name that should be checked for existing
-	 * @throws CouponException
-	 *             for error related to the retrieval of the company
-	 * @throws SQLException
-	 *             for DB related failures
-	 * @throws ConnectionException
-	 *             error occurring due to connection problems
-	 * 
-	 * @see projectCoupon.DAO.CompanyDAO#getAllCompanys
-	 */
-	public boolean isCompanyNameExists1(String compName) throws CouponException, SQLException {
-		Connection connection = pool.getConnection();
-		try {
-			String sql = "SELECT ID FROM Company WHERE COMP_NAME = ? ";
-			PreparedStatement pstmt = connection.prepareStatement(sql);
-			pstmt.setString(1, compName);
-			ResultSet rs = pstmt.executeQuery();
-			if (rs.next()) {
-				return true;
-			}
-			return false;
-
-		} catch (SQLException e) {
-			throw new CouponException("DB ERROR! Failed to checking if Company name already exists. " + e.getMessage());
-		} finally {
-			connection.close();
-			pool.returnConnection(connection);
-		}
-	}
+	
+	
 
 	/**
 	 * this method returns a company iff the user password is correct.
@@ -320,6 +289,20 @@ public class CompanyDBDAO implements CompanyDAO {
 			}
 		}
 	}
+	/**
+	 * returns if a company identified by the name exist in the DB records.
+	 * 
+	 * @param compName
+	 *            name that should be checked for existing
+	 * @throws CouponException
+	 *             for error related to the retrieval of the company
+	 * @throws SQLException
+	 *             for DB related failures
+	 * @throws ConnectionException
+	 *             error occurring due to connection problems
+	 * 
+	 * @see projectCoupon.DAO.CompanyDAO#getAllCompanys
+	 */
 
 	@Override
 	public boolean isCompanyNameExists(String compName) throws CouponException {
@@ -357,10 +340,6 @@ public class CompanyDBDAO implements CompanyDAO {
 	 * 
 	 * @see projectCoupon.DAO.CompanyDAO#removeCompany(long)
 	 */
-	@Override
-	public void removeCompany(long companyId) throws SQLException, CouponException {
-		removeCompany(getCompany(companyId));
-
-	}
+	
 
 }

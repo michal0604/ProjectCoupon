@@ -1,4 +1,4 @@
-package projectCoupon;
+package projectCoupon.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,7 +7,8 @@ import java.util.Iterator;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import projectCoupon.Clients.Utile;
+import org.apache.derby.database.Database;
+
 import projectCoupon.Exception.CouponException;
 
 
@@ -26,7 +27,7 @@ import projectCoupon.Exception.CouponException;
 			}
 			Connection con;
 			try {
-				con = DriverManager.getConnection(Database.getDBUrl());
+				con = DriverManager.getConnection(projectCoupon.DB.Database.getDBUrl());
 			} catch (SQLException e) {
 				throw new CouponException("connection failed");
 			}
@@ -37,7 +38,7 @@ import projectCoupon.Exception.CouponException;
 			}
 			while (this.connections.size() < maxConnections) {
 				try {
-					con = DriverManager.getConnection(Database.getDBUrl());
+					con = DriverManager.getConnection(projectCoupon.DB.Database.getDBUrl());
 				} catch (SQLException e) {
 					throw new CouponException("connection failed");
 				}
