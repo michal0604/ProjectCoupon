@@ -10,7 +10,7 @@ import projectCoupon.exception.RemoveException;
 import projectCoupon.exception.UpdateException;
 
 /**
- * this interface lists the data access object operations the assosiation of a coupon to a company requiers
+ * this interface lists the data access object operations the association of a coupon to a company requires
  * 
  *  @author Eivy & Michal
  *
@@ -18,9 +18,11 @@ import projectCoupon.exception.UpdateException;
 public interface Company_CouponDAO {
 	
 	/**
+	 * Insert a connection between a company and a coupon (represented by there IDs)
+	 * 
 	 * @param companyId the id of the company
 	 * @param couponId the id of the coupon
-	 * @throws CreateException if there was an error during the creation of the link in Data Obhecr
+	 * @throws CreateException if there was an error during the creation of the link in Data object
 	 */
 	void insertCompany_Coupon(long companyId, long couponId) throws CreateException;
 	

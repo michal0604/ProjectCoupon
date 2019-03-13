@@ -60,7 +60,6 @@ public interface CompanyDAO {
 	 * 
 	 * @throws CouponException  for errors happing due to trying to get all companies from DB
 	 * @throws SQLException for DB related failures
-	 * @throws ConnectionException error occurring due to connection problems
 	 */
 	List<Company> getAllCompanys() throws CouponException, SQLException;
 

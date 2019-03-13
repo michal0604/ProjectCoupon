@@ -10,7 +10,6 @@ import java.util.List;
 
 import projectCoupon.beans.Company;
 import projectCoupon.beans.Company_Coupon;
-import projectCoupon.beans.Coupon;
 import projectCoupon.dao.Company_CouponDAO;
 import projectCoupon.exception.CouponException;
 import projectCoupon.exception.CreateException;
@@ -18,10 +17,22 @@ import projectCoupon.exception.RemoveException;
 import projectCoupon.exception.UpdateException;
 import projectCoupon.utils.ConnectionPool;
 
+/**
+ * this class lists the Data operations the association of a coupon to a company
+ * requires
+ * 
+ * @author Eivy & Michal
+ *
+ */
 public class Company_CouponDBDAO implements Company_CouponDAO {
 	private static final String AND = null;
 	private ConnectionPool pool;
 
+	/**
+	 * Empty cTor for initiating process of the class
+	 * 
+	 * @throws CouponException
+	 */
 	public Company_CouponDBDAO() throws CouponException {
 		try {
 			pool = ConnectionPool.getInstance();
@@ -30,6 +41,13 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 		}
 	}
 
+	/**
+	 * Insert a connection between a company and a coupon (represented by there IDs)
+	 * 
+	 * @param companyId the id of the company
+	 * @param couponId  the id of the coupon
+	 * @throws CreateException if there was an error during the creation of the link in Data object
+	 */
 	@Override
 	public void insertCompany_Coupon(long companyId, long couponId) throws CreateException {
 		Connection connection;
@@ -44,14 +62,10 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 		try {
 
 			PreparedStatement pstmt = connection.prepareStatement(sql);
-			{
-
-				pstmt.setLong(1, companyId);
-				pstmt.setLong(2, couponId);
-
-				pstmt.executeUpdate();
-				System.out.println("Company_Coupon added: companyId: " + companyId + " couponId: " + couponId);
-			}
+			pstmt.setLong(1, companyId);
+			pstmt.setLong(2, couponId);
+			pstmt.executeUpdate();
+			System.out.println("Company_Coupon added: companyId: " + companyId + " couponId: " + couponId);
 		} catch (SQLException e) {
 			throw new CreateException("Company_Coupon creation failed " + e.getMessage());
 		} finally {
@@ -70,6 +84,13 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 
 	}
 
+	/**
+	 * remove an entry representing the connection between a coupon and 
+ 
+	 * @param companyId the id of the company
+	 * @param couponId  the id of the coupon
+	 * @throws RemoveException if the process of removal failed for any reason
+	 */
 	@Override
 	public void removeCompany_Coupon(long companyId, long couponId) throws RemoveException {
 		Connection connection;
@@ -82,8 +103,6 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 
 		try {
 			PreparedStatement stm = connection.prepareStatement(sql);
-			{
-			}
 			connection.setAutoCommit(false);
 			stm.setLong(1, companyId);
 			stm.setLong(2, couponId);
@@ -110,6 +129,13 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 		}
 	}
 
+	/**
+	 * the method removes all the entries of companies linked with a given coupon id.
+	 * 
+	 * @param couponId the id of the coupon
+	 * @throws RemoveException if the process of removal failed for any reason
+	 * @throws CouponException if the process of retrieving the information failed
+	 */
 	@Override
 	public void removeCompany_CouponByCouponId(long couponId) throws CouponException, RemoveException {
 
@@ -145,6 +171,12 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 
 	}
 
+    /**
+     * this method removes all compnay's connection to different coupons.
+     * 
+     * @param company that would be removed from all connection with coupons
+     * @throws RemoveException  if the process of removal failed for any reason
+     */
 	@Override
 	public void removeCompany_Coupon(Company company) throws RemoveException {
 		Connection connection;
@@ -184,6 +216,14 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 
 	}
 
+
+	/**
+	 * this method return the companies link to the provided coupon
+	 * 
+	 * @param couponId  the id of the coupon
+	 * @return a list of companies associated to a coupon.
+	 * @throws CouponException if the process of data retrieval has failed.
+	 */
 	@Override
 	public List<Long> getCompanysByCouponId(long couponId) throws CouponException {
 		try {
@@ -193,7 +233,6 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 		}
 		Connection connection;
 		connection = pool.getConnection();
-		List<Company_Coupon> allList = getAllCompany_Coupons();
 		List<Long> list = new ArrayList<Long>();
 		String sql = "select * from Company_Coupon where Coupon_ID = " + couponId;
 		try {
@@ -218,6 +257,13 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 
 	}
 
+	/**
+	 * this method return the coupons link to the provided company
+	 * 
+	 * @param companyId the id of the company
+	 * @return a list of coupons associated to a company.
+	 * @throws CouponException if the process of data retrieval has failed.
+	 */
 	@Override
 	public List<Long> getCouponsByCompanyId(long companyId) throws CouponException {
 		try {
@@ -252,6 +298,12 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 
 	}
 
+	/**
+	 * this method get all the available pairing of company to coupon there is in a system.
+	 * 
+	 * @return return all the pairs of company and coupon (represented by id)  paring  a company to it's respected coupon
+	 * @throws CouponException if the process of retrieval has failed.
+	 */
 	@Override
 	public List<Company_Coupon> getAllCompany_Coupons() throws CouponException {
 		Connection connection = pool.getConnection();
@@ -279,6 +331,14 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 		return set;
 	}
 
+
+	/**
+	 * this method updates a link between company and coupon.
+	 * 
+	 * @param companyId the id of the company
+	 * @param couponId the id of the coupon
+	 * @throws UpdateException if the updaye process has failed 
+	 */
 	@Override
 	public void updateCompany_Coupon(long companyId, long couponId) throws UpdateException {
 		Connection connection;
@@ -307,6 +367,15 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 		}
 	}
 
+	
+	/**
+	 * this method verifies if a coupon is already asosiated with the company.
+	 * 
+	 * @param companyId the id of the company
+	 * @param couponId the id of the coupon
+	 * @return if the coupon  and company are linked already
+	 * @throws CouponException if there was a failure in the validation process
+	 */
 	@Override
 	public boolean isCouponExistsForCompany(long companyId, long couponId) throws CouponException {
 		Connection connection = pool.getConnection();
