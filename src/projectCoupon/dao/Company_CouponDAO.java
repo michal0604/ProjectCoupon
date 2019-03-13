@@ -1,13 +1,13 @@
-package projectCoupon.DAO;
+package projectCoupon.dao;
 
 import java.util.List;
 
-import projectCoupon.Exception.CouponException;
-import projectCoupon.Exception.CreateException;
-import projectCoupon.Exception.RemoveException;
-import projectCoupon.Exception.UpdateException;
 import projectCoupon.beans.Company;
 import projectCoupon.beans.Company_Coupon;
+import projectCoupon.exception.CouponException;
+import projectCoupon.exception.CreateException;
+import projectCoupon.exception.RemoveException;
+import projectCoupon.exception.UpdateException;
 
 public interface Company_CouponDAO {
 	

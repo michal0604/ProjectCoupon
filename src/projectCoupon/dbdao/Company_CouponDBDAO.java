@@ -1,4 +1,4 @@
-package projectCoupon.DBDAO;
+package projectCoupon.dbdao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,14 +8,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import projectCoupon.DAO.Company_CouponDAO;
-import projectCoupon.Exception.CouponException;
-import projectCoupon.Exception.CreateException;
-import projectCoupon.Exception.RemoveException;
-import projectCoupon.Exception.UpdateException;
 import projectCoupon.beans.Company;
 import projectCoupon.beans.Company_Coupon;
 import projectCoupon.beans.Coupon;
+import projectCoupon.dao.Company_CouponDAO;
+import projectCoupon.exception.CouponException;
+import projectCoupon.exception.CreateException;
+import projectCoupon.exception.RemoveException;
+import projectCoupon.exception.UpdateException;
 import projectCoupon.utils.ConnectionPool;
 
 public class Company_CouponDBDAO implements Company_CouponDAO {

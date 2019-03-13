@@ -3,18 +3,18 @@ package projectCoupon.facad;
 import java.sql.SQLException;
 import java.util.List;
 
-import projectCoupon.DAO.CompanyDAO;
-import projectCoupon.DAO.Company_CouponDAO;
-import projectCoupon.DAO.CustomerDAO;
-import projectCoupon.DAO.Customer_CouponDAO;
-import projectCoupon.DBDAO.CompanyDBDAO;
-import projectCoupon.DBDAO.Company_CouponDBDAO;
-import projectCoupon.DBDAO.CustomerDBDAO;
-import projectCoupon.DBDAO.Customer_CouponDBDAO;
-import projectCoupon.Exception.CouponException;
 import projectCoupon.beans.Company;
 import projectCoupon.beans.Company_Coupon;
 import projectCoupon.beans.Customer;
+import projectCoupon.dao.CompanyDAO;
+import projectCoupon.dao.Company_CouponDAO;
+import projectCoupon.dao.CustomerDAO;
+import projectCoupon.dao.Customer_CouponDAO;
+import projectCoupon.dbdao.CompanyDBDAO;
+import projectCoupon.dbdao.Company_CouponDBDAO;
+import projectCoupon.dbdao.CustomerDBDAO;
+import projectCoupon.dbdao.Customer_CouponDBDAO;
+import projectCoupon.exception.CouponException;
 import projectCoupon.utils.ClientType;
 
     public class AdminFacad implements CouponClientFacade{

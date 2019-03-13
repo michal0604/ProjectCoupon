@@ -1,4 +1,4 @@
-package projectCoupon.Exception;
+package projectCoupon.exception;
 
 public class RemoveException extends Exception{
 	private static final long serialVersionUID = 1L;

@@ -9,7 +9,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 import org.apache.derby.database.Database;
 
-import projectCoupon.Exception.CouponException;
+import projectCoupon.exception.CouponException;
 
 
 
@@ -27,7 +27,7 @@ import projectCoupon.Exception.CouponException;
 			}
 			Connection con;
 			try {
-				con = DriverManager.getConnection(projectCoupon.DB.Database.getDBUrl());
+				con = DriverManager.getConnection(projectCoupon.db.Database.getDBUrl());
 			} catch (SQLException e) {
 				throw new CouponException("connection failed");
 			}
@@ -38,7 +38,7 @@ import projectCoupon.Exception.CouponException;
 			}
 			while (this.connections.size() < maxConnections) {
 				try {
-					con = DriverManager.getConnection(projectCoupon.DB.Database.getDBUrl());
+					con = DriverManager.getConnection(projectCoupon.db.Database.getDBUrl());
 				} catch (SQLException e) {
 					throw new CouponException("connection failed");
 				}

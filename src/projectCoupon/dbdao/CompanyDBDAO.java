@@ -1,4 +1,4 @@
-package projectCoupon.DBDAO;
+package projectCoupon.dbdao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,10 +8,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import projectCoupon.DAO.CompanyDAO;
-import projectCoupon.Exception.CompanyException;
-import projectCoupon.Exception.CouponException;
 import projectCoupon.beans.Company;
+import projectCoupon.dao.CompanyDAO;
+import projectCoupon.exception.CompanyException;
+import projectCoupon.exception.CouponException;
 import projectCoupon.utils.ConnectionPool;
 
 /**
@@ -49,7 +49,7 @@ public class CompanyDBDAO implements CompanyDAO {
 	 * @throws ConnectionException
 	 *             for connection problems
 	 * 
-	 * @see projectCoupon.DAO.CompanyDAO#insertCompany
+	 * @see projectCoupon.dao.CompanyDAO#insertCompany
 	 */
 	@Override
 	public void insertCompany(Company Company) throws CouponException, SQLException {
@@ -83,7 +83,7 @@ public class CompanyDBDAO implements CompanyDAO {
 	 * @throws SQLException
 	 *             SQLException for DB related failures
 	 * 
-	 * @see projectCoupon.DAO.CompanyDAO#removeCompany
+	 * @see projectCoupon.dao.CompanyDAO#removeCompany
 	 */
 	@Override
 	public void removeCompany(Company Company) throws CouponException, SQLException {
@@ -117,7 +117,7 @@ public class CompanyDBDAO implements CompanyDAO {
 	 * @throws SQLException
 	 *             for DB related failures
 	 * 
-	 * @see projectCoupon.DAO.CompanyDAO#updateCompany
+	 * @see projectCoupon.dao.CompanyDAO#updateCompany
 	 */
 	@Override
 	public void updateCompany(Company Company) throws CompanyException {
@@ -162,7 +162,7 @@ public class CompanyDBDAO implements CompanyDAO {
 	 * @throws SQLException
 	 *             for DB related failures
 	 * 
-	 * @see projectCoupon.DAO.CompanyDAO#getCompany
+	 * @see projectCoupon.dao.CompanyDAO#getCompany
 	 */
 	/*
 	 * (non-Javadoc)
@@ -204,7 +204,7 @@ public class CompanyDBDAO implements CompanyDAO {
 	 * @throws ConnectionException
 	 *             error occurring due to connection problems
 	 * 
-	 * @see projectCoupon.DAO.CompanyDAO#getAllCompanys
+	 * @see projectCoupon.dao.CompanyDAO#getAllCompanys
 	 */
 	/*
 	 * (non-Javadoc)
@@ -253,7 +253,7 @@ public class CompanyDBDAO implements CompanyDAO {
 	 * @throws ConnectionException
 	 *             error occurring due to connection problems
 	 * 
-	 * @see projectCoupon.DAO.CompanyDAO#login(java.lang.String,
+	 * @see projectCoupon.dao.CompanyDAO#login(java.lang.String,
 	 *      java.lang.String)
 	 */
 	@Override
@@ -301,7 +301,7 @@ public class CompanyDBDAO implements CompanyDAO {
 	 * @throws ConnectionException
 	 *             error occurring due to connection problems
 	 * 
-	 * @see projectCoupon.DAO.CompanyDAO#getAllCompanys
+	 * @see projectCoupon.dao.CompanyDAO#getAllCompanys
 	 */
 
 	@Override

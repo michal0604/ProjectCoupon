@@ -5,18 +5,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import projectCoupon.DAO.CompanyDAO;
-import projectCoupon.DAO.Company_CouponDAO;
-import projectCoupon.DAO.CouponDAO;
-import projectCoupon.DBDAO.CompanyDBDAO;
-import projectCoupon.DBDAO.Company_CouponDBDAO;
-import projectCoupon.DBDAO.CouponDBDAO;
-import projectCoupon.Exception.CompanyException;
-import projectCoupon.Exception.CouponException;
-import projectCoupon.Exception.CreateException;
 import projectCoupon.beans.Company;
 import projectCoupon.beans.Coupon;
 import projectCoupon.beans.couponType;
+import projectCoupon.dao.CompanyDAO;
+import projectCoupon.dao.Company_CouponDAO;
+import projectCoupon.dao.CouponDAO;
+import projectCoupon.dbdao.CompanyDBDAO;
+import projectCoupon.dbdao.Company_CouponDBDAO;
+import projectCoupon.dbdao.CouponDBDAO;
+import projectCoupon.exception.CompanyException;
+import projectCoupon.exception.CouponException;
+import projectCoupon.exception.CreateException;
 import projectCoupon.utils.ClientType;
 import projectCoupon.utils.Utile;
 

@@ -1,11 +1,11 @@
-package projectCoupon.DAO;
+package projectCoupon.dao;
 
 import java.sql.SQLException;
 import java.util.List;
 
-import projectCoupon.Exception.CompanyException;
-import projectCoupon.Exception.CouponException;
 import projectCoupon.beans.Company;
+import projectCoupon.exception.CompanyException;
+import projectCoupon.exception.CouponException;
 
 /**
  * this interface lists the data access object operations Company's requirements.

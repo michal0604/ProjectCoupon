@@ -1,8 +1,9 @@
 package projectCoupon.utils;
 
 import java.sql.Connection;
-import projectCoupon.Exception.CouponException;
-import projectCoupon.Exception.DailyCouponException;
+
+import projectCoupon.exception.CouponException;
+import projectCoupon.exception.DailyCouponException;
 import projectCoupon.facad.AdminFacad;
 import projectCoupon.facad.CouponClientFacade;
 
@@ -34,16 +35,6 @@ public class CouponSystem {
 	}
 
 	
-
-		public  CouponClientFacade login(String name, String password,ClientType clientType) throws Exception {
-			try {
-				switch (clientType) {
-
-				case ADMIN;
-				
-					
-					
-
 	/**
 	 * Shutdown system. Close all Connection Pool connections. Stop daily coupon
 	 * expiration task deletion Thread.

@@ -6,12 +6,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import projectCoupon.DAO.CouponDAO;
-import projectCoupon.DBDAO.Company_CouponDBDAO;
-import projectCoupon.DBDAO.CouponDBDAO;
-import projectCoupon.DBDAO.Customer_CouponDBDAO;
-import projectCoupon.Exception.CouponException;
 import projectCoupon.beans.Coupon;
+import projectCoupon.dao.CouponDAO;
+import projectCoupon.dbdao.Company_CouponDBDAO;
+import projectCoupon.dbdao.CouponDBDAO;
+import projectCoupon.dbdao.Customer_CouponDBDAO;
+import projectCoupon.exception.CouponException;
 
 public class DailyCouponExpirationTask implements Runnable {
 	

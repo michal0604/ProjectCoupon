@@ -1,14 +1,14 @@
-package projectCoupon.DB;
+package projectCoupon.db;
 
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import projectCoupon.exception.CouponException;
+import projectCoupon.exception.CreateException;
+import projectCoupon.exception.RemoveException;
 import projectCoupon.utils.ConnectionPool;
-import projectCoupon.Exception.CouponException;
-import projectCoupon.Exception.CreateException;
-import projectCoupon.Exception.RemoveException;
 
 public class Database {
 
