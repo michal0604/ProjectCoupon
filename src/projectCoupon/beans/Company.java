@@ -23,14 +23,10 @@ public class Company {
 	/**
 	 * full cTor for the company object
 	 * 
-	 * @param id
-	 *            = company id
-	 * @param compName
-	 *            = company name
-	 * @param password
-	 *            = company password
-	 * @param email
-	 *            = company email
+	 * @param id = company id
+	 * @param compName = company name
+	 * @param password = company password
+	 * @param email = company email
 	 */
 	public Company(long companyId, String compName, String password, String email) {
 		this.companyId = companyId;
@@ -47,8 +43,7 @@ public class Company {
 	}
 
 	/**
-	 * @param id
-	 *            Sets the id of company.
+	 * @param id Sets the id of company.
 	 */
 	public void setCompanyId(long companyId) {
 		this.companyId = companyId;
@@ -62,8 +57,7 @@ public class Company {
 	}
 
 	/**
-	 * @param compName
-	 *            set the company name.
+	 * @param compName set the company name.
 	 */
 	public void setCompName(String compName) {
 		this.compName = compName;
@@ -77,8 +71,7 @@ public class Company {
 	}
 
 	/**
-	 * @param password
-	 *            sets the password for the company.
+	 * @param password sets the password for the company.
 	 */
 	public void setPassword(String password) {
 		this.password = password;
@@ -91,18 +84,19 @@ public class Company {
 		return email;
 	}
 
+
 	/**
-	 * @param email
-	 *            set the companey's email
+	 * @param email set the companey's email
 	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-	@Override
+	
+	/**
+	 * prints the content of company as a String 
+	 */
 	public String toString() {
 		return "Company (companyId=" + companyId + ", compName=" + compName + ", password=" + password + ", email="	+ email + ")";
 	}
 }
-
-

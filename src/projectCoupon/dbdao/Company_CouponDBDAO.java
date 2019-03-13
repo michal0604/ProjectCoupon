@@ -29,7 +29,6 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 			throw new CouponException("connection failed");
 		}
 	}
-	
 
 	@Override
 	public void insertCompany_Coupon(long companyId, long couponId) throws CreateException {
@@ -110,11 +109,10 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 			}
 		}
 	}
-	
 
 	@Override
 	public void removeCompany_CouponByCouponId(long couponId) throws CouponException, RemoveException {
-		
+
 		Connection connection;
 		connection = pool.getConnection();
 		String sql = "delete from Company_Coupon where coupon_ID = ?";
@@ -189,12 +187,12 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 	@Override
 	public List<Long> getCompanysByCouponId(long couponId) throws CouponException {
 		try {
-			pool=ConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 		} catch (SQLException e) {
 			throw new CouponException("connnection failed");
 		}
 		Connection connection;
-		connection=pool.getConnection();
+		connection = pool.getConnection();
 		List<Company_Coupon> allList = getAllCompany_Coupons();
 		List<Long> list = new ArrayList<Long>();
 		String sql = "select * from Company_Coupon where Coupon_ID = " + couponId;
@@ -203,12 +201,11 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 			ResultSet rs = stm.executeQuery(sql);
 			while (rs.next()) {
 				long company_Id = rs.getLong(1);
-			list.add(company_Id);
+				list.add(company_Id);
 			}
 		} catch (Exception e) {
 			throw new CouponException("didnt success to get company_coupon data");
-		}
-		finally {
+		} finally {
 			try {
 				connection.close();
 			} catch (SQLException e) {
@@ -216,21 +213,20 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 			}
 			pool.returnConnection(connection);
 		}
-			
+
 		return list;
-			
-		}
-	
+
+	}
 
 	@Override
 	public List<Long> getCouponsByCompanyId(long companyId) throws CouponException {
 		try {
-			pool=ConnectionPool.getInstance();
+			pool = ConnectionPool.getInstance();
 		} catch (SQLException e) {
 			throw new CouponException("connnection failed");
 		}
 		Connection connection;
-		connection=pool.getConnection();
+		connection = pool.getConnection();
 		List<Company_Coupon> allList = getAllCompany_Coupons();
 		List<Long> list = new ArrayList<Long>();
 		String sql = "select * from Company_Coupon where company_Id = " + companyId;
@@ -239,12 +235,11 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 			ResultSet rs = stm.executeQuery(sql);
 			while (rs.next()) {
 				long coupon_Id = rs.getLong(1);
-			list.add(coupon_Id);
+				list.add(coupon_Id);
 			}
 		} catch (Exception e) {
 			throw new CouponException("didnt success to get company_coupon data");
-		}
-		finally {
+		} finally {
 			try {
 				connection.close();
 			} catch (SQLException e) {
@@ -252,10 +247,10 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 			}
 			pool.returnConnection(connection);
 		}
-			
+
 		return list;
-			
-		}
+
+	}
 
 	@Override
 	public List<Company_Coupon> getAllCompany_Coupons() throws CouponException {
@@ -312,8 +307,6 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 		}
 	}
 
-
-
 	@Override
 	public boolean isCouponExistsForCompany(long companyId, long couponId) throws CouponException {
 		Connection connection = pool.getConnection();
@@ -330,19 +323,9 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 
 		} catch (SQLException e) {
 			throw new CouponException("ERROR! Checking if Coupon Exists For The Company is Failed. " + e.getMessage());
-		} catch (Exception e) {
-			throw new CouponException(" ERROR! Checking if Coupon Exists For The Company is Failed. " + e.getMessage());
 		} finally {
 			pool.returnConnection(connection);
 		}
 	}
-	
 
-	
-
-	
-	
-		
-	}
-
-
+}
