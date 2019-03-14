@@ -34,7 +34,7 @@ public class CompanyFacade implements CouponClientFacade {
 	 * @throws CouponException
 	 *             for errors in creation of the resources needed for the system
 	 */
-	private CompanyFacade() throws CouponException {
+	public CompanyFacade() throws CouponException {
 		companyDAO = new CompanyDBDAO();
 		couponDAO = new CouponDBDAO();
 		company_CouponDAO = new Company_CouponDBDAO();
@@ -57,16 +57,16 @@ public class CompanyFacade implements CouponClientFacade {
 	 */
 
 	@Override
-	public boolean login(String name, String password, ClientType clientType) throws Exception {
+	public CouponClientFacade login(String name, String password, ClientType clientType) throws Exception {
 		Company company = new Company();
 		company = new CompanyDBDAO().login(name, password);
 		if (company != null) {
 			CompanyFacade companyFacade = new CompanyFacade();
 			companyFacade.companyId = company.getCompanyId();
 			companyFacade.company = company;
-			return true;
+			return companyFacade;
 		} else {
-			return false;
+			return null;
 		}	
 	}
 

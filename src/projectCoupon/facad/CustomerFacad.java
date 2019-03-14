@@ -27,7 +27,7 @@ public class CustomerFacad implements CouponClientFacade {
 	private long custId = 0;
 	private Customer customer;
 
-	private CustomerFacad() throws CouponException {
+	public CustomerFacad() throws CouponException {
 		custDAO = new CustomerDBDAO();
 		couponDAO = new CouponDBDAO();
 		customer_CouponDAO = new Customer_CouponDBDAO();
@@ -144,15 +144,15 @@ public class CustomerFacad implements CouponClientFacade {
 	}
 
 	@Override
-	public boolean login(String name, String password, ClientType clientType) throws Exception {
+	public CouponClientFacade login(String name, String password, ClientType clientType) throws Exception {
 		Customer customer = new CustomerDBDAO().login(name, password);
 		if (customer != null) {
 			CustomerFacad customerFacad = new CustomerFacad();
 			customerFacad.custId = customer.getCustomerId();
 			customerFacad.customer = customer;
-			return true;
+			return customerFacad;
 		} else {
-			return false;
+			return null;
 		}
 		
 		
