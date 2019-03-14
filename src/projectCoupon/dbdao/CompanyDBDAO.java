@@ -53,9 +53,9 @@ public class CompanyDBDAO implements CompanyDAO {
 	 */
 	@Override
 	public void insertCompany(Company Company) throws CouponException, SQLException {
-		pool=ConnectionPool.getInstance();
+		pool = ConnectionPool.getInstance();
 		Connection connection = pool.getConnection();
-		String sql  = "insert into Company(ID, COMP_NAME, PASSWORD, EMAIL) values (?,?,?,?)";
+		String sql = "insert into Company(ID, COMP_NAME, PASSWORD, EMAIL) values (?,?,?,?)";
 
 		try {
 			PreparedStatement pstmt = connection.prepareStatement(sql);
@@ -109,7 +109,7 @@ public class CompanyDBDAO implements CompanyDAO {
 	 * 
 	 * @param company
 	 *            company to update
-	 * @throws CompanyException 
+	 * @throws CompanyException
 	 * @throws CouponException
 	 *             regarding the connection problem
 	 * @throws CompanyUpdateException
@@ -122,45 +122,42 @@ public class CompanyDBDAO implements CompanyDAO {
 	@Override
 	public void updateCompany(Company Company) throws CompanyException {
 		try {
-			pool=ConnectionPool.getInstance();
-		} catch (CouponException e1) {
-			throw new CompanyException("connection failed");
-		} catch (SQLException e1) {
-			throw new CompanyException("connection failed");
+			pool = ConnectionPool.getInstance();
+		} catch (CouponException e) {
+			throw new CompanyException("connection failed " + e.getMessage());
+		} catch (SQLException e) {
+			throw new CompanyException("connection failed " + e.getMessage());
 		}
-			Connection connection;
+		Connection connection;
+		try {
+			connection = pool.getConnection();
+		} catch (CouponException e) {
+			throw new CompanyException("connection failed " + e.getMessage());
+		}
+		try {
+			String sql = "update Company set COMP_NAME= ?,PASSWORD = ?, EMAIL= ? where ID = ?";
+			PreparedStatement stm1 = connection.prepareStatement(sql);
+			stm1.setString(1, Company.getCompName());
+			stm1.setString(2, Company.getPassword());
+			stm1.setString(3, Company.getEmail());
+			stm1.setLong(4, Company.getCompanyId());
+			stm1.executeUpdate();
+		} catch (SQLException e) {
+			throw new CompanyException("update company failed " + e.getMessage());
+		} finally {
 			try {
-				connection = pool.getConnection();
-			} catch (CouponException e1) {
-				throw new CompanyException("connection failed");
+				connection.close();
+			} catch (SQLException e) {
+				throw new CompanyException("connection failed " + e.getMessage());
 			}
 			try {
-			String sql="update Company set COMP_NAME= ?,PASSWORD = ?, EMAIL= ? where ID = ?";
-				PreparedStatement stm1 = connection.prepareStatement(sql);
-				stm1.setString(1, Company.getCompName());
-				stm1.setString(2, Company.getPassword());
-				stm1.setString(1, Company.getEmail());
-				stm1.setLong(1, Company.getCompanyId());
-				stm1.executeUpdate();
-
-				System.out.println("update company succees");
-			} catch (Exception e) {
-				throw new CompanyException("update company failed");
-			}finally {
-				try {
-					connection.close();
-				} catch (SQLException e) {
-					throw new CompanyException("connection failed");
-				}
-				try {
-					pool.returnConnection(connection);
-				} catch (CouponException e) {
-					throw new CompanyException("connection failed");
-				}
-			}		
-			
+				pool.returnConnection(connection);
+			} catch (CouponException e) {
+				throw new CompanyException("connection failed " + e.getMessage());
+			}
 		}
 
+	}
 
 	/**
 	 * get a company data set by the company's id.
@@ -181,7 +178,7 @@ public class CompanyDBDAO implements CompanyDAO {
 	 */
 	@Override
 	public Company getCompany(long companyId) throws CouponException, SQLException {
-		pool=ConnectionPool.getInstance();
+		pool = ConnectionPool.getInstance();
 		Connection connection = pool.getConnection();
 		Company company = new Company();
 		try {
@@ -245,9 +242,6 @@ public class CompanyDBDAO implements CompanyDAO {
 		return set;
 	}
 
-	
-	
-
 	/**
 	 * this method returns a company iff the user password is correct.
 	 * 
@@ -263,8 +257,7 @@ public class CompanyDBDAO implements CompanyDAO {
 	 * @throws ConnectionException
 	 *             error occurring due to connection problems
 	 * 
-	 * @see projectCoupon.dao.CompanyDAO#login(java.lang.String,
-	 *      java.lang.String)
+	 * @see projectCoupon.dao.CompanyDAO#login(java.lang.String, java.lang.String)
 	 */
 	@Override
 	public Company login(String compName, String password) throws CouponException, SQLException, CompanyException {
@@ -299,6 +292,7 @@ public class CompanyDBDAO implements CompanyDAO {
 			}
 		}
 	}
+
 	/**
 	 * returns if a company identified by the name exist in the DB records.
 	 * 
@@ -350,6 +344,5 @@ public class CompanyDBDAO implements CompanyDAO {
 	 * 
 	 * @see projectCoupon.DAO.CompanyDAO#removeCompany(long)
 	 */
-	
 
 }
