@@ -31,19 +31,19 @@ public class Database {
 		Statement stmt = null;
 		try {
 			Pool=ConnectionPool.getInstance();
-		} catch (CouponException e2) {
+		} catch (Exception e2) {
 			throw new RemoveException("connection failed");
 		}
 		Connection connection;
 		try {
 			connection = Pool.getConnection();
-		} catch (CouponException e2) {
+		} catch (Exception e2) {
 			throw new RemoveException("connection failed");
 		}
 		
 		try {
 			stmt = connection.createStatement();
-		} catch (SQLException e1) {
+		} catch (Exception e1) {
 			throw new RemoveException("createstatment is failed");
 		}
 		
@@ -51,7 +51,7 @@ public class Database {
 			sql = "DROP TABLE Customer_Coupon";
 			stmt.executeUpdate(sql);
 			System.out.println("Droped Customer_Coupon Table");
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			throw new RemoveException("Customer_Coupon Table did not drop: " + e.getMessage());
 		}
 
@@ -59,40 +59,40 @@ public class Database {
 			sql = "DROP TABLE Company_Coupon";
 			stmt.executeUpdate(sql);
 			System.out.println("Droped Company_Coupon Table");
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			throw new RemoveException("Company_Coupon Table did not drop: " + e.getMessage());
 		}
+
 		try {
 			sql = "DROP TABLE Company";
 			stmt.executeUpdate(sql);
 			System.out.println("Droped Company Table");
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			throw new RemoveException("Company Table did not drop: " + e.getMessage());
 		}
 		try {
 			sql = "DROP TABLE CUSTOMER";
 			stmt.executeUpdate(sql);
 			System.out.println("Droped Customer Table");
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			throw new RemoveException("Customer Table did not drop: " + e.getMessage());
 		}
 		try {
 			sql = "DROP TABLE Coupon";
 			stmt.executeUpdate(sql);
 			System.out.println("Droped COUPON Table");
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			throw new RemoveException("COUPON Table did not exist");
 		}
-		try {
+        finally {
 			connection.close();
-		} catch (SQLException e) {
-			throw new RemoveException("connection close failed");
+			try {
+				Pool.returnConnection(connection);
+			} catch (CouponException e) {
+				throw new RemoveException("connection failed");
+			}
 		}
-		try {
-			Pool.returnConnection(connection);
-		} catch (Exception e) {
-			throw new RemoveException("return connection doesnt excess");
-		}
+
 
 	}
 
@@ -108,16 +108,15 @@ public class Database {
 		Connection con;
 		try {
 			con = Pool.getConnection();
-		} catch (CouponException e2) {
+		} catch (Exception e2) {
 			throw new CreateException("connection failed");
 		}
 		try {
 			Statement stmt = con.createStatement();
 
 			// create Company table
-			sql = "CREATE TABLE Company(companyId bigint not null primary key generated always as identity(start with 1, increment by 1),"
-					+ "compName varchar(50) not null," + "PASSWORD varchar(50) not null,"
-					+ "EMAIL varchar(50) not null)";
+			 sql = "create table Company (" + "ID bigint not null primary key, " + "COMP_NAME varchar(50) not null, "
+					+ "PASSWORD varchar(50) not null, " + "EMAIL varchar(50) not null)";
 
 			stmt.executeUpdate(sql);
 			System.out.println("success:" + sql);
@@ -126,9 +125,8 @@ public class Database {
 		}
 		try {
 			Statement stmt2 = con.createStatement();
-			sql = "CREATE TABLE CUSTOMER("
-					+ "ID bigint not null primary key generated always as identity(start with 1, increment by 1), "
-					+ "CUST_NAME varchar(50) not null, " + "PASSWORD varchar(50) not null)";
+			 sql = "create table Customer (" + "ID bigint not null primary key, " + "CUST_NAME varchar(50) not null, "
+					+ "PASSWORD varchar(50) not null)";
 			stmt2.executeUpdate(sql);
 			System.out.println("success:" + sql);
 		} catch (SQLException e) {
@@ -138,11 +136,11 @@ public class Database {
 		try {
 			java.sql.Statement stm = con.createStatement();
 
-			sql = "CREATE TABLE Coupon("
-					+ "ID bigint not null primary key generated always as identity(start with 1, increment by 1),"
-					+ "TITLE varchar(50) not null," + "START_DATE DATE not null," + "END_DATE DATE not null,"
-					+ "AMOUNT int not null," + "TYPE varchar(30) not null, " + "MESSAGE varchar(50) not null,"
-					+ "PRICE float not null," + "IMAGE varchar(50) not null)";
+
+			 sql = "create table Coupon (" + "ID bigint not null primary key, " + "TITLE varchar(50) not null, "
+					+ "START_DATE date not null, " + "END_DATE date not null, " + "AMOUNT integer not null, "
+					+ "TYPE varchar(50) not null, " + "MESSAGE varchar(50) not null, " + " PRICE float not null, "
+					+ "IMAGE varchar(200) not null)";
 
 			stm.executeUpdate(sql);
 			System.out.println("success:" + sql);
@@ -153,8 +151,8 @@ public class Database {
 		// create join table Customer_Coupon
 		try {
 			java.sql.Statement stm = con.createStatement();
-			sql = "CREATE TABLE Customer_Coupon(" + "CUST_ID bigint not null REFERENCES CUSTOMER(ID),"
-					+ "COUPON_ID bigint not null REFERENCES COUPON(ID)," + "PRIMARY KEY(COUPON_ID, CUST_ID))";
+			 sql = "create table Customer_Coupon (" + "Customer_ID bigint, " + "Coupon_ID bigint, "
+					+ "primary key (Customer_ID, Coupon_ID))";
 
 			stm.executeUpdate(sql);
 			System.out.println("success:" + sql);
@@ -167,8 +165,8 @@ public class Database {
 		// create join table Company_Coupon
 		try {
 			java.sql.Statement stm = con.createStatement();
-			sql = "CREATE TABLE Company_Coupon(" + "companyId bigint not null REFERENCES Company(companyId),"
-					+ "couponId bigint not null REFERENCES Coupon(couponId)," + "PRIMARY KEY(couponId, companyId))";
+			 sql = "create table Company_Coupon (" + "Company_ID bigint, " + "Coupon_ID bigint, "
+					+ "primary key (Company_ID, Coupon_ID))";
 			stm.executeUpdate(sql);
 			System.out.println("success: " + sql);
 
@@ -177,14 +175,14 @@ public class Database {
 		}
 
 		finally {
-			con.close();
-			try {
-				Pool.returnConnection(con);
-			} catch (Exception e) {
-				throw new CreateException(" didn't succeed in close connection");
+				try {
+					Pool.returnConnection(con);
+				} catch (Exception e) {
+					throw new CreateException("didnt success");
+				}
+			
 			}
 		}
 
 	}
 
-}

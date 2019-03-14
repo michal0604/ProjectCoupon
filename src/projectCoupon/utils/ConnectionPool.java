@@ -66,19 +66,18 @@ import projectCoupon.exception.CouponException;
 		 */
 		public synchronized Connection getConnection() throws CouponException{
 
-			while (connections.size()==0) {
-				try {
-					this.wait();
-				} catch (InterruptedException e) {
-					throw new CouponException("connection failed");	
+			try {
+				while (connections.isEmpty()) {
+					wait();
+					System.out.println("connection pool is empty");
 				}
+				Connection connection = connections.poll();
+				connection.setAutoCommit(true);
+				return connection;
+			} catch (Exception e) {
+				throw new CouponException("connection faied");
 			}
-			
-			Iterator<Connection> iterator = connections.iterator();
-			Connection con = iterator.next();
-			iterator.remove();
-			return con; 
-		}			
+		}		
 		
 		/**
 		 * Methods return connection to Connection pool
@@ -86,13 +85,13 @@ import projectCoupon.exception.CouponException;
 		 */
 		public synchronized void returnConnection(Connection con)throws CouponException{ //throws Exception {
 			try {
-				con.setAutoCommit(true);
-			} catch (SQLException e) {
-				throw new CouponException("ERROR! Return Connection Properly Failed!");
+				Connection connection=DriverManager.getConnection(projectCoupon.db.Database.getDBUrl());
+				connections.offer(connection);
+				notifyAll();
+			}catch (Exception e) {
+				throw new CouponException("connection failed");
 			}
-			connections.add(con);
-			this.notify();
-		}
+			}
 
 		/**
 		 * Close all Connections
@@ -100,19 +99,13 @@ import projectCoupon.exception.CouponException;
 		 */
 		public synchronized void closeAllConnections(Connection connection) throws CouponException{
 			
-			while (connections.size()==0) {
+			Connection connection2;
+			while(this.connections.peek()!=null) {
+				connection2=this.connections.poll();
 				try {
-					this.wait();
-				} catch (InterruptedException e) {
-					System.out.println("Interrupted");
-				}
-			}
-			
-			Iterator<Connection> iterator = connections.iterator();
-			while(iterator.hasNext()) {
-				try {
-					iterator.next().close();
-				} catch (SQLException e) {
+					connection2.close();
+					instance=null;
+				} catch (Exception e) {
 					throw new CouponException("Connections: Close All Connection: Error!");
 				}
 			}

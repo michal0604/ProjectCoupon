@@ -121,36 +121,46 @@ public class CompanyDBDAO implements CompanyDAO {
 	 */
 	@Override
 	public void updateCompany(Company Company) throws CompanyException {
-		Connection connection;
 		try {
-			connection = pool.getConnection();
+			pool=ConnectionPool.getInstance();
 		} catch (CouponException e1) {
 			throw new CompanyException("connection failed");
+		} catch (SQLException e1) {
+			throw new CompanyException("connection failed");
 		}
-		try {
-
-			Statement stm = connection.createStatement();
-			String sql = String.format("update Company set COMP_NAME= '%s',PASSWORD = '%s', EMAIL= '%s' where ID = %d",
-					Company.getCompName(), Company.getPassword(), Company.getEmail(),
-					Company.getCompanyId());
-			stm.executeUpdate(sql);
-		} catch (Exception e) {
-			throw new CompanyException("update failed");
-
-		} finally {
+			Connection connection;
 			try {
-				connection.close();
-			} catch (SQLException e) {
-				throw new  CompanyException("connection failed");
+				connection = pool.getConnection();
+			} catch (CouponException e1) {
+				throw new CompanyException("connection failed");
 			}
 			try {
-				pool.returnConnection(connection);
-			} catch (CouponException e) {
-			throw new CompanyException("return connection failed");
+			String sql="update Company set COMP_NAME= ?,PASSWORD = ?, EMAIL= ? where ID = ?";
+				PreparedStatement stm1 = connection.prepareStatement(sql);
+				stm1.setString(1, Company.getCompName());
+				stm1.setString(2, Company.getPassword());
+				stm1.setString(1, Company.getEmail());
+				stm1.setLong(1, Company.getCompanyId());
+				stm1.executeUpdate();
+
+				System.out.println("update company succees");
+			} catch (Exception e) {
+				throw new CompanyException("update company failed");
+			}finally {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					throw new CompanyException("connection failed");
+				}
+				try {
+					pool.returnConnection(connection);
+				} catch (CouponException e) {
+					throw new CompanyException("connection failed");
+				}
+			}		
 			
-			}
 		}
-	}
+
 
 	/**
 	 * get a company data set by the company's id.

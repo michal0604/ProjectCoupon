@@ -5,7 +5,9 @@ import java.sql.Connection;
 import projectCoupon.exception.CouponException;
 import projectCoupon.exception.DailyCouponException;
 import projectCoupon.facad.AdminFacad;
+import projectCoupon.facad.CompanyFacade;
 import projectCoupon.facad.CouponClientFacade;
+import projectCoupon.facad.CustomerFacad;
 
 public class CouponSystem {
 
@@ -13,6 +15,10 @@ public class CouponSystem {
 	DailyCouponExpirationTask DailyTask;
 	Thread thread;
 	Connection connection;
+	
+	public enum clientType {
+		Admin, Customer, Company
+	};
 	
 	/**
 	 * Thread timer - 1000*3600*24 is every 24 hours
@@ -34,6 +40,37 @@ public class CouponSystem {
 		return instance;
 	}
 
+	
+public CouponClientFacade login(String name, String password, ClientType clientType ) throws Exception {
+	CouponClientFacade couponClientFacade = null;
+
+		switch (clientType) {
+		case ADMIN:
+			couponClientFacade=new AdminFacad();
+			break;
+		case COMPANY:
+			couponClientFacade = new CompanyFacade();
+			break;
+		case CUSTOMER:
+			couponClientFacade = new CustomerFacad();
+			break;
+		default:
+			couponClientFacade = null;
+		} 
+		
+		if (couponClientFacade != null) {
+			couponClientFacade = couponClientFacade.login(name,password,clientType);
+			if (couponClientFacade != null) {
+				return couponClientFacade;
+			} else {
+				throw new CouponException("STOP! Login Falied! Invalid User or Password!");
+			}
+		} else {
+			throw new CouponException("STOP! Login Falied! Invalid User Type!");
+		}
+	}
+
+	
 	
 	/**
 	 * Shutdown system. Close all Connection Pool connections. Stop daily coupon

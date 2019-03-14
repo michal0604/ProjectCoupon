@@ -27,7 +27,7 @@ import projectCoupon.utils.ClientType;
 
 
 
-	private AdminFacad() throws CouponException{
+	public AdminFacad() throws CouponException{
 		this.companyDAO = new CompanyDBDAO();
 		this.customerDAO = new CustomerDBDAO();
 		this.customer_CouponDAO=new Customer_CouponDBDAO();
@@ -35,12 +35,12 @@ import projectCoupon.utils.ClientType;
 	}
 	
 	@Override
-	public boolean login(String name, String password, ClientType clientType) throws Exception {
+	public CouponClientFacade login(String name, String password, ClientType clientType) throws Exception {
 		 if ( name.equals(this.ADMIN_USER_NAME) && password.equals(this.ADMIN_PASSWORD)) { 
-			 return true; 
+			 return this; 
 		 }	
 
-		return false;
+		return null;
 	}
 
 
