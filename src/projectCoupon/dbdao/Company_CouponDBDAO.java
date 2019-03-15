@@ -315,7 +315,6 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 			while (rs.next()) {
 				long comp_Id = rs.getLong(1);
 				long coupon_Id = rs.getLong(2);
-
 				set.add(new Company_Coupon(comp_Id, coupon_Id));
 			}
 		} catch (SQLException e) {

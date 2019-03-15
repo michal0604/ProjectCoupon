@@ -59,7 +59,7 @@ public class CustomerDBDAO implements CustomerDAO {
 			}
 		}
 	}
-	
+
 	@Override
 	public void removeCustomer(Customer customer) throws RemoveException {
 		Connection connection = null;
@@ -135,16 +135,18 @@ public class CustomerDBDAO implements CustomerDAO {
 		} catch (CouponException e) {
 			throw new CustomerException("connection failed " + e.getMessage());
 		}
-		Customer customer = new Customer();
+		Customer customer = null;
 		try {
 			Statement stm = connection.createStatement();
 
 			String sql = "SELECT * FROM Customer WHERE ID=" + customerName;
 			ResultSet rs = stm.executeQuery(sql);
-			rs.next();
-			customer.setCustomerId(rs.getLong(1));
-			customer.setCustomerName(rs.getString(2));
-			customer.setPassword(rs.getString(3));
+			if (rs.next()) {
+				customer = new Customer();
+				customer.setCustomerId(rs.getLong(1));
+				customer.setCustomerName(rs.getString(2));
+				customer.setPassword(rs.getString(3));
+			}
 
 		} catch (SQLException e) {
 			throw new CustomerException("unable to get Customer data " + e.getMessage());
@@ -222,10 +224,12 @@ public class CustomerDBDAO implements CustomerDAO {
 		try (Statement statement = connection.createStatement()) {
 			String sql = "SELECT * FROM Customer WHERE ID=" + CustomerId;
 			ResultSet resultSet = statement.executeQuery(sql);
-			resultSet.next();
-			customer.setCustomerId(resultSet.getLong(1));
-			customer.setCustomerName(resultSet.getString(2));
-			customer.setPassword(resultSet.getString(3));
+			if (resultSet.next()) {
+				customer = new Customer();
+				customer.setCustomerId(resultSet.getLong(1));
+				customer.setCustomerName(resultSet.getString(2));
+				customer.setPassword(resultSet.getString(3));
+			}
 
 		} catch (SQLException e) {
 			throw new CustomerException("unable to get data, customerId: " + CustomerId);

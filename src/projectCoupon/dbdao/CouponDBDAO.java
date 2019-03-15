@@ -152,48 +152,49 @@ public class CouponDBDAO implements CouponDAO {
 		} catch (CouponException e) {
 			throw new CreateException("didnt success to connect " + e.getMessage());
 		}
-		Coupon coupon = new Coupon();
+		Coupon coupon = null;
 		try {
 			Statement stm = connection.createStatement();
 			String sql = "SELECT * FROM Coupon WHERE ID=" + couponId;
 			ResultSet rs = stm.executeQuery(sql);
-			rs.next();
-			coupon.setCouponId(rs.getLong(1));
-			coupon.setTitle(rs.getString(2));
-			coupon.setStart_date(rs.getDate(3));
-			coupon.setEnd_date(rs.getDate(4));
-			coupon.setAmount(rs.getInt(5));
-			coupon.setMessage(rs.getString(7));
-			coupon.setPrice(rs.getDouble(8));
-			coupon.setImage(rs.getString(9));
-			switch (rs.getString(6)) {
-			case "Food":
-				coupon.setType(couponType.food);
-				break;
-			case "Resturans":
-				coupon.setType(couponType.Resturans);
-				break;
-			case "Electricity":
-				coupon.setType(couponType.Electricity);
-				break;
-			case "Health":
-				coupon.setType(couponType.Health);
-				break;
-			case "Sports":
-				coupon.setType(couponType.Sports);
-				break;
-			case "Camping":
-				coupon.setType(couponType.Camping);
-				break;
-			case "Traveling":
-				coupon.setType(couponType.Traveling);
-				break;
-			default:
-				System.out.println("Coupon not existent");
-				break;
+			if(rs.next()) {
+				coupon = new Coupon();
+				coupon.setCouponId(rs.getLong(1));
+				coupon.setTitle(rs.getString(2));
+				coupon.setStart_date(rs.getDate(3));
+				coupon.setEnd_date(rs.getDate(4));
+				coupon.setAmount(rs.getInt(5));
+				coupon.setMessage(rs.getString(7));
+				coupon.setPrice(rs.getDouble(8));
+				coupon.setImage(rs.getString(9));
+				switch (rs.getString(6)) {
+				case "Food":
+					coupon.setType(couponType.food);
+					break;
+				case "Resturans":
+					coupon.setType(couponType.Resturans);
+					break;
+				case "Electricity":
+					coupon.setType(couponType.Electricity);
+					break;
+				case "Health":
+					coupon.setType(couponType.Health);
+					break;
+				case "Sports":
+					coupon.setType(couponType.Sports);
+					break;
+				case "Camping":
+					coupon.setType(couponType.Camping);
+					break;
+				case "Traveling":
+					coupon.setType(couponType.Traveling);
+					break;
+				default:
+					System.out.println("Coupon not existent");
+					break;
+				}
 			}
 		}
-
 		catch (SQLException e) {
 			throw new CouponException("unable to get Coupon data " + e.getMessage());
 		} finally {

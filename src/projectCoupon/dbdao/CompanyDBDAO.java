@@ -180,18 +180,19 @@ public class CompanyDBDAO implements CompanyDAO {
 	public Company getCompany(long companyId) throws CouponException, SQLException {
 		pool = ConnectionPool.getInstance();
 		Connection connection = pool.getConnection();
-		Company company = new Company();
+		Company company = null;
 		try {
 			Statement stm = connection.createStatement();
 
 			String sql = "SELECT * FROM Company WHERE ID=" + companyId;
 			ResultSet rs = stm.executeQuery(sql);
-			rs.next();
-			company.setCompanyId(rs.getLong(1));
-			company.setCompName(rs.getString(2));
-			company.setPassword(rs.getString(3));
-			company.setEmail(rs.getString(4));
-
+			if(rs.next()) {
+				company =new Company();
+				company.setCompanyId(rs.getLong(1));
+				company.setCompName(rs.getString(2));
+				company.setPassword(rs.getString(3));
+				company.setEmail(rs.getString(4));
+			}
 		} catch (SQLException e) {
 			throw new CouponException("unable to get Company data " + e.getMessage());
 		} finally {
@@ -262,19 +263,21 @@ public class CompanyDBDAO implements CompanyDAO {
 	@Override
 	public Company login(String compName, String password) throws CouponException, SQLException, CompanyException {
 		Connection connection = pool.getConnection();
-		Company company = new Company();
+		Company company =null;
 		try {
 			String sql = "SELECT ID FROM Company WHERE COMP_NAME = ? ";
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, compName);
 			ResultSet rs = pstmt.executeQuery();
-			rs.next();
-			company.setCompanyId(rs.getLong(1));
-			company.setCompName(rs.getString(2));
-			company.setPassword(rs.getString(3));
-			company.setEmail(rs.getString(4));
-			if (company.getPassword().equals(password)) {
-				return company;
+			if(rs.next()) {
+				company = new Company();
+				company.setCompanyId(rs.getLong(1));
+				company.setCompName(rs.getString(2));
+				company.setPassword(rs.getString(3));
+				company.setEmail(rs.getString(4));
+				if (company.getPassword().equals(password)) {
+					return company;
+				}
 			}
 			return null;
 		} catch (SQLException e) {

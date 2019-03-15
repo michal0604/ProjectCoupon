@@ -156,7 +156,7 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 		try {
 		Statement statement = connection.createStatement();
 		String sql= "select * from Customer_Coupon where Coupon_ID = " + couponId;
-			 ResultSet rs = statement.executeQuery(sql);
+		ResultSet rs = statement.executeQuery(sql);
 		while (rs.next()) {
 			long customerId = rs.getLong(1);
 			list.add(customerId);
@@ -194,7 +194,7 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 			try {
 			Statement statement = connection.createStatement();
 			String sql= "select * from Customer_Coupon where customer_Id = " + customerId;
-				 ResultSet rs = statement.executeQuery(sql);
+			ResultSet rs = statement.executeQuery(sql);
 			while (rs.next()) {
 				long coupon_Id = rs.getLong(1);
 				list.add(coupon_Id);
