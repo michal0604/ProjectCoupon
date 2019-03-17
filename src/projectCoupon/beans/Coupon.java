@@ -2,6 +2,12 @@ package projectCoupon.beans;
 
 import java.util.Date;
 
+/**
+ * this is the object representing Coupon data
+ * 
+ * @author Eivy & Michal
+ *
+ */
 public class Coupon {
 	private long couponId;
 	private String title;
@@ -13,9 +19,24 @@ public class Coupon {
 	private Double price;
 	private String image;
 
-	public Coupon() {
-	}
+	/**
+	 * empty cTor for Company object instantiation 
+	 */
+	public Coupon() {}
 
+	/**
+	 * full cTor for the coupon object
+	 * 
+	 * @param couponId id of the coupon
+	 * @param title coupon's title
+	 * @param start_date the coupons start date for usage
+	 * @param end_date expiration date of the coupon
+	 * @param amount amount of coupons available
+	 * @param type the category of the coupon 
+	 * @param message the detailed information about the coupon
+	 * @param price the pricing for each coupon
+	 * @param image a image of the service provided by the coupon
+	 */
 	public Coupon(long couponId, String title, Date start_date, Date end_date, int amount, couponType type,
 			String message, Double price, String image) {
 		this.couponId = couponId;
@@ -29,78 +50,135 @@ public class Coupon {
 		this.image = image;
 	}
 
+	/**
+	 * @return the coupon id
+	 */
 	public long getCouponId() {
 		return couponId;
 	}
 
+	/**
+	 * @param couponId id to set the coupon 
+	 */
 	public void setCouponId(long couponId) {
 		this.couponId = couponId;
 	}
 
+	/**
+	 * @return the title of the coupon
+	 */
 	public String getTitle() {
 		return title;
 	}
 
+	/**
+	 * @param title set the coupon's title
+	 */
 	public void setTitle(String title) {
 		this.title = title;
 	}
 
+	/**
+	 * @return the date the coupon can be used
+	 */
 	public Date getStart_date() {
 		return start_date;
 	}
 
+	/**
+	 * @param start_date set the coupon initial usage date
+	 */
 	public void setStart_date(Date start_date) {
 		this.start_date = start_date;
 	}
 
+	/**
+	 * @return the expiration date of the coupon
+	 */
 	public Date getEnd_date() {
 		return end_date;
 	}
 
+	/**
+	 * @param end_date set's the expiration date for the coupon
+	 */
 	public void setEnd_date(Date end_date) {
 		this.end_date = end_date;
 	}
 
+	/**
+	 * @return the amount of coupon there is currently for sale
+	 */
 	public int getAmount() {
 		return amount;
 	}
 
+	/**
+	 * @param amount set the amount of coupons to be soled
+	 */
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
 
+	/**
+	 * @return the category of the coupon 
+	 */
 	public couponType getType() {
 		return type;
 	}
 
+	/**
+	 * @param type set the category of the coupon 
+	 */
 	public void setType(couponType type) {
 		this.type = type;
 	}
 
+	/**
+	 * @return the detailed information of the coupon 
+	 */
 	public String getMessage() {
 		return message;
 	}
 
+	/**
+	 * @param message set detailed information of the coupon 
+	 */
 	public void setMessage(String message) {
 		this.message = message;
 	}
 
+	/**
+	 * @return the price of a single coupon
+	 */
 	public Double getPrice() {
 		return price;
 	}
 
+	/**
+	 * @param price set the pricing of a single coupon
+	 */
 	public void setPrice(Double price) {
 		this.price = price;
 	}
 
+	/**
+	 * @return the coupon's image
+	 */
 	public String getImage() {
 		return image;
 	}
 
+	/**
+	 * @param image sets the coupon's image
+	 */
 	public void setImage(String image) {
 		this.image = image;
 	}
 
+	/**
+	 * prints all the information about the coupon as a String 
+	 */
 	@Override
 	public String toString() {
 		return "Coupon [couponId=" + couponId + ", title=" + title + ", start_date=" + start_date + ", end_date="

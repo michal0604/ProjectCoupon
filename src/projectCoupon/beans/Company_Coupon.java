@@ -12,7 +12,7 @@ public class Company_Coupon {
 	
 	
 	/**
-	 *  empty cTor
+	 *  empty cTor to initiate an instance. 
 	 */
 	public Company_Coupon() {}
 
@@ -21,7 +21,7 @@ public class Company_Coupon {
 	 * full cTor for the representation of the link between a company and coupon
 	 * 
 	 * @param companyId the id of the company
-	 * @param couponId
+	 * @param couponId the id of the coupon
 	 */
 	public Company_Coupon(long companyId, long couponId) {
 		super();
@@ -69,8 +69,6 @@ public class Company_Coupon {
 	public String toString() {
 		return "Company_Coupon [companyId=" + companyId + ", couponId=" + couponId + "]";
 	}
-
-
 	
 
 }

@@ -1,7 +1,7 @@
 package projectCoupon.beans;
 
 /**
- * this calls is for an object representing Company data
+ * this is the object representing Company data
  * 
  * @author Eivy & Michal
  *
@@ -12,10 +12,9 @@ public class Company {
 	private String compName;
 	private String password;
 	private String email;
-	// private List<Coupon> coupons;
 
 	/**
-	 * empty cTor for Company
+	 * empty cTor for Company object instantiation 
 	 */
 	public Company() {
 	}
@@ -23,10 +22,10 @@ public class Company {
 	/**
 	 * full cTor for the company object
 	 * 
-	 * @param id = company id
-	 * @param compName = company name
-	 * @param password = company password
-	 * @param email = company email
+	 * @param id  company id
+	 * @param compName  company name
+	 * @param password  company password
+	 * @param email  company email
 	 */
 	public Company(long companyId, String compName, String password, String email) {
 		this.companyId = companyId;
