@@ -107,7 +107,7 @@ public class CouponDBDAO implements CouponDAO {
 	}
 
 	@Override
-	public void updateCoupon(Coupon Coupon) throws UpdateException, CreateException {
+	public void updateCoupon(long companyId, Coupon Coupon) throws UpdateException, CreateException {
 		Connection connection = null;
 		try {
 			connection = pool.getConnection();

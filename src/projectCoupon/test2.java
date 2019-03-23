@@ -164,7 +164,7 @@ public class test2 {
 				/*********************************************************************
 				 * Company Facade TEST: id: 2, user: "HOLMESPLACE", password: "112" *
 				 *********************************************************************/
-				facade = couponSystem.login("HOLMESPLACE","112",ClientType.COMPANY);
+				facade = couponSystem.login("HOLMCE-PLACE","112",ClientType.COMPANY);
 				if (facade instanceof CompanyFacade) {
 					System.out.println("========  Login(HOLMESPLACE, 112, CompanyFacade) ========\n");
 
@@ -205,9 +205,9 @@ public class test2 {
 					System.out.println("========  Login(BUG, 113, CompanyFacade) ========\n");
 
 					// Add new 3 coupons
-					Coupon coupon01 = new Coupon(7,"Deal-01",Utile.getCurrentDate(),Utile.getDateAfter(10),  2, couponType.Electricity, "Deal Of The year-1",  30.00, "http//www.bug.co.il/?1"); 
-					Coupon coupon02 = new Coupon(8,"Deal-02",Utile.getCurrentDate(),Utile.getDateAfter(12), 2, couponType.Electricity, "Deal Of The year-1",  40.00, "http//www.bug.co.il/?2"); 
-					Coupon coupon03 = new Coupon(9,"Deal-03",Utile.getCurrentDate(),Utile.getDateAfter(11), 2, couponType.Electricity, "Deal Of The year-1",  50.00, "http//www.bug.co.il/?3");
+					Coupon coupon01 = new Coupon(7,"BUG-Deal-01",Utile.getCurrentDate(),Utile.getDateAfter(10),  2, couponType.Electricity, "Deal Of The year-1",  30.00, "http//www.bug.co.il/?1"); 
+					Coupon coupon02 = new Coupon(8,"BUG-Deal-02",Utile.getCurrentDate(),Utile.getDateAfter(12), 2, couponType.Electricity, "Deal Of The year-1",  40.00, "http//www.bug.co.il/?2"); 
+					Coupon coupon03 = new Coupon(9,"BUG-Deal-03",Utile.getCurrentDate(),Utile.getDateAfter(11), 2, couponType.Electricity, "Deal Of The year-1",  50.00, "http//www.bug.co.il/?3");
 				  
 					CompanyFacade companyFacade=new CompanyFacade();
 					companyFacade.createCoupon(coupon01);
@@ -283,9 +283,9 @@ public class test2 {
 					System.out.println("========  Login(FOX, 115, CompanyFacade) ========\n");
 
 					// Add new 3 coupons
-					Coupon coupon01 = new Coupon(13,"deal-01",Utile.getCurrentDate(),Utile.getDateAfter(15),  2, couponType.Sports, "Deal Of The year-1",  44.00, "http//www.fox.co.il/?1"); 
-					Coupon coupon02 = new Coupon(14,"deal-02",Utile.getCurrentDate(),Utile.getDateAfter(25), 3, couponType.Sports, "Deal Of The year-1",  47.00, "http//www.fox.co.il/?2"); 
-					Coupon coupon03 = new Coupon(15,"deal-03",Utile.getCurrentDate(),Utile.getDateAfter(20), 3, couponType.Sports, "Deal Of The year-1",  51.00, "http//www.fox.co.il/?3"); 
+					Coupon coupon01 = new Coupon(13,"FOX-deal-01",Utile.getCurrentDate(),Utile.getDateAfter(15),  2, couponType.Sports, "Deal Of The year-1",  44.00, "http//www.fox.co.il/?1"); 
+					Coupon coupon02 = new Coupon(14,"FOX-deal-02",Utile.getCurrentDate(),Utile.getDateAfter(25), 3, couponType.Sports, "Deal Of The year-1",  47.00, "http//www.fox.co.il/?2"); 
+					Coupon coupon03 = new Coupon(15,"FOX-deal-03",Utile.getCurrentDate(),Utile.getDateAfter(20), 3, couponType.Sports, "Deal Of The year-1",  51.00, "http//www.fox.co.il/?3"); 
 	                
 					CompanyFacade companyFacade=new CompanyFacade();
 					companyFacade.createCoupon(coupon01);
@@ -319,7 +319,7 @@ public class test2 {
 				 * Customer Facade TEST: id: 1,  user: "Michal", password: "2001" *
 				 **************************************************************************/			
 				facade = couponSystem.login("Michal","2001",ClientType.CUSTOMER);
-				if (facade instanceof Customer) {
+				if (facade instanceof CustomerFacad) {
 					System.out.println("========  Login(Michal, 2001, Customer) ========\n");
 		         CustomerFacad customerFacad=new CustomerFacad();
 					// getCouponsByType(CouponType.RESTURANTS)
