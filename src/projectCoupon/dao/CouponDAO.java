@@ -13,7 +13,7 @@ import projectCoupon.exception.UpdateException;
 public interface CouponDAO {
 	void insertCoupon(Coupon Coupon) throws CreateException, SQLException;
 
-	void updateCoupon(Coupon Coupon) throws UpdateException, CreateException;
+	void updateCoupon(long companyId, Coupon Coupon) throws UpdateException, CreateException;
 
 	Coupon getCoupon(long couponId) throws CouponException, CreateException;
 

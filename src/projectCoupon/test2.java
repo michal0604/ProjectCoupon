@@ -122,7 +122,7 @@ public class test2 {
 				 *****************************************************************/
 				facade = couponSystem.login("PIZZAHUT","111",ClientType.COMPANY);
 				if (facade instanceof CompanyFacade) {
-					System.out.println("========  Login(PIZZAHUT, 1001, CompanyFacade) ========\n");
+					System.out.println("========  Login(PIZZAHUT, 111, CompanyFacade) ========\n");
 
 		
 					Coupon coupon01 = new Coupon(1,"Deal-01",Utile.getCurrentDate(),Utile.getDateAfter(10), 5, couponType.food, "Best Deal",  69.90, "http//www.pizzahatCoupon.co.il/?1"); 
@@ -166,9 +166,9 @@ public class test2 {
 				 *********************************************************************/
 				facade = couponSystem.login("HOLMESPLACE","112",ClientType.COMPANY);
 				if (facade instanceof CompanyFacade) {
-					System.out.println("========  Login(HOLMESPLACE, 9998, CompanyFacade) ========\n");
+					System.out.println("========  Login(HOLMESPLACE, 112, CompanyFacade) ========\n");
 
-					// Add new 10 coupons
+					// Add new 3 coupons
 					Coupon coupon01 = new Coupon(4,"sportDeal-01",Utile.getCurrentDate(),Utile.getDateAfter(4),  6, couponType.Sports, "Deal Of The year-1",  120.90, "http//www.holmesplace.co.il/?1"); 
 					Coupon coupon02 = new Coupon(5,"sportDeal-02",Utile.getCurrentDate(),Utile.getDateAfter(6), 6, couponType.Sports, "Deal Of The year-1",  130.90, "http//www.holmesplace.co.il/?2"); 
 					Coupon coupon03 = new Coupon(6,"sportDeal-03",Utile.getCurrentDate(),Utile.getDateAfter(10), 6, couponType.Sports, "Deal Of The year-1",  140.90, "http//www.holmesplace.co.il/?3");
