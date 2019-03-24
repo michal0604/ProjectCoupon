@@ -21,7 +21,6 @@ public interface CompanyDAO {
 	 * @param company company to be inserted
 	 * @throws CouponException for problems in inserting the company to the DB 
 	 * @throws SQLException for DB related failures 
-	 * @throws ConnectionException for connection problems
 	 */
 	void insertCompany(Company company) throws CouponException, SQLException;
 
@@ -39,18 +38,16 @@ public interface CompanyDAO {
 	 * updates a company into the Database
 	 * 
 	 * @param company company to update
-	 * @throws CouponException regarding the connection problem
-	 * @throws CompanyUpdateException or problems in updating the company to the DB 
-	 * @throws SQLException for DB related failures 
-	 * @throws CompanyException 
+	 * @throws CompanyException for error related to the retrieval of the company
 	 */
 	void updateCompany(Company company) throws   CompanyException;
 
 	/**
 	 * get a company data set by the company's id.
 	 * 
-	 * @param id representing the id of the required company
-	 * @throws CouponException  for errors happing due to trying to get a company from DB
+	 * @param companyId representing the id of the required company
+	 * @return  a company which her id is  companyId.
+	 * @throws CouponException for error related to the retrieval of the company 
 	 * @throws SQLException for DB related failures
 	 */
 	Company getCompany(long companyId) throws CouponException, SQLException;
