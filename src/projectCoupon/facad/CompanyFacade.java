@@ -142,7 +142,6 @@ public class CompanyFacade implements CouponClientFacade {
 					Date startDate = (Date) couponDAO.getCoupon(couponId).getStart_date();
 					Date endDate = (Date) coupon.getEnd_date();
 					if (startDate.getTime() <= endDate.getTime()) {
-
 						couponDAO.updateCoupon(coupon);
 
 					} else {

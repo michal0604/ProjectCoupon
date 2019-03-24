@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 import projectCoupon.beans.Company;
-import projectCoupon.beans.Company_Coupon;
 import projectCoupon.beans.Customer;
 import projectCoupon.dao.CompanyDAO;
 import projectCoupon.dao.Company_CouponDAO;
@@ -36,7 +35,7 @@ import projectCoupon.utils.ClientType;
 	
 	@Override
 	public CouponClientFacade login(String name, String password, ClientType clientType) throws Exception {
-		 if ( name.equals(this.ADMIN_USER_NAME) && password.equals(this.ADMIN_PASSWORD)) { 
+		 if ( name.equals(AdminFacad.ADMIN_USER_NAME) && password.equals(AdminFacad.ADMIN_PASSWORD)) { 
 			 return this; 
 		 }	
 
