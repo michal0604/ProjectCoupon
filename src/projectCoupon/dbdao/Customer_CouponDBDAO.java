@@ -31,8 +31,6 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 		}
 	}
 
-	
-
 	public void insertCustomer_Coupon(long customerId, long couponId) throws CreateException {
 		Connection connection;
 		try {
@@ -66,6 +64,7 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 		}
 
 	}
+
 	@Override
 	public void removeCustomer_Coupon(long customerId, long couponId) throws RemoveException {
 		Connection connection;
@@ -106,14 +105,13 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 		}
 	}
 
-
 	@Override
 	public List<Customer_Coupon> getAllCustomer_Coupon() throws CouponException, CreateException {
 		Connection connection;
 		try {
 			connection = pool.getConnection();
 		} catch (Exception e) {
-			throw new CouponException("connection failed "+e.getMessage());
+			throw new CouponException("connection failed " + e.getMessage());
 		}
 		List<Customer_Coupon> list = new ArrayList<Customer_Coupon>();
 
@@ -145,55 +143,51 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 
 	@Override
 	public List<Long> getCustomersByCouponId(long couponId) throws CouponException, CreateException {
-	      try {
+		try {
 			pool = ConnectionPool.getInstance();
 		} catch (SQLException e) {
 			throw new CouponException("connection failed");
 		}
 		Connection connection = pool.getConnection();
 		List<Long> list = new ArrayList<Long>();
-		List<Customer_Coupon> allList = getAllCustomer_Coupon();
 		try {
-		Statement statement = connection.createStatement();
-		String sql= "select * from Customer_Coupon where Coupon_ID = " + couponId;
-		ResultSet rs = statement.executeQuery(sql);
-		while (rs.next()) {
-			long customerId = rs.getLong(1);
-			list.add(customerId);
-		}
-	} catch (SQLException e) {
-		try {
-			throw new Exception("unable to get Customer_Coupon data. couponId: " + couponId);
-		} catch (Exception e1) {
-			throw new CouponException("connection failed");
-		}
-	} finally {
-		try {
-			connection.close();
+			Statement statement = connection.createStatement();
+			String sql = "select * from Customer_Coupon where Coupon_ID = " + couponId;
+			ResultSet rs = statement.executeQuery(sql);
+			while (rs.next()) {
+				long customerId = rs.getLong(1);
+				list.add(customerId);
+			}
 		} catch (SQLException e) {
-			throw new CouponException("connection failed");
-		}
-		
-	      pool.returnConnection(connection);
-	}
-	return list;
-	}
-
-		
-
-	@Override
-	public List<Long> getCouponsByCustomerId(long customerId) throws CouponException, CreateException {
-	      try {
-				pool = ConnectionPool.getInstance();
+			try {
+				throw new Exception("unable to get Customer_Coupon data. couponId: " + couponId);
+			} catch (Exception e1) {
+				throw new CouponException("connection failed");
+			}
+		} finally {
+			try {
+				connection.close();
 			} catch (SQLException e) {
 				throw new CouponException("connection failed");
 			}
-			Connection connection = pool.getConnection();
-			List<Long> list = new ArrayList<Long>();
-			List<Customer_Coupon> allList = getAllCustomer_Coupon();
-			try {
+
+			pool.returnConnection(connection);
+		}
+		return list;
+	}
+
+	@Override
+	public List<Long> getCouponsByCustomerId(long customerId) throws CouponException, CreateException {
+		try {
+			pool = ConnectionPool.getInstance();
+		} catch (SQLException e) {
+			throw new CouponException("connection failed");
+		}
+		Connection connection = pool.getConnection();
+		List<Long> list = new ArrayList<Long>();
+		try {
 			Statement statement = connection.createStatement();
-			String sql= "select * from Customer_Coupon where customer_Id = " + customerId;
+			String sql = "select * from Customer_Coupon where customer_Id = " + customerId;
 			ResultSet rs = statement.executeQuery(sql);
 			while (rs.next()) {
 				long coupon_Id = rs.getLong(1);
@@ -211,13 +205,11 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 			} catch (SQLException e) {
 				throw new CouponException("connection failed");
 			}
-			
-		      pool.returnConnection(connection);
+
+			pool.returnConnection(connection);
 		}
 		return list;
-		}
-
-	
+	}
 
 	@Override
 	public void updateCustomer_Coupon(long customerId, long couponId) throws UpdateException {

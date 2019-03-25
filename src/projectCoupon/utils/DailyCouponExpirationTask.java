@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import projectCoupon.beans.Coupon;
-import projectCoupon.dao.CouponDAO;
 import projectCoupon.dbdao.Company_CouponDBDAO;
 import projectCoupon.dbdao.CouponDBDAO;
 import projectCoupon.dbdao.Customer_CouponDBDAO;
@@ -15,11 +14,6 @@ import projectCoupon.exception.CouponException;
 
 public class DailyCouponExpirationTask implements Runnable {
 	
-	private CouponDAO coupDAO;
-	private int sleepTime;
-	//
-	// Attributes
-	//
 	private CouponDBDAO couponDBDAO=new CouponDBDAO();
 	private Customer_CouponDBDAO customer_CouponDBDAO=new Customer_CouponDBDAO();
 	private Company_CouponDBDAO company_CouponDBDAO=new Company_CouponDBDAO();
@@ -30,16 +24,11 @@ public class DailyCouponExpirationTask implements Runnable {
 	
 
 	public DailyCouponExpirationTask(int SLEEPTIME  ) throws CouponException{
-		coupDAO=new CouponDBDAO();
-		this.SLEEPTIME=SLEEPTIME;
+		DailyCouponExpirationTask.SLEEPTIME=SLEEPTIME;
 		
 
 	}
 
-	//
-	// Functions
-	//
-	
 	public void startTask()throws CouponException{
 		try {
 			dailyTaskThread=new Thread(this);

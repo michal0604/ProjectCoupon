@@ -1,15 +1,9 @@
 //test
 package projectCoupon;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.util.zip.CRC32;
-
 import projectCoupon.beans.Company;
-import projectCoupon.beans.Company_Coupon;
 import projectCoupon.beans.Coupon;
 import projectCoupon.beans.Customer;
-import projectCoupon.beans.Customer_Coupon;
 import projectCoupon.beans.couponType;
 import projectCoupon.db.Database;
 import projectCoupon.dbdao.CompanyDBDAO;
@@ -17,8 +11,6 @@ import projectCoupon.dbdao.Company_CouponDBDAO;
 import projectCoupon.dbdao.CouponDBDAO;
 import projectCoupon.dbdao.CustomerDBDAO;
 import projectCoupon.dbdao.Customer_CouponDBDAO;
-import projectCoupon.facad.AdminFacad;
-import projectCoupon.facad.CompanyFacade;
 import projectCoupon.utils.Utile;
 
 public class TestCoupon {
@@ -26,7 +18,6 @@ public class TestCoupon {
 	public static void main(String[] args) throws Exception {
 
 		Class.forName(Database.getDriverData());
-		Connection con = DriverManager.getConnection(Database.getDBUrl());
 		Database.dropTableifNeeded();
 		Database.createTables();
 
@@ -90,9 +81,6 @@ public class TestCoupon {
 
 		System.out.println("---------------------------------------------------------------");
 		Company_CouponDBDAO company_CouponDBDAO = new Company_CouponDBDAO();
-		Company_Coupon b1 = new Company_Coupon(1, 2);
-		Company_Coupon b2 = new Company_Coupon(1, 1);
-
 		company_CouponDBDAO.insertCompany_Coupon(1, 2);
 		company_CouponDBDAO.insertCompany_Coupon(1, 1);
 

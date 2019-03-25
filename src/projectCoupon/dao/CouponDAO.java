@@ -5,7 +5,6 @@ import java.util.List;
 
 import projectCoupon.beans.Coupon;
 import projectCoupon.beans.couponType;
-import projectCoupon.exception.CompanyException;
 import projectCoupon.exception.CouponException;
 import projectCoupon.exception.CreateException;
 import projectCoupon.exception.RemoveException;
@@ -93,21 +92,17 @@ public interface CouponDAO {
 	void removeCoupon(Coupon Coupon) throws RemoveException, CreateException;
 
 	/**
-	 * @return
-	 * @throws CouponException
-	 * @throws Exception
-	 */
-	List<Long> removeExpiredCoupons() throws CouponException, Exception;
-
-	/**
-	 * @param coupTitle
-	 * @return
+	 * this function search if a given string exist as a title of one of the coupons.
+	 * @param coupTitle a string representing a coupon title
+	 * @return true if there is such a coupon title, false otherwise. 
 	 * @throws CouponException
 	 */
 	public boolean isCouponTitleExists(String coupTitle) throws CouponException;
 
 	/**
-	 * @param couponId
+	 * this function remove a coupon by it's id 
+	 * @param couponId of the coupon to be deleted
+	 * 
 	 * @throws CouponException
 	 */
 	void removeCouponID(long couponId) throws CouponException;

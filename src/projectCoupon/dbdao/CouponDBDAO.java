@@ -18,9 +18,19 @@ import projectCoupon.exception.RemoveException;
 import projectCoupon.exception.UpdateException;
 import projectCoupon.utils.ConnectionPool;
 
+/**
+ * this class implements data base  operations for Coupon's requirements.
+ * 
+ *  @author Eivy & Michal
+ *
+ */
 public class CouponDBDAO implements CouponDAO {
 	private ConnectionPool pool;
 
+	/**
+	 * cTor for the coupon object.
+	 * @throws CouponException
+	 */
 	public CouponDBDAO() throws CouponException {
 		try {
 			pool = ConnectionPool.getInstance();
@@ -29,8 +39,14 @@ public class CouponDBDAO implements CouponDAO {
 		}
 	}
 
-	private static ConnectionPool Pool;
 	
+	/**
+	 * Inserts a coupon data set to the Database
+	 * 
+	 * @param coupon coupon to be inserted
+	 * @throws CreateException for problems in inserting the coupon to the DB 
+	 * @throws SQLException for DB related failures 
+	 */
 	@Override
 	public void insertCoupon(Coupon coupon) throws CreateException {
 		
@@ -62,14 +78,23 @@ public class CouponDBDAO implements CouponDAO {
 			} catch (SQLException e1) {
 				throw new CreateException("close connection was failed " + e1.getMessage());
 			}
-			try {
-				pool.returnConnection(connection);
-			} catch (Exception e) {
-				throw new CreateException("close connection was failed " + e.getMessage());
-			}
+				try {
+					pool.returnConnection(connection);
+				} catch (CouponException e) {
+					throw new CreateException("close connection was failed " + e.getMessage());
+				}
+
 		}
 	}
 
+	/**
+	 * this function removed a given coupon from the coupon data
+	 * 
+	 * @param Coupon to be removed.
+	 * 
+	 * @throws RemoveException
+	 * @throws CreateException
+	 */
 	@Override
 	public void removeCoupon(Coupon Coupon) throws CreateException, RemoveException {
 		Connection connection = null;
@@ -98,14 +123,22 @@ public class CouponDBDAO implements CouponDAO {
 			} catch (SQLException e) {
 				throw new RemoveException("Database error " + e.getMessage());
 			}
-			try {
-				pool.returnConnection(connection);
-			} catch (Exception e) {
-				throw new RemoveException("Database error " + e.getMessage());
-			}
+				try {
+					pool.returnConnection(connection);
+				} catch (CouponException e) {
+					throw new RemoveException("Database error " + e.getMessage());
+				}
+
 		}
 	}
 
+	/**
+	 * updates a coupon into the Database
+	 * 
+	 * @param coupon coupon to update
+	 * @throws UpdateException for problems in updating the coupon to the DB
+	 * @throws CreateException for problems in inserting the coupon to the DB 
+	 */
 	@Override
 	public void updateCoupon(Coupon Coupon) throws UpdateException, CreateException {
 		Connection connection = null;
@@ -144,6 +177,15 @@ public class CouponDBDAO implements CouponDAO {
 		}
 	}
 
+
+	/**
+	 * get a coupon data set by the coupon's id.
+	 * 
+	 * @param couponId representing the id of the required coupon
+	 * @return  a coupon which her id is  couponId.
+	 * @throws CouponException for error related to the retrieval of the coupon 
+	 * @throws CreateException 
+	 */
 	@Override
 	public Coupon getCoupon(long couponId) throws CreateException, CouponException {
 		Connection connection = null;
@@ -203,15 +245,18 @@ public class CouponDBDAO implements CouponDAO {
 			} catch (SQLException e) {
 				throw new CouponException("Database error " + e.getMessage());
 			}
-			try {
-				pool.returnConnection(connection);
-			} catch (Exception e) {
-				throw new CouponException("Database error " + e.getMessage());
-			}
+			pool.returnConnection(connection);
+
 		}
 		return coupon;
 	}
 
+	/**
+	 * get a list of all available coupons
+	 * 
+	 * @return  a list of available coupons
+	 * @throws CouponException for error related to the retrieval of the coupon 
+	 */
 	@Override
 	public List<Coupon> getAllCoupons() throws CouponException {
 		Connection connection;
@@ -273,15 +318,18 @@ public class CouponDBDAO implements CouponDAO {
 			} catch (SQLException e) {
 				throw new CouponException("Database error " + e.getMessage());
 			}
-			try {
-				pool.returnConnection(connection);
-			} catch (Exception e) {
-				throw new CouponException("Database error " + e.getMessage());
-			}
+			pool.returnConnection(connection);
 		}
 		return set;
 	}
 
+	/**
+	 * this function remove a coupon by it's id 
+	 * 
+	 * @param couponId of the coupon to be deleted
+	 * 
+	 * @throws CouponException
+	 */
 	@Override
 	public void removeCouponID(long couponId) throws CouponException {
 		Connection connection;
@@ -321,31 +369,12 @@ public class CouponDBDAO implements CouponDAO {
 
 	}
 
-	// we need this ???
-	@Override
-	public List<Long> removeExpiredCoupons() throws CouponException {
-		Connection connection;
-		List<Long> expieredList = new ArrayList<Long>();
-		try {
-			connection = pool.getConnection();
-		} catch (Exception e) {
-			throw new CouponException("connection failed " + e.getMessage());
-		}
-		try {
-			String sql = "SELECT ID FROM app.Coupon WHERE end_date < CURRENT_DATE ";
-			Statement pstmt = connection.createStatement();
-			ResultSet rs = pstmt.executeQuery(sql);
-			while (rs.next()) {
-				expieredList.add(rs.getLong(1));
-			}
-			return expieredList;
-		} catch (SQLException e) {
-			throw new CouponException("DB ERROR! Remove Expired Coupon Failed. " + e.getMessage());
-		} finally {
-			pool.returnConnection(connection);
-		}
-	}
-
+	/**
+	 * this function returns all available coupons by specific type 
+	 * @param coupType the required coupon type
+	 * @return  all available coupons that much the type
+	 * @throws CouponException for error related to the retrieval of the coupon 
+	 */
 	@Override
 	public List<Coupon> getAllCouponsByType(couponType coupType) throws CouponException {
 		try {
@@ -397,6 +426,13 @@ public class CouponDBDAO implements CouponDAO {
 		}
 	}
 
+	/**
+	 * this function returns all available coupons by specific max coupon exploration Date
+	 * 
+	 * @param untilDate the date that a coupon's expire Date cannot exceed 
+	 * @return a list of available coupon that expire before or the same date as untilDate
+	 * @throws CouponException for error related to the retrieval of the coupon
+	 */
 	@Override
 	public List<Coupon> getAllCouponsByDate(String untilDate) throws CouponException {
 		Connection connection;
@@ -468,6 +504,13 @@ public class CouponDBDAO implements CouponDAO {
 	}
 
 
+	/**
+	 * this function returns all available coupons by specific max coupon price
+	 * 
+	 * @param priceMax the price that a coupon's price cannot exceed  
+	 * @return a list of available coupon that are lower or equal to PriceMax
+	 * @throws CouponException for error related to the retrieval of the coupon 
+	 */
 	@Override
 	public List<Coupon> getAllCouponsByPrice(double priceMax) throws CouponException {
 		Connection connection;
@@ -538,6 +581,14 @@ public class CouponDBDAO implements CouponDAO {
 		return set;
 	}
 
+	/**
+	 * this function search if a given string exist as a title of one of the coupons.
+	 * 
+	 * @param coupTitle a string representing a coupon title
+	 * 
+	 * @return true if there is such a coupon title, false otherwise. 
+	 * @throws CouponException
+	 */
 	@Override
 	public boolean isCouponTitleExists(String Title) throws CouponException {
 		Connection connection = null;

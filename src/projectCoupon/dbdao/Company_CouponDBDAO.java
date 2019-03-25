@@ -273,7 +273,6 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 		}
 		Connection connection;
 		connection = pool.getConnection();
-		List<Company_Coupon> allList = getAllCompany_Coupons();
 		List<Long> list = new ArrayList<Long>();
 		String sql = "select * from Company_Coupon where company_Id = " + companyId;
 		try {

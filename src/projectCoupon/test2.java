@@ -8,14 +8,12 @@ import projectCoupon.beans.Coupon;
 import projectCoupon.beans.Customer;
 import projectCoupon.beans.couponType;
 import projectCoupon.db.Database;
-import projectCoupon.exception.CouponException;
 import projectCoupon.facad.AdminFacad;
 import projectCoupon.facad.CompanyFacade;
 import projectCoupon.facad.CouponClientFacade;
 import projectCoupon.facad.CustomerFacad;
 import projectCoupon.utils.ClientType;
 import projectCoupon.utils.CouponSystem;
-import projectCoupon.utils.CouponSystem.clientType;
 import projectCoupon.utils.Utile;
 
 public class test2 {
@@ -27,7 +25,6 @@ public class test2 {
 		CouponClientFacade facade;
 	
 			CouponSystem couponSystem=CouponSystem.getInstance();
-			Utile utile=new Utile();
 			
 			String line = "---------------------------------------------------------------\n";
 			
@@ -70,7 +67,6 @@ public class test2 {
 				Company company07 = adminFacad.getCompany(5);
 				System.out.println("Show One updated company\n" + company07.toString());
 			
-				Company company08 = new Company();
 			//	adminFacad.updateCompany(company02, "tadiran", "444", "tadiran@walla.com");  // Update company HOLMESPLACEþ with password
 
 				
@@ -97,7 +93,6 @@ public class test2 {
 				System.out.println("After creating new customers - Show all customers (before update)\n" + customers.toString());
 			
 				// Update Customer 
-				Customer customer06 = new Customer();
 				adminFacad.updateCustomer(customer02, "Dany", "444");
 
 				// Show One updated customer.
