@@ -93,7 +93,9 @@ public interface CouponDAO {
 
 	/**
 	 * this function search if a given string exist as a title of one of the coupons.
+	 * 
 	 * @param coupTitle a string representing a coupon title
+	 * 
 	 * @return true if there is such a coupon title, false otherwise. 
 	 * @throws CouponException
 	 */
@@ -101,6 +103,7 @@ public interface CouponDAO {
 
 	/**
 	 * this function remove a coupon by it's id 
+	 * 
 	 * @param couponId of the coupon to be deleted
 	 * 
 	 * @throws CouponException
