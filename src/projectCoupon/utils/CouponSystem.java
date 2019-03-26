@@ -15,11 +15,11 @@ public class CouponSystem {
 	DailyCouponExpirationTask DailyTask;
 	Thread thread;
 	Connection connection;
-	
+
 	public enum clientType {
 		Admin, Customer, Company
 	};
-	
+
 	/**
 	 * Thread timer - 1000*3600*24 is every 24 hours
 	 */
@@ -32,7 +32,6 @@ public class CouponSystem {
 		thread = new Thread(DailyTask);
 		thread.start();
 	}
-	
 
 	public static CouponSystem getInstance() throws CouponException {
 		if (instance == null)
@@ -40,38 +39,32 @@ public class CouponSystem {
 		return instance;
 	}
 
-	
-public CouponClientFacade login(String name, String password, ClientType clientType ) throws Exception {
-	CouponClientFacade couponClientFacade = null;
+	public static CouponClientFacade login(String name, String password, ClientType clientType) throws Exception {
+		CouponClientFacade couponClientFacade = null;
 
 		switch (clientType) {
 		case ADMIN:
-			couponClientFacade=new AdminFacad();
+			couponClientFacade = AdminFacad.login(name, password);
 			break;
 		case COMPANY:
-			couponClientFacade = new CompanyFacade();
+			couponClientFacade = CompanyFacade.login(name, password);
 			break;
 		case CUSTOMER:
 			couponClientFacade = new CustomerFacad();
 			break;
 		default:
-			couponClientFacade = null;
-		} 
-		
-		if (couponClientFacade != null) {
-			couponClientFacade = couponClientFacade.login(name,password,clientType);
-			if (couponClientFacade != null) {
-				return couponClientFacade;
-			} else {
-				throw new CouponException("STOP! Login Falied! Invalid User or Password!");
-			}
-		} else {
 			throw new CouponException("STOP! Login Falied! Invalid User Type!");
 		}
+
+		if (couponClientFacade != null) {
+			return couponClientFacade;
+		} else {
+			throw new CouponException("STOP! Login Falied! Invalid User or Password!");
+		}
+
 	}
 
-	
-	
+
 	/**
 	 * Shutdown system. Close all Connection Pool connections. Stop daily coupon
 	 * expiration task deletion Thread.

@@ -26,17 +26,17 @@ import projectCoupon.utils.ClientType;
 
 
 
-	public AdminFacad() throws CouponException{
+	private AdminFacad() throws CouponException{
 		this.companyDAO = new CompanyDBDAO();
 		this.customerDAO = new CustomerDBDAO();
 		this.customer_CouponDAO=new Customer_CouponDBDAO();
 		this.company_CouponDAO=new Company_CouponDBDAO();
 	}
 	
-	@Override
-	public CouponClientFacade login(String name, String password, ClientType clientType) throws Exception {
+	
+	public  static CouponClientFacade login(String name, String password) throws Exception {
 		 if ( name.equals(AdminFacad.ADMIN_USER_NAME) && password.equals(AdminFacad.ADMIN_PASSWORD)) { 
-			 return this; 
+			 return new AdminFacad(); 
 		 }	
 
 		return null;

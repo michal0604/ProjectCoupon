@@ -143,8 +143,7 @@ public class CustomerFacad implements CouponClientFacade {
 		return custDAO.getAllCustomer();
 	}
 
-	@Override
-	public CouponClientFacade login(String name, String password, ClientType clientType) throws Exception {
+	public static CouponClientFacade login(String name, String password) throws Exception {
 		Customer customer = new CustomerDBDAO().login(name, password);
 		if (customer != null) {
 			CustomerFacad customerFacad = new CustomerFacad();
