@@ -13,38 +13,41 @@ import projectCoupon.dbdao.CompanyDBDAO;
 import projectCoupon.dbdao.Company_CouponDBDAO;
 import projectCoupon.dbdao.CustomerDBDAO;
 import projectCoupon.dbdao.Customer_CouponDBDAO;
+import projectCoupon.exception.CompanyException;
 import projectCoupon.exception.CouponException;
-import projectCoupon.utils.ClientType;
+import projectCoupon.exception.CustomerException;
+import projectCoupon.exception.RemoveException;
+import projectCoupon.exception.UpdateException;
 
-    public class AdminFacad implements CouponClientFacade{
+public class AdminFacad implements CouponClientFacade {
 	private static final String ADMIN_USER_NAME = "admin";
 	private static final String ADMIN_PASSWORD = "1234";
 	private CompanyDAO companyDAO;
 	private CustomerDAO customerDAO;
 	private Company_CouponDAO company_CouponDAO;
 	private Customer_CouponDAO customer_CouponDAO;
+	private boolean isLogedIn = false;
 
-
-
-	private AdminFacad() throws CouponException{
+	public AdminFacad() throws CouponException {
 		this.companyDAO = new CompanyDBDAO();
 		this.customerDAO = new CustomerDBDAO();
-		this.customer_CouponDAO=new Customer_CouponDBDAO();
-		this.company_CouponDAO=new Company_CouponDBDAO();
+		this.customer_CouponDAO = new Customer_CouponDBDAO();
+		this.company_CouponDAO = new Company_CouponDBDAO();
 	}
-	
-	
-	public  static CouponClientFacade login(String name, String password) throws Exception {
-		 if ( name.equals(AdminFacad.ADMIN_USER_NAME) && password.equals(AdminFacad.ADMIN_PASSWORD)) { 
-			 return new AdminFacad(); 
-		 }	
+
+	public CouponClientFacade login(String name, String password) {
+		if (name.equals(AdminFacad.ADMIN_USER_NAME) && password.equals(AdminFacad.ADMIN_PASSWORD)) {
+			this.isLogedIn = true;
+			return this;
+		}
 
 		return null;
 	}
 
-
-	
 	public void createCompany(Company company) throws CouponException, SQLException {
+		if (!isLogedIn) {
+			throw new CouponException("the operation was canceled due to not being loged in");
+		}
 		if (company != null) {
 			String compName = company.getCompName();
 			if (compName != null) {
@@ -53,51 +56,60 @@ import projectCoupon.utils.ClientType;
 						try {
 							companyDAO.insertCompany(company);
 						} catch (Exception e) {
-							//TODO see what is the Exception and fix line
-							throw new CouponException(e.getMessage()); 
+							// TODO see what is the Exception and fix line
+							throw new CouponException(e.getMessage());
 						}
 					} else {
-						throw new CouponException(" Company Name Already Exists! Create New Company Canceled!"); 
+						throw new CouponException(" Company Name Already Exists! Create New Company Canceled!");
 					}
 				} else {
-					throw new CouponException(" Password Requiered! Create New Company Canceled!"); 
+					throw new CouponException(" Password Requiered! Create New Company Canceled!");
 				}
 			} else {
-				throw new CouponException("Company Name Requiered! Create New Company Canceled!"); 
+				throw new CouponException("Company Name Requiered! Create New Company Canceled!");
 			}
 		} else {
-			throw new CouponException("Company Information Not Exist! Create New Company Failed!"); 
-		}	
+			throw new CouponException("Company Information Not Exist! Create New Company Failed!");
+		}
 	}
-	
-	
-	
+
 	public void removeCompany(Company company) throws Exception {
-		    company_CouponDAO.removeCompany_Coupon(company);
-			companyDAO.removeCompany(company);
-			
+		if (!isLogedIn) {
+			throw new CouponException("the operation was canceled due to not being loged in");
+		}
+		company_CouponDAO.removeCompany_Coupon(company);
+		companyDAO.removeCompany(company);
+
 	}
-	
-	
-	public void updateCompany(Company Company, String newName, String newpassword,String newEmail) throws Exception {
+
+	public void updateCompany(Company Company, String newName, String newpassword, String newEmail) throws CompanyException, CouponException{
+		if(!isLogedIn) {
+			throw new CouponException("the operation was canceled due to not being loged in");
+		}
 		Company.setCompName(newName);
 		Company.setPassword(newpassword);
 		Company.setEmail(newEmail);
 		companyDAO.updateCompany(Company);
 	}
-	
-	
-	public Company getCompany(long id) throws Exception {
+
+	public Company getCompany(long id) throws CouponException, SQLException{
+		if(!isLogedIn) {
+			throw new CouponException("the operation was canceled due to not being loged in");
+		}
 		return companyDAO.getCompany(id);
 	}
 
-	
-	public List<Company> getAllCompanies() throws Exception  {
+	public List<Company> getAllCompanies() throws CouponException, SQLException{
+		if(!isLogedIn) {
+			throw new CouponException("the operation was canceled due to not being loged in");
+		}
 		return companyDAO.getAllCompanys();
 	}
-		
-	
+
 	public void createCustomer(Customer customer) throws CouponException {
+		if(!isLogedIn) {
+			throw new CouponException("the operation was canceled due to not being loged in");
+		}
 		if (customer != null) {
 			String custName = customer.getCustomerName();
 			if (custName != null) {
@@ -106,62 +118,52 @@ import projectCoupon.utils.ClientType;
 						try {
 							customerDAO.insertCustomer(customer);
 						} catch (Exception e) {
-							//TODO see what is the Exception and fix line
-							throw new CouponException(e.getMessage()); 
+							// TODO see what is the Exception and fix line
+							throw new CouponException(e.getMessage());
 						}
 					} else {
-						throw new CouponException("Customer Already Exists! Create New Customer Canceled!"); 
+						throw new CouponException("Customer Already Exists! Create New Customer Canceled!");
 					}
 				} else {
-					throw new CouponException("Password Requiered! Create New Customer Canceled!"); 
+					throw new CouponException("Password Requiered! Create New Customer Canceled!");
 				}
 			} else {
-				throw new CouponException(" Customer Name Requiered! Create New Customer Canceled!"); 
+				throw new CouponException(" Customer Name Requiered! Create New Customer Canceled!");
 			}
 		} else {
-			throw new CouponException(" Customer Information Not Exists! Create New Customer Canceled!"); 
-		}	
+			throw new CouponException(" Customer Information Not Exists! Create New Customer Canceled!");
+		}
 	}
-	
-	
-	public void removeCustomer(Customer customer) throws Exception {
+
+	public void removeCustomer(Customer customer) throws RemoveException, CouponException{
+		if(!isLogedIn) {
+			throw new CouponException("the operation was canceled due to not being loged in");
+		}
 		customer_CouponDAO.removeCustomer_Coupon(customer);
 		customerDAO.removeCustomer(customer);
 	}
-	
-	public void updateCustomer(Customer customer, String newName, String newpassword) throws Exception {
+
+	public void updateCustomer(Customer customer, String newName, String newpassword) throws UpdateException, CouponException{
+		if(!isLogedIn) {
+			throw new CouponException("the operation was canceled due to not being loged in");
+		}
 		customer.setCustomerName(newName);
 		customer.setPassword(newpassword);
 		customerDAO.updateCustomer(customer);
 	}
-	
-	
-	public List<Customer> getAllCustomers() throws Exception {
+
+	public List<Customer> getAllCustomers() throws CustomerException, CouponException{
+		if(!isLogedIn) {
+			throw new CouponException("the operation was canceled due to not being loged in");
+		}
 		return customerDAO.getAllCustomer();
 	}
 
-	public Customer getCustomer(long id) throws Exception {
+	public Customer getCustomer(long id) throws CustomerException, CouponException{
+		if(!isLogedIn) {
+			throw new CouponException("the operation was canceled due to not being loged in");
+		}
 		return customerDAO.getCustomer(id);
 	}
 
-
-
-
-
-	
-	}
-
-	
-	
-
-	
-
-	
-	
-	
-
-
-	
-
-
-
+}

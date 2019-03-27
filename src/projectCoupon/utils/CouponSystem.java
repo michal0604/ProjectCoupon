@@ -44,10 +44,10 @@ public class CouponSystem {
 
 		switch (clientType) {
 		case ADMIN:
-			couponClientFacade = AdminFacad.login(name, password);
+			couponClientFacade = new AdminFacad();
 			break;
 		case COMPANY:
-			couponClientFacade = CompanyFacade.login(name, password);
+			couponClientFacade = new CompanyFacade();
 			break;
 		case CUSTOMER:
 			couponClientFacade = new CustomerFacad();
@@ -56,6 +56,7 @@ public class CouponSystem {
 			throw new CouponException("STOP! Login Falied! Invalid User Type!");
 		}
 
+		couponClientFacade = couponClientFacade.login(name, password);
 		if (couponClientFacade != null) {
 			return couponClientFacade;
 		} else {

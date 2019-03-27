@@ -17,7 +17,8 @@ import projectCoupon.dbdao.CouponDBDAO;
 import projectCoupon.exception.CompanyException;
 import projectCoupon.exception.CouponException;
 import projectCoupon.exception.CreateException;
-import projectCoupon.utils.ClientType;
+import projectCoupon.exception.RemoveException;
+import projectCoupon.exception.UpdateException;
 import projectCoupon.utils.Utile;
 
 public class CompanyFacade implements CouponClientFacade {
@@ -57,14 +58,13 @@ public class CompanyFacade implements CouponClientFacade {
 	 */
 
 	@Override
-	public CouponClientFacade login(String name, String password, ClientType clientType) throws Exception {
+	public CouponClientFacade login(String name, String password) throws CouponException, SQLException, CompanyException{
 		Company company = new Company();
 		company = new CompanyDBDAO().login(name, password);
 		if (company != null) {
-			CompanyFacade companyFacade = new CompanyFacade();
-			companyFacade.companyId = company.getCompanyId();
-			companyFacade.company = company;
-			return companyFacade;
+			this.companyId = company.getCompanyId();
+			this.company = company;
+			return this;
 		} else {
 			return null;
 		}	
@@ -84,6 +84,9 @@ public class CompanyFacade implements CouponClientFacade {
 	 * @throws CouponException
 	 */
 	public void createCoupon(Coupon coupon) throws CreateException, SQLException, CouponException {
+		if(companyId == 0) {
+			throw new CouponException("the operation was canceled due to not being loged in");
+		}
 		if (coupon != null) {
 			String CoupTitle = coupon.getTitle();
 			if (CoupTitle != null) {
@@ -114,9 +117,14 @@ public class CompanyFacade implements CouponClientFacade {
 
 	/**
 	 * @param coupId
+	 * @throws CouponException 
+	 * @throws RemoveException 
 	 * @throws Exception
 	 */
-	public void removeCouponID(long coupId) throws Exception {
+	public void removeCouponID(long coupId) throws CouponException, RemoveException{
+		if(companyId == 0) {
+			throw new CouponException("the operation was canceled due to not being loged in");
+		}
 		if (coupId > 0) {
 			if (company_CouponDAO.isCouponExistsForCompany(companyId, coupId)) {
 				company_CouponDAO.removeCompany_Coupon(companyId, coupId);
@@ -131,9 +139,15 @@ public class CompanyFacade implements CouponClientFacade {
 
 	/**
 	 * @param coupon
+	 * @throws CouponException 
+	 * @throws CreateException 
+	 * @throws UpdateException 
 	 * @throws Exception
 	 */
-	public void updateCoupon(Coupon coupon) throws Exception {
+	public void updateCoupon(Coupon coupon) throws CouponException, CreateException, UpdateException{
+		if(companyId == 0) {
+			throw new CouponException("the operation was canceled due to not being loged in");
+		}
 		if (coupon != null) {
 			long couponId = coupon.getCouponId();
 			if (company_CouponDAO.isCouponExistsForCompany(companyId, couponId)) {
@@ -170,17 +184,26 @@ public class CompanyFacade implements CouponClientFacade {
 	/**
 	 * @param coupId
 	 * @return
+	 * @throws CouponException 
+	 * @throws CreateException 
 	 * @throws Exception
 	 */
-	public Coupon getCoupon(long coupId) throws Exception {
+	public Coupon getCoupon(long coupId) throws CouponException, CreateException {
+		if(companyId == 0) {
+			throw new CouponException("the operation was canceled due to not being loged in");
+		}
 		return couponDAO.getCoupon(coupId);
 	}
 
 	/**
 	 * @return
+	 * @throws CouponException 
 	 * @throws Exception
 	 */
-	public List<Coupon> getCoupons() throws Exception {
+	public List<Coupon> getCoupons() throws CouponException {
+		if(companyId == 0) {
+			throw new CouponException("the operation was canceled due to not being loged in");
+		}
 		List<Coupon> allCoupons = new ArrayList<Coupon>();
 		allCoupons = couponDAO.getAllCoupons();
 		return allCoupons;
@@ -189,9 +212,14 @@ public class CompanyFacade implements CouponClientFacade {
 	/**
 	 * @param coupType
 	 * @return
+	 * @throws CouponException 
+	 * @throws CreateException 
 	 * @throws Exception
 	 */
-	public List<Coupon> getCouponsByType(couponType coupType) throws Exception {
+	public List<Coupon> getCouponsByType(couponType coupType) throws CouponException, CreateException {
+		if(companyId == 0) {
+			throw new CouponException("the operation was canceled due to not being loged in");
+		}
 		List<Coupon> coupons = new ArrayList<Coupon>();
 		Coupon coupon;
 		List<Long> companyCouponList = company_CouponDAO.getCouponsByCompanyId(companyId);
@@ -207,9 +235,14 @@ public class CompanyFacade implements CouponClientFacade {
 	/**
 	 * @param price
 	 * @return
+	 * @throws CouponException 
+	 * @throws CreateException 
 	 * @throws Exception
 	 */
-	public List<Coupon> getCouponsByMaxCouponPrice(double price) throws Exception {
+	public List<Coupon> getCouponsByMaxCouponPrice(double price) throws CouponException, CreateException{
+		if(companyId == 0) {
+			throw new CouponException("the operation was canceled due to not being loged in");
+		}
 		List<Coupon> coupons = new ArrayList<Coupon>();
 		Coupon coupon;
 		List<Long> companyCouponList = company_CouponDAO.getCouponsByCompanyId(companyId);
@@ -225,9 +258,14 @@ public class CompanyFacade implements CouponClientFacade {
 	/**
 	 * @param endDate
 	 * @return
+	 * @throws CouponException 
+	 * @throws CreateException 
 	 * @throws Exception
 	 */
-	public List<Coupon> getCouponsByMaxCouponDate(Date endDate) throws Exception {
+	public List<Coupon> getCouponsByMaxCouponDate(Date endDate) throws CouponException, CreateException{
+		if(companyId == 0) {
+			throw new CouponException("the operation was canceled due to not being loged in");
+		}
 		List<Coupon> coupons = new ArrayList<Coupon>();
 		Coupon coupon;
 		List<Long> companyCouponList = company_CouponDAO.getCouponsByCompanyId(companyId);
@@ -242,15 +280,23 @@ public class CompanyFacade implements CouponClientFacade {
 
 	/**
 	 * @return
+	 * @throws CouponException 
 	 */
-	public long getCompanyId() {
+	public long getCompanyId() throws CouponException {
+		if(companyId == 0) {
+			throw new CouponException("the operation was canceled due to not being loged in");
+		}
 		return companyId;
 	}
 
 	/**
 	 * @return
+	 * @throws CouponException 
 	 */
-	public Company getCompanyInstance() {
+	public Company getCompanyInstance() throws CouponException {
+		if(companyId == 0) {
+			throw new CouponException("the operation was canceled due to not being loged in");
+		}
 		return company;
 	}
 
