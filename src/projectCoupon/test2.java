@@ -47,7 +47,7 @@ public class test2 {
 			Company company04 = new Company(4, "WALLA-TOURS", "114", "tours@walla.com");
 			Company company05 = new Company(5, "FOX", "115", "FOX@yahoo.com");
 
-			AdminFacad adminFacad = new AdminFacad();
+			AdminFacad adminFacad = (AdminFacad) facade;
 			adminFacad.createCompany(company01);
 			adminFacad.createCompany(company02);
 			adminFacad.createCompany(company03);
@@ -115,25 +115,25 @@ public class test2 {
 				System.out.println("========  Login(PIZZAHUT, 111, CompanyFacade) ========\n");
 
 				Coupon coupon01 = new Coupon(1, "Deal-01", Utile.getCurrentDate(), Utile.getDateAfter(10), 5,
-						couponType.food, "Best Deal", 69.90, "http//www.pizzahatCoupon.co.il/?1");
+						couponType.Food, "Best Deal", 69.90, "http//www.pizzahatCoupon.co.il/?1");
 				Coupon coupon02 = new Coupon(2, "Deal-02", Utile.getCurrentDate(), Utile.getDateAfter(12), 4,
 						couponType.Resturans, "Best Deal", 99.90, "http//www.pizzahatCoupon.co.il/?2");
 				Coupon coupon03 = new Coupon(3, "Deal-03", Utile.getCurrentDate(), Utile.getDateAfter(2), 10,
-						couponType.food, "Best Deal", 50.90, "http//www.pizzahatCoupon.co.il/?3");
+						couponType.Food, "Best Deal", 50.90, "http//www.pizzahatCoupon.co.il/?3");
 
-				CompanyFacade companyFacade = new CompanyFacade();
+				CompanyFacade companyFacade = (CompanyFacade) facade;
 				companyFacade.createCoupon(coupon01);
 				companyFacade.createCoupon(coupon02);
 				companyFacade.createCoupon(coupon03);
 
 				// Show all new PIZZAHUT coupons (before update).
 				coupons = ((CompanyFacade) facade).getCoupons();
-				System.out.println("After creating 3 new PIZZAHUT coupons - Show all company coupons (before update)"
+				System.out.println("After creating 3 new PIZZAHUT coupons - Show all company coupons (before update) \n"
 						+ coupons.toString());
 
 				// Update Coupons
 				Coupon coupon04 = new Coupon(3, "Deal-03", Utile.getCurrentDate(), Utile.getDateAfter(2), 10,
-						couponType.food, "Best Deal", 77.99, "http//www.pizzahatCoupon.co.il/?3");
+						couponType.Food, "Best Deal", 77.99, "http//www.pizzahatCoupon.co.il/?3");
 				companyFacade.updateCoupon(coupon04);
 
 				// get coupon(3)
@@ -141,7 +141,7 @@ public class test2 {
 				System.out.println("Show One PIZZAHUT updated coupon (3)" + coupon05.toString());
 
 				// getCouponsByType(CouponType.FOOD)
-				coupons = ((CompanyFacade) facade).getCouponsByType(couponType.food);
+				coupons = ((CompanyFacade) facade).getCouponsByType(couponType.Food);
 				System.out.println("View all PIZZAHUT company coupons by Type FOOD" + coupons.toString());
 
 				// getCouponsByMaxCouponPrice(100 nis)
@@ -330,7 +330,7 @@ public class test2 {
 				System.out.println("List of All RESTURANTS Coupons type: \n" + coupons.toString());
 
 				// getCouponsByType(CouponType.FOOD)
-				coupons = customerFacad.getAllCouponsByType(couponType.food);
+				coupons = customerFacad.getAllCouponsByType(couponType.Food);
 				System.out.println("List of All FOOD Coupons type: \n" + coupons.toString());
 
 				// Purchase Coupons
@@ -347,7 +347,7 @@ public class test2 {
 				System.out
 						.println("List of All Michal's Purchased Coupons by RESTURANTS type: \n" + coupons.toString());
 
-				coupons = customerFacad.getAllPurchasedCouponsByType(couponType.food);
+				coupons = customerFacad.getAllPurchasedCouponsByType(couponType.Food);
 				System.out.println("List of All Michal's Purchased Coupons by FOOD type: \n" + coupons.toString());
 
 				coupons = customerFacad.getAllPurchasedCouponsByPrice(80);
@@ -369,7 +369,7 @@ public class test2 {
 				System.out.println("List of All Electricity Coupons type: \n" + coupons.toString());
 
 				// getCouponsByType(CouponType.FOOD)
-				coupons = customerFacad.getAllCouponsByType(couponType.food);
+				coupons = customerFacad.getAllCouponsByType(couponType.Food);
 				System.out.println("List of All FOOD Coupons type: \n" + coupons.toString());
 
 				// getCouponsByType(CouponType.sports)
@@ -409,7 +409,7 @@ public class test2 {
 				System.out.println("========  Login(Hana, 2003, Customer) ========\n");
 				CustomerFacad customerFacad = new CustomerFacad();
 				// getCouponsByType(CouponType.food)
-				coupons = customerFacad.getAllCouponsByType(couponType.food);
+				coupons = customerFacad.getAllCouponsByType(couponType.Food);
 				System.out.println("List of All FOOD Coupons type: \n" + coupons.toString());
 
 				// getCouponsByType(CouponType.Electricity)
@@ -426,7 +426,7 @@ public class test2 {
 				coupons = customerFacad.getAllPurchasedCoupons();
 				System.out.println("List of All Hana's Purchased Coupons: \n" + coupons.toString());
 
-				coupons = customerFacad.getAllPurchasedCouponsByType(couponType.food);
+				coupons = customerFacad.getAllPurchasedCouponsByType(couponType.Food);
 				System.out.println("List of All Hana's Purchased Coupons by food type: \n" + coupons.toString());
 
 				coupons = customerFacad.getAllPurchasedCouponsByType(couponType.Electricity);

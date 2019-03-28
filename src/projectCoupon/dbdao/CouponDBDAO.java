@@ -211,7 +211,7 @@ public class CouponDBDAO implements CouponDAO {
 				coupon.setImage(rs.getString(9));
 				switch (rs.getString(6)) {
 				case "Food":
-					coupon.setType(couponType.food);
+					coupon.setType(couponType.Food);
 					break;
 				case "Resturans":
 					coupon.setType(couponType.Resturans);
@@ -283,7 +283,7 @@ public class CouponDBDAO implements CouponDAO {
 				coupon.setImage(rs.getString(9));
 				switch (rs.getString(6)) {
 				case "food":
-					coupon.setType(couponType.food);
+					coupon.setType(couponType.Food);
 					break;
 				case "Resturans":
 					coupon.setType(couponType.Resturans);
@@ -459,7 +459,7 @@ public class CouponDBDAO implements CouponDAO {
 				coupon.setImage(rs.getString(9));
 				switch (rs.getString(6)) {
 				case "food":
-					coupon.setType(couponType.food);
+					coupon.setType(couponType.Food);
 					break;
 				case "Resturans":
 					coupon.setType(couponType.Resturans);
@@ -537,7 +537,7 @@ public class CouponDBDAO implements CouponDAO {
 				coupon.setImage(rs.getString(9));
 				switch (rs.getString(6)) {
 				case "food":
-					coupon.setType(couponType.food);
+					coupon.setType(couponType.Food);
 					break;
 				case "Resturans":
 					coupon.setType(couponType.Resturans);

@@ -265,7 +265,7 @@ public class CompanyDBDAO implements CompanyDAO {
 		Connection connection = pool.getConnection();
 		Company company =null;
 		try {
-			String sql = "SELECT ID FROM Company WHERE COMP_NAME = ? ";
+			String sql = "SELECT * FROM Company WHERE COMP_NAME = ? ";
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, compName);
 			ResultSet rs = pstmt.executeQuery();
