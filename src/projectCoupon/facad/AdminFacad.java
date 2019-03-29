@@ -107,9 +107,9 @@ public class AdminFacad implements CouponClientFacade {
 	}
 
 	public void createCustomer(Customer customer) throws CouponException {
-		if(!isLogedIn) {
-			throw new CouponException("the operation was canceled due to not being loged in");
-		}
+	//	if(!isLogedIn) {
+		//	throw new CouponException("the operation was canceled due to not being loged in");
+		//}
 		if (customer != null) {
 			String custName = customer.getCustomerName();
 			if (custName != null) {

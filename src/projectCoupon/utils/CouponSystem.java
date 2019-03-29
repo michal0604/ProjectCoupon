@@ -60,11 +60,10 @@ public class CouponSystem {
 		if (couponClientFacade != null) {
 			return couponClientFacade;
 		} else {
-			throw new CouponException("STOP! Login Falied! Invalid User or Password!");
+			return null;
 		}
 
 	}
-
 
 	/**
 	 * Shutdown system. Close all Connection Pool connections. Stop daily coupon

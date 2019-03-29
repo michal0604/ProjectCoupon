@@ -282,7 +282,7 @@ public class CouponDBDAO implements CouponDAO {
 				coupon.setPrice(rs.getDouble(8));
 				coupon.setImage(rs.getString(9));
 				switch (rs.getString(6)) {
-				case "food":
+				case "Food":
 					coupon.setType(couponType.Food);
 					break;
 				case "Resturans":
@@ -376,54 +376,15 @@ public class CouponDBDAO implements CouponDAO {
 	 * @throws CouponException for error related to the retrieval of the coupon 
 	 */
 	@Override
-	public List<Coupon> getAllCouponsByType(couponType coupType) throws CouponException {
-		try {
-			pool = ConnectionPool.getInstance();
-		} catch (SQLException e2) {
-			throw new CouponException("connection failed");
-		}
-		Connection connection;
-		try {
-			connection = pool.getConnection();
-		} catch (Exception e1) {
-			throw new CouponException("Database error");
-		}
+	public List<Coupon> getAllCouponsByType(couponType coupType) throws CouponException{
 		List<Coupon> list = new ArrayList<Coupon>();
-		String sql = "select * from Coupon where TYPE=" + coupType;
-				
-
-		try {
-			Statement statement = connection.createStatement();
-			ResultSet resultSet = statement.executeQuery(sql);
-			while (resultSet.next()) {
-				Coupon coupon = new Coupon();
-				coupon.setCouponId(resultSet.getLong(1));
-				coupon.setTitle(resultSet.getString(2));
-				coupon.setStart_date(resultSet.getDate(3));
-				coupon.setEnd_date(resultSet.getDate(4));
-				coupon.setAmount(resultSet.getInt(5));
-				coupon.setType(coupType);
-				coupon.setMessage(resultSet.getString(7));
-				coupon.setPrice(resultSet.getDouble(8));
-				coupon.setImage(resultSet.getString(9));
+		List<Coupon> allCouponsList = getAllCoupons();
+		for (Coupon coupon : allCouponsList) {
+			if (coupon.getType().equals(coupType)) {
 				list.add(coupon);
 			}
-			return list;
-		} catch (SQLException e) {
-			System.out.println(e);
-			throw new CouponException("DB error - unable to get Coupon data. couponType: " + coupType.name());
-		} finally {
-			try {
-				connection.close();
-			} catch (SQLException e) {
-				throw new CouponException("Database error");
-			}
-			try {
-				pool.returnConnection(connection);
-			} catch (Exception e) {
-				throw new CouponException("Database error");
-			}
 		}
+		return list;
 	}
 
 	/**

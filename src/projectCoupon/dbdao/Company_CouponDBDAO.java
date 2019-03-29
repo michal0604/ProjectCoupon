@@ -378,7 +378,7 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 	public boolean isCouponExistsForCompany(long companyId, long couponId) throws CouponException {
 		Connection connection = pool.getConnection();
 		try {
-			String sql = "SELECT coupon_Id FROM Company_Coupon WHERE company_Id = ? AND coupon_Id = ? ";
+			String sql = "SELECT * FROM Company_Coupon WHERE company_Id = ? AND coupon_Id = ? ";
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setLong(1, companyId);
 			pstmt.setLong(2, couponId);

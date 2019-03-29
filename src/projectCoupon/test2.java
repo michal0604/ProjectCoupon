@@ -167,7 +167,7 @@ public class test2 {
 				Coupon coupon03 = new Coupon(6, "sportDeal-03", Utile.getCurrentDate(), Utile.getDateAfter(10), 6,
 						couponType.Sports, "Deal Of The year-1", 140.90, "http//www.holmesplace.co.il/?3");
 
-				CompanyFacade companyFacade = new CompanyFacade();
+				CompanyFacade companyFacade = (CompanyFacade) facade;
 				companyFacade.createCoupon(coupon01);
 				companyFacade.createCoupon(coupon02);
 				companyFacade.createCoupon(coupon03);
@@ -207,7 +207,7 @@ public class test2 {
 				Coupon coupon03 = new Coupon(9, "BUG-Deal-03", Utile.getCurrentDate(), Utile.getDateAfter(11), 2,
 						couponType.Electricity, "Deal Of The year-1", 50.00, "http//www.bug.co.il/?3");
 
-				CompanyFacade companyFacade = new CompanyFacade();
+				CompanyFacade companyFacade = (CompanyFacade) facade;
 				companyFacade.createCoupon(coupon01);
 				companyFacade.createCoupon(coupon02);
 				companyFacade.createCoupon(coupon03);
@@ -246,7 +246,7 @@ public class test2 {
 				Coupon coupon03 = new Coupon(12, "deal-03", Utile.getCurrentDate(), Utile.getDateAfter(30), 3,
 						couponType.Camping, "Deal Of The year-1", 55.00, "http//www.wallatours.co.il/?3");
 
-				CompanyFacade companyFacade = new CompanyFacade();
+				CompanyFacade companyFacade = (CompanyFacade) facade;
 				companyFacade.createCoupon(coupon01);
 				companyFacade.createCoupon(coupon02);
 				companyFacade.createCoupon(coupon03);
@@ -290,7 +290,7 @@ public class test2 {
 				Coupon coupon03 = new Coupon(15, "FOX-deal-03", Utile.getCurrentDate(), Utile.getDateAfter(20), 3,
 						couponType.Sports, "Deal Of The year-1", 51.00, "http//www.fox.co.il/?3");
 
-				CompanyFacade companyFacade = new CompanyFacade();
+				CompanyFacade companyFacade = (CompanyFacade) facade;
 				companyFacade.createCoupon(coupon01);
 				companyFacade.createCoupon(coupon02);
 				companyFacade.createCoupon(coupon03);
@@ -324,7 +324,7 @@ public class test2 {
 			facade = CouponSystem.login("Michal", "2001", ClientType.CUSTOMER);
 			if (facade instanceof CustomerFacad) {
 				System.out.println("========  Login(Michal, 2001, Customer) ========\n");
-				CustomerFacad customerFacad = new CustomerFacad();
+				CustomerFacad customerFacad = (CustomerFacad) facade;
 				// getCouponsByType(CouponType.RESTURANTS)
 				coupons = customerFacad.getAllCouponsByType(couponType.Resturans);
 				System.out.println("List of All RESTURANTS Coupons type: \n" + coupons.toString());
@@ -360,6 +360,7 @@ public class test2 {
 			 * Customer Facade TEST: id: 2, user: "Eli", password: "2002" *
 			 **************************************************************************/
 			facade = CouponSystem.login("Eli", "2002", ClientType.CUSTOMER);
+			
 			if (facade instanceof Customer) {
 				System.out.println("========  Login(Eli, 2002, Customer) ========\n");
 
