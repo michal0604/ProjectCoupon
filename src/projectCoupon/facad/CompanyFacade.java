@@ -10,7 +10,7 @@ import java.util.List;
 
 import projectCoupon.beans.Company;
 import projectCoupon.beans.Coupon;
-import projectCoupon.beans.couponType;
+import projectCoupon.beans.CouponType;
 import projectCoupon.dao.CompanyDAO;
 import projectCoupon.dao.Company_CouponDAO;
 import projectCoupon.dao.CouponDAO;
@@ -242,7 +242,7 @@ public class CompanyFacade implements CouponClientFacade {
 	}
 	*/
 	
-	public List<Coupon> getAllCouponsByType(couponType couponType) throws Exception {
+	public List<Coupon> getAllCouponsByType(CouponType couponType) throws Exception {
 
 		connectionPool = ConnectionPool.getInstance();
 		Connection connection = connectionPool.getConnection();
