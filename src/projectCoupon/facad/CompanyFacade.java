@@ -10,7 +10,7 @@ import java.util.List;
 
 import projectCoupon.beans.Company;
 import projectCoupon.beans.Coupon;
-import projectCoupon.beans.couponType;
+import projectCoupon.beans.CouponType;
 import projectCoupon.dao.CompanyDAO;
 import projectCoupon.dao.Company_CouponDAO;
 import projectCoupon.dao.CouponDAO;
@@ -225,7 +225,7 @@ public class CompanyFacade implements CouponClientFacade {
 	 */
 	
 	
-	public List<Coupon> getCouponsByType(couponType coupType) throws CouponException, CreateException {
+	public List<Coupon> getCouponsByType(CouponType coupType) throws CouponException, CreateException {
 		if(companyId == 0) {
 			throw new CouponException("the operation was canceled due to not being loged in");
 		}
@@ -242,7 +242,7 @@ public class CompanyFacade implements CouponClientFacade {
 	}
 	
 	
-	public List<Coupon> getAllCouponsByType(couponType couponType) throws Exception {
+	public List<Coupon> getAllCouponsByType(CouponType couponType) throws Exception {
 
 		connectionPool = ConnectionPool.getInstance();
 		Connection connection = connectionPool.getConnection();
@@ -261,16 +261,16 @@ public class CompanyFacade implements CouponClientFacade {
 				coupon.setAmount(resultSet.getInt(5));
 				switch (resultSet.getString(6)) {
 				case "Restaurants":
-					coupon.setType(couponType.Resturans);
+					coupon.setType(CouponType.Resturans);
 					break;
 				case "Health":
-					coupon.setType(couponType.Health);
+					coupon.setType(CouponType.Health);
 					break;
 				case "Sports":
-					coupon.setType(couponType.Sports);
+					coupon.setType(CouponType.Sports);
 					break;
 				case "Traveling":
-					coupon.setType(couponType.Traveling);
+					coupon.setType(CouponType.Traveling);
 					break;
 				default:
 					break;

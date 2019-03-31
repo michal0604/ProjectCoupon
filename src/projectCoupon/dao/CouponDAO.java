@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import projectCoupon.beans.Coupon;
-import projectCoupon.beans.couponType;
+import projectCoupon.beans.CouponType;
 import projectCoupon.exception.CouponException;
 import projectCoupon.exception.CreateException;
 import projectCoupon.exception.RemoveException;
@@ -61,7 +61,7 @@ public interface CouponDAO {
 	 * @return  all available coupons that much the type
 	 * @throws CouponException for error related to the retrieval of the coupon 
 	 */
-	List<Coupon> getAllCouponsByType(couponType coupType) throws CouponException;
+	List<Coupon> getAllCouponsByType(CouponType coupType) throws CouponException;
 
 	/**
 	 * this function returns all available coupons by specific max coupon price

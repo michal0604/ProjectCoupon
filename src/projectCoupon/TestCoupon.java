@@ -4,7 +4,7 @@ package projectCoupon;
 import projectCoupon.beans.Company;
 import projectCoupon.beans.Coupon;
 import projectCoupon.beans.Customer;
-import projectCoupon.beans.couponType;
+import projectCoupon.beans.CouponType;
 import projectCoupon.db.Database;
 import projectCoupon.dbdao.CompanyDBDAO;
 import projectCoupon.dbdao.Company_CouponDBDAO;
@@ -38,9 +38,9 @@ public class TestCoupon {
 
 		System.out.println("------------------------------------------------------------------");
 		CouponDBDAO couponDBDAO = new CouponDBDAO();
-		Coupon a1 = new Coupon(1, "pizzaHut", Utile.getCurrentDate(), Utile.getDateAfter(12), 50, couponType.Camping,"40 shekel for pizza", 40.7, "jj");
-		Coupon a2 = new Coupon(2, "shoes", Utile.getCurrentDate(), Utile.getDateAfter(4), 50, couponType.Sports,"sale on shoes", 540.5, "shoes img");
-		Coupon a3 = new Coupon(3, "t-shirt", Utile.getCurrentDate(), Utile.getDateAfter(4), 50, couponType.Sports,"sale on shirts", 350.0, "t-shirt img");
+		Coupon a1 = new Coupon(1, "pizzaHut", Utile.getCurrentDate(), Utile.getDateAfter(12), 50, CouponType.Camping,"40 shekel for pizza", 40.7, "jj");
+		Coupon a2 = new Coupon(2, "shoes", Utile.getCurrentDate(), Utile.getDateAfter(4), 50, CouponType.Sports,"sale on shoes", 540.5, "shoes img");
+		Coupon a3 = new Coupon(3, "t-shirt", Utile.getCurrentDate(), Utile.getDateAfter(4), 50, CouponType.Sports,"sale on shirts", 350.0, "t-shirt img");
 		couponDBDAO.insertCoupon(a1);
 		couponDBDAO.insertCoupon(a2);
 		couponDBDAO.insertCoupon(a3);

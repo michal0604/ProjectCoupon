@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import projectCoupon.beans.Coupon;
-import projectCoupon.beans.couponType;
+import projectCoupon.beans.CouponType;
 import projectCoupon.dao.CouponDAO;
 import projectCoupon.exception.CouponException;
 import projectCoupon.exception.CreateException;
@@ -211,25 +211,25 @@ public class CouponDBDAO implements CouponDAO {
 				coupon.setImage(rs.getString(9));
 				switch (rs.getString(6)) {
 				case "Food":
-					coupon.setType(couponType.Food);
+					coupon.setType(CouponType.Food);
 					break;
 				case "Resturans":
-					coupon.setType(couponType.Resturans);
+					coupon.setType(CouponType.Resturans);
 					break;
 				case "Electricity":
-					coupon.setType(couponType.Electricity);
+					coupon.setType(CouponType.Electricity);
 					break;
 				case "Health":
-					coupon.setType(couponType.Health);
+					coupon.setType(CouponType.Health);
 					break;
 				case "Sports":
-					coupon.setType(couponType.Sports);
+					coupon.setType(CouponType.Sports);
 					break;
 				case "Camping":
-					coupon.setType(couponType.Camping);
+					coupon.setType(CouponType.Camping);
 					break;
 				case "Traveling":
-					coupon.setType(couponType.Traveling);
+					coupon.setType(CouponType.Traveling);
 					break;
 				default:
 					System.out.println("Coupon not existent");
@@ -283,25 +283,25 @@ public class CouponDBDAO implements CouponDAO {
 				coupon.setImage(rs.getString(9));
 				switch (rs.getString(6)) {
 				case "Food":
-					coupon.setType(couponType.Food);
+					coupon.setType(CouponType.Food);
 					break;
 				case "Resturans":
-					coupon.setType(couponType.Resturans);
+					coupon.setType(CouponType.Resturans);
 					break;
 				case "Electricity":
-					coupon.setType(couponType.Electricity);
+					coupon.setType(CouponType.Electricity);
 					break;
 				case "Health":
-					coupon.setType(couponType.Health);
+					coupon.setType(CouponType.Health);
 					break;
 				case "Sports":
-					coupon.setType(couponType.Sports);
+					coupon.setType(CouponType.Sports);
 					break;
 				case "Camping":
-					coupon.setType(couponType.Camping);
+					coupon.setType(CouponType.Camping);
 					break;
 				case "Traveling":
-					coupon.setType(couponType.Traveling);
+					coupon.setType(CouponType.Traveling);
 					break;
 				default:
 					System.out.println("Coupon not existent");
@@ -376,7 +376,7 @@ public class CouponDBDAO implements CouponDAO {
 	 * @throws CouponException for error related to the retrieval of the coupon 
 	 */
 	@Override
-	public List<Coupon> getAllCouponsByType(couponType coupType) throws CouponException{
+	public List<Coupon> getAllCouponsByType(CouponType coupType) throws CouponException{
 		List<Coupon> list = new ArrayList<Coupon>();
 		List<Coupon> allCouponsList = getAllCoupons();
 		for (Coupon coupon : allCouponsList) {
@@ -420,25 +420,25 @@ public class CouponDBDAO implements CouponDAO {
 				coupon.setImage(rs.getString(9));
 				switch (rs.getString(6)) {
 				case "food":
-					coupon.setType(couponType.Food);
+					coupon.setType(CouponType.Food);
 					break;
 				case "Resturans":
-					coupon.setType(couponType.Resturans);
+					coupon.setType(CouponType.Resturans);
 					break;
 				case "Electricity":
-					coupon.setType(couponType.Electricity);
+					coupon.setType(CouponType.Electricity);
 					break;
 				case "Health":
-					coupon.setType(couponType.Health);
+					coupon.setType(CouponType.Health);
 					break;
 				case "Sports":
-					coupon.setType(couponType.Sports);
+					coupon.setType(CouponType.Sports);
 					break;
 				case "Camping":
-					coupon.setType(couponType.Camping);
+					coupon.setType(CouponType.Camping);
 					break;
 				case "Traveling":
-					coupon.setType(couponType.Traveling);
+					coupon.setType(CouponType.Traveling);
 					break;
 				default:
 					System.out.println("Coupon not existent");
@@ -498,25 +498,25 @@ public class CouponDBDAO implements CouponDAO {
 				coupon.setImage(rs.getString(9));
 				switch (rs.getString(6)) {
 				case "food":
-					coupon.setType(couponType.Food);
+					coupon.setType(CouponType.Food);
 					break;
 				case "Resturans":
-					coupon.setType(couponType.Resturans);
+					coupon.setType(CouponType.Resturans);
 					break;
 				case "Electricity":
-					coupon.setType(couponType.Electricity);
+					coupon.setType(CouponType.Electricity);
 					break;
 				case "Health":
-					coupon.setType(couponType.Health);
+					coupon.setType(CouponType.Health);
 					break;
 				case "Sports":
-					coupon.setType(couponType.Sports);
+					coupon.setType(CouponType.Sports);
 					break;
 				case "Camping":
-					coupon.setType(couponType.Camping);
+					coupon.setType(CouponType.Camping);
 					break;
 				case "Traveling":
-					coupon.setType(couponType.Traveling);
+					coupon.setType(CouponType.Traveling);
 					break;
 				default:
 					System.out.println("Coupon not existent");

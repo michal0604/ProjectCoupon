@@ -5,7 +5,7 @@ import java.util.List;
 
 import projectCoupon.beans.Coupon;
 import projectCoupon.beans.Customer;
-import projectCoupon.beans.couponType;
+import projectCoupon.beans.CouponType;
 import projectCoupon.dao.CouponDAO;
 import projectCoupon.dao.CustomerDAO;
 import projectCoupon.dao.Customer_CouponDAO;
@@ -94,7 +94,7 @@ public class CustomerFacad implements CouponClientFacade {
 
 	}
 
-	public List<Coupon> getAllCouponsByType(couponType couponType) throws CouponException {
+	public List<Coupon> getAllCouponsByType(CouponType couponType) throws CouponException {
 		if(custId == 0) {
 			throw new CouponException("the operation was canceled due to not being loged in");
 		}
@@ -113,7 +113,7 @@ public class CustomerFacad implements CouponClientFacade {
 		return purchasedCoupons;
 	}
 
-	public List<Coupon> getAllPurchasedCouponsByType(couponType type) throws CouponException, CreateException {
+	public List<Coupon> getAllPurchasedCouponsByType(CouponType type) throws CouponException, CreateException {
 		if(custId == 0) {
 			throw new CouponException("the operation was canceled due to not being loged in");
 		}

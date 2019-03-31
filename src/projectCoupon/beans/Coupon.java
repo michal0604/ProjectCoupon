@@ -14,7 +14,7 @@ public class Coupon {
 	private Date start_date;
 	private Date end_date;
 	private int amount;
-	private couponType type;
+	private CouponType type;
 	private String message;
 	private Double price;
 	private String image;
@@ -37,7 +37,7 @@ public class Coupon {
 	 * @param price the pricing for each coupon
 	 * @param image a image of the service provided by the coupon
 	 */
-	public Coupon(long couponId, String title, Date start_date, Date end_date, int amount, couponType type,
+	public Coupon(long couponId, String title, Date start_date, Date end_date, int amount, CouponType type,
 			String message, Double price, String image) {
 		this.couponId = couponId;
 		this.title = title;
@@ -123,14 +123,14 @@ public class Coupon {
 	/**
 	 * @return the category of the coupon 
 	 */
-	public couponType getType() {
+	public CouponType getType() {
 		return type;
 	}
 
 	/**
 	 * @param type set the category of the coupon 
 	 */
-	public void setType(couponType type) {
+	public void setType(CouponType type) {
 		this.type = type;
 	}
 

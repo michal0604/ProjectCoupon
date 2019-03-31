@@ -6,7 +6,7 @@ package projectCoupon.beans;
  * @author Eivy & Michal
  *
  */
-public enum couponType {
+public enum CouponType {
 	Food,
 	Resturans,
 	Electricity,
