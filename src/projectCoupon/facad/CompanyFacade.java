@@ -1,7 +1,10 @@
 package projectCoupon.facad;
 
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +22,7 @@ import projectCoupon.exception.CouponException;
 import projectCoupon.exception.CreateException;
 import projectCoupon.exception.RemoveException;
 import projectCoupon.exception.UpdateException;
+import projectCoupon.utils.ConnectionPool;
 import projectCoupon.utils.Utile;
 
 public class CompanyFacade implements CouponClientFacade {
@@ -28,6 +32,8 @@ public class CompanyFacade implements CouponClientFacade {
 	private Company_CouponDAO company_CouponDAO;
 	private long companyId = 0;
 	private Company company;
+	
+	private static ConnectionPool connectionPool;
 
 	/**
 	 * cTor for company handling system
@@ -217,6 +223,8 @@ public class CompanyFacade implements CouponClientFacade {
 	 * @throws CreateException 
 	 * @throws Exception
 	 */
+	
+	
 	public List<Coupon> getCouponsByType(couponType coupType) throws CouponException, CreateException {
 		if(companyId == 0) {
 			throw new CouponException("the operation was canceled due to not being loged in");
@@ -232,6 +240,61 @@ public class CompanyFacade implements CouponClientFacade {
 		}
 		return coupons;
 	}
+	
+	
+	public List<Coupon> getAllCouponsByType(couponType couponType) throws Exception {
+
+		connectionPool = ConnectionPool.getInstance();
+		Connection connection = connectionPool.getConnection();
+		List<Coupon> list = new ArrayList<>();
+		String sql = String.format("select * from Coupon where TYPE = '%s'", couponType);
+
+		try (Statement statement = connection.createStatement(); 
+		ResultSet resultSet = statement.executeQuery(sql)) {
+
+			while (resultSet.next()) {
+				Coupon coupon = new Coupon();
+				coupon.setCouponId(resultSet.getLong(1));
+				coupon.setTitle(resultSet.getString(2));
+				coupon.setStart_date(resultSet.getDate(3));
+				coupon.setEnd_date(resultSet.getDate(4));
+				coupon.setAmount(resultSet.getInt(5));
+				switch (resultSet.getString(6)) {
+				case "Restaurants":
+					coupon.setType(couponType.Resturans);
+					break;
+				case "Health":
+					coupon.setType(couponType.Health);
+					break;
+				case "Sports":
+					coupon.setType(couponType.Sports);
+					break;
+				case "Traveling":
+					coupon.setType(couponType.Traveling);
+					break;
+				default:
+					break;
+				}
+				coupon.setMessage(resultSet.getString(7));
+				coupon.setPrice(resultSet.getDouble(8));
+				coupon.setImage(resultSet.getString(9));
+				
+
+				list.add(coupon);
+			}
+
+		} catch (SQLException e) {
+			System.out.println(e);
+			throw new Exception("DB error  ");
+		}catch (Exception e) {
+			throw new Exception("error ");
+		}finally {
+			connection.close();
+			connectionPool.returnConnection(connection);
+		}
+		return list;
+	}
+	
 
 	/**
 	 * @param price

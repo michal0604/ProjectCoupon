@@ -119,12 +119,12 @@ public class test2 {
 				Coupon coupon02 = new Coupon(2, "Deal-02", Utile.getCurrentDate(), Utile.getDateAfter(12), 4,
 						couponType.Resturans, "Best Deal", 99.90, "http//www.pizzahatCoupon.co.il/?2");
 				Coupon coupon03 = new Coupon(3, "Deal-03", Utile.getCurrentDate(), Utile.getDateAfter(2), 10,
-						couponType.Food, "Best Deal", 50.90, "http//www.pizzahatCoupon.co.il/?3");
+						couponType.Food, "Best Deal", 111.90, "http//www.pizzahatCoupon.co.il/?3");
 
-				CompanyFacade companyFacade = (CompanyFacade) facade;
-				companyFacade.createCoupon(coupon01);
-				companyFacade.createCoupon(coupon02);
-				companyFacade.createCoupon(coupon03);
+				
+				((CompanyFacade) facade).createCoupon(coupon01);
+				((CompanyFacade) facade).createCoupon(coupon02);
+				((CompanyFacade) facade).createCoupon(coupon03);
 
 				// Show all new PIZZAHUT coupons (before update).
 				coupons = ((CompanyFacade) facade).getCoupons();
@@ -134,14 +134,15 @@ public class test2 {
 				// Update Coupons
 				Coupon coupon04 = new Coupon(3, "Deal-03", Utile.getCurrentDate(), Utile.getDateAfter(2), 10,
 						couponType.Food, "Best Deal", 77.99, "http//www.pizzahatCoupon.co.il/?3");
-				companyFacade.updateCoupon(coupon04);
+				((CompanyFacade) facade).updateCoupon(coupon04);
 
 				// get coupon(3)
 				Coupon coupon05 = ((CompanyFacade) facade).getCoupon(3);
 				System.out.println("Show One PIZZAHUT updated coupon (3)" + coupon05.toString());
 
 				// getCouponsByType(CouponType.FOOD)
-				coupons = ((CompanyFacade) facade).getCouponsByType(couponType.Food);
+			
+				coupons = ((CompanyFacade) facade).getAllCouponsByType(couponType.Food);
 				System.out.println("View all PIZZAHUT company coupons by Type FOOD" + coupons.toString());
 
 				// getCouponsByMaxCouponPrice(100 nis)
@@ -161,7 +162,7 @@ public class test2 {
 
 				// Add new 3 coupons
 				Coupon coupon01 = new Coupon(4, "sportDeal-01", Utile.getCurrentDate(), Utile.getDateAfter(4), 6,
-						couponType.Sports, "Deal Of The year-1", 120.90, "http//www.holmesplace.co.il/?1");
+						couponType.Health, "Deal Of The year-1", 120.90, "http//www.holmesplace.co.il/?1");
 				Coupon coupon02 = new Coupon(5, "sportDeal-02", Utile.getCurrentDate(), Utile.getDateAfter(6), 6,
 						couponType.Sports, "Deal Of The year-1", 130.90, "http//www.holmesplace.co.il/?2");
 				Coupon coupon03 = new Coupon(6, "sportDeal-03", Utile.getCurrentDate(), Utile.getDateAfter(10), 6,
@@ -173,16 +174,16 @@ public class test2 {
 				companyFacade.createCoupon(coupon03);
 
 				// show all coupons of holmesplace
-				coupons = companyFacade.getCoupons();
+				coupons = ((CompanyFacade) facade).getCoupons();
 				System.out.println(
 						"After creating 3 new HOLMESPLACE coupons-show all company coupons\n" + coupons.toString());
-
+				
 				// getCouponsByType(CouponType.SPORTS)
-				coupons = companyFacade.getCouponsByType(couponType.Sports);
+				coupons = ((CompanyFacade) facade).getAllCouponsByType(couponType.Sports);
 				System.out.println("View all HOLMESPLACE company coupons by Type SPORTS\n" + coupons.toString());
 
 				// getCouponsByType(CouponType.HEALTH)
-				coupons = companyFacade.getCouponsByType(couponType.Health);
+				coupons = companyFacade.getAllCouponsByType(couponType.Health);
 				System.out.println("View all HOLMESPLACE company coupons by Type HEALTH\n" + coupons.toString());
 
 				// getCouponsByMaxCouponPrice(100 nis)
@@ -218,7 +219,7 @@ public class test2 {
 						.println("After creating 3 new BUG coupons - Show all company coupons\n" + coupons.toString());
 
 				// getCouponsByType(CouponType.ELECTRICITY)
-				coupons = companyFacade.getCouponsByType(couponType.Electricity);
+				coupons = companyFacade.getAllCouponsByType(couponType.Electricity);
 				System.out.println("View all BUG company coupons by Type ELECTRICITY\n" + coupons.toString());
 
 				// getCouponsByMaxCouponPrice(100 nis)
@@ -257,11 +258,11 @@ public class test2 {
 						"After creating 3 new wallaTours coupons - Show all company coupons\n" + coupons.toString());
 
 				// getCouponsByType(CouponType.CAMPING)
-				coupons = companyFacade.getCouponsByType(couponType.Camping);
+				coupons = companyFacade.getAllCouponsByType(couponType.Camping);
 				System.out.println("View all wallaTours company coupons by Type CAMPING\n" + coupons.toString());
 
 				// getCouponsByType(CouponType.TRAVELING)
-				coupons = companyFacade.getCouponsByType(couponType.Traveling);
+				coupons = companyFacade.getAllCouponsByType(couponType.Traveling);
 				System.out.println("View all wallaTours company coupons by Type TRAVELING\n" + coupons.toString());
 
 				// getCouponsByMaxCouponPrice(100 nis)
@@ -301,7 +302,7 @@ public class test2 {
 						.println("After creating 3 new FOX coupons - Show all company coupons\n" + coupons.toString());
 
 				// getCouponsByType(CouponType.sports)
-				coupons = companyFacade.getCouponsByType(couponType.Camping);
+				coupons = companyFacade.getAllCouponsByType(couponType.Sports);
 				System.out.println("View all FOX company coupons by Type SPORTS\n" + coupons.toString());
 
 				// getCouponsByMaxCouponPrice(100 nis)
