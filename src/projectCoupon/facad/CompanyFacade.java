@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,8 +31,10 @@ public class CompanyFacade implements CouponClientFacade {
 	private CompanyDAO companyDAO;
 	private CouponDAO couponDAO;
 	private Company_CouponDAO company_CouponDAO;
-	private long companyId = 0;
+	//private long companyId = 0;
+	private long companyId;
 	private Company company;
+
 	
 	private static ConnectionPool connectionPool;
 
@@ -332,6 +335,9 @@ public class CompanyFacade implements CouponClientFacade {
 */
 	
 	public List<Coupon> getCouponsByPrice(double price) throws CouponException{
+		if(companyId == 0) {
+			throw new CouponException("the operation was canceled due to not being loged in");
+		}
 		List<Coupon> coupons = new ArrayList<>();
 		for (Coupon coupon : couponDAO.getAllCoupons()) {
 			if (coupon.getPrice() <= price ) {
@@ -348,6 +354,8 @@ public class CompanyFacade implements CouponClientFacade {
 	 * @throws CreateException 
 	 * @throws Exception
 	 */
+	
+	
 	public List<Coupon> getCouponsByMaxCouponDate(Date endDate) throws CouponException, CreateException{
 		if(companyId == 0) {
 			throw new CouponException("the operation was canceled due to not being loged in");
@@ -363,6 +371,10 @@ public class CompanyFacade implements CouponClientFacade {
 		}
 		return coupons;
 	}
+	
+
+	
+
 
 	/**
 	 * @return

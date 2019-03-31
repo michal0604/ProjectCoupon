@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import projectCoupon.beans.Company;
+import projectCoupon.beans.Coupon;
 import projectCoupon.exception.CompanyException;
 import projectCoupon.exception.CouponException;
 
@@ -91,5 +92,6 @@ public interface CompanyDAO {
 	 * @throws SQLException SQLException for DB related failures
 	 */
 	
+	List<Coupon> getAllCoupons(long companyId) throws CouponException,CompanyException;
 
 }

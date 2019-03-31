@@ -9,9 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import projectCoupon.beans.Company;
+import projectCoupon.beans.Coupon;
 import projectCoupon.dao.CompanyDAO;
 import projectCoupon.exception.CompanyException;
 import projectCoupon.exception.CouponException;
+import projectCoupon.exception.CreateException;
 import projectCoupon.utils.ConnectionPool;
 
 /**
@@ -334,6 +336,32 @@ public class CompanyDBDAO implements CompanyDAO {
 
 	}
 
+	@Override
+	public List<Coupon> getAllCoupons(long companyId) throws CouponException, CompanyException {
+		Connection connection = pool.getConnection();
+		List<Coupon> coupons = new ArrayList<Coupon>();
+		CouponDBDAO couponDB = new CouponDBDAO();
+		try  {
+			
+			String sql = "SELECT COUPON_ID FROM Company_Coupon WHERE COMP_ID=?";
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+			pstmt.setLong(1,companyId) ;
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				try {
+					coupons.add(couponDB.getCoupon(rs.getLong("COUPON_ID")));
+				} catch (CreateException e) {
+					throw new CompanyException("get coupon failed");
+				}
+			}
+		} catch (SQLException e) {
+			throw new CouponException(e.getMessage());
+		}
+		return coupons;
+	}
+	
+
 	/**
 	 * remove a company identified by its id from the Database
 	 * 
@@ -347,5 +375,4 @@ public class CompanyDBDAO implements CompanyDAO {
 	 * 
 	 * @see projectCoupon.DAO.CompanyDAO#removeCompany(long)
 	 */
-
 }
