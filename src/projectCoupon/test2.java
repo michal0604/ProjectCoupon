@@ -146,7 +146,7 @@ public class test2 {
 				System.out.println("View all PIZZAHUT company coupons by Type FOOD" + coupons.toString());
 
 				// getCouponsByMaxCouponPrice(100 nis)
-				coupons = ((CompanyFacade) facade).getCouponsByPrice(100.00);
+				coupons = ((CompanyFacade) facade).getCouponsByMaxCouponPrice(100);
 				System.out.println("View all PIZZAHUT company Coupons by Max Price 100 nis:\n" + coupons.toString());
 
 				// TO DO getCouponsByMaxCouponDate(X days from today)
@@ -162,7 +162,7 @@ public class test2 {
 
 				// Add new 3 coupons
 				Coupon coupon01 = new Coupon(4, "sportDeal-01", Utile.getCurrentDate(), Utile.getDateAfter(4), 6,
-						CouponType.Health, "Deal Of The year-1", 120.90, "http//www.holmesplace.co.il/?1");
+						CouponType.Health, "Deal Of The year-1", 90.90, "http//www.holmesplace.co.il/?1");
 				Coupon coupon02 = new Coupon(5, "sportDeal-02", Utile.getCurrentDate(), Utile.getDateAfter(6), 6,
 						CouponType.Sports, "Deal Of The year-1", 130.90, "http//www.holmesplace.co.il/?2");
 				Coupon coupon03 = new Coupon(6, "sportDeal-03", Utile.getCurrentDate(), Utile.getDateAfter(10), 6,
@@ -186,7 +186,7 @@ public class test2 {
 				System.out.println("View all HOLMESPLACE company coupons by Type HEALTH\n" + coupons.toString());
 
 				// getCouponsByMaxCouponPrice(100 nis)
-				coupons = ((CompanyFacade) facade).getCouponsByPrice(100);
+				coupons = ((CompanyFacade) facade).getCouponsByMaxCouponPrice(100);
 				System.out.println("View all HOLMESPLACE company Coupons by Max Price 100 nis:\n" + coupons.toString());
 				// TO DO getCouponsByMaxCouponDate(X days from today)
 
@@ -221,11 +221,11 @@ public class test2 {
 				System.out.println("View all BUG company coupons by Type ELECTRICITY\n" + coupons.toString());
 
 				// getCouponsByMaxCouponPrice(100 nis)
-				coupons = ((CompanyFacade) facade).getCouponsByPrice(100);
+				coupons = ((CompanyFacade) facade).getCouponsByMaxCouponPrice(100);
 				System.out.println("View all BUG company Coupons by Max Price 100 nis:\n" + coupons.toString());
 
 				// getCouponsByMaxCouponDate(100 days from today)
-				coupons = ((CompanyFacade) facade).getCouponsByMaxCouponDate(Utile.getDateAfter(100));
+				coupons = ((CompanyFacade) facade).getCouponsByMaxCouponDate(Utile.getDateAfter(11));
 				System.out.println("View all BUG company Coupons by Max 100 days from today (Expiration Date= "
 						+ Utile.getDateAfter(100).toString() + "):\n" + coupons.toString());
 			}
@@ -263,7 +263,7 @@ public class test2 {
 				System.out.println("View all wallaTours company coupons by Type TRAVELING\n" + coupons.toString());
 
 				// getCouponsByMaxCouponPrice(100 nis)
-				coupons = ((CompanyFacade) facade).getCouponsByPrice(100);
+				coupons = ((CompanyFacade) facade).getCouponsByMaxCouponPrice(100);
 				System.out.println("View all wallaTours company Coupons by Max Price 100 nis:\n" + coupons.toString());
 
 				// getCouponsByMaxCouponDate(100 days from today)
@@ -302,7 +302,7 @@ public class test2 {
 				System.out.println("View all FOX company coupons by Type SPORTS\n" + coupons.toString());
 
 				// getCouponsByMaxCouponPrice(100 nis)
-				coupons = ((CompanyFacade) facade).getCouponsByPrice(100);
+				coupons = ((CompanyFacade) facade).getCouponsByMaxCouponPrice(100);
 				System.out.println("View all FOX company Coupons by Max Price 100 nis:\n" + coupons.toString());
 
 				// getCouponsByMaxCouponDate(100 days from today)
@@ -520,16 +520,16 @@ public class test2 {
 				System.out.println("========  Login(PIZZAHUT, 111, CompanyFacade) ========\n");
 
 				// Show PIZZAHUT company coupons 1 (before removing coupon 1).
-				CompanyFacade companyFacade = new CompanyFacade();
-				Coupon coupon = companyFacade.getCoupon(1);
+				
+				Coupon coupon = ((CompanyFacade) facade).getCoupon(1);
 				System.out.println("View company coupons 1 (before removing coupon 1)\n" + coupon.toString());
 
 				// Remove Coupon 1 from company 1-PIZZAHUT
-				companyFacade.removeCouponID(1);
+				((CompanyFacade) facade).removeCouponID(1);
 				System.out.println("coupons 1 Deleted.\n");
 
 				// Show PIZZAHUT company coupons 1 (after removing coupon 1).
-				coupons = companyFacade.getCoupons();
+				coupons = ((CompanyFacade) facade).getCoupons();
 				System.out.println("View company coupons 1 (after removing coupon 1)\n" + coupons.toString());
 			}
 

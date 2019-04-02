@@ -60,6 +60,7 @@ public interface CouponDAO {
 	 * @param coupType the required coupon type
 	 * @return  all available coupons that much the type
 	 * @throws CouponException for error related to the retrieval of the coupon 
+	 * @throws Exception 
 	 */
 	List<Coupon> getAllCouponsByType(CouponType coupType) throws CouponException;
 

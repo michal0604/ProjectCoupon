@@ -331,6 +331,12 @@ public class CompanyDBDAO implements CompanyDAO {
 		} catch (Exception e) {
 			throw new CouponException("Failed to checking if Company name already exists.");
 		} finally {
+			
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				throw new CouponException("connection close failed");
+			}
 			pool.returnConnection(connection);
 		}
 
@@ -343,7 +349,7 @@ public class CompanyDBDAO implements CompanyDAO {
 		CouponDBDAO couponDB = new CouponDBDAO();
 		try  {
 			
-			String sql = "SELECT COUPON_ID FROM Company_Coupon WHERE COMP_ID=?";
+			String sql = "SELECT COUPON_ID FROM Company_Coupon WHERE COMPANY_ID=?";
 			PreparedStatement pstmt = connection.prepareStatement(sql);
 			pstmt.setLong(1,companyId) ;
 			ResultSet rs = pstmt.executeQuery();
@@ -357,8 +363,16 @@ public class CompanyDBDAO implements CompanyDAO {
 			}
 		} catch (SQLException e) {
 			throw new CouponException(e.getMessage());
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				throw new CouponException("connection close failed");
+			}
+			pool.returnConnection(connection);
 		}
 		return coupons;
+		
 	}
 	
 

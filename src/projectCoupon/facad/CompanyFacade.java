@@ -1,11 +1,7 @@
 package projectCoupon.facad;
 
-import java.sql.Connection;
 import java.sql.Date;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,8 +32,6 @@ public class CompanyFacade implements CouponClientFacade {
 	private Company company;
 
 	
-	private static ConnectionPool connectionPool;
-
 	/**
 	 * cTor for company handling system
 	 * 
@@ -223,6 +217,7 @@ public class CompanyFacade implements CouponClientFacade {
 	 * @param coupType
 	 * @return
 	 * @throws CouponException 
+	 * @throws CompanyException 
 	 * @throws CreateException 
 	 * @throws Exception
 	 */
@@ -245,131 +240,67 @@ public class CompanyFacade implements CouponClientFacade {
 	}
 	*/
 	
-	public List<Coupon> getAllCouponsByType(CouponType couponType) throws Exception {
-
-		connectionPool = ConnectionPool.getInstance();
-		Connection connection = connectionPool.getConnection();
-		List<Coupon> list = new ArrayList<>();
-		String sql = String.format("select * from Coupon where TYPE = '%s'", couponType);
-
-		try (Statement statement = connection.createStatement(); 
-		ResultSet resultSet = statement.executeQuery(sql)) {
-
-			while (resultSet.next()) {
-				Coupon coupon = new Coupon();
-				coupon.setCouponId(resultSet.getLong(1));
-				coupon.setTitle(resultSet.getString(2));
-				coupon.setStart_date(resultSet.getDate(3));
-				coupon.setEnd_date(resultSet.getDate(4));
-				coupon.setAmount(resultSet.getInt(5));
-				switch (resultSet.getString(6)) {
-				case "Food":
-					coupon.setType(couponType.Food);
-					break;
-				case "Resturans":
-					coupon.setType(couponType.Resturans);
-					break;
-				case "Electricity":
-					coupon.setType(couponType.Electricity);
-					break;
-				case "Health":
-					coupon.setType(couponType.Health);
-					break;
-				case "Sports":
-					coupon.setType(couponType.Sports);
-					break;
-				case "Camping":
-					coupon.setType(couponType.Camping);
-					break;
-				case "Traveling":
-					coupon.setType(couponType.Traveling);
-					break;
-				default:
-					break;
-				}
-				coupon.setMessage(resultSet.getString(7));
-				coupon.setPrice(resultSet.getDouble(8));
-				coupon.setImage(resultSet.getString(9));
-				
-
+	public List<Coupon> getAllCouponsByType(CouponType coupType) throws CouponException, CompanyException{
+		if(companyId == 0) {
+			throw new CouponException("the operation was canceled due to not being loged in");
+		}
+		List<Coupon> list = new ArrayList<Coupon>();
+		List<Coupon> allCouponsList = companyDAO.getAllCoupons(companyId);
+		for (Coupon coupon : allCouponsList) {
+			if (coupon.getType().equals(coupType)) {
 				list.add(coupon);
 			}
-
-		} catch (SQLException e) {
-			System.out.println(e);
-			throw new Exception("DB error  ");
-		}catch (Exception e) {
-			throw new Exception("error ");
-		}finally {
-			connection.close();
-			connectionPool.returnConnection(connection);
 		}
 		return list;
 	}
 	
-
 	/**
 	 * @param price
 	 * @return
 	 * @throws CouponException 
 	 * @throws CreateException 
+	 * @throws CompanyException 
 	 * @throws Exception
 	 */
-	/*delete?????
-	public List<Coupon> getCouponsByMaxCouponPrice(double price) throws CouponException, CreateException{
+	
+	public List<Coupon> getCouponsByMaxCouponPrice(double price) throws CouponException, CreateException, CompanyException{
 		if(companyId == 0) {
 			throw new CouponException("the operation was canceled due to not being loged in");
 		}
-		List<Coupon> coupons = new ArrayList<Coupon>();
-		Coupon coupon;
-		List<Long> companyCouponList = company_CouponDAO.getCouponsByCompanyId(companyId);
-		for (Long couponId : companyCouponList) {
-			coupon = couponDAO.getCoupon(couponId);
+		List<Coupon> list = new ArrayList<Coupon>();
+		List<Coupon> allCouponsList = companyDAO.getAllCoupons(companyId);
+		for (Coupon coupon : allCouponsList) {
+			
 			if (coupon.getPrice() <= price) {
-				coupons.add(coupon);
+				list.add(coupon);
 			}
 		}
-		return coupons;
+		return list;
 	}
 
-*/
-	
-	public List<Coupon> getCouponsByPrice(double price) throws CouponException{
-		if(companyId == 0) {
-			throw new CouponException("the operation was canceled due to not being loged in");
-		}
-		List<Coupon> coupons = new ArrayList<>();
-		for (Coupon coupon : couponDAO.getAllCoupons()) {
-			if (coupon.getPrice() <= price ) {
-				coupons.add(coupon);
-			}
-		}
-		return coupons;
-	}
-	
+
 	/**
 	 * @param endDate
 	 * @return
 	 * @throws CouponException 
 	 * @throws CreateException 
+	 * @throws CompanyException 
 	 * @throws Exception
 	 */
 	
 	
-	public List<Coupon> getCouponsByMaxCouponDate(Date endDate) throws CouponException, CreateException{
+	public List<Coupon> getCouponsByMaxCouponDate(Date endDate) throws CouponException, CreateException, CompanyException{
 		if(companyId == 0) {
 			throw new CouponException("the operation was canceled due to not being loged in");
 		}
-		List<Coupon> coupons = new ArrayList<Coupon>();
-		Coupon coupon;
-		List<Long> companyCouponList = company_CouponDAO.getCouponsByCompanyId(companyId);
-		for (Long couponId : companyCouponList) {
-			coupon = couponDAO.getCoupon(couponId);
+		List<Coupon> list = new ArrayList<Coupon>();
+		List<Coupon> allCouponsList = companyDAO.getAllCoupons(companyId);
+		for (Coupon coupon : allCouponsList) {
 			if (coupon.getEnd_date().equals(endDate) || coupon.getEnd_date().before(endDate)) {
-				coupons.add(coupon);
+				list.add(coupon);
 			}
 		}
-		return coupons;
+		return list;
 	}
 	
 
