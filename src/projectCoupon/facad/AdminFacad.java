@@ -114,15 +114,20 @@ public class AdminFacad implements CouponClientFacade {
 			String custName = customer.getCustomerName();
 			if (custName != null) {
 				if (customer.getPassword() != null) {
-					if (!customerDAO.isCustomerNameExists(custName)) {
-						try {
-							customerDAO.insertCustomer(customer);
-						} catch (Exception e) {
-							// TODO see what is the Exception and fix line
-							throw new CouponException(e.getMessage());
+					try {
+						if (!customerDAO.isCustomerNameExists(custName)) {
+							try {
+								customerDAO.insertCustomer(customer);
+							} catch (Exception e) {
+								// TODO see what is the Exception and fix line
+								throw new CouponException(e.getMessage());
+							}
+						} else {
+							throw new CouponException("Customer Already Exists! Create New Customer Canceled!");
 						}
-					} else {
-						throw new CouponException("Customer Already Exists! Create New Customer Canceled!");
+					} catch (CustomerException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
 				} else {
 					throw new CouponException("Password Requiered! Create New Customer Canceled!");

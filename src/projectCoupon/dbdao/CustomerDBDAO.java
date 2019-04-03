@@ -294,7 +294,7 @@ public class CustomerDBDAO implements CustomerDAO {
 	}
 
 	@Override
-	public boolean isCustomerNameExists(String customerName) throws CouponException {
+	public boolean isCustomerNameExists(String customerName) throws CouponException, CustomerException {
 		Connection connection = pool.getConnection();
 		try {
 			String sql = "SELECT ID FROM Customer WHERE CUST_NAME = ? ";
@@ -305,12 +305,19 @@ public class CustomerDBDAO implements CustomerDAO {
 				return true;
 			}
 			return false;
-
 		} catch (SQLException e) {
 			throw new CouponException(" Failed to checking if Customer name already exists. " + e.getMessage());
 		} finally {
-			pool.returnConnection(connection);
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				throw new CustomerException("connection failed " + e.getMessage());
+			}
+			try {
+				pool.returnConnection(connection);
+			} catch (CouponException e) {
+				throw new CustomerException("connection failed " + e.getMessage());
+			}
 		}
 	}
-
 }

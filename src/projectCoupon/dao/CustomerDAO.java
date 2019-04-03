@@ -24,6 +24,6 @@ public interface CustomerDAO {
 
 	Customer getCustomer(long customerId) throws CustomerException;
 
-	boolean isCustomerNameExists(String customerName) throws CouponException;
+	boolean isCustomerNameExists(String customerName) throws CouponException, CustomerException;
 
 }

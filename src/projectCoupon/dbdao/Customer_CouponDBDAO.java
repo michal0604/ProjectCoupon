@@ -301,6 +301,11 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 			throw new CouponException(
 					"ERROR! Checking If Coupon Already Exists For Company is Failed. " + e.getMessage());
 		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				throw new CouponException("connection close failed");
+			}
 			pool.returnConnection(connection);
 		}
 	}

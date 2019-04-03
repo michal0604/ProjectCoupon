@@ -391,6 +391,11 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 		} catch (SQLException e) {
 			throw new CouponException("ERROR! Checking if Coupon Exists For The Company is Failed. " + e.getMessage());
 		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				throw new CouponException("connection close failed");
+			}
 			pool.returnConnection(connection);
 		}
 	}

@@ -222,23 +222,6 @@ public class CompanyFacade implements CouponClientFacade {
 	 * @throws Exception
 	 */
 	
-	/*delete????
-	public List<Coupon> getCouponsByType(couponType coupType) throws CouponException, CreateException {
-		if(companyId == 0) {
-			throw new CouponException("the operation was canceled due to not being loged in");
-		}
-		List<Coupon> coupons = new ArrayList<Coupon>();
-		Coupon coupon;
-		List<Long> companyCouponList = company_CouponDAO.getCouponsByCompanyId(companyId);
-		for (Long couponId : companyCouponList) {
-			coupon = couponDAO.getCoupon(couponId);
-			if (coupon.getType().equals(coupType)) {
-				coupons.add(coupon);
-			}
-		}
-		return coupons;
-	}
-	*/
 	
 	public List<Coupon> getAllCouponsByType(CouponType coupType) throws CouponException, CompanyException{
 		if(companyId == 0) {

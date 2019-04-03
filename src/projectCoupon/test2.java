@@ -41,8 +41,8 @@ public class test2 {
 			Database.createTables();
 
 			// Create new 5 companies.
-			Company company01 = new Company(1, "PIZZAHUT", "111", "holmesplaceþ@gmail.com");
-			Company company02 = new Company(2, "HOLMCE-PLACE", "112", "holmesplaceþ@gmail.com");
+			Company company01 = new Company(1, "PIZZAHUT", "111", "pizzaHut.com");
+			Company company02 = new Company(2, "HOLMCE-PLACE", "112", "holmesplace@gmail.com");
 			Company company03 = new Company(3, "BUG", "113", "bug@bug.com");
 			Company company04 = new Company(4, "WALLA-TOURS", "114", "tours@walla.com");
 			Company company05 = new Company(5, "FOX", "115", "FOX@yahoo.com");
@@ -149,7 +149,10 @@ public class test2 {
 				coupons = ((CompanyFacade) facade).getCouponsByMaxCouponPrice(100);
 				System.out.println("View all PIZZAHUT company Coupons by Max Price 100 nis:\n" + coupons.toString());
 
-				// TO DO getCouponsByMaxCouponDate(X days from today)
+				// getCouponsByMaxCouponDate(10 days from today)
+				coupons=((CompanyFacade) facade).getCouponsByMaxCouponDate(Utile.getDateAfter(10));
+				System.out.println("View all PIZZAHUT company Coupons by Max date 10 days from today (Expiration Date= "
+						+ Utile.getDateAfter(10).toString() + "):\n" + coupons.toString());
 
 			}
 
@@ -188,7 +191,10 @@ public class test2 {
 				// getCouponsByMaxCouponPrice(100 nis)
 				coupons = ((CompanyFacade) facade).getCouponsByMaxCouponPrice(100);
 				System.out.println("View all HOLMESPLACE company Coupons by Max Price 100 nis:\n" + coupons.toString());
-				// TO DO getCouponsByMaxCouponDate(X days from today)
+				//  getCouponsByMaxCouponDate(5 days from today)
+				coupons=((CompanyFacade) facade).getCouponsByMaxCouponDate(Utile.getDateAfter(5));
+				System.out.println("View all HOLMESPLACE company Coupons by Max date 5 days from today (Expiration Date= "
+						+ Utile.getDateAfter(5).toString() + "):\n" + coupons.toString());
 
 			}
 
@@ -267,9 +273,9 @@ public class test2 {
 				System.out.println("View all wallaTours company Coupons by Max Price 100 nis:\n" + coupons.toString());
 
 				// getCouponsByMaxCouponDate(100 days from today)
-				coupons = ((CompanyFacade) facade).getCouponsByMaxCouponDate(Utile.getDateAfter(100));
-				System.out.println("View all wallaTours company Coupons by Max 100 days from today (Expiration Date= "
-						+ Utile.getDateAfter(100).toString() + "):\n" + coupons.toString());
+				coupons = ((CompanyFacade) facade).getCouponsByMaxCouponDate(Utile.getDateAfter(15));
+				System.out.println("View all wallaTours company Coupons by Max 15 days from today (Expiration Date= "
+						+ Utile.getDateAfter(15).toString() + "):\n" + coupons.toString());
 
 			}
 
@@ -306,9 +312,9 @@ public class test2 {
 				System.out.println("View all FOX company Coupons by Max Price 100 nis:\n" + coupons.toString());
 
 				// getCouponsByMaxCouponDate(100 days from today)
-				coupons = ((CompanyFacade) facade).getCouponsByMaxCouponDate(Utile.getDateAfter(100));
-				System.out.println("View all fox company Coupons by Max 100 days from today (Expiration Date= "
-						+ Utile.getDateAfter(100).toString() + "):\n" + coupons.toString());
+				coupons = ((CompanyFacade) facade).getCouponsByMaxCouponDate(Utile.getDateAfter(30));
+				System.out.println("View all fox company Coupons by Max 30 days from today (Expiration Date= "
+						+ Utile.getDateAfter(30).toString() + "):\n" + coupons.toString());
 			}
 
 			/************************

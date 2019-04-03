@@ -105,14 +105,14 @@ public class Database {
 		} catch (CouponException e2) {
 			throw new CreateException("connection failed");
 		}
-		Connection con;
+		Connection connection;
 		try {
-			con = Pool.getConnection();
+			connection = Pool.getConnection();
 		} catch (Exception e2) {
 			throw new CreateException("connection failed");
 		}
 		try {
-			Statement stmt = con.createStatement();
+			Statement stmt = connection.createStatement();
 
 			// create Company table
 			 sql = "create table Company (" + "ID bigint not null primary key, " + "COMP_NAME varchar(50) not null, "
@@ -124,7 +124,7 @@ public class Database {
 			throw new CreateException("create company didn't succeed");
 		}
 		try {
-			Statement stmt2 = con.createStatement();
+			Statement stmt2 = connection.createStatement();
 			 sql = "create table Customer (" + "ID bigint not null primary key, " + "CUST_NAME varchar(50) not null, "
 					+ "PASSWORD varchar(50) not null)";
 			stmt2.executeUpdate(sql);
@@ -134,7 +134,7 @@ public class Database {
 		}
 
 		try {
-			java.sql.Statement stm = con.createStatement();
+			java.sql.Statement stm = connection.createStatement();
 
 
 			 sql = "create table Coupon (" + "ID bigint not null primary key, " + "TITLE varchar(50) not null, "
@@ -150,7 +150,7 @@ public class Database {
 
 		// create join table Customer_Coupon
 		try {
-			java.sql.Statement stm = con.createStatement();
+			java.sql.Statement stm = connection.createStatement();
 			 sql = "create table Customer_Coupon (" + "Customer_ID bigint, " + "Coupon_ID bigint, "
 					+ "primary key (Customer_ID, Coupon_ID))";
 
@@ -164,7 +164,7 @@ public class Database {
 
 		// create join table Company_Coupon
 		try {
-			java.sql.Statement stm = con.createStatement();
+			java.sql.Statement stm = connection.createStatement();
 			 sql = "create table Company_Coupon (" + "Company_ID bigint, " + "Coupon_ID bigint, "
 					+ "primary key (Company_ID, Coupon_ID))";
 			stm.executeUpdate(sql);
@@ -174,15 +174,20 @@ public class Database {
 			throw new CreateException("create company_coupon didn't succeed");
 		}
 
-		finally {
+		  finally {
+				connection.close();
 				try {
-					Pool.returnConnection(con);
-				} catch (Exception e) {
-					throw new CreateException("didnt success");
+					Pool.returnConnection(connection);
+				} catch (CouponException e) {
+					try {
+						throw new CreateException("connection failed");
+					} catch (CreateException e1) {
+						
+					}
 				}
-			
 			}
-		}
+
 
 	}
+}
 
