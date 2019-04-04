@@ -47,29 +47,29 @@ public class test2 {
 			Company company04 = new Company(4, "WALLA-TOURS", "114", "tours@walla.com");
 			Company company05 = new Company(5, "FOX", "115", "FOX@yahoo.com");
 
-			AdminFacad adminFacad = (AdminFacad) facade;
-			adminFacad.createCompany(company01);
-			adminFacad.createCompany(company02);
-			adminFacad.createCompany(company03);
-			adminFacad.createCompany(company04);
-			adminFacad.createCompany(company05);
+			
+			((AdminFacad) facade).createCompany(company01);
+			((AdminFacad) facade).createCompany(company02);
+			((AdminFacad) facade).createCompany(company03);
+			((AdminFacad) facade).createCompany(company04);
+			((AdminFacad) facade).createCompany(company05);
 
 			// Show all companies (After creating new companies - before update).
-			companies = adminFacad.getAllCompanies();
+			companies = ((AdminFacad) facade).getAllCompanies();
 			System.out.println("After creating new companies - Show all new companies\n" + line + companies.toString());
 
 			Company company06 = new Company();
-			adminFacad.updateCompany(company06, "superfarm", "3333", "farm@gmail.com");
+			((AdminFacad) facade).updateCompany(company06, "superfarm", "3333", "farm@gmail.com");
 
 			// Show One updated company id=5
-			Company company07 = adminFacad.getCompany(5);
+			Company company07 = ((AdminFacad) facade).getCompany(5);
 			System.out.println("Show One updated company\n" + company07.toString());
 
 			// adminFacad.updateCompany(company02, "tadiran", "444", "tadiran@walla.com");
 			// // Update company HOLMESPLACEþ with password
 
 			// Show all companies (after update).
-			companies = adminFacad.getAllCompanies();
+			companies = ((AdminFacad) facade).getAllCompanies();
 			System.out.println("Show all companies (after update)" + companies.toString());
 
 			// Add new 5 customers
@@ -79,32 +79,32 @@ public class test2 {
 			Customer customer04 = new Customer(4, "Karin", "2004");
 			Customer customer05 = new Customer(5, "Gila", "2005");
 
-			adminFacad.createCustomer(customer01);
-			adminFacad.createCustomer(customer02);
-			adminFacad.createCustomer(customer03);
-			adminFacad.createCustomer(customer04);
-			adminFacad.createCustomer(customer05);
+			((AdminFacad) facade).createCustomer(customer01);
+			((AdminFacad) facade).createCustomer(customer02);
+			((AdminFacad) facade).createCustomer(customer03);
+			((AdminFacad) facade).createCustomer(customer04);
+			((AdminFacad) facade).createCustomer(customer05);
 
 			// Show all customers (After creating new customers - before update).
-			customers = adminFacad.getAllCustomers();
+			customers = ((AdminFacad) facade).getAllCustomers();
 			System.out.println(
 					"After creating new customers - Show all customers (before update)\n" + customers.toString());
 
 			// Update Customer
-			adminFacad.updateCustomer(customer02, "Dany", "444");
+			((AdminFacad) facade).updateCustomer(customer02, "Dany", "444");
 
 			// Show One updated customer.
-			Customer customer07 = adminFacad.getCustomer(4);
+			Customer customer07 = ((AdminFacad) facade).getCustomer(4);
 			System.out.println("Show One updated customer\n" + customer07.toString());
 
 			// adminFacad.updateCustomer(customer05, "shely", "233");
 
 			// Show One updated customer
-			Customer customer09 = adminFacad.getCustomer(2);
+			Customer customer09 = ((AdminFacad) facade).getCustomer(2);
 			System.out.println("Show One updated customer" + customer09.toString());
 
 			// Show all customers (after update).
-			customers = adminFacad.getAllCustomers();
+			customers = ((AdminFacad) facade).getAllCustomers();
 			System.out.println("Show all customers (after update)" + customers.toString());
 
 			/*****************************************************************
@@ -556,6 +556,7 @@ public class test2 {
 				System.out.println("View all  Michal Coupons Purchased (before removing customer 1-Michal)\n" + coupons.toString());
 			}
 
+		
 			/*****************************
 			 * Administrator Facade test *
 			 *****************************/
