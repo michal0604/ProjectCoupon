@@ -319,7 +319,7 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 			throw new RemoveException("connection failed " + e.getMessage());
 		}
 
-		String sql = "delete from Customer_Coupon where ID = ?";
+		String sql = "delete from Customer_Coupon where Coupon_ID = ?";
 
 		try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
