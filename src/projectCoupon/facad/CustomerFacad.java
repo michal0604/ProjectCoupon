@@ -67,7 +67,7 @@ public class CustomerFacad implements CouponClientFacade {
 		if (coupon != null) {
 			if (coupon.getAmount() > 0) {
 				if (coupon.getEnd_date().getTime() >= Utile.getCurrentDate().getTime()) {
-					if (!customer_CouponDAO.isCouponPurchasedByCustomer(coupId, coupId)){
+					if (!customer_CouponDAO.isCouponPurchasedByCustomer(custId, coupId)){
 						coupon.setAmount(coupon.getAmount() - 1);
 						couponDAO.updateCoupon(coupon);
 						customer_CouponDAO.insertCustomer_Coupon(custId, coupId);

@@ -324,36 +324,36 @@ public class test2 {
 			/**************************************************************************
 			 * Customer Facade TEST: id: 1, user: "Michal", password: "2001" *
 			 **************************************************************************/
+			
 			facade = CouponSystem.login("Michal", "2001", ClientType.CUSTOMER);
 			if (facade instanceof CustomerFacad) {
 				System.out.println("========  Login(Michal, 2001, Customer) ========\n");
 				CustomerFacad customerFacad = (CustomerFacad) facade;
 				// getCouponsByType(CouponType.RESTURANTS)
-				coupons = customerFacad.getAllCouponsByType(CouponType.Resturans);
+				coupons = ((CustomerFacad) facade).getAllCouponsByType(CouponType.Resturans);
 				System.out.println("List of All RESTURANTS Coupons type: \n" + coupons.toString());
-
 				// getCouponsByType(CouponType.FOOD)
-				coupons = customerFacad.getAllCouponsByType(CouponType.Food);
+				 coupons=((CustomerFacad) facade).getAllCouponsByType(CouponType.Food);
 				System.out.println("List of All FOOD Coupons type: \n" + coupons.toString());
 
 				// Purchase Coupons
-				customerFacad.purchaseCoupon(2); // Add new 2-PIZZAHUT Coupon to customer
-				customerFacad.purchaseCoupon(4); // Add new 4-HOLMESPLACE Coupon to customer
-				customerFacad.purchaseCoupon(12); // Add new 5-WALLATOURS Coupon to customer
+				((CustomerFacad) facade).purchaseCoupon(2); // Add new 2-PIZZAHUT Coupon to customer
+				((CustomerFacad) facade).purchaseCoupon(4); // Add new 4-HOLMESPLACE Coupon to customer
+				((CustomerFacad) facade).purchaseCoupon(12); // Add new 5-WALLATOURS Coupon to customer
 
 				// CustomerFacade Reports
 
-				coupons = customerFacad.getAllPurchasedCoupons();
+				coupons = ((CustomerFacad) facade).getAllPurchasedCoupons();
 				System.out.println("List of All Michal's Purchased Coupons: \n" + coupons.toString());
 
-				coupons = customerFacad.getAllPurchasedCouponsByType(CouponType.Resturans);
+				coupons = ((CustomerFacad) facade).getAllPurchasedCouponsByType(CouponType.Resturans);
 				System.out
 						.println("List of All Michal's Purchased Coupons by RESTURANTS type: \n" + coupons.toString());
 
-				coupons = customerFacad.getAllPurchasedCouponsByType(CouponType.Food);
+				coupons = ((CustomerFacad) facade).getAllPurchasedCouponsByType(CouponType.Food);
 				System.out.println("List of All Michal's Purchased Coupons by FOOD type: \n" + coupons.toString());
 
-				coupons = customerFacad.getAllPurchasedCouponsByPrice(80);
+				coupons = ((CustomerFacad) facade).getAllPurchasedCouponsByPrice(80);
 				System.out.println(
 						"List of All Michal's Purchased Coupons by max price of 80 nis: \n" + coupons.toString());
 
@@ -367,39 +367,39 @@ public class test2 {
 			if (facade instanceof Customer) {
 				System.out.println("========  Login(Eli, 2002, Customer) ========\n");
 
-				CustomerFacad customerFacad = new CustomerFacad();
+				
 				// getCouponsByType(CouponType.Electricity)
-				coupons = customerFacad.getAllCouponsByType(CouponType.Electricity);
+				coupons = ((CustomerFacad) facade).getAllCouponsByType(CouponType.Electricity);
 				System.out.println("List of All Electricity Coupons type: \n" + coupons.toString());
 
 				// getCouponsByType(CouponType.FOOD)
-				coupons = customerFacad.getAllCouponsByType(CouponType.Food);
+				coupons =((CustomerFacad) facade).getAllCouponsByType(CouponType.Food);
 				System.out.println("List of All FOOD Coupons type: \n" + coupons.toString());
 
 				// getCouponsByType(CouponType.sports)
-				coupons = customerFacad.getAllCouponsByType(CouponType.Sports);
+				coupons = ((CustomerFacad) facade).getAllCouponsByType(CouponType.Sports);
 				System.out.println("List of All sports Coupons type: \n" + coupons.toString());
 
 				// Purchase Coupons
-				customerFacad.purchaseCoupon(3); // Add new 3-PIZZAHUT Coupon to customer
-				customerFacad.purchaseCoupon(7); // Add new 7-BUG Coupon to customer
-				customerFacad.purchaseCoupon(14); // Add new 14-FOX Coupon to customer
+				((CustomerFacad) facade).purchaseCoupon(3); // Add new 3-PIZZAHUT Coupon to customer
+				((CustomerFacad) facade).purchaseCoupon(7); // Add new 7-BUG Coupon to customer
+				((CustomerFacad) facade).purchaseCoupon(14); // Add new 14-FOX Coupon to customer
 
 				// CustomerFacade Reports
 
-				coupons = customerFacad.getAllPurchasedCoupons();
+				coupons = ((CustomerFacad) facade).getAllPurchasedCoupons();
 				System.out.println("List of All Eli's Purchased Coupons: \n" + coupons.toString());
 
-				coupons = customerFacad.getAllPurchasedCouponsByType(CouponType.Resturans);
+				coupons = ((CustomerFacad) facade).getAllPurchasedCouponsByType(CouponType.Resturans);
 				System.out.println("List of All Eli's Purchased Coupons by RESTURANTS type: \n" + coupons.toString());
 
-				coupons = customerFacad.getAllPurchasedCouponsByType(CouponType.Electricity);
+				coupons = ((CustomerFacad) facade).getAllPurchasedCouponsByType(CouponType.Electricity);
 				System.out.println("List of All Eli's Purchased Coupons by Electricity type: \n" + coupons.toString());
 
-				coupons = customerFacad.getAllPurchasedCouponsByType(CouponType.Sports);
+				coupons = ((CustomerFacad) facade).getAllPurchasedCouponsByType(CouponType.Sports);
 				System.out.println("List of All Eli's Purchased Coupons by sports type: \n" + coupons.toString());
 
-				coupons = customerFacad.getAllPurchasedCouponsByPrice(80);
+				coupons = ((CustomerFacad) facade).getAllPurchasedCouponsByPrice(80);
 				System.out
 						.println("List of All Eli's Purchased Coupons by max price of 80 nis: \n" + coupons.toString());
 
@@ -411,32 +411,32 @@ public class test2 {
 			facade = CouponSystem.login("Hana", "2003", ClientType.CUSTOMER);
 			if (facade instanceof Customer) {
 				System.out.println("========  Login(Hana, 2003, Customer) ========\n");
-				CustomerFacad customerFacad = new CustomerFacad();
+				
 				// getCouponsByType(CouponType.food)
-				coupons = customerFacad.getAllCouponsByType(CouponType.Food);
+				coupons = ((CustomerFacad) facade).getAllCouponsByType(CouponType.Food);
 				System.out.println("List of All FOOD Coupons type: \n" + coupons.toString());
 
 				// getCouponsByType(CouponType.Electricity)
-				coupons = customerFacad.getAllCouponsByType(CouponType.Electricity);
+				coupons = ((CustomerFacad) facade).getAllCouponsByType(CouponType.Electricity);
 				System.out.println("List of All Electricity Coupons type: \n" + coupons.toString());
 
 				// Purchase Coupons
-				customerFacad.purchaseCoupon(1); // Add new 1-PIZZAHUT Coupon to customer
-				customerFacad.purchaseCoupon(2); // Add new 2-PIZZAHUT Coupon to customer
-				customerFacad.purchaseCoupon(8); // Add new 8-BUG Coupon to customer
+				((CustomerFacad) facade).purchaseCoupon(1); // Add new 1-PIZZAHUT Coupon to customer
+				((CustomerFacad) facade).purchaseCoupon(2); // Add new 2-PIZZAHUT Coupon to customer
+				((CustomerFacad) facade).purchaseCoupon(8); // Add new 8-BUG Coupon to customer
 
 				// CustomerFacade Reports
 
-				coupons = customerFacad.getAllPurchasedCoupons();
+				coupons = ((CustomerFacad) facade).getAllPurchasedCoupons();
 				System.out.println("List of All Hana's Purchased Coupons: \n" + coupons.toString());
 
-				coupons = customerFacad.getAllPurchasedCouponsByType(CouponType.Food);
+				coupons = ((CustomerFacad) facade).getAllPurchasedCouponsByType(CouponType.Food);
 				System.out.println("List of All Hana's Purchased Coupons by food type: \n" + coupons.toString());
 
-				coupons = customerFacad.getAllPurchasedCouponsByType(CouponType.Electricity);
+				coupons = ((CustomerFacad) facade).getAllPurchasedCouponsByType(CouponType.Electricity);
 				System.out.println("List of All Hana's Purchased Coupons by Electricity type: \n" + coupons.toString());
 
-				coupons = customerFacad.getAllPurchasedCouponsByPrice(80);
+				coupons = ((CustomerFacad) facade).getAllPurchasedCouponsByPrice(80);
 				System.out.println(
 						"List of All Hana's Purchased Coupons by max price of 80 nis: \n" + coupons.toString());
 
@@ -448,32 +448,32 @@ public class test2 {
 			facade = CouponSystem.login("Karin", "2004", ClientType.CUSTOMER);
 			if (facade instanceof Customer) {
 				System.out.println("========  Login(Karin, 2004, Customer) ========\n");
-				CustomerFacad customerFacad = new CustomerFacad();
+				
 				// getCouponsByType(CouponType.camping)
-				coupons = customerFacad.getAllCouponsByType(CouponType.Camping);
+				coupons = ((CustomerFacad) facade).getAllCouponsByType(CouponType.Camping);
 				System.out.println("List of All camping Coupons type: \n" + coupons.toString());
 
 				// getCouponsByType(CouponType.sports)
-				coupons = customerFacad.getAllCouponsByType(CouponType.Sports);
+				coupons = ((CustomerFacad) facade).getAllCouponsByType(CouponType.Sports);
 				System.out.println("List of All sports Coupons type: \n" + coupons.toString());
 
 				// Purchase Coupons
-				customerFacad.purchaseCoupon(6); // Add new 6-HOLMESPLACE Coupon to customer
-				customerFacad.purchaseCoupon(10); // Add new 10-WALLATOURS Coupon to customer
-				customerFacad.purchaseCoupon(11); // Add new 11-WALLATOURS Coupon to customer
+				((CustomerFacad) facade).purchaseCoupon(6); // Add new 6-HOLMESPLACE Coupon to customer
+				((CustomerFacad) facade).purchaseCoupon(10); // Add new 10-WALLATOURS Coupon to customer
+				((CustomerFacad) facade).purchaseCoupon(11); // Add new 11-WALLATOURS Coupon to customer
 
 				// CustomerFacade Reports
 
-				coupons = customerFacad.getAllPurchasedCoupons();
+				coupons = ((CustomerFacad) facade).getAllPurchasedCoupons();
 				System.out.println("List of All Karin's Purchased Coupons: \n" + coupons.toString());
 
-				coupons = customerFacad.getAllPurchasedCouponsByType(CouponType.Sports);
+				coupons = ((CustomerFacad) facade).getAllPurchasedCouponsByType(CouponType.Sports);
 				System.out.println("List of All Karin's Purchased Coupons by Sports type: \n" + coupons.toString());
 
-				coupons = customerFacad.getAllPurchasedCouponsByType(CouponType.Camping);
+				coupons = ((CustomerFacad) facade).getAllPurchasedCouponsByType(CouponType.Camping);
 				System.out.println("List of All Karin's Purchased Coupons by Camping type: \n" + coupons.toString());
 
-				coupons = customerFacad.getAllPurchasedCouponsByPrice(80);
+				coupons = ((CustomerFacad) facade).getAllPurchasedCouponsByPrice(80);
 				System.out.println(
 						"List of All Karin's Purchased Coupons by max price of 80 nis: \n" + coupons.toString());
 
@@ -485,32 +485,32 @@ public class test2 {
 			facade = CouponSystem.login("Gila", "2005", ClientType.CUSTOMER);
 			if (facade instanceof Customer) {
 				System.out.println("========  Login(Gila, 2005, Customer) ========\n");
-				CustomerFacad customerFacad = new CustomerFacad();
+			
 				// getCouponsByType(CouponType.camping)
-				coupons = customerFacad.getAllCouponsByType(CouponType.Camping);
+				coupons = ((CustomerFacad) facade).getAllCouponsByType(CouponType.Camping);
 				System.out.println("List of All camping Coupons type: \n" + coupons.toString());
 
 				// getCouponsByType(CouponType.Electricity)
-				coupons = customerFacad.getAllCouponsByType(CouponType.Electricity);
+				coupons = ((CustomerFacad) facade).getAllCouponsByType(CouponType.Electricity);
 				System.out.println("List of All Electricity Coupons type: \n" + coupons.toString());
 
 				// Purchase Coupons
-				customerFacad.purchaseCoupon(7); // Add new 7-BUG Coupon to customer
-				customerFacad.purchaseCoupon(10); // Add new 10-WALLATOURS Coupon to customer
-				customerFacad.purchaseCoupon(11); // Add new 11-WALLATOURS Coupon to customer
+				((CustomerFacad) facade).purchaseCoupon(7); // Add new 7-BUG Coupon to customer
+				((CustomerFacad) facade).purchaseCoupon(10); // Add new 10-WALLATOURS Coupon to customer
+				((CustomerFacad) facade).purchaseCoupon(11); // Add new 11-WALLATOURS Coupon to customer
 
 				// CustomerFacade Reports
 
-				coupons = customerFacad.getAllPurchasedCoupons();
+				coupons = ((CustomerFacad) facade).getAllPurchasedCoupons();
 				System.out.println("List of All Gila's Purchased Coupons: \n" + coupons.toString());
 
-				coupons = customerFacad.getAllPurchasedCouponsByType(CouponType.Electricity);
+				coupons = ((CustomerFacad) facade).getAllPurchasedCouponsByType(CouponType.Electricity);
 				System.out.println("List of All Gila's Purchased Coupons by Electricity type: \n" + coupons.toString());
 
-				coupons = customerFacad.getAllPurchasedCouponsByType(CouponType.Camping);
+				coupons = ((CustomerFacad) facade).getAllPurchasedCouponsByType(CouponType.Camping);
 				System.out.println("List of All Gila's Purchased Coupons by Camping type: \n" + coupons.toString());
 
-				coupons = customerFacad.getAllPurchasedCouponsByPrice(80);
+				coupons = ((CustomerFacad) facade).getAllPurchasedCouponsByPrice(80);
 				System.out.println(
 						"List of All Gila's Purchased Coupons by max price of 80 nis: \n" + coupons.toString());
 
@@ -538,6 +538,23 @@ public class test2 {
 				coupons = ((CompanyFacade) facade).getCoupons();
 				System.out.println("View company coupons 1 (after removing coupon 1)\n" + coupons.toString());
 			}
+			
+			
+			/*************************
+			 * Customer Facade teat *
+			 *************************/			
+			
+			facade = couponSystem.login("Michal","2001",ClientType.CUSTOMER);
+			if (facade instanceof Customer) {
+				System.out.println("========  Login(admin, 1234, AdminFacade) ========\n");
+
+				/**
+				 *  get all Michal Coupons Purchased.
+				 */
+
+				coupons = ((CustomerFacad) facade).getAllPurchasedCoupons();
+				System.out.println("View all  Michal Coupons Purchased (before removing customer 1-Michal)\n" + coupons.toString());
+			}
 
 			/*****************************
 			 * Administrator Facade test *
@@ -549,29 +566,29 @@ public class test2 {
 				System.out.println("========  Login(admin, 1234, AdminFacade) ========\n");
 
 				// Remove customer 1-Michal
-				adminFacad.removeCustomer(customer01);
+				((AdminFacad) facade).removeCustomer(customer01);
 
 				System.out.println("========  DELETE Customer 1-Michal ========\n");
 
 				// Show all customers (after removing customer 1-Michal).
-				customers = adminFacad.getAllCustomers();
-				System.out.println("View customer 1-Ofer (after removing customer 1-Ofer)\n" + customers.toString());
+				customers = ((AdminFacad) facade).getAllCustomers();
+				System.out.println("View customer 1-Michal (after removing customer 1-Michal)\n" + customers.toString());
 
 				/**
 				 * Remove Company.
 				 */
 
 				// Show all companies (before removing customer 5-fox).
-				companies = adminFacad.getAllCompanies();
+				companies = ((AdminFacad) facade).getAllCompanies();
 				System.out.println("View all companies (before removing company 5-Fox)\n" + companies.toString());
 
 				// Remove Company 5-fox
-				adminFacad.removeCompany(company05);
+				((AdminFacad) facade).removeCompany(company05);
 				System.out.println("========  DELETE Company 5-fox ========\n");
 
 				// Show all companies (after removing customer 5-ILANS).
-				companies = adminFacad.getAllCompanies();
-				System.out.println("View all companies (after removing company 5-ILANS)\n" + companies.toString());
+				companies = ((AdminFacad) facade).getAllCompanies();
+				System.out.println("View all companies (after removing company 5-FOX)\n" + companies.toString());
 
 			}
 
