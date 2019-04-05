@@ -42,12 +42,10 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 
 		try {
 			PreparedStatement pstmt = connection.prepareStatement(sql);
-			{
-			}
 			pstmt.setLong(1, customerId);
 			pstmt.setLong(2, couponId);
 			pstmt.executeUpdate();
-			System.out.println("Customer_Coupon created" + customerId);
+			System.out.println("Customer_Coupon created " + customerId);
 		} catch (SQLException ex) {
 			throw new CreateException("Customer_Coupon creation failed " + ex.getMessage());
 		} finally {

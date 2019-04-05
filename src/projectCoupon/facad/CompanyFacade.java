@@ -19,7 +19,6 @@ import projectCoupon.exception.CouponException;
 import projectCoupon.exception.CreateException;
 import projectCoupon.exception.RemoveException;
 import projectCoupon.exception.UpdateException;
-import projectCoupon.utils.ConnectionPool;
 import projectCoupon.utils.Utile;
 
 public class CompanyFacade implements CouponClientFacade {

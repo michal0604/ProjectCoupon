@@ -1,13 +1,8 @@
 package projectCoupon.utils;
 
 import java.sql.Date;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-
-import javax.rmi.CORBA.Util;
 
 import projectCoupon.beans.Coupon;
 import projectCoupon.dao.Company_CouponDAO;
@@ -17,12 +12,11 @@ import projectCoupon.dbdao.Company_CouponDBDAO;
 import projectCoupon.dbdao.CouponDBDAO;
 import projectCoupon.dbdao.Customer_CouponDBDAO;
 import projectCoupon.exception.CouponException;
-import projectCoupon.facad.AdminFacad;
 
 public class DailyCouponExpirationTask implements Runnable {
 
 	
-	private static final boolean DEBUG = true;
+	private static final boolean DEBUG = false;
 	private static final TimeUnit TIMEUNIT = TimeUnit.MILLISECONDS;
 	
 	private static int DEBUG_DAY_ADDER = 0;

@@ -328,7 +328,7 @@ public class test2 {
 			facade = CouponSystem.login("Michal", "2001", ClientType.CUSTOMER);
 			if (facade instanceof CustomerFacad) {
 				System.out.println("========  Login(Michal, 2001, Customer) ========\n");
-				CustomerFacad customerFacad = (CustomerFacad) facade;
+				//CustomerFacad customerFacad = (CustomerFacad) facade;
 				// getCouponsByType(CouponType.RESTURANTS)
 				coupons = ((CustomerFacad) facade).getAllCouponsByType(CouponType.Resturans);
 				System.out.println("List of All RESTURANTS Coupons type: \n" + coupons.toString());
@@ -362,9 +362,9 @@ public class test2 {
 			/**************************************************************************
 			 * Customer Facade TEST: id: 2, user: "Eli", password: "2002" *
 			 **************************************************************************/
-			facade = CouponSystem.login("Eli", "2002", ClientType.CUSTOMER);
+			facade = CouponSystem.login("Dany", "444", ClientType.CUSTOMER);
 			
-			if (facade instanceof Customer) {
+			if (facade instanceof CustomerFacad) {
 				System.out.println("========  Login(Eli, 2002, Customer) ========\n");
 
 				
@@ -409,7 +409,7 @@ public class test2 {
 			 * Customer Facade TEST: id: 3, user: "Hana", password: "2003" *
 			 **************************************************************************/
 			facade = CouponSystem.login("Hana", "2003", ClientType.CUSTOMER);
-			if (facade instanceof Customer) {
+			if (facade instanceof CustomerFacad) {
 				System.out.println("========  Login(Hana, 2003, Customer) ========\n");
 				
 				// getCouponsByType(CouponType.food)
@@ -446,7 +446,7 @@ public class test2 {
 			 * Customer Facade TEST: id: 4, user: "Karin", password: "2004" *
 			 **************************************************************************/
 			facade = CouponSystem.login("Karin", "2004", ClientType.CUSTOMER);
-			if (facade instanceof Customer) {
+			if (facade instanceof CustomerFacad) {
 				System.out.println("========  Login(Karin, 2004, Customer) ========\n");
 				
 				// getCouponsByType(CouponType.camping)
@@ -483,7 +483,7 @@ public class test2 {
 			 * Customer Facade TEST: id: 5, user: "Gila", password: "2005" *
 			 **************************************************************************/
 			facade = CouponSystem.login("Gila", "2005", ClientType.CUSTOMER);
-			if (facade instanceof Customer) {
+			if (facade instanceof CustomerFacad) {
 				System.out.println("========  Login(Gila, 2005, Customer) ========\n");
 			
 				// getCouponsByType(CouponType.camping)
@@ -544,7 +544,7 @@ public class test2 {
 			 * Customer Facade teat *
 			 *************************/			
 			
-			facade = couponSystem.login("Michal","2001",ClientType.CUSTOMER);
+			facade = CouponSystem.login("Michal","2001",ClientType.CUSTOMER);
 			if (facade instanceof Customer) {
 				System.out.println("========  Login(admin, 1234, AdminFacade) ========\n");
 
