@@ -43,7 +43,7 @@ public class test2 {
 			// Create new 5 companies.
 			Company company01 = new Company(1, "PIZZAHUT", "111", "pizzaHut.com");
 			Company company02 = new Company(2, "HOLMCE-PLACE", "112", "holmesplace@gmail.com");
-			Company company03 = new Company(3, "BUG", "113", "bug@bug.com");
+			Company company03 = new Company(3, "ELECTRA", "113", "bug@bug.com");
 			Company company04 = new Company(4, "WALLA-TOURS", "114", "tours@walla.com");
 			Company company05 = new Company(5, "FOX", "115", "FOX@yahoo.com");
 
@@ -117,7 +117,7 @@ public class test2 {
 				Coupon coupon01 = new Coupon(1, "Deal-01", Utile.getCurrentDate(), Utile.getDateAfter(10), 5,
 						CouponType.Food, "Best Deal", 69.90, "http//www.pizzahatCoupon.co.il/?1");
 				Coupon coupon02 = new Coupon(2, "Deal-02", Utile.getCurrentDate(), Utile.getDateAfter(12), 4,
-						CouponType.Resturans, "Best Deal", 99.90, "http//www.pizzahatCoupon.co.il/?2");
+						CouponType.Resturans, "Best Deal", 79.90, "http//www.pizzahatCoupon.co.il/?2");
 				Coupon coupon03 = new Coupon(3, "Deal-03", Utile.getCurrentDate(), Utile.getDateAfter(2), 10,
 						CouponType.Food, "Best Deal", 111.90, "http//www.pizzahatCoupon.co.il/?3");
 
@@ -199,19 +199,19 @@ public class test2 {
 			}
 
 			/*************************************************************
-			 * Company Facade TEST: user: id: 3, "BUG", password: "113" *
+			 * Company Facade TEST: user: id: 3, "ELECTRA", password: "113" *
 			 *************************************************************/
-			facade = CouponSystem.login("BUG", "113", ClientType.COMPANY);
+			facade = CouponSystem.login("ELECTRA", "113", ClientType.COMPANY);
 			if (facade instanceof CompanyFacade) {
-				System.out.println("========  Login(BUG, 113, CompanyFacade) ========\n");
+				System.out.println("========  Login(ELECTRA, 113, CompanyFacade) ========\n");
 
 				// Add new 3 coupons
-				Coupon coupon01 = new Coupon(7, "BUG-Deal-01", Utile.getCurrentDate(), Utile.getDateAfter(10), 2,
-						CouponType.Electricity, "Deal Of The year-1", 30.00, "http//www.bug.co.il/?1");
-				Coupon coupon02 = new Coupon(8, "BUG-Deal-02", Utile.getCurrentDate(), Utile.getDateAfter(12), 2,
-						CouponType.Electricity, "Deal Of The year-1", 40.00, "http//www.bug.co.il/?2");
-				Coupon coupon03 = new Coupon(9, "BUG-Deal-03", Utile.getCurrentDate(), Utile.getDateAfter(11), 2,
-						CouponType.Electricity, "Deal Of The year-1", 50.00, "http//www.bug.co.il/?3");
+				Coupon coupon01 = new Coupon(7, "ELECTRA-Deal-01", Utile.getCurrentDate(), Utile.getDateAfter(10), 2,
+						CouponType.Electricity, "Deal Of The year-1", 30.00, "http//www.electra.co.il/?1");
+				Coupon coupon02 = new Coupon(8, "ELECTRA-Deal-02", Utile.getCurrentDate(), Utile.getDateAfter(12), 2,
+						CouponType.Electricity, "Deal Of The year-1", 40.00, "http//www.electra.co.il/?2");
+				Coupon coupon03 = new Coupon(9, "ELECTRA-Deal-03", Utile.getCurrentDate(), Utile.getDateAfter(11), 2,
+						CouponType.Electricity, "Deal Of The year-1", 50.00, "http//www.electra.co.il/?3");
 
 				((CompanyFacade) facade).createCoupon(coupon01);
 				((CompanyFacade) facade).createCoupon(coupon02);
@@ -220,19 +220,19 @@ public class test2 {
 				// Show all new BUG coupons.
 				coupons = ((CompanyFacade) facade).getCoupons();
 				System.out
-						.println("After creating 3 new BUG coupons - Show all company coupons\n" + coupons.toString());
+						.println("After creating 3 new ELECTRA coupons - Show all company coupons\n" + coupons.toString());
 
 				// getCouponsByType(CouponType.ELECTRICITY)
 				coupons = ((CompanyFacade) facade).getAllCouponsByType(CouponType.Electricity);
-				System.out.println("View all BUG company coupons by Type ELECTRICITY\n" + coupons.toString());
+				System.out.println("View all ELECTRA company coupons by Type ELECTRICITY\n" + coupons.toString());
 
 				// getCouponsByMaxCouponPrice(100 nis)
 				coupons = ((CompanyFacade) facade).getCouponsByMaxCouponPrice(100);
-				System.out.println("View all BUG company Coupons by Max Price 100 nis:\n" + coupons.toString());
+				System.out.println("View all ELECTRA company Coupons by Max Price 100 nis:\n" + coupons.toString());
 
 				// getCouponsByMaxCouponDate(100 days from today)
 				coupons = ((CompanyFacade) facade).getCouponsByMaxCouponDate(Utile.getDateAfter(11));
-				System.out.println("View all BUG company Coupons by Max 100 days from today (Expiration Date= "
+				System.out.println("View all ELECTRA company Coupons by Max 100 days from today (Expiration Date= "
 						+ Utile.getDateAfter(100).toString() + "):\n" + coupons.toString());
 			}
 
@@ -333,8 +333,8 @@ public class test2 {
 				coupons = ((CustomerFacad) facade).getAllCouponsByType(CouponType.Resturans);
 				System.out.println("List of All RESTURANTS Coupons type: \n" + coupons.toString());
 				// getCouponsByType(CouponType.FOOD)
-				 coupons=((CustomerFacad) facade).getAllCouponsByType(CouponType.Food);
-				System.out.println("List of All FOOD Coupons type: \n" + coupons.toString());
+				 coupons=((CustomerFacad) facade).getAllCouponsByType(CouponType.Camping);
+				System.out.println("List of All Camping Coupons type: \n" + coupons.toString());
 
 				// Purchase Coupons
 				((CustomerFacad) facade).purchaseCoupon(2); // Add new 2-PIZZAHUT Coupon to customer
@@ -350,8 +350,8 @@ public class test2 {
 				System.out
 						.println("List of All Michal's Purchased Coupons by RESTURANTS type: \n" + coupons.toString());
 
-				coupons = ((CustomerFacad) facade).getAllPurchasedCouponsByType(CouponType.Food);
-				System.out.println("List of All Michal's Purchased Coupons by FOOD type: \n" + coupons.toString());
+				coupons = ((CustomerFacad) facade).getAllPurchasedCouponsByType(CouponType.Camping);
+				System.out.println("List of All Michal's Purchased Coupons by Camping type: \n" + coupons.toString());
 
 				coupons = ((CustomerFacad) facade).getAllPurchasedCouponsByPrice(80);
 				System.out.println(
@@ -382,7 +382,7 @@ public class test2 {
 
 				// Purchase Coupons
 				((CustomerFacad) facade).purchaseCoupon(3); // Add new 3-PIZZAHUT Coupon to customer
-				((CustomerFacad) facade).purchaseCoupon(7); // Add new 7-BUG Coupon to customer
+				((CustomerFacad) facade).purchaseCoupon(7); // Add new 7-ELECTRA Coupon to customer
 				((CustomerFacad) facade).purchaseCoupon(14); // Add new 14-FOX Coupon to customer
 
 				// CustomerFacade Reports
@@ -390,8 +390,8 @@ public class test2 {
 				coupons = ((CustomerFacad) facade).getAllPurchasedCoupons();
 				System.out.println("List of All Eli's Purchased Coupons: \n" + coupons.toString());
 
-				coupons = ((CustomerFacad) facade).getAllPurchasedCouponsByType(CouponType.Resturans);
-				System.out.println("List of All Eli's Purchased Coupons by RESTURANTS type: \n" + coupons.toString());
+				coupons = ((CustomerFacad) facade).getAllPurchasedCouponsByType(CouponType.Food);
+				System.out.println("List of All Eli's Purchased Coupons by Food type: \n" + coupons.toString());
 
 				coupons = ((CustomerFacad) facade).getAllPurchasedCouponsByType(CouponType.Electricity);
 				System.out.println("List of All Eli's Purchased Coupons by Electricity type: \n" + coupons.toString());
@@ -495,7 +495,7 @@ public class test2 {
 				System.out.println("List of All Electricity Coupons type: \n" + coupons.toString());
 
 				// Purchase Coupons
-				((CustomerFacad) facade).purchaseCoupon(7); // Add new 7-BUG Coupon to customer
+				((CustomerFacad) facade).purchaseCoupon(7); // Add new 7-ELECTRA Coupon to customer
 				((CustomerFacad) facade).purchaseCoupon(10); // Add new 10-WALLATOURS Coupon to customer
 				((CustomerFacad) facade).purchaseCoupon(11); // Add new 11-WALLATOURS Coupon to customer
 
@@ -587,7 +587,7 @@ public class test2 {
 				((AdminFacad) facade).removeCompany(company05);
 				System.out.println("========  DELETE Company 5-fox ========\n");
 
-				// Show all companies (after removing customer 5-ILANS).
+				// Show all companies (after removing customer 5-FOX).
 				companies = ((AdminFacad) facade).getAllCompanies();
 				System.out.println("View all companies (after removing company 5-FOX)\n" + companies.toString());
 

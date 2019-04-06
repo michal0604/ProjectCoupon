@@ -144,7 +144,7 @@ public class CustomerFacad implements CouponClientFacade {
 		List<Coupon> coupons = getAllPurchasedCoupons();
 		List<Coupon> couponByType = new ArrayList<Coupon>();
 		for (Coupon coupon : coupons) {
-			if (coupon.getPrice() == price) {
+			if (coupon.getPrice() <= price) {
 				couponByType.add(coupon);
 			}
 		}

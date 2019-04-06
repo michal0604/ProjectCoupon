@@ -45,7 +45,7 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 			pstmt.setLong(1, customerId);
 			pstmt.setLong(2, couponId);
 			pstmt.executeUpdate();
-			System.out.println("Customer_Coupon created " + customerId);
+			System.out.println("Customer_Coupon created " + couponId);
 		} catch (SQLException ex) {
 			throw new CreateException("Customer_Coupon creation failed " + ex.getMessage());
 		} finally {
@@ -185,8 +185,11 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 		List<Long> list = new ArrayList<Long>();
 		try {
 			Statement statement = connection.createStatement();
-			String sql = "select * from Customer_Coupon where customer_Id = " + customerId;
-			ResultSet rs = statement.executeQuery(sql);
+			String sql = "SELECT COUPON_ID FROM Customer_Coupon WHERE CUSTOMER_ID=?";
+			PreparedStatement stat = connection.prepareStatement(sql);
+			stat.setLong(1, customerId);
+			ResultSet rs = stat.executeQuery();
+			
 			while (rs.next()) {
 				long coupon_Id = rs.getLong(1);
 				list.add(coupon_Id);
