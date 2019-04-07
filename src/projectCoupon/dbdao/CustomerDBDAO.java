@@ -167,7 +167,7 @@ public class CustomerDBDAO implements CustomerDAO {
 	}
 
 	@Override
-	public List<Customer> getAllCustomer() throws CustomerException {
+	public List<Customer> getAllCustomers() throws CustomerException {
 		Connection connection;
 		try {
 			connection = pool.getConnection();

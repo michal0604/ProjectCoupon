@@ -72,20 +72,12 @@ public class CustomerFacad implements CouponClientFacade {
 						couponDAO.updateCoupon(coupon);
 						customer_CouponDAO.insertCustomer_Coupon(custId, coupId);
 					} else {
-						throw new CouponException("Coupon Was Already Purchased by Customer! Purchase Canceled!");
+						throw new CouponException("customer buy this coupon! Purchase Canceled!");
 					}
-				} else {
-					throw new CouponException("Coupon Expired! Purchase Canceled!");
 				}
-			} else {
-				throw new CouponException("No More Coupons In Stock! Purchase Canceled!");
 			}
-		} else {
-			throw new CouponException("Coupon Information Not Exist! Purchase Failed!");
-
 		}
 	}
-
 	public Coupon getCoupon(long coupId) throws CouponException, CreateException {
 		if(custId == 0) {
 			throw new CouponException("the operation was canceled due to not being loged in");
@@ -181,7 +173,7 @@ public class CustomerFacad implements CouponClientFacade {
 		if(custId == 0) {
 			throw new CouponException("the operation was canceled due to not being loged in");
 		}
-		return custDAO.getAllCustomer();
+		return custDAO.getAllCustomers();
 	}
 
 	public CouponClientFacade login(String name, String password) throws Exception {

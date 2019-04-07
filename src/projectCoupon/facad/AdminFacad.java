@@ -161,7 +161,7 @@ public class AdminFacad implements CouponClientFacade {
 		if(!isLogedIn) {
 			throw new CouponException("the operation was canceled due to not being loged in");
 		}
-		return customerDAO.getAllCustomer();
+		return customerDAO.getAllCustomers();
 	}
 
 	public Customer getCustomer(long id) throws CustomerException, CouponException{

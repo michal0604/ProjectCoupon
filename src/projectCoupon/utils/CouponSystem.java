@@ -53,7 +53,7 @@ public class CouponSystem {
 			couponClientFacade = new CustomerFacad();
 			break;
 		default:
-			throw new CouponException("STOP! Login Falied! Invalid User Type!");
+			throw new CouponException("login failed");
 		}
 
 		couponClientFacade = couponClientFacade.login(name, password);
@@ -66,8 +66,8 @@ public class CouponSystem {
 	}
 
 	/**
-	 * Shutdown system. Close all Connection Pool connections. Stop daily coupon
-	 * expiration task deletion Thread.
+	 * Shutdown system. close all the connectionPool. 
+	   daily task stop working.
 	 **/
 	public void shutdown() throws DailyCouponException {
 
@@ -79,7 +79,7 @@ public class CouponSystem {
 				throw new DailyCouponException("connection failed");
 			}
 		} catch (Exception e) {
-			throw new DailyCouponException("ERROR! Properly Shut Down Application Failed!");
+			throw new DailyCouponException("shut down failed");
 		}
 		DailyTask.stop();
 	}

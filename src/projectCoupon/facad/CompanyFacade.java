@@ -162,20 +162,13 @@ public class CompanyFacade implements CouponClientFacade {
 						couponDAO.updateCoupon(coupon);
 
 					} else {
-						throw new CouponException(
-								"Coupon Start Date Cannot Be Greater then End Date! Update Coupon is Canceled!");
+						throw new CouponException(" Update Coupon is Canceled!");
 					}
-				} else {
-					throw new CouponException("Invalid Price For Coupon! Update Coupon is Canceled!");
+		
 				}
-			} else {
-				throw new CouponException("Coupon Not Exist for Company! Update Coupon is Canceled!");
 			}
-		} else {
-			throw new CouponException("Coupon Information Not Exist! Update Coupon is Failed!");
 		}
 	}
-
 	/**
 	 * @return
 	 * @throws Exception

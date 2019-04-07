@@ -16,7 +16,7 @@ public interface CustomerDAO {
 
 	void removeCustomer(Customer Customer) throws RemoveException;
 
-	List<Customer> getAllCustomer() throws CustomerException;
+	List<Customer> getAllCustomers() throws CustomerException;
 
 	public Customer login(String customerName, String password) throws CustomerException;
 
