@@ -35,7 +35,7 @@ public class ConnectionPool {
 			try {
 				con = DriverManager.getConnection(projectCoupon.db.Database.getDBUrl());
 			} catch (SQLException e) {
-				throw new CouponException("connection failed");
+				throw new CouponException("connection failed"+e.getMessage());
 			}
 			this.connections.offer(con);
 		}
@@ -70,7 +70,7 @@ public class ConnectionPool {
 			connection.setAutoCommit(true);
 			return connection;
 		} catch (Exception e) {
-			throw new CouponException("connection faied");
+			throw new CouponException("get connection faied"+e.getMessage());
 		}
 	}
 
@@ -85,7 +85,7 @@ public class ConnectionPool {
 			connections.offer(connection);
 			notifyAll();
 		} catch (Exception e) {
-			throw new CouponException("connection failed");
+			throw new CouponException("return connection failed"+e.getMessage());
 		}
 	}
 

@@ -84,7 +84,7 @@ public class CouponDBDAO implements CouponDAO {
 			try {
 				pool.returnConnection(connection);
 			} catch (CouponException e) {
-				throw new CreateException("close connection was failed " + e.getMessage());
+				throw new CreateException("return connection was failed " + e.getMessage());
 			}
 
 		}
@@ -125,12 +125,12 @@ public class CouponDBDAO implements CouponDAO {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				throw new RemoveException("Database error " + e.getMessage());
+				throw new RemoveException("connection close failed"+e.getMessage());
 			}
 			try {
 				pool.returnConnection(connection);
 			} catch (CouponException e) {
-				throw new RemoveException("Database error " + e.getMessage());
+				throw new RemoveException("return connection failed"+e.getMessage());
 			}
 
 		}
@@ -174,12 +174,12 @@ public class CouponDBDAO implements CouponDAO {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				throw new UpdateException("Database error " + e.getMessage());
+				throw new UpdateException("connection close failed " + e.getMessage());
 			}
 			try {
 				pool.returnConnection(connection);
 			} catch (CouponException e) {
-				throw new CreateException("didnt success to return connection " + e.getMessage());
+				throw new CreateException(" return connection failed " + e.getMessage());
 			}
 		}
 	}
@@ -250,7 +250,7 @@ public class CouponDBDAO implements CouponDAO {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				throw new CouponException("Database error " + e.getMessage());
+				throw new CouponException("connection close failed " + e.getMessage());
 			}
 			pool.returnConnection(connection);
 
@@ -271,7 +271,7 @@ public class CouponDBDAO implements CouponDAO {
 		try {
 			connection = pool.getConnection();
 		} catch (Exception e) {
-			throw new CouponException("Database error " + e.getMessage());
+			throw new CouponException("connection failed" + e.getMessage());
 		}
 		List<Coupon> set = new ArrayList<Coupon>();
 		Coupon coupon;
@@ -324,7 +324,7 @@ public class CouponDBDAO implements CouponDAO {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				throw new CouponException("Database error " + e.getMessage());
+				throw new CouponException("connection close failed" + e.getMessage());
 			}
 			pool.returnConnection(connection);
 		}
@@ -367,12 +367,12 @@ public class CouponDBDAO implements CouponDAO {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				throw new CouponException("Database error " + e.getMessage());
+				throw new CouponException("connection close failed " + e.getMessage());
 			}
 			try {
 				pool.returnConnection(connection);
 			} catch (Exception e) {
-				throw new CouponException("Database error " + e.getMessage());
+				throw new CouponException("return connection failed " + e.getMessage());
 			}
 		}
 
@@ -463,12 +463,12 @@ public class CouponDBDAO implements CouponDAO {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				throw new CouponException("Database error " + e.getMessage());
+				throw new CouponException("connection close failed " + e.getMessage());
 			}
 			try {
 				pool.returnConnection(connection);
 			} catch (Exception e) {
-				throw new CouponException("Database error " + e.getMessage());
+				throw new CouponException("return connection failed " + e.getMessage());
 			}
 		}
 		return set;
@@ -541,12 +541,12 @@ public class CouponDBDAO implements CouponDAO {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				throw new CouponException("Database error " + e.getMessage());
+				throw new CouponException("connection close failed " + e.getMessage());
 			}
 			try {
 				pool.returnConnection(connection);
 			} catch (Exception e) {
-				throw new CouponException("Database error " + e.getMessage());
+				throw new CouponException("return connection failed " + e.getMessage());
 			}
 		}
 
@@ -611,12 +611,12 @@ public class CouponDBDAO implements CouponDAO {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				throw new CouponException("Database error " + e.getMessage());
+				throw new CouponException("connection close failed" + e.getMessage());
 			}
 			try {
 				pool.returnConnection(connection);
 			} catch (Exception e) {
-				throw new CouponException("Database error " + e.getMessage());
+				throw new CouponException("return connection failed " + e.getMessage());
 			}
 		}
 		return set;
@@ -652,17 +652,13 @@ public class CouponDBDAO implements CouponDAO {
 
 		} catch (SQLException e) {
 
-			throw new CouponException(" ERROR! Checking if Coupon Title Exists Failed.");
-
-		} catch (Exception e) {
-
-			throw new CouponException("ERROR! Checking if Coupon Title Exists Failed.");
+			throw new CouponException("  Checking if Coupon Title Exists Failed."+e.getMessage());
 
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException e1) {
-				throw new CouponException("connection close failed");
+				throw new CouponException("connection close failed"+e1.getMessage());
 			}
 
 			try {

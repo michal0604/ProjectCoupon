@@ -150,12 +150,12 @@ public class CompanyDBDAO implements CompanyDAO {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				throw new CompanyException("connection failed " + e.getMessage());
+				throw new CompanyException("connection close failed " + e.getMessage());
 			}
 			try {
 				pool.returnConnection(connection);
 			} catch (CouponException e) {
-				throw new CompanyException("connection failed " + e.getMessage());
+				throw new CompanyException("return connection failed " + e.getMessage());
 			}
 		}
 
@@ -283,17 +283,17 @@ public class CompanyDBDAO implements CompanyDAO {
 			}
 			return null;
 		} catch (SQLException e) {
-			throw new CouponException("DB ERROR! Failed to get the company data. " + e.getMessage());
+			throw new CouponException(" Failed to get the company data. " + e.getMessage());
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				throw new CompanyException("connection failed");
+				throw new CompanyException("connection close failed"+e.getMessage());
 			}
 			try {
 				pool.returnConnection(connection);
 			} catch (CouponException e) {
-				throw new CompanyException("connection failed");
+				throw new CompanyException("return connection failed"+e.getMessage());
 			}
 		}
 	}
@@ -328,14 +328,13 @@ public class CompanyDBDAO implements CompanyDAO {
 
 		} catch (SQLException e) {
 			throw new CouponException("Failed to checking if Company name already exists.");
-		} catch (Exception e) {
-			throw new CouponException("Failed to checking if Company name already exists.");
+		
 		} finally {
 			
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				throw new CouponException("connection close failed");
+				throw new CouponException("connection close failed"+e.getMessage());
 			}
 			pool.returnConnection(connection);
 		}
@@ -358,7 +357,7 @@ public class CompanyDBDAO implements CompanyDAO {
 				try {
 					coupons.add(couponDB.getCoupon(rs.getLong("COUPON_ID")));
 				} catch (CreateException e) {
-					throw new CompanyException("get coupon failed");
+					throw new CompanyException("get coupon failed"+e.getMessage());
 				}
 			}
 		} catch (SQLException e) {
@@ -367,7 +366,7 @@ public class CompanyDBDAO implements CompanyDAO {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				throw new CouponException("connection close failed");
+				throw new CouponException("connection close failed"+e.getMessage());
 			}
 			pool.returnConnection(connection);
 		}

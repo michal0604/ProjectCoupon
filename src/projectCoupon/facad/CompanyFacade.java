@@ -60,7 +60,7 @@ public class CompanyFacade implements CouponClientFacade {
 	 */
 
 	@Override
-	public CouponClientFacade login(String name, String password) throws CouponException, SQLException, CompanyException{
+	public CouponClientFacade login(String name, String password) throws Exception{
 		Company company = new Company();
 		company = new CompanyDBDAO().login(name, password);
 		if (company != null) {
@@ -85,9 +85,9 @@ public class CompanyFacade implements CouponClientFacade {
 	 *             errors in creation
 	 * @throws CouponException
 	 */
-	public void createCoupon(Coupon coupon) throws CreateException, SQLException, CouponException {
+	public void createCoupon(Coupon coupon) throws Exception {
 		if(companyId == 0) {
-			throw new CouponException("the operation was canceled due to not being loged in");
+			System.out.println("the operation was canceled due to not being loged in");
 		}
 		if (coupon != null) {
 			String CoupTitle = coupon.getTitle();
@@ -99,22 +99,13 @@ public class CompanyFacade implements CouponClientFacade {
 						if (!couponDAO.isCouponTitleExists(CoupTitle)) {
 							couponDAO.insertCoupon(coupon);
 							company_CouponDAO.insertCompany_Coupon(companyId, coupon.getCouponId());
+							System.out.println("create coupon by company success!!");
 						} else {
-							throw new CouponException("Coupon Title is Already Exists! Create New Coupon is Canceled!");
+							System.out.println("Coupon Title is Already Exists! Create New Coupon is Canceled!");
 						}
-					} else {
-						throw new CouponException(
-								"Coupon Start Date Cannot Be In The Past! Create New Coupon is Canceled!");
 					}
-				} else {
-					throw new CouponException(
-							"Coupon Start Date Cannot Be Greater then End Date! Create New Coupon is Canceled!");
 				}
-			} else {
-				throw new CouponException(" No Coupons Information! Create New Coupon is Canceled!");
 			}
-		} else {
-			throw new CouponException("Coupon Information Not Exist! Create New Coupon is Failed!");
 		}
 	}
 
@@ -124,21 +115,22 @@ public class CompanyFacade implements CouponClientFacade {
 	 * @throws RemoveException 
 	 * @throws Exception
 	 */
-	public void removeCouponID(long coupId) throws CouponException, RemoveException{
+	public void removeCouponID(long coupId) throws Exception{
 		if(companyId == 0) {
-			throw new CouponException("the operation was canceled due to not being loged in");
+			System.out.println("the operation was canceled due to not being loged in");
 		}
 		if (coupId > 0) {
 			if (company_CouponDAO.isCouponExistsForCompany(companyId, coupId)) {
 				company_CouponDAO.removeCompany_Coupon(companyId, coupId);
 				couponDAO.removeCouponID(coupId);
+				System.out.println("company succsess to remove coupon!");
 			} else {
-				throw new CouponException("Coupon Not Exist for Company! Remove Coupon is Canceled!");
+				System.out.println(" Remove Coupon failed!");
 			}
-		} else {
-			throw new CouponException("No Coupon Was Chosen! Remove Coupon is Canceled!");
-		}
+		} 
 	}
+		
+	
 
 	/**
 	 * @param coupon
@@ -147,9 +139,9 @@ public class CompanyFacade implements CouponClientFacade {
 	 * @throws UpdateException 
 	 * @throws Exception
 	 */
-	public void updateCoupon(Coupon coupon) throws CouponException, CreateException, UpdateException{
+	public void updateCoupon(Coupon coupon) throws Exception{
 		if(companyId == 0) {
-			throw new CouponException("the operation was canceled due to not being loged in");
+			System.out.println("the operation was canceled due to not being loged in");
 		}
 		if (coupon != null) {
 			long couponId = coupon.getCouponId();
@@ -160,9 +152,10 @@ public class CompanyFacade implements CouponClientFacade {
 					Date endDate = (Date) coupon.getEnd_date();
 					if (startDate.getTime() <= endDate.getTime()) {
 						couponDAO.updateCoupon(coupon);
+						System.out.println("update coupon by company succsess!!");
 
 					} else {
-						throw new CouponException(" Update Coupon is Canceled!");
+						System.out.println(" Update Coupon failed by company!");
 					}
 		
 				}
@@ -175,6 +168,7 @@ public class CompanyFacade implements CouponClientFacade {
 	 */
 	public Company getCompany() throws Exception {
 		return companyDAO.getCompany(companyId);
+		
 	}
 
 	/**
@@ -184,9 +178,9 @@ public class CompanyFacade implements CouponClientFacade {
 	 * @throws CreateException 
 	 * @throws Exception
 	 */
-	public Coupon getCoupon(long coupId) throws CouponException, CreateException {
+	public Coupon getCoupon(long coupId) throws Exception {
 		if(companyId == 0) {
-			throw new CouponException("the operation was canceled due to not being loged in");
+			System.out.println("the operation was canceled due to not being loged in");
 		}
 		return couponDAO.getCoupon(coupId);
 	}
@@ -196,9 +190,9 @@ public class CompanyFacade implements CouponClientFacade {
 	 * @throws CouponException 
 	 * @throws Exception
 	 */
-	public List<Coupon> getCoupons() throws CouponException {
+	public List<Coupon> getCoupons() throws Exception {
 		if(companyId == 0) {
-			throw new CouponException("the operation was canceled due to not being loged in");
+			System.out.println("the operation was canceled due to not being loged in");
 		}
 		List<Coupon> allCoupons = new ArrayList<Coupon>();
 		allCoupons = couponDAO.getAllCoupons();
@@ -215,9 +209,9 @@ public class CompanyFacade implements CouponClientFacade {
 	 */
 	
 	
-	public List<Coupon> getAllCouponsByType(CouponType coupType) throws CouponException, CompanyException{
+	public List<Coupon> getAllCouponsByType(CouponType coupType) throws Exception{
 		if(companyId == 0) {
-			throw new CouponException("the operation was canceled due to not being loged in");
+			System.out.println("the operation was canceled due to not being loged in");
 		}
 		List<Coupon> list = new ArrayList<Coupon>();
 		List<Coupon> allCouponsList = companyDAO.getAllCoupons(companyId);
@@ -238,9 +232,9 @@ public class CompanyFacade implements CouponClientFacade {
 	 * @throws Exception
 	 */
 	
-	public List<Coupon> getCouponsByMaxCouponPrice(double price) throws CouponException, CreateException, CompanyException{
+	public List<Coupon> getCouponsByMaxCouponPrice(double price) throws Exception{
 		if(companyId == 0) {
-			throw new CouponException("the operation was canceled due to not being loged in");
+			System.out.println("the operation was canceled due to not being loged in");
 		}
 		List<Coupon> list = new ArrayList<Coupon>();
 		List<Coupon> allCouponsList = companyDAO.getAllCoupons(companyId);
@@ -264,9 +258,9 @@ public class CompanyFacade implements CouponClientFacade {
 	 */
 	
 	
-	public List<Coupon> getCouponsByMaxCouponDate(Date endDate) throws CouponException, CreateException, CompanyException{
+	public List<Coupon> getCouponsByMaxCouponDate(Date endDate) throws Exception{
 		if(companyId == 0) {
-			throw new CouponException("the operation was canceled due to not being loged in");
+			System.out.println("the operation was canceled due to not being loged in");
 		}
 		List<Coupon> list = new ArrayList<Coupon>();
 		List<Coupon> allCouponsList = companyDAO.getAllCoupons(companyId);
@@ -278,20 +272,6 @@ public class CompanyFacade implements CouponClientFacade {
 		return list;
 	}
 	
-
-	
-
-
-	/**
-	 * @return
-	 * @throws CouponException 
-	 */
-	public long getCompanyId() throws CouponException {
-		if(companyId == 0) {
-			throw new CouponException("the operation was canceled due to not being loged in");
-		}
-		return companyId;
-	}
 
 	/**
 	 * @return

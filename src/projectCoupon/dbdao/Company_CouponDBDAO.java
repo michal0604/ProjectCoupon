@@ -72,13 +72,13 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				throw new CreateException("connection failed " + e.getMessage());
+				throw new CreateException("connection close failed " + e.getMessage());
 			}
 
 			try {
 				pool.returnConnection(connection);
 			} catch (CouponException e) {
-				throw new CreateException("connection failed " + e.getMessage());
+				throw new CreateException("return connection failed " + e.getMessage());
 			}
 		}
 
@@ -119,12 +119,12 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				throw new RemoveException("connection failed " + e.getMessage());
+				throw new RemoveException("connection close failed " + e.getMessage());
 			}
 			try {
 				pool.returnConnection(connection);
 			} catch (CouponException e) {
-				throw new RemoveException("connection failed " + e.getMessage());
+				throw new RemoveException("return connection failed " + e.getMessage());
 			}
 		}
 	}
@@ -159,12 +159,12 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				throw new RemoveException("connection failed " + e.getMessage());
+				throw new RemoveException("connection close failed " + e.getMessage());
 			}
 			try {
 				pool.returnConnection(connection);
 			} catch (CouponException e) {
-				throw new RemoveException("connection failed " + e.getMessage());
+				throw new RemoveException("return connection failed " + e.getMessage());
 			}
 
 		}
@@ -205,12 +205,12 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				throw new RemoveException("connction failed " + e.getMessage());
+				throw new RemoveException("connction close failed " + e.getMessage());
 			}
 			try {
 				pool.returnConnection(connection);
 			} catch (CouponException e) {
-				throw new RemoveException("connction failed " + e.getMessage());
+				throw new RemoveException("return connction failed " + e.getMessage());
 			}
 		}
 
@@ -248,7 +248,7 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				throw new CouponException("connection failed");
+				throw new CouponException("connection close failed"+e.getMessage());
 			}
 			pool.returnConnection(connection);
 		}
@@ -288,7 +288,7 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				throw new CouponException("connection failed");
+				throw new CouponException("connection close failed"+e.getMessage());
 			}
 			pool.returnConnection(connection);
 		}
@@ -322,7 +322,7 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				throw new CouponException("connection failed " + e.getMessage());
+				throw new CouponException("connection close failed " + e.getMessage());
 			}
 			pool.returnConnection(connection);
 		}
@@ -356,12 +356,12 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 		try {
 			connection.close();
 		} catch (SQLException e) {
-			throw new UpdateException("connection failed " + e.getMessage());
+			throw new UpdateException("connection close failed " + e.getMessage());
 		}
 		try {
 			pool.returnConnection(connection);
 		} catch (CouponException e) {
-			throw new UpdateException("connection failed " + e.getMessage());
+			throw new UpdateException("return connection failed " + e.getMessage());
 		}
 	}
 
@@ -389,12 +389,12 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 			return false;
 
 		} catch (SQLException e) {
-			throw new CouponException("ERROR! Checking if Coupon Exists For The Company is Failed. " + e.getMessage());
+			throw new CouponException(" Checking if Coupon Exists For The Company is Failed. " + e.getMessage());
 		} finally {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				throw new CouponException("connection close failed");
+				throw new CouponException("connection close failed"+e.getMessage());
 			}
 			pool.returnConnection(connection);
 		}

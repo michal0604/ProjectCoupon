@@ -50,12 +50,12 @@ public class CustomerDBDAO implements CustomerDAO {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				throw new CreateException("connection failed " + e.getMessage());
+				throw new CreateException("connection close failed " + e.getMessage());
 			}
 			try {
 				pool.returnConnection(connection);
 			} catch (CouponException e) {
-				throw new CreateException("connection failed " + e.getMessage());
+				throw new CreateException("return connection failed " + e.getMessage());
 			}
 		}
 	}
@@ -87,12 +87,12 @@ public class CustomerDBDAO implements CustomerDAO {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				throw new RemoveException("connection failed " + e.getMessage());
+				throw new RemoveException("connection close failed " + e.getMessage());
 			}
 			try {
 				pool.returnConnection(connection);
 			} catch (CouponException e) {
-				throw new RemoveException("connection failed " + e.getMessage());
+				throw new RemoveException("return connection failed " + e.getMessage());
 			}
 
 		}
@@ -118,12 +118,12 @@ public class CustomerDBDAO implements CustomerDAO {
 		try {
 			connection.close();
 		} catch (SQLException e) {
-			throw new UpdateException("connection failed " + e.getMessage());
+			throw new UpdateException("connection close failed " + e.getMessage());
 		}
 		try {
 			pool.returnConnection(connection);
 		} catch (Exception e) {
-			throw new UpdateException("connection failed " + e.getMessage());
+			throw new UpdateException("return connection failed " + e.getMessage());
 		}
 	}
 
@@ -154,12 +154,12 @@ public class CustomerDBDAO implements CustomerDAO {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				throw new CustomerException("connection failed " + e.getMessage());
+				throw new CustomerException("connection close failed " + e.getMessage());
 			}
 			try {
 				pool.returnConnection(connection);
 			} catch (CouponException e) {
-				throw new CustomerException("connection failed " + e.getMessage());
+				throw new CustomerException("return connection failed " + e.getMessage());
 			}
 
 		}
@@ -192,12 +192,12 @@ public class CustomerDBDAO implements CustomerDAO {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				throw new CustomerException("connection failed " + e.getMessage());
+				throw new CustomerException("connection close failed " + e.getMessage());
 			}
 			try {
 				pool.returnConnection(connection);
 			} catch (Exception e) {
-				throw new CustomerException("connection failed" + e.getMessage());
+				throw new CustomerException("return connection failed" + e.getMessage());
 			}
 		}
 		return list;
@@ -237,12 +237,12 @@ public class CustomerDBDAO implements CustomerDAO {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				throw new CustomerException("connection failed " + e.getMessage());
+				throw new CustomerException("connection close failed " + e.getMessage());
 			}
 			try {
 				pool.returnConnection(connection);
 			} catch (CouponException e) {
-				throw new CustomerException("connection failed " + e.getMessage());
+				throw new CustomerException("return connection failed " + e.getMessage());
 			}
 		}
 		return customer;
@@ -283,12 +283,12 @@ public class CustomerDBDAO implements CustomerDAO {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				throw new CustomerException("connection failed " + e.getMessage());
+				throw new CustomerException("connection close failed " + e.getMessage());
 			}
 			try {
 				pool.returnConnection(connection);
 			} catch (CouponException e) {
-				throw new CustomerException("connection failed " + e.getMessage());
+				throw new CustomerException("return connection failed " + e.getMessage());
 			}
 		}
 	}
@@ -311,12 +311,12 @@ public class CustomerDBDAO implements CustomerDAO {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				throw new CustomerException("connection failed " + e.getMessage());
+				throw new CustomerException("connection close failed " + e.getMessage());
 			}
 			try {
 				pool.returnConnection(connection);
 			} catch (CouponException e) {
-				throw new CustomerException("connection failed " + e.getMessage());
+				throw new CustomerException("return connection failed " + e.getMessage());
 			}
 		}
 	}
