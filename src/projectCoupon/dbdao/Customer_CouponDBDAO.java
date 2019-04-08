@@ -184,7 +184,6 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 		Connection connection = pool.getConnection();
 		List<Long> list = new ArrayList<Long>();
 		try {
-			Statement statement = connection.createStatement();
 			String sql = "SELECT COUPON_ID FROM Customer_Coupon WHERE CUSTOMER_ID=?";
 			PreparedStatement stat = connection.prepareStatement(sql);
 			stat.setLong(1, customerId);

@@ -83,4 +83,9 @@ public class CouponSystem {
 		}
 		DailyTask.stop();
 	}
+
+	public void setDebugMode(boolean debugMode) {
+		DailyTask.setDebugMode(debugMode);
+		
+	}
 }

@@ -16,9 +16,10 @@ import projectCoupon.exception.CouponException;
 public class DailyCouponExpirationTask implements Runnable {
 
 	
-	private static final boolean DEBUG = false;
+	
 	private static final TimeUnit TIMEUNIT = TimeUnit.MILLISECONDS;
 	
+	private static boolean DEBUG = false;
 	private static int DEBUG_DAY_ADDER = 0;
 	private static int SLEEPTIME = 24 * 1000 * 3600;
 	
@@ -26,18 +27,15 @@ public class DailyCouponExpirationTask implements Runnable {
 	private Customer_CouponDAO customer_CouponDAO = new Customer_CouponDBDAO();
 	private Company_CouponDAO company_CouponDAO = new Company_CouponDBDAO();
 	private boolean running = true;
+	private int sleepingTime = DailyCouponExpirationTask.SLEEPTIME;
 	
 	
 	private Thread dailyTaskThread;
 	
 
-	public DailyCouponExpirationTask(int SLEEPTIME) throws CouponException {
-		if (DEBUG) {
-			DailyCouponExpirationTask.SLEEPTIME = 1000 * 15;
-		} else {
-			DailyCouponExpirationTask.SLEEPTIME = SLEEPTIME;
-		}
-
+	public DailyCouponExpirationTask(int sleepTime) throws CouponException {
+		DailyCouponExpirationTask.SLEEPTIME = sleepTime;
+		this.sleepingTime = sleepTime;
 	}
 
 	public void startTask() throws CouponException {
@@ -91,6 +89,15 @@ public class DailyCouponExpirationTask implements Runnable {
 	 */
 	public void stop() {
 		running = false;
+	}
+
+	public void setDebugMode(boolean debugMode) {
+		DEBUG = debugMode;
+		if (debugMode) {
+			DailyCouponExpirationTask.SLEEPTIME = 1000 * 15;
+		} else {
+			DailyCouponExpirationTask.SLEEPTIME = sleepingTime;
+		}
 	}
 
 }

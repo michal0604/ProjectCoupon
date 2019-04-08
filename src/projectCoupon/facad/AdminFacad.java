@@ -1,6 +1,5 @@
 package projectCoupon.facad;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import projectCoupon.beans.Company;
@@ -13,11 +12,7 @@ import projectCoupon.dbdao.CompanyDBDAO;
 import projectCoupon.dbdao.Company_CouponDBDAO;
 import projectCoupon.dbdao.CustomerDBDAO;
 import projectCoupon.dbdao.Customer_CouponDBDAO;
-import projectCoupon.exception.CompanyException;
 import projectCoupon.exception.CouponException;
-import projectCoupon.exception.CustomerException;
-import projectCoupon.exception.RemoveException;
-import projectCoupon.exception.UpdateException;
 
 public class AdminFacad implements CouponClientFacade {
 	private static final String ADMIN_USER_NAME = "admin";

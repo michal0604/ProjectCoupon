@@ -4,10 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import projectCoupon.beans.Coupon;
-import projectCoupon.beans.Customer;
 import projectCoupon.beans.CouponType;
+import projectCoupon.beans.Customer;
 import projectCoupon.dao.CouponDAO;
-import projectCoupon.dao.CustomerDAO;
 import projectCoupon.dao.Customer_CouponDAO;
 import projectCoupon.dbdao.CouponDBDAO;
 import projectCoupon.dbdao.CustomerDBDAO;
@@ -18,14 +17,12 @@ import projectCoupon.utils.Utile;
 
 public class CustomerFacad implements CouponClientFacade {
 
-	private CustomerDAO custDAO;
 	private CouponDAO couponDAO;
 	private Customer_CouponDAO customer_CouponDAO;
 	private long custId = 0;
 	private Customer customer;
 
 	public CustomerFacad() throws CouponException {
-		custDAO = new CustomerDBDAO();
 		couponDAO = new CouponDBDAO();
 		customer_CouponDAO = new Customer_CouponDBDAO();
 	}

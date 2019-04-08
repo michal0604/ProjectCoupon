@@ -1,4 +1,4 @@
-package projectCoupon.utils;
+package projectCoupon;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -11,6 +11,9 @@ import projectCoupon.exception.CouponException;
 import projectCoupon.facad.AdminFacad;
 import projectCoupon.facad.CompanyFacade;
 import projectCoupon.facad.CouponClientFacade;
+import projectCoupon.utils.ClientType;
+import projectCoupon.utils.CouponSystem;
+import projectCoupon.utils.Utile;
 
 public class testDaily {
 	private static final TimeUnit TIMEUNIT = TimeUnit.MILLISECONDS;
@@ -18,6 +21,7 @@ public class testDaily {
 	public static void main(String[] args) {
 		try {
 			CouponSystem couponSystem = CouponSystem.getInstance();
+			couponSystem.setDebugMode(true);
 			CouponClientFacade facade = CouponSystem.login("admin", "1234", ClientType.ADMIN);
 			if (facade instanceof AdminFacad) {
 				System.out.println("Prepering Test\ndroping and recreating DB tables\n");
