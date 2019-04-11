@@ -14,6 +14,7 @@ import projectCoupon.dbdao.CustomerDBDAO;
 import projectCoupon.dbdao.Customer_CouponDBDAO;
 import projectCoupon.exception.CouponException;
 import projectCoupon.exception.CreateException;
+import projectCoupon.exception.UpdateException;
 import projectCoupon.utils.Utile;
 
 public class CustomerFacad implements CouponClientFacade {
@@ -31,22 +32,34 @@ public class CustomerFacad implements CouponClientFacade {
 	}
 
 
-	public void purchaseCoupon(long coupId) throws Exception { 
+	public void purchaseCoupon(long coupId) throws CouponException { 
 		if(custId == 0) {
-			System.out.println("the operation was canceled due to not being loged in");
+			throw new CouponException("the operation was canceled due to not being loged in");
 		}
 		Coupon coupon = new Coupon();
-		coupon = couponDAO.getCoupon(coupId);
+		try {
+			coupon = couponDAO.getCoupon(coupId);
+		} catch (CreateException e) {
+			throw new CouponException("purchase coupon by customer failed");
+		}
 		if (coupon != null) {
 			if (coupon.getAmount() > 0) {
 				if (coupon.getEnd_date().getTime() >= Utile.getCurrentDate().getTime()) {
 					if (!customer_CouponDAO.isCouponPurchasedByCustomer(custId, coupId)){
 						coupon.setAmount(coupon.getAmount() - 1);
-						couponDAO.updateCoupon(coupon);
-						customer_CouponDAO.insertCustomer_Coupon(custId, coupId);
-						System.out.println("customer succsess to buy coupon!");
-					} else {
-						System.out.println("customer buy this coupon! Purchase Canceled!");
+						try {
+							couponDAO.updateCoupon(coupon);
+						} catch (UpdateException e) {
+							throw new CouponException("update coupon by customer failed");
+						} catch (CreateException e) {
+							throw new CouponException("update coupon by customer failed");
+						}
+						try {
+							customer_CouponDAO.insertCustomer_Coupon(custId, coupId);
+						} catch (CreateException e) {
+							throw new CouponException("insert coupon by customer failed");
+						}
+						
 					}
 				}
 			}
@@ -56,28 +69,37 @@ public class CustomerFacad implements CouponClientFacade {
 
 
 
-	public List<Coupon> getAllCouponsByType(CouponType couponType) throws Exception {
+	public List<Coupon> getAllCouponsByType(CouponType couponType) throws CouponException {
 		if(custId == 0) {
-			System.out.println("the operation was canceled due to not being loged in");
+			throw new CouponException("the operation was canceled due to not being loged in");
 		}
 		return couponDAO.getAllCouponsByType(couponType);
 	}
 
-	public List<Coupon> getAllPurchasedCoupons() throws Exception {
+	public List<Coupon> getAllPurchasedCoupons() throws CouponException {
 		if(custId == 0) {
-			System.out.println("the operation was canceled due to not being loged in");
+			throw new CouponException("the operation was canceled due to not being loged in");
 		}
-		List<Long> customersCoupons = customer_CouponDAO.getCouponsByCustomerId(custId);
+		List<Long> customersCoupons;
+		try {
+			customersCoupons = customer_CouponDAO.getCouponsByCustomerId(custId);
+		} catch (CreateException e) {
+			throw new CouponException("get all purchas coupons by customer failed");
+		}
 		List<Coupon> purchasedCoupons = new ArrayList<Coupon>();
 		for (Long id : customersCoupons) {
-			purchasedCoupons.add(couponDAO.getCoupon(id));
+			try {
+				purchasedCoupons.add(couponDAO.getCoupon(id));
+			} catch (CreateException e) {
+				throw new CouponException("add coupon by customer failed");
+			}
 		}
 		return purchasedCoupons;
 	}
 
-	public List<Coupon> getAllPurchasedCouponsByType(CouponType type) throws Exception {
+	public List<Coupon> getAllPurchasedCouponsByType(CouponType type) throws CouponException {
 		if(custId == 0) {
-			System.out.println("the operation was canceled due to not being loged in");
+			throw new CouponException("the operation was canceled due to not being loged in");
 		}
 		List<Coupon> coupons = getAllPurchasedCoupons();
 		List<Coupon> couponByType = new ArrayList<Coupon>();
@@ -99,9 +121,9 @@ public class CustomerFacad implements CouponClientFacade {
 	 * @throws CouponException
 	 * @throws CreateException
 	 */
-	public List<Coupon> getAllPurchasedCouponsByPrice(long price) throws Exception {
+	public List<Coupon> getAllPurchasedCouponsByPrice(long price) throws CouponException {
 		if(custId == 0) {
-			System.out.println("the operation was canceled due to not being loged in");
+			throw new CouponException("the operation was canceled due to not being loged in");
 		}
 		List<Coupon> coupons = getAllPurchasedCoupons();
 		List<Coupon> couponByType = new ArrayList<Coupon>();
@@ -118,9 +140,9 @@ public class CustomerFacad implements CouponClientFacade {
 	 * @return Customer
 	 * @throws CouponException 
 	 */
-	public Customer getCustomerInstance() throws Exception {
+	public Customer getCustomerInstance() throws CouponException {
 		if(custId == 0) {
-			System.out.println("the operation was canceled due to not being loged in");
+			throw new CouponException("the operation was canceled due to not being loged in");
 		}
 		return customer;
 	}
