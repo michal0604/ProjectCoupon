@@ -23,6 +23,7 @@ import projectCoupon.utils.ConnectionPool;
  * @author Eivy & Michal
  *
  */
+
 public class CompanyDBDAO implements CompanyDAO {
 
 	private ConnectionPool pool;
@@ -341,6 +342,12 @@ public class CompanyDBDAO implements CompanyDAO {
 
 	}
 
+	
+	/** 
+	 * this method get company ID, and return list of coupons from data base.
+	 * 
+	 */
+	
 	@Override
 	public List<Coupon> getAllCoupons(long companyId) throws CouponException, CompanyException {
 		Connection connection = pool.getConnection();
@@ -373,19 +380,7 @@ public class CompanyDBDAO implements CompanyDAO {
 		return coupons;
 		
 	}
+}
 	
 
-	/**
-	 * remove a company identified by its id from the Database
-	 * 
-	 * @param compId
-	 *            the id of the company that should be deleted
-	 * @throws CouponException
-	 * @throws CompanyRemovalException
-	 *             for problems regarding the removal of company from DB
-	 * @throws SQLException
-	 *             SQLException for DB related failures
-	 * 
-	 * @see projectCoupon.DAO.CompanyDAO#removeCompany(long)
-	 */
-}
+	

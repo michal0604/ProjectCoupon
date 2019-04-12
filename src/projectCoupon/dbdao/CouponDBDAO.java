@@ -379,21 +379,6 @@ public class CouponDBDAO implements CouponDAO {
 	}
 
 	/**
-	 * this function returns all available coupons by specific type
-	 * 
-	 * @param coupType
-	 *            the required coupon type
-	 * @return all available coupons that much the type
-	 * @throws CouponException
-	 *             for error related to the retrieval of the coupon
-	 */
-
-	/*
-	 * @Override
-	 * 
-	 */
-
-	/**
 	 * this function returns all available coupons by specific max coupon
 	 * exploration Date
 	 * 
@@ -474,12 +459,13 @@ public class CouponDBDAO implements CouponDAO {
 		return set;
 	}
 
+	
 	/**
-	 * this function returns all available coupons by specific max coupon price
+	 * this function returns all available coupons by specific type
 	 * 
-	 * @param priceMax
-	 *            the price that a coupon's price cannot exceed
-	 * @return a list of available coupon that are lower or equal to PriceMax
+	 * @param coupType
+	 *            the required coupon type
+	 * @return all available coupons that much the type
 	 * @throws CouponException
 	 *             for error related to the retrieval of the coupon
 	 */
@@ -552,6 +538,16 @@ public class CouponDBDAO implements CouponDAO {
 
 	}
 
+	/**
+	 * this function returns all available coupons by specific max coupon price
+	 * 
+	 * @param priceMax
+	 *            the price that a coupon's price cannot exceed
+	 * @return a list of available coupon that are lower or equal to PriceMax
+	 * @throws CouponException
+	 *             for error related to the retrieval of the coupon
+	 */
+	
 	@Override
 	public List<Coupon> getAllCouponsByPrice(double priceMax) throws CouponException {
 		Connection connection;
