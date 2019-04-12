@@ -19,9 +19,16 @@ import projectCoupon.exception.RemoveException;
 import projectCoupon.exception.UpdateException;
 import projectCoupon.utils.ConnectionPool;
 
+/**
+ * @author testlab
+ *
+ */
 public class CustomerDBDAO implements CustomerDAO {
 	private ConnectionPool pool;
 
+	/**
+	 * @throws CouponException
+	 */
 	public CustomerDBDAO() throws CouponException {
 		try {
 			pool = ConnectionPool.getInstance();
@@ -30,6 +37,12 @@ public class CustomerDBDAO implements CustomerDAO {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see projectCoupon.dao.CustomerDAO#insertCustomer(projectCoupon.beans.Customer)
+	 */
+	/* (non-Javadoc)
+	 * @see projectCoupon.dao.CustomerDAO#insertCustomer(projectCoupon.beans.Customer)
+	 */
 	@Override
 	public void insertCustomer(Customer Customer) throws CreateException {
 		Connection connection = null;
@@ -62,6 +75,12 @@ public class CustomerDBDAO implements CustomerDAO {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see projectCoupon.dao.CustomerDAO#removeCustomer(projectCoupon.beans.Customer)
+	 */
+	/* (non-Javadoc)
+	 * @see projectCoupon.dao.CustomerDAO#removeCustomer(projectCoupon.beans.Customer)
+	 */
 	@Override
 	public void removeCustomer(Customer customer) throws RemoveException {
 		Connection connection = null;
@@ -101,6 +120,15 @@ public class CustomerDBDAO implements CustomerDAO {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see projectCoupon.dao.CustomerDAO#updateCustomer(projectCoupon.beans.Customer)
+	 */
+	/* (non-Javadoc)
+	 * @see projectCoupon.dao.CustomerDAO#updateCustomer(projectCoupon.beans.Customer)
+	 */
+	/* (non-Javadoc)
+	 * @see projectCoupon.dao.CustomerDAO#updateCustomer(projectCoupon.beans.Customer)
+	 */
 	@Override
 	public void updateCustomer(Customer Customer) throws UpdateException {
 		Connection connection;
@@ -129,6 +157,15 @@ public class CustomerDBDAO implements CustomerDAO {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see projectCoupon.dao.CustomerDAO#getCustomer(java.lang.String)
+	 */
+	/* (non-Javadoc)
+	 * @see projectCoupon.dao.CustomerDAO#getCustomer(java.lang.String)
+	 */
+	/* (non-Javadoc)
+	 * @see projectCoupon.dao.CustomerDAO#getCustomer(java.lang.String)
+	 */
 	@Override
 	public Customer getCustomer(String customerName) throws CustomerException {
 		Connection connection;
@@ -168,6 +205,15 @@ public class CustomerDBDAO implements CustomerDAO {
 		return customer;
 	}
 
+	/* (non-Javadoc)
+	 * @see projectCoupon.dao.CustomerDAO#getAllCustomers()
+	 */
+	/* (non-Javadoc)
+	 * @see projectCoupon.dao.CustomerDAO#getAllCustomers()
+	 */
+	/* (non-Javadoc)
+	 * @see projectCoupon.dao.CustomerDAO#getAllCustomers()
+	 */
 	@Override
 	public List<Customer> getAllCustomers() throws CustomerException {
 		Connection connection;
@@ -205,6 +251,15 @@ public class CustomerDBDAO implements CustomerDAO {
 		return list;
 	}
 
+	/* (non-Javadoc)
+	 * @see projectCoupon.dao.CustomerDAO#getCustomer(long)
+	 */
+	/* (non-Javadoc)
+	 * @see projectCoupon.dao.CustomerDAO#getCustomer(long)
+	 */
+	/* (non-Javadoc)
+	 * @see projectCoupon.dao.CustomerDAO#getCustomer(long)
+	 */
 	@Override
 	public Customer getCustomer(long CustomerId) throws CustomerException {
 		try {
@@ -250,6 +305,15 @@ public class CustomerDBDAO implements CustomerDAO {
 		return customer;
 	}
 
+	/* (non-Javadoc)
+	 * @see projectCoupon.dao.CustomerDAO#login(java.lang.String, java.lang.String)
+	 */
+	/* (non-Javadoc)
+	 * @see projectCoupon.dao.CustomerDAO#login(java.lang.String, java.lang.String)
+	 */
+	/* (non-Javadoc)
+	 * @see projectCoupon.dao.CustomerDAO#login(java.lang.String, java.lang.String)
+	 */
 	@Override
 	public Customer login(String customerName, String password) throws CustomerException {
 		Connection connection;
@@ -295,6 +359,15 @@ public class CustomerDBDAO implements CustomerDAO {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see projectCoupon.dao.CustomerDAO#isCustomerNameExists(java.lang.String)
+	 */
+	/* (non-Javadoc)
+	 * @see projectCoupon.dao.CustomerDAO#isCustomerNameExists(java.lang.String)
+	 */
+	/* (non-Javadoc)
+	 * @see projectCoupon.dao.CustomerDAO#isCustomerNameExists(java.lang.String)
+	 */
 	@Override
 	public boolean isCustomerNameExists(String customerName) throws CouponException, CustomerException {
 		Connection connection = pool.getConnection();
@@ -323,6 +396,15 @@ public class CustomerDBDAO implements CustomerDAO {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see projectCoupon.dao.CustomerDAO#getAllCoupons(long)
+	 */
+	/* (non-Javadoc)
+	 * @see projectCoupon.dao.CustomerDAO#getAllCoupons(long)
+	 */
+	/* (non-Javadoc)
+	 * @see projectCoupon.dao.CustomerDAO#getAllCoupons(long)
+	 */
 	@Override
 	public List<Coupon> getAllCoupons(long customerId) throws CouponException{
 		Connection connection = pool.getConnection();
