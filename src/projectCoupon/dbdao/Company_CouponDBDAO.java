@@ -85,7 +85,7 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 	}
 
 	/**
-	 * remove an entry representing the connection between a coupon and 
+	 * remove an entry representing the connection between a coupon and company.
  
 	 * @param companyId the id of the company
 	 * @param couponId  the id of the coupon

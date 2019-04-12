@@ -59,7 +59,7 @@ public class test2 {
 			System.out.println("After creating new companies - Show all new companies\n" + line + companies.toString());
 
 			Company company06 = new Company();
-			((AdminFacad) facade).updateCompany(company06, "superfarm", "3333", "farm@gmail.com");
+			((AdminFacad) facade).updateCompany(company06,  "3333", "farm@gmail.com");
 
 			// Show One updated company id=5
 			Company company07 = ((AdminFacad) facade).getCompany(5);
@@ -91,13 +91,13 @@ public class test2 {
 					"After creating new customers - Show all customers (before update)\n" + customers.toString());
 
 			// Update Customer
-			((AdminFacad) facade).updateCustomer(customer02, "Dany", "444");
+			((AdminFacad) facade).updateCustomer(customer02, "444");
 
 			// Show One updated customer.
 			Customer customer07 = ((AdminFacad) facade).getCustomer(4);
 			System.out.println("Show One updated customer\n" + customer07.toString());
 
-			// adminFacad.updateCustomer(customer05, "shely", "233");
+			// adminFacad.updateCustomer(customer05, "233");
 
 			// Show One updated customer
 			Customer customer09 = ((AdminFacad) facade).getCustomer(2);

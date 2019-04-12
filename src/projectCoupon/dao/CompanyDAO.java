@@ -72,7 +72,7 @@ public interface CompanyDAO {
 	public boolean isCompanyNameExists(String compName) throws CouponException, SQLException;
 
 	/**
-	 * this method returns a company iff the user password is correct.
+	 * this method returns a company if the user password is correct.
 	 * 
 	 * @param name company's name of the logged in company
 	 * @param password company's password of the logged in company
@@ -83,15 +83,15 @@ public interface CompanyDAO {
 	 */
 	Company login(String compName, String password) throws CouponException, SQLException, CompanyException;
 
-	/**
-	 * remove a company identified by its id from the Database
-	 * 
-	 * @param compId the id of the company that should be deleted 
-	 * @throws CouponException  
-	 * @throws CompanyRemovalException for problems regarding the removal of company from DB
-	 * @throws SQLException SQLException for DB related failures
-	 */
 	
+	
+	/**
+	 * get all coupons by company id from DataBase.
+	 * @param companyId from company
+	 * @return
+	 * @throws CouponException for error related to the retrieval of the coupon. 
+	 * @throws CompanyException for error related to the retrieval of the company. 
+	 */
 	List<Coupon> getAllCoupons(long companyId) throws CouponException,CompanyException;
 
 }

@@ -10,6 +10,9 @@ import projectCoupon.exception.CreateException;
 import projectCoupon.exception.RemoveException;
 import projectCoupon.utils.ConnectionPool;
 
+
+
+
 public class Database {
 
 	public static String getDriverData() {
@@ -26,6 +29,11 @@ public class Database {
 		Pool = ConnectionPool.getInstance();
 	}
 
+	/**
+	 * this method drops all tables :company,coupon,customer,company_coupon,cutomer_coupon.
+	 * @throws RemoveException
+	 * @throws SQLException
+	 */
 	public static void dropTableifNeeded() throws RemoveException, SQLException{
 		String sql;
 		Statement stmt = null;
@@ -96,6 +104,10 @@ public class Database {
 
 	}
 
+	/**this method create all tables:company,coupon,customer,company_coupon,cutomer_coupon.
+	 * @throws SQLException
+	 * @throws CreateException
+	 */
 	public static void createTables() throws SQLException, CreateException {
 
 		String sql;
