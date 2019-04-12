@@ -8,8 +8,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import projectCoupon.beans.Coupon;
 import projectCoupon.beans.Customer;
 import projectCoupon.dao.CustomerDAO;
+import projectCoupon.exception.CompanyException;
 import projectCoupon.exception.CouponException;
 import projectCoupon.exception.CreateException;
 import projectCoupon.exception.CustomerException;
@@ -320,4 +322,38 @@ public class CustomerDBDAO implements CustomerDAO {
 			}
 		}
 	}
-}
+
+	@Override
+	public List<Coupon> getAllCoupons(long customerId) throws CouponException{
+		Connection connection = pool.getConnection();
+		List<Coupon> coupons = new ArrayList<Coupon>();
+		CouponDBDAO couponDB = new CouponDBDAO();
+		try  {
+			
+			String sql = "SELECT COUPON_ID FROM Customer_Coupon WHERE CUSTOMER_ID=?";
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+			pstmt.setLong(1,customerId) ;
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				try {
+					coupons.add(couponDB.getCoupon(rs.getLong("COUPON_ID")));
+				} catch (CreateException e) {
+					throw new CouponException("get coupon failed"+e.getMessage());
+				}
+			}
+		} catch (SQLException e) {
+			throw new CouponException(e.getMessage());
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				throw new CouponException("connection close failed"+e.getMessage());
+			}
+			pool.returnConnection(connection);
+		}
+		return coupons;
+		
+	}
+	}
+

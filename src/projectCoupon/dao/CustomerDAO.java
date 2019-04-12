@@ -2,7 +2,9 @@ package projectCoupon.dao;
 
 import java.util.List;
 
+import projectCoupon.beans.Coupon;
 import projectCoupon.beans.Customer;
+import projectCoupon.exception.CompanyException;
 import projectCoupon.exception.CouponException;
 import projectCoupon.exception.CreateException;
 import projectCoupon.exception.CustomerException;
@@ -25,5 +27,8 @@ public interface CustomerDAO {
 	Customer getCustomer(long customerId) throws CustomerException;
 
 	boolean isCustomerNameExists(String customerName) throws CouponException, CustomerException;
+	
+	List<Coupon> getAllCoupons(long customerId) throws CouponException;
+	
 
 }
