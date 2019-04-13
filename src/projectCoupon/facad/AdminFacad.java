@@ -13,9 +13,19 @@ import projectCoupon.dbdao.CompanyDBDAO;
 import projectCoupon.dbdao.Company_CouponDBDAO;
 import projectCoupon.dbdao.CustomerDBDAO;
 import projectCoupon.dbdao.Customer_CouponDBDAO;
+import projectCoupon.exception.CompanyException;
 import projectCoupon.exception.CouponException;
 import projectCoupon.exception.CreateException;
+import projectCoupon.exception.CustomerException;
+import projectCoupon.exception.RemoveException;
+import projectCoupon.exception.UpdateException;
 
+/**
+ * @author Eivy & Michal
+ * 
+ * Administrator Facade
+ *
+ */
 public class AdminFacad implements CouponClientFacade {
 	private static final String ADMIN_USER_NAME = "admin";
 	private static final String ADMIN_PASSWORD = "1234";
@@ -25,12 +35,24 @@ public class AdminFacad implements CouponClientFacade {
 	private Customer_CouponDAO customer_CouponDAO;
 	private boolean isLogedIn = false;
 
+	/**
+	 * Constructor
+	 * @throws CouponException
+	 */
 	public AdminFacad() throws CouponException {
 		this.companyDAO = new CompanyDBDAO();
 		this.customerDAO = new CustomerDBDAO();
 		this.customer_CouponDAO = new Customer_CouponDBDAO();
 		this.company_CouponDAO = new Company_CouponDBDAO();
 	}
+	
+	/**
+	 * this method check password of admin, if true return admin.
+	 * @param name String 
+	 * @param password String 
+	 *
+	 */
+
 
 	public CouponClientFacade login(String name, String password) {
 		if (name.equals(AdminFacad.ADMIN_USER_NAME) && password.equals(AdminFacad.ADMIN_PASSWORD)) {
@@ -41,6 +63,11 @@ public class AdminFacad implements CouponClientFacade {
 		return null;
 	}
 
+	/**
+	 * this method create a company, at first need to check if company exist.
+	 * @param company
+	 * @throws CouponException
+	 */
 	public void createCompany(Company company) throws CouponException {
 		if (!isLogedIn) {
 			throw new CouponException("the operation was canceled due to not being loged in");
@@ -64,6 +91,13 @@ public class AdminFacad implements CouponClientFacade {
 		}
 	}
 
+	/**
+	 *  This method get Company as object and take all its coupons and delete all the coupons
+	 * from Company_Coupon table & Customer_Coupon table & Coupon table. in addition, we delete
+	 * the company in the Company table.
+	 * @param company
+	 * @throws CouponException
+	 */
 	public void removeCompany(Company company) throws CouponException {
 		if (!isLogedIn) {
 			throw new CouponException("the operation was canceled due to not being loged in");
@@ -83,6 +117,14 @@ public class AdminFacad implements CouponClientFacade {
 
 	}
 
+	/**
+	 *  This method get Company as object and send it to method that update line in the Company table.
+	 * The method don't update the name.
+	 * @param Company
+	 * @param newpassword
+	 * @param newEmail
+	 * @throws CouponException
+	 */
 	public void updateCompany(Company Company, String newpassword, String newEmail) throws CouponException {
 		if (!isLogedIn) {
 			throw new CouponException("the operation was canceled due to not being loged in");
@@ -98,6 +140,12 @@ public class AdminFacad implements CouponClientFacade {
 
 	}
 
+	/**
+	 * This method get company id and return the line from Company table as Company object.
+	 * @param id
+	 * @return
+	 * @throws CouponException
+	 */
 	public Company getCompany(long id) throws CouponException {
 		if (!isLogedIn) {
 			throw new CouponException("the operation was canceled due to not being loged in");
@@ -111,6 +159,11 @@ public class AdminFacad implements CouponClientFacade {
 
 	}
 
+	/**
+	 * This method return all the Companies as a list.
+	 * @return
+	 * @throws CouponException
+	 */
 	public List<Company> getAllCompanies() throws CouponException {
 		if (!isLogedIn) {
 			throw new CouponException("the operation was canceled due to not being loged in");
@@ -123,6 +176,12 @@ public class AdminFacad implements CouponClientFacade {
 		}
 	}
 
+	/**
+	 * This method get Customer as object and send it to create line in Customer table.
+	 * first we check that the name not exist.
+	 * @param customer
+	 * @throws CouponException
+	 */
 	public void createCustomer(Customer customer) throws CouponException {
 		if (!isLogedIn) {
 			throw new CouponException("the operation was canceled due to not being loged in");
@@ -146,6 +205,12 @@ public class AdminFacad implements CouponClientFacade {
 		}
 	}
 
+	/**
+	 *  This method get Customer as object and take all its coupons and delete all the lines with those coupons
+	 * from Customer_Coupon table and the line from Customer table
+	 * @param customer
+	 * @throws CouponException
+	 */
 	public void removeCustomer(Customer customer) throws CouponException {
 		if (!isLogedIn) {
 			throw new CouponException("the operation was canceled due to not being loged in");
@@ -163,6 +228,13 @@ public class AdminFacad implements CouponClientFacade {
 
 	}
 
+	/**
+	 *  This method get Customer,and new password as object and send it to method that update line in the Customer table.
+	 * The method don't update the name
+	 * @param customer
+	 * @param newpassword
+	 * @throws CouponException
+	 */
 	public void updateCustomer(Customer customer, String newpassword) throws CouponException {
 		if (!isLogedIn) {
 			throw new CouponException("the operation was canceled due to not being loged in");
@@ -177,6 +249,11 @@ public class AdminFacad implements CouponClientFacade {
 
 	}
 
+	/**
+	 *  This method return all the Customers as a list.
+	 * @return
+	 * @throws CouponException
+	 */
 	public List<Customer> getAllCustomers() throws CouponException {
 		if (!isLogedIn) {
 			throw new CouponException("the operation was canceled due to not being loged in");
@@ -188,6 +265,12 @@ public class AdminFacad implements CouponClientFacade {
 		}
 	}
 
+	/**
+	 * This method get Customer id and return the line from Customer table as Customer object.
+	 * @param id
+	 * @return
+	 * @throws CouponException
+	 */
 	public Customer getCustomer(long id) throws CouponException {
 		if (!isLogedIn) {
 			throw new CouponException("the operation was canceled due to not being loged in");

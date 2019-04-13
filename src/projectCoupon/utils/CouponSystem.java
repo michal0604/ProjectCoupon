@@ -9,6 +9,15 @@ import projectCoupon.facad.CompanyFacade;
 import projectCoupon.facad.CouponClientFacade;
 import projectCoupon.facad.CustomerFacad;
 
+/**
+ * @author Eivy & MICHAL
+ * 
+ * coupon system is actually Authorization system. it is a singleton class
+ * she knows what facade to return
+ * according to login details.
+ * 
+ *
+ */
 public class CouponSystem {
 
 	private static CouponSystem instance;
@@ -33,12 +42,25 @@ public class CouponSystem {
 		thread.start();
 	}
 
+	/**
+	 * this method return instance of couponSystem
+	 * @return
+	 * @throws CouponException
+	 */
 	public static CouponSystem getInstance() throws CouponException {
 		if (instance == null)
 			instance = new CouponSystem();
 		return instance;
 	}
 
+	/**
+	 * The login method enable access to the system	
+	 * @param name -name of using the system
+	 * @param password-password to the system
+	 * @param clientType-customer, admin, company return facade
+	 * @return
+	 * @throws Exception
+	 */
 	public static CouponClientFacade login(String name, String password, ClientType clientType) throws Exception {
 		CouponClientFacade couponClientFacade = null;
 
@@ -84,6 +106,9 @@ public class CouponSystem {
 		DailyTask.stop();
 	}
 
+	/**
+	 * @param debugMode
+	 */
 	public void setDebugMode(boolean debugMode) {
 		DailyTask.setDebugMode(debugMode);
 		

@@ -20,14 +20,18 @@ import projectCoupon.exception.UpdateException;
 import projectCoupon.utils.ConnectionPool;
 
 /**
- * @author testlab
+ * this class implement the DB operations associated with the customer's data
+ * access requirements.
+ * 
+ * @author Eivy & Michal
  *
  */
 public class CustomerDBDAO implements CustomerDAO {
 	private ConnectionPool pool;
 
 	/**
-	 * @throws CouponException
+	 * cTor for the DBDAO that initiate the resource required for the class
+	 * @throws CouponException for problems from creation.
 	 */
 	public CustomerDBDAO() throws CouponException {
 		try {
@@ -37,11 +41,12 @@ public class CustomerDBDAO implements CustomerDAO {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see projectCoupon.dao.CustomerDAO#insertCustomer(projectCoupon.beans.Customer)
-	 */
-	/* (non-Javadoc)
-	 * @see projectCoupon.dao.CustomerDAO#insertCustomer(projectCoupon.beans.Customer)
+	/**
+	 * Inserts a customer data set to the Database
+	 * 
+	 * @throws CreateException
+	 *             for problems in inserting the customer to the DB
+	 *
 	 */
 	@Override
 	public void insertCustomer(Customer Customer) throws CreateException {
@@ -75,11 +80,13 @@ public class CustomerDBDAO implements CustomerDAO {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see projectCoupon.dao.CustomerDAO#removeCustomer(projectCoupon.beans.Customer)
-	 */
-	/* (non-Javadoc)
-	 * @see projectCoupon.dao.CustomerDAO#removeCustomer(projectCoupon.beans.Customer)
+
+	/**
+	 * remove a customer from the Database
+	 * 
+	 * @param customer
+	 *            customer to be remove
+	 * @throws RemoveException
 	 */
 	@Override
 	public void removeCustomer(Customer customer) throws RemoveException {
@@ -120,14 +127,11 @@ public class CustomerDBDAO implements CustomerDAO {
 
 	}
 
-	/* (non-Javadoc)
-	 * @see projectCoupon.dao.CustomerDAO#updateCustomer(projectCoupon.beans.Customer)
-	 */
-	/* (non-Javadoc)
-	 * @see projectCoupon.dao.CustomerDAO#updateCustomer(projectCoupon.beans.Customer)
-	 */
-	/* (non-Javadoc)
-	 * @see projectCoupon.dao.CustomerDAO#updateCustomer(projectCoupon.beans.Customer)
+	/**
+	 * updates a customer into the Database
+	 * 
+	 * @param customer
+	 *            customer to update
 	 */
 	@Override
 	public void updateCustomer(Customer Customer) throws UpdateException {
@@ -157,14 +161,13 @@ public class CustomerDBDAO implements CustomerDAO {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see projectCoupon.dao.CustomerDAO#getCustomer(java.lang.String)
-	 */
-	/* (non-Javadoc)
-	 * @see projectCoupon.dao.CustomerDAO#getCustomer(java.lang.String)
-	 */
-	/* (non-Javadoc)
-	 * @see projectCoupon.dao.CustomerDAO#getCustomer(java.lang.String)
+	/**
+	 * get a customer data set by the customer's name.
+	 * 
+	 * @param customerName
+	 *            representing the name of the required customer
+	 * @throws CustomerException
+	 *             for errors happing due to trying to get a customer from DB
 	 */
 	@Override
 	public Customer getCustomer(String customerName) throws CustomerException {
@@ -205,14 +208,11 @@ public class CustomerDBDAO implements CustomerDAO {
 		return customer;
 	}
 
-	/* (non-Javadoc)
-	 * @see projectCoupon.dao.CustomerDAO#getAllCustomers()
-	 */
-	/* (non-Javadoc)
-	 * @see projectCoupon.dao.CustomerDAO#getAllCustomers()
-	 */
-	/* (non-Javadoc)
-	 * @see projectCoupon.dao.CustomerDAO#getAllCustomers()
+	/**
+	 * get all the Customers from the Database.
+	 * 
+	 * @throws CustomerException
+	 *             for errors occurring due to trying to get all customers from DB
 	 */
 	@Override
 	public List<Customer> getAllCustomers() throws CustomerException {
@@ -251,14 +251,13 @@ public class CustomerDBDAO implements CustomerDAO {
 		return list;
 	}
 
-	/* (non-Javadoc)
-	 * @see projectCoupon.dao.CustomerDAO#getCustomer(long)
-	 */
-	/* (non-Javadoc)
-	 * @see projectCoupon.dao.CustomerDAO#getCustomer(long)
-	 */
-	/* (non-Javadoc)
-	 * @see projectCoupon.dao.CustomerDAO#getCustomer(long)
+	/**
+	 * get a customer data set by the customer's id.
+	 * 
+	 * @param id
+	 *            representing the id of the required customer
+	 * @throws CustomerException
+	 *             for errors happing due to trying to get a customer from DB
 	 */
 	@Override
 	public Customer getCustomer(long CustomerId) throws CustomerException {
@@ -305,14 +304,15 @@ public class CustomerDBDAO implements CustomerDAO {
 		return customer;
 	}
 
-	/* (non-Javadoc)
-	 * @see projectCoupon.dao.CustomerDAO#login(java.lang.String, java.lang.String)
-	 */
-	/* (non-Javadoc)
-	 * @see projectCoupon.dao.CustomerDAO#login(java.lang.String, java.lang.String)
-	 */
-	/* (non-Javadoc)
-	 * @see projectCoupon.dao.CustomerDAO#login(java.lang.String, java.lang.String)
+	/**
+	 * this method returns a customer if the user password is correct.
+	 * 
+	 * @param name
+	 *            customer's name of the logged in customer
+	 * @param password
+	 *            customer's password of the logged in customer
+	 * @throws CustomerException
+	 *             for problem retrieving the customer data.
 	 */
 	@Override
 	public Customer login(String customerName, String password) throws CustomerException {
@@ -359,14 +359,14 @@ public class CustomerDBDAO implements CustomerDAO {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see projectCoupon.dao.CustomerDAO#isCustomerNameExists(java.lang.String)
-	 */
-	/* (non-Javadoc)
-	 * @see projectCoupon.dao.CustomerDAO#isCustomerNameExists(java.lang.String)
-	 */
-	/* (non-Javadoc)
-	 * @see projectCoupon.dao.CustomerDAO#isCustomerNameExists(java.lang.String)
+	/**
+	 * returns if a customer identified by the name exist in the DB records.
+	 * 
+	 * @param customerName
+	 *            name that should be checked for existing
+	 * @throws CouponException
+	 *             for error related to the retrieval of the customer
+	 * @throws CustomerException           
 	 */
 	@Override
 	public boolean isCustomerNameExists(String customerName) throws CouponException, CustomerException {
@@ -396,14 +396,9 @@ public class CustomerDBDAO implements CustomerDAO {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see projectCoupon.dao.CustomerDAO#getAllCoupons(long)
-	 */
-	/* (non-Javadoc)
-	 * @see projectCoupon.dao.CustomerDAO#getAllCoupons(long)
-	 */
-	/* (non-Javadoc)
-	 * @see projectCoupon.dao.CustomerDAO#getAllCoupons(long)
+	/** 
+	 * this method get customer ID, and return list of coupons from data base.
+	 * 
 	 */
 	@Override
 	public List<Coupon> getAllCoupons(long customerId) throws CouponException{

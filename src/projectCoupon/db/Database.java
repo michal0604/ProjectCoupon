@@ -13,6 +13,12 @@ import projectCoupon.utils.ConnectionPool;
 
 
 
+/**
+ * @author Eivy & Michal
+ * 
+ *   Get driver & URL  and Connect to DB
+ *
+ */
 public class Database {
 
 	public static String getDriverData() {

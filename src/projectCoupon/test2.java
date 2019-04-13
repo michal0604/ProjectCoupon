@@ -43,7 +43,7 @@ public class test2 {
 			// Create new 5 companies.
 			Company company01 = new Company(1, "PIZZAHUT", "111", "pizzaHut.com");
 			Company company02 = new Company(2, "HOLMCE-PLACE", "112", "holmesplace@gmail.com");
-			Company company03 = new Company(3, "ELECTRA", "113", "bug@bug.com");
+			Company company03 = new Company(3, "ELECTRA", "113", "electra@electra.com");
 			Company company04 = new Company(4, "WALLA-TOURS", "114", "tours@walla.com");
 			Company company05 = new Company(5, "FOX", "115", "FOX@yahoo.com");
 
@@ -59,14 +59,11 @@ public class test2 {
 			System.out.println("After creating new companies - Show all new companies\n" + line + companies.toString());
 
 			Company company06 = new Company();
-			((AdminFacad) facade).updateCompany(company06,  "3333", "farm@gmail.com");
+			((AdminFacad) facade).updateCompany(company03,  "3333", "farm@gmail.com");
 
 			// Show One updated company id=5
 			Company company07 = ((AdminFacad) facade).getCompany(5);
-			System.out.println("Show One updated company\n" + company07.toString());
-
-			// adminFacad.updateCompany(company02, "tadiran", "444", "tadiran@walla.com");
-			// // Update company HOLMESPLACEþ with password
+			System.out.println("Show One company" + company07.toString());
 
 			// Show all companies (after update).
 			companies = ((AdminFacad) facade).getAllCompanies();
@@ -92,20 +89,14 @@ public class test2 {
 
 			// Update Customer
 			((AdminFacad) facade).updateCustomer(customer02, "444");
-
-			// Show One updated customer.
+			
+			// Show One  customer.
 			Customer customer07 = ((AdminFacad) facade).getCustomer(4);
-			System.out.println("Show One updated customer\n" + customer07.toString());
-
-			// adminFacad.updateCustomer(customer05, "233");
-
-			// Show One updated customer
-			Customer customer09 = ((AdminFacad) facade).getCustomer(2);
-			System.out.println("Show One updated customer" + customer09.toString());
+			System.out.println("Show One customer" + customer07.toString());
 
 			// Show all customers (after update).
 			customers = ((AdminFacad) facade).getAllCustomers();
-			System.out.println("Show all customers (after update)" + customers.toString());
+			System.out.println("Show all customers(after update)" + customers.toString());
 
 			/*****************************************************************
 			 * Company Facade TEST: id: 1, user: "PIZZAHUT", password:"111" *
@@ -201,9 +192,9 @@ public class test2 {
 			/*************************************************************
 			 * Company Facade TEST: user: id: 3, "ELECTRA", password: "113" *
 			 *************************************************************/
-			facade = CouponSystem.login("ELECTRA", "113", ClientType.COMPANY);
+			facade = CouponSystem.login("ELECTRA", "3333", ClientType.COMPANY);
 			if (facade instanceof CompanyFacade) {
-				System.out.println("========  Login(ELECTRA, 113, CompanyFacade) ========\n");
+				System.out.println("========  Login(ELECTRA, 3333, CompanyFacade) ========\n");
 
 				// Add new 3 coupons
 				Coupon coupon01 = new Coupon(7, "ELECTRA-Deal-01", Utile.getCurrentDate(), Utile.getDateAfter(10), 2,
@@ -362,10 +353,10 @@ public class test2 {
 			/**************************************************************************
 			 * Customer Facade TEST: id: 2, user: "Eli", password: "2002" *
 			 **************************************************************************/
-			facade = CouponSystem.login("Dany", "444", ClientType.CUSTOMER);
+			facade = CouponSystem.login("Eli", "444", ClientType.CUSTOMER);
 			
 			if (facade instanceof CustomerFacad) {
-				System.out.println("========  Login(Eli, 2002, Customer) ========\n");
+				System.out.println("========  Login(Eli, 444, Customer) ========\n");
 
 				
 				// getCouponsByType(CouponType.Electricity)

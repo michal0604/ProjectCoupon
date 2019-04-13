@@ -8,6 +8,13 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 import projectCoupon.exception.CouponException;
 
+/**
+ * @author Eivy & Michal
+ * Singleton Connect to DB server and DB url
+ * pool of 10 connections ,cannot add more connection than 10,
+ *   they need to wait, until 1 or more close and return connection.
+ *
+ */
 public class ConnectionPool {
 
 	private static ConnectionPool instance;

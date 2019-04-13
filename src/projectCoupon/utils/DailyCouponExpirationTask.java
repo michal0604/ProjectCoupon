@@ -13,6 +13,12 @@ import projectCoupon.dbdao.CouponDBDAO;
 import projectCoupon.dbdao.Customer_CouponDBDAO;
 import projectCoupon.exception.CouponException;
 
+/**
+ * @author Eivy & Michal
+ * Daily Thread is delete expired coupons in coupon table and join table
+ * (coupon,CompanyCoupon,CustomerCoupon)
+ *
+ */
 public class DailyCouponExpirationTask implements Runnable {
 
 	
@@ -33,11 +39,20 @@ public class DailyCouponExpirationTask implements Runnable {
 	private Thread dailyTaskThread;
 	
 
+	/**
+	 * constructor
+	 * @param sleepTime
+	 * @throws CouponException
+	 */
 	public DailyCouponExpirationTask(int sleepTime) throws CouponException {
 		DailyCouponExpirationTask.SLEEPTIME = sleepTime;
 		this.sleepingTime = sleepTime;
 	}
 
+	/**
+	 * this method activate the Daily Thread
+	 * @throws CouponException
+	 */
 	public void startTask() throws CouponException {
 		try {
 			dailyTaskThread = new Thread(this);
@@ -50,6 +65,9 @@ public class DailyCouponExpirationTask implements Runnable {
 
 	}
 
+	/** 
+	 * The Thread run action - delete expired Coupons
+	 */
 	@Override
 	public void run() {
 		while (running) {
@@ -87,10 +105,14 @@ public class DailyCouponExpirationTask implements Runnable {
 	/**
 	 * Gracefully stops the Daily Task
 	 */
+	
 	public void stop() {
 		running = false;
 	}
 
+	/**
+	 * @param debugMode
+	 */
 	public void setDebugMode(boolean debugMode) {
 		DEBUG = debugMode;
 		if (debugMode) {

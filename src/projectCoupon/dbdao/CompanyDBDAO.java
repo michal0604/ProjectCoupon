@@ -49,8 +49,7 @@ public class CompanyDBDAO implements CompanyDAO {
 	 *             for problems in inserting the company to the DB
 	 * @throws SQLException
 	 *             for DB related failures
-	 * @throws ConnectionException
-	 *             for connection problems
+	 * 
 	 * 
 	 * @see projectCoupon.dao.CompanyDAO#insertCompany
 	 */
@@ -174,11 +173,7 @@ public class CompanyDBDAO implements CompanyDAO {
 	 * 
 	 * @see projectCoupon.dao.CompanyDAO#getCompany
 	 */
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see projectCoupon.Company.CompanyDAO#getCompany(long)
-	 */
+	
 	@Override
 	public Company getCompany(long companyId) throws CouponException, SQLException {
 		pool = ConnectionPool.getInstance();
@@ -217,11 +212,7 @@ public class CompanyDBDAO implements CompanyDAO {
 	 * 
 	 * @see projectCoupon.dao.CompanyDAO#getAllCompanys
 	 */
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see projectCoupon.Company.CompanyDAO#getAllCompanys()
-	 */
+	
 	@Override
 	public List<Company> getAllCompanys() throws CouponException, SQLException {
 		Connection connection = pool.getConnection();

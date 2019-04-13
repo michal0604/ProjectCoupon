@@ -17,12 +17,23 @@ import projectCoupon.exception.RemoveException;
 import projectCoupon.exception.UpdateException;
 import projectCoupon.utils.ConnectionPool;
 
+/**
+ *  this class lists the Data operations the association of a coupon to a customer
+ *   requires
+ * @author Eivy & Michal
+ *
+ */
 public class Customer_CouponDBDAO implements Customer_CouponDAO {
 
 	private static final String AND = null;
 
 	private ConnectionPool pool;
 
+	/**
+	 * Empty cTor for initiating process of the class
+	 * 
+	 * @throws CouponException
+	 */
 	public Customer_CouponDBDAO() throws CouponException {
 		try {
 			pool = ConnectionPool.getInstance();
@@ -31,6 +42,13 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 		}
 	}
 
+	/**
+	 * Insert a connection between a customer and a coupon (represented by their IDs)
+	 * 
+	 * @param customerId the id of the customer
+	 * @param couponId  the id of the coupon
+	 * @throws CreateException if there was an error during the creation of the link in Data object
+	 */
 	public void insertCustomer_Coupon(long customerId, long couponId) throws CreateException {
 		Connection connection;
 		try {
@@ -63,6 +81,13 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 
 	}
 
+	/**
+	 * remove an entry representing the connection between a coupon and customer.
+ 
+	 * @param customerId the id of the customer
+	 * @param couponId  the id of the coupon
+	 * @throws RemoveException if the process of removal failed for any reason
+	 */
 	@Override
 	public void removeCustomer_Coupon(long customerId, long couponId) throws RemoveException {
 		Connection connection;
@@ -103,6 +128,13 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 		}
 	}
 
+	/**
+	 * this method get all the available pairing of customer to coupon there is in a system.
+	 * 
+	 * @return return all the pairs of customer and coupon (represented by id)  paring  a customer to it's respected coupon
+	 * @throws CouponException if the process of retrieval has failed.
+	 * @throws CreateException if the process of retrieval has failed.
+	 */
 	@Override
 	public List<Customer_Coupon> getAllCustomer_Coupon() throws CouponException, CreateException {
 		Connection connection;
@@ -139,6 +171,14 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 		return list;
 	}
 
+	/**
+	 * this method return the customers link to the provided coupon
+	 * 
+	 * @param couponId  the id of the coupon
+	 * @return a list of customers associated to a coupon.
+	 * @throws CouponException if the process of data retrieval has failed.
+	 * @throws CreateException if the process of retrieval has failed.
+	 */
 	@Override
 	public List<Long> getCustomersByCouponId(long couponId) throws CouponException, CreateException {
 		try {
@@ -174,6 +214,13 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 		return list;
 	}
 
+	/**
+	 * this method return the coupons link to the provided customer
+	 * 
+	 * @param customerId the id of the customer
+	 * @return a list of coupons associated to a customer.
+	 * @throws CouponException if the process of data retrieval has failed.
+	 */
 	@Override
 	public List<Long> getCouponsByCustomerId(long customerId) throws CouponException, CreateException {
 		try {
@@ -211,6 +258,13 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 		return list;
 	}
 
+	/**
+	 * this method updates a link between customer and coupon.
+	 * 
+	 * @param customerId the id of the customer
+	 * @param couponId the id of the coupon
+	 * @throws UpdateException if the update process has failed 
+	 */
 	@Override
 	public void updateCustomer_Coupon(long customerId, long couponId) throws UpdateException {
 		Connection connection;
@@ -239,6 +293,12 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 		}
 	}
 
+	/**
+     * this method removes all customer's connection to different coupons.
+     * 
+     * @param customer that would be removed from all connection with coupons
+     * @throws RemoveException  if the process of removal failed for any reason
+     */
 	@Override
 	public void removeCustomer_Coupon(Customer customer) throws RemoveException {
 
@@ -280,6 +340,14 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 
 	}
 
+	/**
+	 * this method verifies if a coupon is already purchased by customer.
+	 * 
+	 * @param customerId the id of the customer
+	 * @param couponId the id of the coupon
+	 * @return if the coupon  and customer are linked already
+	 * @throws CouponException if there was a failure in the validation process
+	 */
 	@Override
 	public boolean isCouponPurchasedByCustomer(long customerId, long couponId) throws CouponException {
 		Connection connection = pool.getConnection();
@@ -310,6 +378,13 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 		}
 	}
 
+	/**
+	 * the method removes all the entries of customers linked with a given coupon id.
+	 * 
+	 * @param couponId the id of the coupon
+	 * @throws RemoveException if the process of removal failed for any reason
+	 *
+	 */
 	@Override
 	public void removeCustomer_CouponByCoupId(long couponId) throws RemoveException {
 		Connection connection;

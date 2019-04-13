@@ -16,6 +16,12 @@ import projectCoupon.exception.CreateException;
 import projectCoupon.exception.UpdateException;
 import projectCoupon.utils.Utile;
 
+/**
+ * @author Eivy & Michal
+ * 
+ * Customer Facade
+ *
+ */
 public class CustomerFacad implements CouponClientFacade {
 
 	private CouponDAO couponDAO;
@@ -23,12 +29,26 @@ public class CustomerFacad implements CouponClientFacade {
 	private long custId = 0;
 	private Customer customer;
 
+	/**
+	 * Constructor
+	 * @throws CouponException
+	 */
 	public CustomerFacad() throws CouponException {
 		couponDAO = new CouponDBDAO();
 		customer_CouponDAO = new Customer_CouponDBDAO();
 	}
 
 
+	/**
+	 * Buy Coupon by customer method.
+	 * this method update amount of coupons left in coupon table
+	 * Coupon cannot be purchased more than once by same customer.
+	 * customer can't buy same coupon, only once.
+	 * Customer can't buy if coupon expired.
+	 * Coupon cannot be purchased if out of stock
+	 * @param coupId
+	 * @throws CouponException
+	 */
 	public void purchaseCoupon(long coupId) throws CouponException { 
 		if(custId == 0) {
 			throw new CouponException("the operation was canceled due to not being loged in");
@@ -66,6 +86,12 @@ public class CustomerFacad implements CouponClientFacade {
 
 
 
+	/**
+	 * View all customer coupons by type 
+	 * @param couponType
+	 * @return
+	 * @throws CouponException
+	 */
 	public List<Coupon> getAllCouponsByType(CouponType couponType) throws CouponException {
 		if(custId == 0) {
 			throw new CouponException("the operation was canceled due to not being loged in");
@@ -73,6 +99,11 @@ public class CustomerFacad implements CouponClientFacade {
 		return couponDAO.getAllCouponsByType(couponType);
 	}
 
+	/**
+	 * view all coupons that purchased by customer
+	 * @return
+	 * @throws CouponException
+	 */
 	public List<Coupon> getAllPurchasedCoupons() throws CouponException {
 		if(custId == 0) {
 			throw new CouponException("the operation was canceled due to not being loged in");
@@ -94,6 +125,12 @@ public class CustomerFacad implements CouponClientFacade {
 		return purchasedCoupons;
 	}
 
+	/**
+	 * View all customer coupon purchases history by Coupon Type
+	 * @param type
+	 * @return
+	 * @throws CouponException
+	 */
 	public List<Coupon> getAllPurchasedCouponsByType(CouponType type) throws CouponException {
 		if(custId == 0) {
 			throw new CouponException("the operation was canceled due to not being loged in");
@@ -116,8 +153,8 @@ public class CustomerFacad implements CouponClientFacade {
 	 *            double
 	 * @return Coupon collection
 	 * @throws CouponException
-	 * @throws CreateException
 	 */
+	
 	public List<Coupon> getAllPurchasedCouponsByPrice(long price) throws CouponException {
 		if(custId == 0) {
 			throw new CouponException("the operation was canceled due to not being loged in");
@@ -134,9 +171,11 @@ public class CustomerFacad implements CouponClientFacade {
 
 
 	/**
+	 * this method get possibility of customer
 	 * @return Customer
 	 * @throws CouponException 
 	 */
+	
 	public Customer getCustomerInstance() throws CouponException {
 		if(custId == 0) {
 			throw new CouponException("the operation was canceled due to not being loged in");
@@ -147,6 +186,13 @@ public class CustomerFacad implements CouponClientFacade {
 	
 
 
+	/**
+	 * First Customer Login check
+	 * @param name String 
+	 * @param Password String 
+	 * @throws Exception
+	 **/
+	
 	public CouponClientFacade login(String name, String password) throws Exception {
 		Customer customer = new CustomerDBDAO().login(name, password);
 		if (customer != null) {
