@@ -58,7 +58,6 @@ public class test2 {
 			companies = ((AdminFacad) facade).getAllCompanies();
 			System.out.println("After creating new companies - Show all new companies\n" + line + companies.toString());
 
-			Company company06 = new Company();
 			((AdminFacad) facade).updateCompany(company03,  "3333", "farm@gmail.com");
 
 			// Show One updated company id=5
