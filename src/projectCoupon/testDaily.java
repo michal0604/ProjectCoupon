@@ -27,7 +27,7 @@ public class testDaily {
 				System.out.println("Prepering Test\ndroping and recreating DB tables\n");
 				Database.dropTableifNeeded();
 				Database.createTables();
-				Company company01 = new Company(1, "PIZZAHUT", "111", "holmesplaceþ@gmail.com");
+				Company company01 = new Company(1, "PIZZAHUT", "111", "pizzahut@gmail.com");
 				
 				AdminFacad adminFacad = (AdminFacad) facade;
 				adminFacad.createCompany(company01);
