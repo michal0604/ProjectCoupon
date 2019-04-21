@@ -17,8 +17,8 @@ import projectCoupon.utils.Utile;
 
 public class testDaily {
 	private static final TimeUnit TIMEUNIT = TimeUnit.MILLISECONDS;
-	private static final int COUPON_NUMBER = 5;
-	private static final int TEST_ITERATIONS = 5;
+	private static final int COUPON_NUMBER = 10;
+	private static final int TEST_ITERATIONS = 11;
 
 	public static void main(String[] args) {
 		try {
