@@ -4,7 +4,6 @@ import java.util.List;
 
 import projectCoupon.beans.Coupon;
 import projectCoupon.beans.Customer;
-import projectCoupon.exception.CompanyException;
 import projectCoupon.exception.CouponException;
 import projectCoupon.exception.CreateException;
 import projectCoupon.exception.CustomerException;

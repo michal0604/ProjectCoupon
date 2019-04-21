@@ -20,6 +20,7 @@ import projectCoupon.utils.ConnectionPool;
 /**
  *  this class lists the Data operations the association of a coupon to a customer
  *   requires
+ *   
  * @author Eivy & Michal
  *
  */
