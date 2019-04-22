@@ -95,10 +95,10 @@ public class CustomerDBDAO implements CustomerDAO {
 		} catch (CouponException e) {
 			throw new RemoveException("connection failed " + e.getMessage());
 		}
-		String pre1 = "DELETE FROM Customer WHERE ID=?";
+		String sql = "DELETE FROM Customer WHERE ID=?";
 
 		try {
-			PreparedStatement pstm1 = connection.prepareStatement(pre1);
+			PreparedStatement pstm1 = connection.prepareStatement(sql);
 			connection.setAutoCommit(false);
 			pstm1.setLong(1, customer.getCustomerId());
 			pstm1.executeUpdate();
@@ -140,10 +140,11 @@ public class CustomerDBDAO implements CustomerDAO {
 		} catch (CouponException e) {
 			throw new UpdateException("connection failed " + e.getMessage());
 		}
-		try {
-			Statement stm = connection.createStatement();
+		
 			String sql = "UPDATE Customer " + " SET CUST_NAME='" + Customer.getCustomerName() + "', PASSWORD='"
 					+ Customer.getPassword() + "' WHERE ID=" + Customer.getCustomerId();
+			try {
+				Statement stm = connection.createStatement();
 			stm.executeUpdate(sql);
 		} catch (SQLException e) {
 			throw new UpdateException("update Customer failed " + e.getMessage());
@@ -177,11 +178,12 @@ public class CustomerDBDAO implements CustomerDAO {
 			throw new CustomerException("connection failed " + e.getMessage());
 		}
 		Customer customer = null;
-		try {
-			Statement stm = connection.createStatement();
-
+		
 			String sql = "SELECT * FROM Customer WHERE ID=" + customerName;
-			ResultSet rs = stm.executeQuery(sql);
+			try {
+				PreparedStatement stm1 = connection.prepareStatement(sql);
+			ResultSet rs = stm1.executeQuery();
+
 			if (rs.next()) {
 				customer = new Customer();
 				customer.setCustomerId(rs.getLong(1));
@@ -223,10 +225,12 @@ public class CustomerDBDAO implements CustomerDAO {
 		}
 
 		List<Customer> list = new ArrayList<Customer>();
-		try {
-			Statement stm = connection.createStatement();
+		
 			String sql = "SELECT * FROM CUSTOMER";
-			ResultSet rs = stm.executeQuery(sql);
+			try {
+				PreparedStatement stm1 = connection.prepareStatement(sql);
+			ResultSet rs = stm1.executeQuery();
+			
 			while (rs.next()) {
 				long customerId = rs.getLong(1);
 				String customerName = rs.getString(2);
@@ -276,14 +280,17 @@ public class CustomerDBDAO implements CustomerDAO {
 			throw new CustomerException("connection failed " + e.getMessage());
 		}
 		Customer customer = new Customer();
-		try (Statement statement = connection.createStatement()) {
+		
 			String sql = "SELECT * FROM Customer WHERE ID=" + CustomerId;
-			ResultSet resultSet = statement.executeQuery(sql);
-			if (resultSet.next()) {
+			try {
+				PreparedStatement stm1 = connection.prepareStatement(sql);
+			ResultSet rs = stm1.executeQuery();
+			
+			if (rs.next()) {
 				customer = new Customer();
-				customer.setCustomerId(resultSet.getLong(1));
-				customer.setCustomerName(resultSet.getString(2));
-				customer.setPassword(resultSet.getString(3));
+				customer.setCustomerId(rs.getLong(1));
+				customer.setCustomerName(rs.getString(2));
+				customer.setPassword(rs.getString(3));
 			}
 
 		} catch (SQLException e) {

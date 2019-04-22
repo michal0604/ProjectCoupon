@@ -25,10 +25,9 @@ public class Customer {
 	 * @param password cusyomer password
 	 */
 	public Customer(long customerId, String customerName, String password) {
-		super();
-		this.customerId = customerId;
-		this.customerName = customerName;
-		this.password = password;
+		setCustomerId(customerId);
+		setCustomerName(customerName);
+		setPassword(password);
 	}
 
 	/**

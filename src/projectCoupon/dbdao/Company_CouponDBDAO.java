@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -236,8 +235,8 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 		List<Long> list = new ArrayList<Long>();
 		String sql = "select * from Company_Coupon where Coupon_ID = " + couponId;
 		try {
-			Statement stm = connection.createStatement();
-			ResultSet rs = stm.executeQuery(sql);
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				long company_Id = rs.getLong(1);
 				list.add(company_Id);
@@ -276,8 +275,8 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 		List<Long> list = new ArrayList<Long>();
 		String sql = "select * from Company_Coupon where company_Id = " + companyId;
 		try {
-			Statement stm = connection.createStatement();
-			ResultSet rs = stm.executeQuery(sql);
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				long coupon_Id = rs.getLong(1);
 				list.add(coupon_Id);
@@ -307,10 +306,11 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 	public List<Company_Coupon> getAllCompany_Coupons() throws CouponException {
 		Connection connection = pool.getConnection();
 		List<Company_Coupon> set = new ArrayList<Company_Coupon>();
-		try {
-			Statement stm = connection.createStatement();
+		
 			String sql = "SELECT * FROM COMPANY_COUPON";
-			ResultSet rs = stm.executeQuery(sql);
+			try {
+				PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				long comp_Id = rs.getLong(1);
 				long coupon_Id = rs.getLong(2);
@@ -345,11 +345,12 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 		} catch (CouponException e) {
 			throw new UpdateException("connection failed " + e.getMessage());
 		}
-		try {
-			Statement stm = connection.createStatement();
+		
 			String sql = "UPDATE Company_Coupon " + " SET company_ID='" + companyId + "', coupon_ID='" + couponId
 					+ "' WHERE ID=" + companyId + AND + "' WHERE ID=" + couponId;
-			stm.executeUpdate(sql);
+			try {
+				PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			throw new UpdateException("update error " + e.getMessage());
 		}

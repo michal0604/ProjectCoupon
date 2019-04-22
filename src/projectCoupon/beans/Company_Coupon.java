@@ -24,9 +24,9 @@ public class Company_Coupon {
 	 * @param couponId the id of the coupon
 	 */
 	public Company_Coupon(long companyId, long couponId) {
-		super();
-		this.companyId = companyId;
-		this.couponId = couponId;
+	    setCompanyId(companyId);
+		setCouponId(couponId);
+		
 	}
 
 

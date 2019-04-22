@@ -23,9 +23,8 @@ public class Customer_Coupon {
 	 * @param couponId the id of the coupon
 	 */
 	public Customer_Coupon(long customerId, long couponId) {
-		super();
-		this.customerId = customerId;
-		this.couponId = couponId;
+		setCustomerId(customerId);
+		setCouponId(couponId);
 	}
 
 	/**

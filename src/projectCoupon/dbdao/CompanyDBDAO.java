@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -179,11 +178,11 @@ public class CompanyDBDAO implements CompanyDAO {
 		pool = ConnectionPool.getInstance();
 		Connection connection = pool.getConnection();
 		Company company = null;
-		try {
-			Statement stm = connection.createStatement();
 
 			String sql = "SELECT * FROM Company WHERE ID=" + companyId;
-			ResultSet rs = stm.executeQuery(sql);
+			try {
+				PreparedStatement stm1 = connection.prepareStatement(sql);
+			ResultSet rs = stm1.executeQuery();
 			if(rs.next()) {
 				company =new Company();
 				company.setCompanyId(rs.getLong(1));
@@ -219,8 +218,8 @@ public class CompanyDBDAO implements CompanyDAO {
 		List<Company> set = new ArrayList<Company>();
 		String sql = "SELECT * FROM Company";
 		try {
-			Statement stm = connection.createStatement();
-			ResultSet rs = stm.executeQuery(sql);
+			PreparedStatement stm1 = connection.prepareStatement(sql);
+			ResultSet rs = stm1.executeQuery();
 			while (rs.next()) {
 				long id = rs.getLong(1);
 				String compName = rs.getString(2);

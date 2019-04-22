@@ -39,15 +39,15 @@ public class Coupon {
 	 */
 	public Coupon(long couponId, String title, Date start_date, Date end_date, int amount, CouponType type,
 			String message, Double price, String image) {
-		this.couponId = couponId;
-		this.title = title;
-		this.start_date = start_date;
-		this.end_date = end_date;
-		this.amount = amount;
-		this.type = type;
-		this.message = message;
-		this.price = price;
-		this.image = image;
+		setCouponId(couponId);
+		setTitle(title);
+		setStart_date(start_date);
+		setEnd_date(end_date);
+		setAmount(amount);
+		setType(type);
+		setMessage(message);
+		setPrice(price);
+		setImage(image);
 	}
 
 	/**

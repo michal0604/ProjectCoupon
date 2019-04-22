@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -146,10 +145,10 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 		}
 		List<Customer_Coupon> list = new ArrayList<Customer_Coupon>();
 
-		try {
-			Statement stm = connection.createStatement();
 			String sql = "SELECT * FROM CUSTOMER_COUPON";
-			ResultSet rs = stm.executeQuery(sql);
+			try {
+				PreparedStatement stm1 = connection.prepareStatement(sql);
+			ResultSet rs = stm1.executeQuery();
 			while (rs.next()) {
 				long customerId = rs.getLong(1);
 				long couponId = rs.getLong(2);
@@ -189,10 +188,10 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 		}
 		Connection connection = pool.getConnection();
 		List<Long> list = new ArrayList<Long>();
-		try {
-			Statement statement = connection.createStatement();
 			String sql = "select * from Customer_Coupon where Coupon_ID = " + couponId;
-			ResultSet rs = statement.executeQuery(sql);
+			try {
+				PreparedStatement stm1 = connection.prepareStatement(sql);
+			ResultSet rs = stm1.executeQuery();
 			while (rs.next()) {
 				long customerId = rs.getLong(1);
 				list.add(customerId);
@@ -274,11 +273,12 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 		} catch (Exception e1) {
 			throw new UpdateException("connection failed"+e1.getMessage());
 		}
-		try {
-			Statement stm = connection.createStatement();
 			String sql = "UPDATE Customer_Coupon " + " SET customer_Id='" + customerId + "', coupon_Id='" + couponId
 					+ "' WHERE ID=" + customerId + AND + "' WHERE ID=" + couponId;
-			stm.executeUpdate(sql);
+			try {
+			PreparedStatement stm1 = connection.prepareStatement(sql);
+			
+			stm1.executeUpdate(sql);
 		} catch (SQLException e) {
 			throw new UpdateException("unable to update table " + e.getMessage());
 		}
@@ -312,7 +312,9 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 
 		String sql = "delete from Customer_Coupon where customer_Id = ?";
 
-		try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+		try {
+			
+		PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
 			connection.setAutoCommit(false);
 			preparedStatement.setLong(1, customer.getCustomerId());
@@ -397,7 +399,9 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 
 		String sql = "delete from Customer_Coupon where Coupon_ID = ?";
 
-		try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+		try {
+			
+		PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
 			connection.setAutoCommit(false);
 			preparedStatement.setLong(1, couponId);

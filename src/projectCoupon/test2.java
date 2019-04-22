@@ -535,8 +535,8 @@ public class test2 {
 			 *************************/			
 			
 			facade = CouponSystem.login("Michal","2001",ClientType.CUSTOMER);
-			if (facade instanceof Customer) {
-				System.out.println("========  Login(admin, 1234, AdminFacade) ========\n");
+			if (facade instanceof CustomerFacad) {
+				System.out.println("========  Login(Michal, 2001, Customer) ========\n");
 
 				/**
 				 *  get all Michal Coupons Purchased.
@@ -591,7 +591,7 @@ public class test2 {
 			couponSystem.shutdown();
 			System.out.println("Disconnected!");
 
-		}//
+		}
 	}
 
 }
