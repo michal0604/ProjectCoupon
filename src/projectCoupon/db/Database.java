@@ -2,9 +2,8 @@ package projectCoupon.db;
 
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
-
 import projectCoupon.exception.CouponException;
 import projectCoupon.exception.CreateException;
 import projectCoupon.exception.RemoveException;
@@ -42,7 +41,7 @@ public class Database {
 	 */
 	public static void dropTableifNeeded() throws RemoveException, SQLException{
 		String sql;
-		Statement stmt = null;
+
 		try {
 			Pool=ConnectionPool.getInstance();
 		} catch (Exception e2) {
@@ -55,45 +54,47 @@ public class Database {
 			throw new RemoveException("connection failed");
 		}
 		
+		sql = "DROP TABLE Customer_Coupon";
 		try {
-			stmt = connection.createStatement();
-		} catch (Exception e1) {
-			throw new RemoveException("createstatment is failed");
-		}
-		
-		try {
-			sql = "DROP TABLE Customer_Coupon";
-			stmt.executeUpdate(sql);
+			
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+			pstmt.executeUpdate();
 			System.out.println("Droped Customer_Coupon Table");
 		} catch (Exception e) {
 			throw new RemoveException("Customer_Coupon Table did not drop: " + e.getMessage());
 		}
-
+		sql = "DROP TABLE Company_Coupon";
 		try {
-			sql = "DROP TABLE Company_Coupon";
-			stmt.executeUpdate(sql);
+			
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+			pstmt.executeUpdate();
 			System.out.println("Droped Company_Coupon Table");
 		} catch (Exception e) {
 			throw new RemoveException("Company_Coupon Table did not drop: " + e.getMessage());
 		}
 
+		sql = "DROP TABLE Company";
+		
 		try {
-			sql = "DROP TABLE Company";
-			stmt.executeUpdate(sql);
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+			pstmt.executeUpdate();
 			System.out.println("Droped Company Table");
 		} catch (Exception e) {
 			throw new RemoveException("Company Table did not drop: " + e.getMessage());
 		}
-		try {
-			sql = "DROP TABLE CUSTOMER";
-			stmt.executeUpdate(sql);
+		sql = "DROP TABLE CUSTOMER";
+		try {	
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+			pstmt.executeUpdate();
 			System.out.println("Droped Customer Table");
 		} catch (Exception e) {
 			throw new RemoveException("Customer Table did not drop: " + e.getMessage());
 		}
+		sql = "DROP TABLE Coupon";
+		
 		try {
-			sql = "DROP TABLE Coupon";
-			stmt.executeUpdate(sql);
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+			pstmt.executeUpdate();
 			System.out.println("Droped COUPON Table");
 		} catch (Exception e) {
 			throw new RemoveException("COUPON Table did not exist");
@@ -106,8 +107,6 @@ public class Database {
 				throw new RemoveException("connection failed");
 			}
 		}
-
-
 	}
 
 	/**this method create all tables:company,coupon,customer,company_coupon,cutomer_coupon.
@@ -130,52 +129,47 @@ public class Database {
 			throw new CreateException("connection failed");
 		}
 		
+		// create Company table
+		 sql = "create table Company (" + "ID bigint not null primary key, " + "COMP_NAME varchar(50) not null, "
+				+ "PASSWORD varchar(50) not null, " + "EMAIL varchar(50) not null)";
+		
 		try {
-			Statement stmt = connection.createStatement();
-
-			// create Company table
-			 sql = "create table Company (" + "ID bigint not null primary key, " + "COMP_NAME varchar(50) not null, "
-					+ "PASSWORD varchar(50) not null, " + "EMAIL varchar(50) not null)";
-
-			stmt.executeUpdate(sql);
+			PreparedStatement pstmt = connection.prepareStatement(sql);
+			pstmt.executeUpdate();
 			System.out.println("success:" + sql);
 		} catch (SQLException e) {
 			throw new CreateException("create company didn't succeed");
 		}
-		
+		sql = "create table Customer (" + "ID bigint not null primary key, " + "CUST_NAME varchar(50) not null, "
+				+ "PASSWORD varchar(50) not null)";
 		try {
-			Statement stmt2 = connection.createStatement();
-			 sql = "create table Customer (" + "ID bigint not null primary key, " + "CUST_NAME varchar(50) not null, "
-					+ "PASSWORD varchar(50) not null)";
-			stmt2.executeUpdate(sql);
+			PreparedStatement pstmt = connection.prepareStatement(sql);	 
+			pstmt.executeUpdate();
 			System.out.println("success:" + sql);
 		} catch (SQLException e) {
 			throw new CreateException("create customer didn't succeed");
 		}
 
-		try {
-			java.sql.Statement stm = connection.createStatement();
-
-
 			 sql = "create table Coupon (" + "ID bigint not null primary key, " + "TITLE varchar(50) not null, "
 					+ "START_DATE date not null, " + "END_DATE date not null, " + "AMOUNT integer not null, "
 					+ "TYPE varchar(50) not null, " + "MESSAGE varchar(50) not null, " + " PRICE float not null, "
 					+ "IMAGE varchar(200) not null)";
-
-			stm.executeUpdate(sql);
+			 try {
+				 PreparedStatement pstmt = connection.prepareStatement(sql); 
+				 pstmt.executeUpdate();
 			System.out.println("success:" + sql);
 		} catch (SQLException e) {
 			throw new CreateException("create coupon didn't succeed");
 		}
 
 		// create join table Customer_Coupon
-		try {
-			java.sql.Statement stm = connection.createStatement();
+		
 			 sql = "create table Customer_Coupon (" + "Customer_ID bigint, " + "Coupon_ID bigint, "
 					+ "primary key (Customer_ID, Coupon_ID))";
-
-			stm.executeUpdate(sql);
-			System.out.println("success:" + sql);
+			 try {
+				 PreparedStatement pstmt = connection.prepareStatement(sql);
+				 pstmt.executeUpdate();
+		    	System.out.println("success:" + sql);
 
 		} catch (SQLException e) {
 			throw new CreateException("create customer_coupon didn't succeed");
@@ -183,17 +177,17 @@ public class Database {
 		}
 
 		// create join table Company_Coupon
-		try {
-			java.sql.Statement stm = connection.createStatement();
+		
 			 sql = "create table Company_Coupon (" + "Company_ID bigint, " + "Coupon_ID bigint, "
 					+ "primary key (Company_ID, Coupon_ID))";
-			stm.executeUpdate(sql);
+			 try {
+				 PreparedStatement pstmt = connection.prepareStatement(sql); 
+			   	pstmt.executeUpdate();
 			System.out.println("success: " + sql);
 
 		} catch (SQLException e) {
 			throw new CreateException("create company_coupon didn't succeed");
 		}
-
 		  finally {
 				connection.close();
 				try {
@@ -206,8 +200,6 @@ public class Database {
 					}
 				}
 			}
-
-
 	}
 }
 
