@@ -1,6 +1,7 @@
 package projectCoupon.dao;
 
 import java.util.List;
+import java.util.Set;
 
 import projectCoupon.beans.Coupon;
 import projectCoupon.beans.Customer;
@@ -43,7 +44,7 @@ public interface CustomerDAO {
 	 * @return
 	 * @throws CustomerException
 	 */
-	List<Customer> getAllCustomers() throws CustomerException;
+	Set<Customer> getAllCustomers() throws CustomerException;
 
 	/**
 	 * this method get name of customer and password, check if name exists in customer table,
@@ -88,7 +89,7 @@ public interface CustomerDAO {
 	 * @return
 	 * @throws CouponException
 	 */
-	List<Coupon> getAllCoupons(long customerId) throws CouponException;
+	Set<Coupon> getAllCoupons(long customerId) throws CouponException;
 	
 
 }

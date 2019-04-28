@@ -31,6 +31,11 @@ public class Customer_Coupon {
 	 * @return the id of the customer
 	 */
 	public long getCustomerId() {
+		if (customerId<0) {
+			System.out.println("id is illegal");
+		}else {
+			System.out.println("id is legal");
+		}
 		return customerId;
 	}
 

@@ -6,7 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import projectCoupon.beans.Coupon;
 import projectCoupon.beans.CouponType;
@@ -265,14 +267,14 @@ public class CouponDBDAO implements CouponDAO {
 	 *             for error related to the retrieval of the coupon
 	 */
 	@Override
-	public List<Coupon> getAllCoupons() throws CouponException {
+	public Set<Coupon> getAllCoupons() throws CouponException {
 		Connection connection;
 		try {
 			connection = pool.getConnection();
 		} catch (Exception e) {
 			throw new CouponException("connection failed" + e.getMessage());
 		}
-		List<Coupon> set = new ArrayList<Coupon>();
+		Set<Coupon> set = new HashSet<Coupon>();
 		Coupon coupon;
 		String sql = "SELECT * FROM Coupon";
 		try {
@@ -389,14 +391,14 @@ public class CouponDBDAO implements CouponDAO {
 	 *             for error related to the retrieval of the coupon
 	 */
 	@Override
-	public List<Coupon> getAllCouponsByDate(String untilDate) throws CouponException {
+	public Set<Coupon> getAllCouponsByDate(String untilDate) throws CouponException {
 		Connection connection;
 		try {
 			connection = pool.getConnection();
 		} catch (Exception e) {
 			throw new CouponException("Database error " + e.getMessage());
 		}
-		List<Coupon> set = new ArrayList<Coupon>();
+		Set<Coupon> set = new HashSet<Coupon>();
 		Coupon coupon;
 		String sql = "select * from Coupon where end_date=" + untilDate;
 		try {
@@ -469,13 +471,13 @@ public class CouponDBDAO implements CouponDAO {
 	 *             for error related to the retrieval of the coupon
 	 */
 
-	public List<Coupon> getAllCouponsByType(CouponType couponType) throws CouponException {
+	public Set<Coupon> getAllCouponsByType(CouponType couponType) throws CouponException {
 
 		Connection connection;
 		connection = pool.getConnection();
 
 		try {
-			List<Coupon> list = new ArrayList<>();
+			Set<Coupon> list = new HashSet<>();
 			String sql = String.format("select * from Coupon where TYPE = '%s'", couponType);
 			PreparedStatement stm1 = connection.prepareStatement(sql);
 			ResultSet resultSet = stm1.executeQuery();
@@ -548,14 +550,14 @@ public class CouponDBDAO implements CouponDAO {
 	 */
 	
 	@Override
-	public List<Coupon> getAllCouponsByPrice(double priceMax) throws CouponException {
+	public Set<Coupon> getAllCouponsByPrice(double priceMax) throws CouponException {
 		Connection connection;
 		try {
 			connection = pool.getConnection();
 		} catch (Exception e) {
 			throw new CouponException("Database error " + e.getMessage());
 		}
-		List<Coupon> set = new ArrayList<Coupon>();
+		Set<Coupon> set = new HashSet<Coupon>();
 		Coupon coupon;
 		String sql = "select * from Coupon where Price = " + priceMax;
 		try {

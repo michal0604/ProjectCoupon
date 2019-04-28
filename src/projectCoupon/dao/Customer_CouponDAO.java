@@ -2,6 +2,7 @@ package projectCoupon.dao;
 
 
 import java.util.List;
+import java.util.Set;
 
 import projectCoupon.beans.Customer;
 import projectCoupon.beans.Customer_Coupon;
@@ -54,7 +55,7 @@ public interface Customer_CouponDAO {
 		 * @throws CouponException
 		 * @throws CreateException
 		 */
-		List<Long> getCustomersByCouponId(long couponId) throws CouponException, CreateException;
+		Set<Long> getCustomersByCouponId(long couponId) throws CouponException, CreateException;
 		
 		/**
 		 * this method return all coupons by specific customerID
@@ -63,7 +64,7 @@ public interface Customer_CouponDAO {
 		 * @throws CouponException
 		 * @throws CreateException
 		 */
-		List<Long> getCouponsByCustomerId(long customerId) throws CouponException, CreateException;
+		Set<Long> getCouponsByCustomerId(long customerId) throws CouponException, CreateException;
 		
 		/**
 		 * this method return a list of all coupons of customer.
@@ -71,7 +72,7 @@ public interface Customer_CouponDAO {
 		 * @throws CouponException
 		 * @throws CreateException
 		 */
-		List<Customer_Coupon> getAllCustomer_Coupon() throws CouponException, CreateException;	
+		Set<Customer_Coupon> getAllCustomer_Coupon() throws CouponException, CreateException;	
 		
 		/**
 		 * this method update coupon and customer by ID in DataBase.

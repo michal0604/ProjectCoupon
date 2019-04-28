@@ -2,6 +2,7 @@ package projectCoupon.dao;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Set;
 
 import projectCoupon.beans.Coupon;
 import projectCoupon.beans.CouponType;
@@ -53,7 +54,7 @@ public interface CouponDAO {
 	 * @return  a list of available coupons
 	 * @throws CouponException for error related to the retrieval of the coupon 
 	 */
-	List<Coupon> getAllCoupons() throws CouponException;
+	Set<Coupon> getAllCoupons() throws CouponException;
 
 	/**
 	 * this function returns all available coupons by specific type 
@@ -62,7 +63,7 @@ public interface CouponDAO {
 	 * @throws CouponException for error related to the retrieval of the coupon 
 	 * @throws Exception 
 	 */
-	List<Coupon> getAllCouponsByType(CouponType coupType) throws CouponException;
+	Set<Coupon> getAllCouponsByType(CouponType coupType) throws CouponException;
 
 	/**
 	 * this function returns all available coupons by specific max coupon price
@@ -71,7 +72,7 @@ public interface CouponDAO {
 	 * @return a list of available coupon that are lower or equal to PriceMax
 	 * @throws CouponException for error related to the retrieval of the coupon 
 	 */
-	List<Coupon> getAllCouponsByPrice(double priceMax) throws CouponException;
+	Set<Coupon> getAllCouponsByPrice(double priceMax) throws CouponException;
 
 	/**
 	 * this function returns all available coupons by specific max coupon exploration Date
@@ -80,7 +81,7 @@ public interface CouponDAO {
 	 * @return a list of available coupon that expire before or the same date as untilDate
 	 * @throws CouponException for error related to the retrieval of the coupon
 	 */
-	List<Coupon> getAllCouponsByDate(String untilDate) throws CouponException;
+	Set<Coupon> getAllCouponsByDate(String untilDate) throws CouponException;
 
 	/**
 	 * this function removed a given coupon from the coupon data

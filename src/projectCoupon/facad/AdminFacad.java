@@ -2,6 +2,7 @@ package projectCoupon.facad;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Set;
 
 import projectCoupon.beans.Company;
 import projectCoupon.beans.Customer;
@@ -103,7 +104,7 @@ public class AdminFacad implements CouponClientFacade {
 			throw new CouponException("the operation was canceled due to not being loged in");
 		}
 		try {
-			List<Long> coupoIdList = company_CouponDAO.getCouponsByCompanyId(company.getCompanyId());
+			Set<Long> coupoIdList = company_CouponDAO.getCouponsByCompanyId(company.getCompanyId());
 			company_CouponDAO.removeCompany_Coupon(company);
 			for (Long couponId : coupoIdList) {
 				customer_CouponDAO.removeCustomer_CouponByCoupId(couponId);
@@ -164,7 +165,7 @@ public class AdminFacad implements CouponClientFacade {
 	 * @return
 	 * @throws CouponException
 	 */
-	public List<Company> getAllCompanies() throws CouponException {
+	public Set<Company> getAllCompanies() throws CouponException {
 		if (!isLogedIn) {
 			throw new CouponException("the operation was canceled due to not being loged in");
 		}
@@ -254,7 +255,7 @@ public class AdminFacad implements CouponClientFacade {
 	 * @return
 	 * @throws CouponException
 	 */
-	public List<Customer> getAllCustomers() throws CouponException {
+	public Set<Customer> getAllCustomers() throws CouponException {
 		if (!isLogedIn) {
 			throw new CouponException("the operation was canceled due to not being loged in");
 		}

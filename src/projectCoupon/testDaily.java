@@ -1,6 +1,7 @@
 package projectCoupon;
 
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import projectCoupon.beans.Company;
@@ -45,7 +46,7 @@ public class testDaily {
 					}
 					for(int i = 0 ; i < TEST_ITERATIONS ; i++ ) {
 						TIMEUNIT.sleep(15000);
-						List<Coupon> coupons = ((CompanyFacade) facade).getCoupons();
+						Set<Coupon> coupons = ((CompanyFacade) facade).getCoupons();
 						System.out.println("there are total of "+coupons.size()+" coupons in the system at the moment");
 						System.out.println("Show all company coupons\n"+ ((CompanyFacade) facade).getCoupons().toString());
 						

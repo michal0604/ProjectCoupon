@@ -2,6 +2,7 @@ package projectCoupon.dao;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Set;
 
 import projectCoupon.beans.Company;
 import projectCoupon.beans.Coupon;
@@ -59,7 +60,7 @@ public interface CompanyDAO {
 	 * @throws CouponException  for errors happing due to trying to get all companies from DB
 	 * @throws SQLException for DB related failures
 	 */
-	List<Company> getAllCompanys() throws CouponException, SQLException;
+	Set<Company> getAllCompanys() throws CouponException, SQLException;
 
 	/**
 	 * returns if a company identified by the name exist in the DB records.
@@ -92,6 +93,6 @@ public interface CompanyDAO {
 	 * @throws CouponException for error related to the retrieval of the coupon. 
 	 * @throws CompanyException for error related to the retrieval of the company. 
 	 */
-	List<Coupon> getAllCoupons(long companyId) throws CouponException,CompanyException;
+	Set<Coupon> getAllCoupons(long companyId) throws CouponException,CompanyException;
 
 }

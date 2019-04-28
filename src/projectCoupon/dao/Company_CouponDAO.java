@@ -1,6 +1,7 @@
 package projectCoupon.dao;
 
 import java.util.List;
+import java.util.Set;
 
 import projectCoupon.beans.Company;
 import projectCoupon.beans.Company_Coupon;
@@ -59,7 +60,7 @@ public interface Company_CouponDAO {
 	 * @return a list of companies associated to a coupon.
 	 * @throws CouponException if the process of data retrieval has failed.
 	 */
-	List<Long> getCompanysByCouponId(long couponId) throws CouponException;
+	Set<Long> getCompanysByCouponId(long couponId) throws CouponException;
 	
 	/**
 	 * this method return the coupons link to the provided company
@@ -68,7 +69,7 @@ public interface Company_CouponDAO {
 	 * @return a list of coupons associated to a company.
 	 * @throws CouponException if the process of data retrieval has failed.
 	 */
-	List<Long> getCouponsByCompanyId(long companyId) throws CouponException;
+	Set<Long> getCouponsByCompanyId(long companyId) throws CouponException;
 	
 	/**
 	 * this method get all the available pairing of company to coupon there is in a system.
@@ -76,7 +77,7 @@ public interface Company_CouponDAO {
 	 * @return return all the pairs of company and coupon (represented by id)  paring  a company to it's respected coupon
 	 * @throws CouponException if the process of retrieval has failed.
 	 */
-	List<Company_Coupon> getAllCompany_Coupons() throws CouponException;
+	Set<Company_Coupon> getAllCompany_Coupons() throws CouponException;
 	
 	/**
 	 * this method updates a link between company and coupon.

@@ -34,6 +34,11 @@ public class Company_Coupon {
 	 * @return the id of the company
 	 */
 	public long getCompanyId() {
+		if (companyId<0) {
+			System.out.println("id is illegal");
+		}else {
+			System.out.println("id is legal");
+		}
 		return companyId;
 	}
 

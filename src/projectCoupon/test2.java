@@ -1,7 +1,9 @@
 package projectCoupon;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import projectCoupon.beans.Company;
 import projectCoupon.beans.Coupon;
@@ -19,9 +21,9 @@ import projectCoupon.utils.Utile;
 public class test2 {
 
 	public static void main(String[] args) throws Exception {
-		List<Company> companies = new ArrayList<Company>();
-		List<Customer> customers = new ArrayList<Customer>();
-		List<Coupon> coupons = new ArrayList<Coupon>();
+		Set<Company> companies = new HashSet<Company>();
+		Set<Customer> customers = new HashSet<Customer>();
+		Set<Coupon> coupons = new HashSet<Coupon>();
 		CouponClientFacade facade;
 
 		CouponSystem couponSystem = CouponSystem.getInstance();

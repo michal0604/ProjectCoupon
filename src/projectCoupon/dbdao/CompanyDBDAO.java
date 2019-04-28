@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import projectCoupon.beans.Company;
 import projectCoupon.beans.Coupon;
@@ -213,9 +215,9 @@ public class CompanyDBDAO implements CompanyDAO {
 	 */
 	
 	@Override
-	public List<Company> getAllCompanys() throws CouponException, SQLException {
+	public Set<Company> getAllCompanys() throws CouponException, SQLException {
 		Connection connection = pool.getConnection();
-		List<Company> set = new ArrayList<Company>();
+		Set<Company> set = new HashSet<Company>();
 		String sql = "SELECT * FROM Company";
 		try {
 			PreparedStatement stm1 = connection.prepareStatement(sql);
@@ -339,9 +341,9 @@ public class CompanyDBDAO implements CompanyDAO {
 	 */
 	
 	@Override
-	public List<Coupon> getAllCoupons(long companyId) throws CouponException, CompanyException {
+	public Set<Coupon> getAllCoupons(long companyId) throws CouponException, CompanyException {
 		Connection connection = pool.getConnection();
-		List<Coupon> coupons = new ArrayList<Coupon>();
+		Set<Coupon> coupons = new HashSet<Coupon>();
 		CouponDBDAO couponDB = new CouponDBDAO();
 		try  {
 			

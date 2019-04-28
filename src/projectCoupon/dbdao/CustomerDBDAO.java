@@ -6,7 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import projectCoupon.beans.Coupon;
 import projectCoupon.beans.Customer;
@@ -216,7 +218,7 @@ public class CustomerDBDAO implements CustomerDAO {
 	 *             for errors occurring due to trying to get all customers from DB
 	 */
 	@Override
-	public List<Customer> getAllCustomers() throws CustomerException {
+	public Set<Customer> getAllCustomers() throws CustomerException {
 		Connection connection;
 		try {
 			connection = pool.getConnection();
@@ -224,7 +226,7 @@ public class CustomerDBDAO implements CustomerDAO {
 			throw new CustomerException("connection failed " + e.getMessage());
 		}
 
-		List<Customer> list = new ArrayList<Customer>();
+		Set<Customer> list = new HashSet<Customer>();
 		
 			String sql = "SELECT * FROM CUSTOMER";
 			try {
@@ -407,9 +409,9 @@ public class CustomerDBDAO implements CustomerDAO {
 	 * 
 	 */
 	@Override
-	public List<Coupon> getAllCoupons(long customerId) throws CouponException{
+	public Set<Coupon> getAllCoupons(long customerId) throws CouponException{
 		Connection connection = pool.getConnection();
-		List<Coupon> coupons = new ArrayList<Coupon>();
+		Set<Coupon> coupons = new HashSet<Coupon>();
 		CouponDBDAO couponDB = new CouponDBDAO();
 		try  {
 			

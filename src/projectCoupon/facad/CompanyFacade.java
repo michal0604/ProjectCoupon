@@ -3,14 +3,18 @@ package projectCoupon.facad;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import projectCoupon.beans.Company;
 import projectCoupon.beans.Coupon;
 import projectCoupon.beans.CouponType;
+import projectCoupon.beans.Customer;
 import projectCoupon.dao.CompanyDAO;
 import projectCoupon.dao.Company_CouponDAO;
 import projectCoupon.dao.CouponDAO;
+import projectCoupon.dao.Customer_CouponDAO;
 import projectCoupon.dbdao.CompanyDBDAO;
 import projectCoupon.dbdao.Company_CouponDBDAO;
 import projectCoupon.dbdao.CouponDBDAO;
@@ -26,10 +30,11 @@ public class CompanyFacade implements CouponClientFacade {
 	private CompanyDAO companyDAO;
 	private CouponDAO couponDAO;
 	private Company_CouponDAO company_CouponDAO;
+	private Customer_CouponDAO customer_CouponDAO;
 	//private long companyId = 0;
 	private long companyId;
 	private Company company;
-
+	
 	
 	/**
 	 * cTor for company handling system
@@ -111,6 +116,7 @@ public class CompanyFacade implements CouponClientFacade {
 
 	/**
 	 * @param coupId
+	 * @param customerId 
 	 * @throws CouponException 
 	 * @throws RemoveException 
 	 * @throws Exception
@@ -122,13 +128,17 @@ public class CompanyFacade implements CouponClientFacade {
 		if (coupId > 0) {
 			if (company_CouponDAO.isCouponExistsForCompany(companyId, coupId)) {
 				company_CouponDAO.removeCompany_Coupon(companyId, coupId);
-				couponDAO.removeCouponID(coupId);
-				System.out.println("company succsess to remove coupon!");
-			} else {
-				System.out.println(" Remove Coupon failed!");
+			
+					couponDAO.removeCouponID(coupId);
+					System.out.println("company succsess to remove coupon!");
+			}else {
+				System.out.println("remove coupon failed");
 			}
-		} 
+			
+		}
 	}
+ 
+
 		
 	
 
@@ -190,11 +200,11 @@ public class CompanyFacade implements CouponClientFacade {
 	 * @throws CouponException 
 	 * @throws Exception
 	 */
-	public List<Coupon> getCoupons() throws Exception {
+	public Set<Coupon> getCoupons() throws Exception {
 		if(companyId == 0) {
 			System.out.println("the operation was canceled due to not being loged in");
 		}
-		List<Coupon> allCoupons = new ArrayList<Coupon>();
+		Set<Coupon> allCoupons = new HashSet<Coupon>();
 		allCoupons = couponDAO.getAllCoupons();
 		return allCoupons;
 	}
@@ -209,12 +219,12 @@ public class CompanyFacade implements CouponClientFacade {
 	 */
 	
 	
-	public List<Coupon> getAllCouponsByType(CouponType coupType) throws Exception{
+	public Set<Coupon> getAllCouponsByType(CouponType coupType) throws Exception{
 		if(companyId == 0) {
 			System.out.println("the operation was canceled due to not being loged in");
 		}
-		List<Coupon> list = new ArrayList<Coupon>();
-		List<Coupon> allCouponsList = companyDAO.getAllCoupons(companyId);
+		Set<Coupon> list = new HashSet<Coupon>();
+		Set<Coupon> allCouponsList = companyDAO.getAllCoupons(companyId);
 		for (Coupon coupon : allCouponsList) {
 			if (coupon.getType().equals(coupType)) {
 				list.add(coupon);
@@ -232,12 +242,12 @@ public class CompanyFacade implements CouponClientFacade {
 	 * @throws Exception
 	 */
 	
-	public List<Coupon> getCouponsByMaxCouponPrice(double price) throws Exception{
+	public Set<Coupon> getCouponsByMaxCouponPrice(double price) throws Exception{
 		if(companyId == 0) {
 			System.out.println("the operation was canceled due to not being loged in");
 		}
-		List<Coupon> list = new ArrayList<Coupon>();
-		List<Coupon> allCouponsList = companyDAO.getAllCoupons(companyId);
+		Set<Coupon> list = new HashSet<Coupon>();
+		Set<Coupon> allCouponsList = companyDAO.getAllCoupons(companyId);
 		for (Coupon coupon : allCouponsList) {
 			
 			if (coupon.getPrice() <= price) {
@@ -258,12 +268,12 @@ public class CompanyFacade implements CouponClientFacade {
 	 */
 	
 	
-	public List<Coupon> getCouponsByMaxCouponDate(Date endDate) throws Exception{
+	public Set<Coupon> getCouponsByMaxCouponDate(Date endDate) throws Exception{
 		if(companyId == 0) {
 			System.out.println("the operation was canceled due to not being loged in");
 		}
-		List<Coupon> list = new ArrayList<Coupon>();
-		List<Coupon> allCouponsList = companyDAO.getAllCoupons(companyId);
+		Set<Coupon> list = new HashSet<Coupon>();
+		Set<Coupon> allCouponsList = companyDAO.getAllCoupons(companyId);
 		for (Coupon coupon : allCouponsList) {
 			if (coupon.getEnd_date().equals(endDate) || coupon.getEnd_date().before(endDate)) {
 				list.add(coupon);

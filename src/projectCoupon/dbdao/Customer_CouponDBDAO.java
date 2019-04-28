@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import projectCoupon.beans.Customer;
 import projectCoupon.beans.Customer_Coupon;
@@ -96,7 +98,7 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 		} catch (Exception e) {
 			throw new RemoveException("connection failed " + e.getMessage());
 		}
-		String sql = "DELETE FROM CUSTOMER_COUPON  WHERE customer_ID=? AND coupon_Id=?";
+		String sql = "DELETE FROM CUSTOMER_COUPON  WHERE customer_ID=? AND Coupon_ID=?";
 
 		try {
 			PreparedStatement stm = connection.prepareStatement(sql);
@@ -136,14 +138,14 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 	 * @throws CreateException if the process of retrieval has failed.
 	 */
 	@Override
-	public List<Customer_Coupon> getAllCustomer_Coupon() throws CouponException, CreateException {
+	public Set<Customer_Coupon> getAllCustomer_Coupon() throws CouponException, CreateException {
 		Connection connection;
 		try {
 			connection = pool.getConnection();
 		} catch (Exception e) {
 			throw new CouponException("connection failed " + e.getMessage());
 		}
-		List<Customer_Coupon> list = new ArrayList<Customer_Coupon>();
+		Set<Customer_Coupon> list = new HashSet<Customer_Coupon>();
 
 			String sql = "SELECT * FROM CUSTOMER_COUPON";
 			try {
@@ -180,14 +182,14 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 	 * @throws CreateException if the process of retrieval has failed.
 	 */
 	@Override
-	public List<Long> getCustomersByCouponId(long couponId) throws CouponException, CreateException {
+	public Set<Long> getCustomersByCouponId(long couponId) throws CouponException, CreateException {
 		try {
 			pool = ConnectionPool.getInstance();
 		} catch (SQLException e) {
 			throw new CouponException("connection failed"+e.getMessage());
 		}
 		Connection connection = pool.getConnection();
-		List<Long> list = new ArrayList<Long>();
+		Set<Long> list = new HashSet<Long>();
 			String sql = "select * from Customer_Coupon where Coupon_ID = " + couponId;
 			try {
 				PreparedStatement stm1 = connection.prepareStatement(sql);
@@ -222,14 +224,14 @@ public class Customer_CouponDBDAO implements Customer_CouponDAO {
 	 * @throws CouponException if the process of data retrieval has failed.
 	 */
 	@Override
-	public List<Long> getCouponsByCustomerId(long customerId) throws CouponException, CreateException {
+	public Set<Long> getCouponsByCustomerId(long customerId) throws CouponException, CreateException {
 		try {
 			pool = ConnectionPool.getInstance();
 		} catch (SQLException e) {
 			throw new CouponException("connection failed"+e.getMessage());
 		}
 		Connection connection = pool.getConnection();
-		List<Long> list = new ArrayList<Long>();
+		Set<Long> list = new HashSet<Long>();
 		try {
 			String sql = "SELECT COUPON_ID FROM Customer_Coupon WHERE CUSTOMER_ID=?";
 			PreparedStatement stat = connection.prepareStatement(sql);

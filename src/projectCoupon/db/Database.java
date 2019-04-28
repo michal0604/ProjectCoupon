@@ -129,6 +129,7 @@ public class Database {
 		} catch (Exception e2) {
 			throw new CreateException("connection failed");
 		}
+		
 		try {
 			Statement stmt = connection.createStatement();
 
@@ -141,6 +142,7 @@ public class Database {
 		} catch (SQLException e) {
 			throw new CreateException("create company didn't succeed");
 		}
+		
 		try {
 			Statement stmt2 = connection.createStatement();
 			 sql = "create table Customer (" + "ID bigint not null primary key, " + "CUST_NAME varchar(50) not null, "

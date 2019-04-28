@@ -1,7 +1,9 @@
 package projectCoupon.facad;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import projectCoupon.beans.Coupon;
 import projectCoupon.beans.CouponType;
@@ -92,7 +94,7 @@ public class CustomerFacad implements CouponClientFacade {
 	 * @return
 	 * @throws CouponException
 	 */
-	public List<Coupon> getAllCouponsByType(CouponType couponType) throws CouponException {
+	public Set<Coupon> getAllCouponsByType(CouponType couponType) throws CouponException {
 		if(custId == 0) {
 			throw new CouponException("the operation was canceled due to not being loged in");
 		}
@@ -104,17 +106,17 @@ public class CustomerFacad implements CouponClientFacade {
 	 * @return
 	 * @throws CouponException
 	 */
-	public List<Coupon> getAllPurchasedCoupons() throws CouponException {
+	public Set<Coupon> getAllPurchasedCoupons() throws CouponException {
 		if(custId == 0) {
 			throw new CouponException("the operation was canceled due to not being loged in");
 		}
-		List<Long> customersCoupons;
+		Set<Long> customersCoupons;
 		try {
 			customersCoupons = customer_CouponDAO.getCouponsByCustomerId(custId);
 		} catch (CreateException e) {
 			throw new CouponException("get all purchas coupons by customer failed");
 		}
-		List<Coupon> purchasedCoupons = new ArrayList<Coupon>();
+		Set<Coupon> purchasedCoupons = new HashSet<Coupon>();
 		for (Long id : customersCoupons) {
 			try {
 				purchasedCoupons.add(couponDAO.getCoupon(id));
@@ -131,12 +133,12 @@ public class CustomerFacad implements CouponClientFacade {
 	 * @return
 	 * @throws CouponException
 	 */
-	public List<Coupon> getAllPurchasedCouponsByType(CouponType type) throws CouponException {
+	public Set<Coupon> getAllPurchasedCouponsByType(CouponType type) throws CouponException {
 		if(custId == 0) {
 			throw new CouponException("the operation was canceled due to not being loged in");
 		}
-		List<Coupon> coupons = getAllPurchasedCoupons();
-		List<Coupon> couponByType = new ArrayList<Coupon>();
+		Set<Coupon> coupons = getAllPurchasedCoupons();
+		Set<Coupon> couponByType = new HashSet<Coupon>();
 		for (Coupon coupon : coupons) {
 			if (coupon.getType().name().equals(type.name())) {
 				couponByType.add(coupon);
@@ -155,12 +157,12 @@ public class CustomerFacad implements CouponClientFacade {
 	 * @throws CouponException
 	 */
 	
-	public List<Coupon> getAllPurchasedCouponsByPrice(long price) throws CouponException {
+	public Set<Coupon> getAllPurchasedCouponsByPrice(long price) throws CouponException {
 		if(custId == 0) {
 			throw new CouponException("the operation was canceled due to not being loged in");
 		}
-		List<Coupon> coupons = getAllPurchasedCoupons();
-		List<Coupon> couponByType = new ArrayList<Coupon>();
+		Set<Coupon> coupons = getAllPurchasedCoupons();
+		Set<Coupon> couponByType = new HashSet<Coupon>();
 		for (Coupon coupon : coupons) {
 			if (coupon.getPrice() <= price) {
 				couponByType.add(coupon);

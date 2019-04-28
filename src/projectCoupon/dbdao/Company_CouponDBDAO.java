@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import projectCoupon.beans.Company;
 import projectCoupon.beans.Company_Coupon;
@@ -224,7 +226,7 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 	 * @throws CouponException if the process of data retrieval has failed.
 	 */
 	@Override
-	public List<Long> getCompanysByCouponId(long couponId) throws CouponException {
+	public Set<Long> getCompanysByCouponId(long couponId) throws CouponException {
 		try {
 			pool = ConnectionPool.getInstance();
 		} catch (SQLException e) {
@@ -232,7 +234,7 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 		}
 		Connection connection;
 		connection = pool.getConnection();
-		List<Long> list = new ArrayList<Long>();
+		Set<Long> list = new HashSet<Long>();
 		String sql = "select * from Company_Coupon where Coupon_ID = " + couponId;
 		try {
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -264,7 +266,7 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 	 * @throws CouponException if the process of data retrieval has failed.
 	 */
 	@Override
-	public List<Long> getCouponsByCompanyId(long companyId) throws CouponException {
+	public Set<Long> getCouponsByCompanyId(long companyId) throws CouponException {
 		try {
 			pool = ConnectionPool.getInstance();
 		} catch (SQLException e) {
@@ -272,7 +274,7 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 		}
 		Connection connection;
 		connection = pool.getConnection();
-		List<Long> list = new ArrayList<Long>();
+		Set<Long> list = new HashSet<Long>();
 		String sql = "select * from Company_Coupon where company_Id = " + companyId;
 		try {
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -303,9 +305,9 @@ public class Company_CouponDBDAO implements Company_CouponDAO {
 	 * @throws CouponException if the process of retrieval has failed.
 	 */
 	@Override
-	public List<Company_Coupon> getAllCompany_Coupons() throws CouponException {
+	public Set<Company_Coupon> getAllCompany_Coupons() throws CouponException {
 		Connection connection = pool.getConnection();
-		List<Company_Coupon> set = new ArrayList<Company_Coupon>();
+		Set<Company_Coupon> set = new HashSet<Company_Coupon>();
 		
 			String sql = "SELECT * FROM COMPANY_COUPON";
 			try {

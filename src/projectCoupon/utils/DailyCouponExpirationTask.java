@@ -2,6 +2,7 @@ package projectCoupon.utils;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import projectCoupon.beans.Coupon;
@@ -86,7 +87,7 @@ public class DailyCouponExpirationTask implements Runnable {
 					date = Utile.getCurrentDate();
 				}
 				System.out.println(date.toString() + " - Daily Task Running...");
-				List<Coupon> allCoupons = couponDAO.getAllCoupons();
+				Set<Coupon> allCoupons = couponDAO.getAllCoupons();
 				for(Coupon coupon: allCoupons) {
 					if (date.compareTo(coupon.getEnd_date()) > 0) {
 						customer_CouponDAO.removeCustomer_CouponByCoupId(coupon.getCouponId());
