@@ -1,8 +1,6 @@
 package projectCoupon.dao;
 
-import java.util.List;
 import java.util.Set;
-
 import projectCoupon.beans.Coupon;
 import projectCoupon.beans.Customer;
 import projectCoupon.exception.CouponException;

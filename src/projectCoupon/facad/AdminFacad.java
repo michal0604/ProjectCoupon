@@ -1,9 +1,7 @@
 package projectCoupon.facad;
 
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Set;
-
 import projectCoupon.beans.Company;
 import projectCoupon.beans.Customer;
 import projectCoupon.dao.CompanyDAO;

@@ -1,9 +1,7 @@
 package projectCoupon;
 
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
-
 import projectCoupon.beans.Company;
 import projectCoupon.beans.Coupon;
 import projectCoupon.beans.CouponType;

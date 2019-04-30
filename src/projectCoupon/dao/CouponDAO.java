@@ -1,9 +1,7 @@
 package projectCoupon.dao;
 
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Set;
-
 import projectCoupon.beans.Coupon;
 import projectCoupon.beans.CouponType;
 import projectCoupon.exception.CouponException;

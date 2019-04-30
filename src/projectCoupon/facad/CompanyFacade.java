@@ -2,15 +2,11 @@ package projectCoupon.facad;
 
 import java.sql.Date;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-
 import projectCoupon.beans.Company;
 import projectCoupon.beans.Coupon;
 import projectCoupon.beans.CouponType;
-import projectCoupon.beans.Customer;
 import projectCoupon.dao.CompanyDAO;
 import projectCoupon.dao.Company_CouponDAO;
 import projectCoupon.dao.CouponDAO;
@@ -18,6 +14,7 @@ import projectCoupon.dao.Customer_CouponDAO;
 import projectCoupon.dbdao.CompanyDBDAO;
 import projectCoupon.dbdao.Company_CouponDBDAO;
 import projectCoupon.dbdao.CouponDBDAO;
+import projectCoupon.dbdao.Customer_CouponDBDAO;
 import projectCoupon.exception.CompanyException;
 import projectCoupon.exception.CouponException;
 import projectCoupon.exception.CreateException;
@@ -34,6 +31,7 @@ public class CompanyFacade implements CouponClientFacade {
 	//private long companyId = 0;
 	private long companyId;
 	private Company company;
+	private long customerId;
 	
 	
 	/**
@@ -46,6 +44,7 @@ public class CompanyFacade implements CouponClientFacade {
 		companyDAO = new CompanyDBDAO();
 		couponDAO = new CouponDBDAO();
 		company_CouponDAO = new Company_CouponDBDAO();
+		customer_CouponDAO=new Customer_CouponDBDAO();
 	}
 
 	/**
@@ -127,21 +126,20 @@ public class CompanyFacade implements CouponClientFacade {
 		}
 		if (coupId > 0) {
 			if (company_CouponDAO.isCouponExistsForCompany(companyId, coupId)) {
-				company_CouponDAO.removeCompany_Coupon(companyId, coupId);
-			
+				
+				customer_CouponDAO.removeCustomer_CouponByCoupId(coupId);
+					company_CouponDAO.removeCompany_Coupon(companyId, coupId);
+			      
 					couponDAO.removeCouponID(coupId);
 					System.out.println("company succsess to remove coupon!");
-			}else {
-				System.out.println("remove coupon failed");
+					}else {
+						System.out.println("remove coupon failed");	
 			}
-			
-		}
-	}
- 
-
-		
+				
+				
+		}}
 	
-
+	
 	/**
 	 * @param coupon
 	 * @throws CouponException 

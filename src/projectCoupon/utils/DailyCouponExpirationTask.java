@@ -1,10 +1,8 @@
 package projectCoupon.utils;
 
 import java.sql.Date;
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
-
 import projectCoupon.beans.Coupon;
 import projectCoupon.dao.Company_CouponDAO;
 import projectCoupon.dao.CouponDAO;
