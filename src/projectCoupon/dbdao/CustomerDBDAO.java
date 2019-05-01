@@ -143,8 +143,8 @@ public class CustomerDBDAO implements CustomerDAO {
 			String sql = "UPDATE Customer " + " SET CUST_NAME='" + Customer.getCustomerName() + "', PASSWORD='"
 					+ Customer.getPassword() + "' WHERE ID=" + Customer.getCustomerId();
 			try {
-				Statement stm = connection.createStatement();
-			stm.executeUpdate(sql);
+				PreparedStatement pstm1 = connection.prepareStatement(sql);
+				pstm1.executeUpdate();
 		} catch (SQLException e) {
 			throw new UpdateException("update Customer failed " + e.getMessage());
 		}
