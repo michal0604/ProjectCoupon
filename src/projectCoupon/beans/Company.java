@@ -27,18 +27,25 @@ public class Company {
 	 * @param password  company password
 	 * @param email  company email
 	 */
+	
 	public Company(long companyId, String compName, String password, String email) {
-		this.companyId = companyId;
-		this.compName = compName;
-		this.password = password;
-		this.email = email;
+		setCompanyId(companyId);
+		setCompName(compName);
+		setPassword(password);
+		setEmail(email);
+		
 	}
 
 	/**
 	 * @return the id of the company.
 	 */
 	public long getCompanyId() {
-		return companyId;
+		if (companyId<0) {
+		System.out.println("id is valid");
+	}else {
+		System.out.println("id is valid");	
+	}
+		return companyId;	
 	}
 
 	/**
@@ -89,6 +96,7 @@ public class Company {
 	 */
 	public void setEmail(String email) {
 		this.email = email;
+		
 	}
 
 	
@@ -98,4 +106,5 @@ public class Company {
 	public String toString() {
 		return "Company (companyId=" + companyId + ", compName=" + compName + ", password=" + password + ", email="	+ email + ")";
 	}
+	//
 }
