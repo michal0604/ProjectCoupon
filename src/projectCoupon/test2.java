@@ -588,7 +588,7 @@ public class test2 {
 			 */
 			couponSystem.shutdown();
 			System.out.println("Disconnected!");
-
+//
 		}
 	}
 
