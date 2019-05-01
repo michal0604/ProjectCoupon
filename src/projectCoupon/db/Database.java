@@ -53,7 +53,7 @@ public class Database {
 		} catch (Exception e2) {
 			throw new RemoveException("connection failed");
 		}
-		
+	
 		sql = "DROP TABLE Customer_Coupon";
 		try {
 			
@@ -105,14 +105,19 @@ public class Database {
 				Pool.returnConnection(connection);
 			} catch (CouponException e) {
 				throw new RemoveException("connection failed");
+
 			}
-		}
+        }
 	}
+
+		
+	
 
 	/**this method create all tables:company,coupon,customer,company_coupon,cutomer_coupon.
 	 * @throws SQLException
 	 * @throws CreateException
 	 */
+
 	public static void createTables() throws SQLException, CreateException {
 
 		String sql;
@@ -165,7 +170,10 @@ public class Database {
 		// create join table Customer_Coupon
 		
 			 sql = "create table Customer_Coupon (" + "Customer_ID bigint, " + "Coupon_ID bigint, "
-					+ "primary key (Customer_ID, Coupon_ID))";
+					+ "primary key (Customer_ID, Coupon_ID),"
+					+ "FOREIGN KEY(Customer_ID) REFERENCES Customer(ID),"
+					+ "FOREIGN KEY(Coupon_ID) REFERENCES Coupon(ID))";
+					
 			 try {
 				 PreparedStatement pstmt = connection.prepareStatement(sql);
 				 pstmt.executeUpdate();
@@ -179,7 +187,9 @@ public class Database {
 		// create join table Company_Coupon
 		
 			 sql = "create table Company_Coupon (" + "Company_ID bigint, " + "Coupon_ID bigint, "
-					+ "primary key (Company_ID, Coupon_ID))";
+					+ "primary key (Company_ID, Coupon_ID),"
+					+ "FOREIGN KEY(Company_ID) REFERENCES Company(ID),"
+					+ "FOREIGN KEY(Coupon_ID) REFERENCES Coupon(ID))";
 			 try {
 				 PreparedStatement pstmt = connection.prepareStatement(sql); 
 			   	pstmt.executeUpdate();

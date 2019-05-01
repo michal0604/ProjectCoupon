@@ -55,9 +55,9 @@ public class Coupon {
 	 */
 	public long getCouponId() {
 		if (couponId<0) {
-			System.out.println("id is illegal");
+			System.out.println("id is invalid");
 		}else {
-			System.out.println("id is legal");
+			System.out.println("id is valid");
 		}
 		return couponId;
 	}

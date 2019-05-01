@@ -35,9 +35,9 @@ public class Customer {
 	 */
 	public long getCustomerId() {
 		if (customerId<0) {
-			System.out.println("id is illegal");
+			System.out.println("id is invalid");
 		}else {
-			System.out.println("id is legal");
+			System.out.println("id is valid");
 		}
 		return customerId;
 	}
