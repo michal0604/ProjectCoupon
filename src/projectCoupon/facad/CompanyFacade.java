@@ -31,7 +31,7 @@ public class CompanyFacade implements CouponClientFacade {
 	//private long companyId = 0;
 	private long companyId;
 	private Company company;
-	private long customerId;
+	//private long customerId;
 	
 	
 	/**
