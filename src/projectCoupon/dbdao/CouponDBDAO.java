@@ -20,7 +20,7 @@ import projectCoupon.utils.ConnectionPool;
 /**
  * this class implements data base operations for Coupon's requirements.
  * 
- * @author Eivy & Michal
+ * @author Michal & Eivy
  *
  */
 public class CouponDBDAO implements CouponDAO {
