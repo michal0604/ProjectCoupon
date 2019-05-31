@@ -19,7 +19,7 @@ import projectCoupon.utils.ConnectionPool;
  * this class implement the DB operations associated with the Company's data
  * access requirements.
  * 
- * @author Michal & Eivy
+ * @author Eivy & Michal
  *
  */
 
